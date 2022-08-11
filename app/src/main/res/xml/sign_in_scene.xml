@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+
+
+        <Constraint
+            android:id="@+id/login_btn"
+            style="@style/app_button_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60sdp"
+            android:backgroundTint="@color/white"
+            android:text="@string/continueText"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forget_password_text_view" />
+
+        <Constraint
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:visibility="invisible"
+            app:animationDuration="2000"
+            app:indicatorColor="@color/white"
+            app:indicatorHeight="7"
+            app:indicatorRadius="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forget_password_text_view" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/dialog_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#30000000"
+            android:visibility="visible" />
+
+        <Constraint
+            android:id="@+id/two_choose_layout_constraint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner_white_background_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ConstraintSet>
+
+
+    <Transition
+        app:autoTransition="animateToEnd"
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="1000"
+        app:layoutDuringTransition="honorRequest"
+        app:motionInterpolator="linear"
+        app:pathMotionArc="startHorizontal"
+        app:staggered="@integer/material_motion_duration_medium_1"
+        app:transitionDisable="true"
+        app:transitionFlags="beginOnFirstDraw" />
+</MotionScene>

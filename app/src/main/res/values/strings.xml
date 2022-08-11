@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">mocaspaces</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="my_workspace_coffee_assistant"><![CDATA[My Workspace & Coffee Assistant]]></string>
+    <string name="_2021_copolitan_all_right_reserved">©2021 Copolitan. All rights reserved</string>
+    <string name="hello">Hello,</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="continueText">Continue</string>
+    <string name="or_sign_in_with">Or Sign In With</string>
+    <string name="biometric_login">Biometric Login</string>
+    <string name="do_not_have_account">Don\'t have an account?</string>
+    <string name="sign_up_under_line"><u>Sign Up</u></string>
+    <string name="share_message">Share with</string>
+    <string name="home">Home</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="my_passes">My Passes</string>
+    <string name="notification">Notification</string>
+    <string name="my_profile">My Profile</string>
+    <string name="loading">Loading</string>
+    <string name="please_wait">Please wait</string>
+    <string name="close_app">Close moca</string>
+    <string name="close_app_message">Are you sure you want to exist moca?</string>
+    <string name="ok">OK</string>
+    <string name="close">close</string>
+    <string name="network_status_permission_header">Network status permission</string>
+    <string name="network_Status_permission_message">In order to use app. we require to allow access to network status\n
+    to check whether you have internet or not</string>
+    <string name="connection_lost">Connection Lost!</string>
+    <string name="please_check_your_connection_and_swipe_down_to_try_again">Please check your connection and\nswipe down to try again.</string>
+</resources>

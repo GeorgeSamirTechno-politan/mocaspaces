@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "980656461075",
+    "project_id": "copolitan-7630e",
+    "storage_bucket": "copolitan-7630e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980656461075:android:c5e95cf672b2df0112f6e6",
+        "android_client_info": {
+          "package_name": "com.technopolitan.mocaspaces"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980656461075-82nn1mbavk9ufghq935btldgdgslqi9v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF0bXf8CDgZCneB7176hPtWsXhlgOq41A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980656461075-82nn1mbavk9ufghq935btldgdgslqi9v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "980656461075-erdpece8e5jntltq4ab0o3sm3or38cmn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.technopolitan.coffice"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
