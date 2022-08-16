@@ -1,9 +1,9 @@
 package com.technopolitan.mocaspaces.modules
 
 import android.content.Context
-import com.apachat.loadingbutton.core.customViews.CircularProgressButton
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.*
+import com.technopolitan.mocaspaces.transitionButton.TransitionButton
 import javax.inject.Inject
 
 class ApiResponseModule<T> @Inject constructor(
@@ -12,18 +12,20 @@ class ApiResponseModule<T> @Inject constructor(
 ) {
     fun handleResponse(
         apiStatus: ApiStatus<T>,
-        circularProgressButton: CircularProgressButton,
+        circularProgressButton: TransitionButton,
         onSuccessCallBack: (entity: T) -> Unit
     ) {
         when (apiStatus) {
             is SuccessStatus -> {
-                circularProgressButton.revertAnimation()
-                return onSuccessCallBack(apiStatus.data!!)
+                circularProgressButton.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND) {
+                    onSuccessCallBack(apiStatus.data!!)
+                }
             }
             is LoadingStatus -> circularProgressButton.startAnimation()
             is ErrorStatus, is FailedStatus -> {
-                showErrorOrFailedMessage(apiStatus.message)
-                circularProgressButton.revertAnimation()
+                circularProgressButton.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE) {
+                    showErrorOrFailedMessage(apiStatus.message)
+                }
             }
         }
     }

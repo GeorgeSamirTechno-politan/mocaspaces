@@ -6,7 +6,7 @@ import com.technopolitan.mocaspaces.data.ApiStatus
 
 abstract class BaseViewModel<T> : ViewModel() {
 
-    private var apiMutableLiveData: MutableLiveData<ApiStatus<T>> = MutableLiveData()
+    internal var apiMutableLiveData: MutableLiveData<ApiStatus<T>> = MutableLiveData()
 
 
 }

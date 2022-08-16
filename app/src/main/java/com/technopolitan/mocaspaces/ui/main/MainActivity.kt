@@ -1,7 +1,7 @@
 package com.technopolitan.mocaspaces.ui.main
 
 import android.os.Bundle
-import android.window.OnBackInvokedDispatcher
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -42,10 +42,19 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
         showNoInternetConnection()
-
+        onBackPressedCallBack()
 //        listenForSplashEnd()
 //        roundedCornersForBottomAppBar()
 
+    }
+
+    private fun onBackPressedCallBack() {
+        onBackPressedDispatcher.addCallback(this, true) {
+            if (navigationModule.hasBackStack(R.id.nav_host_fragment))
+                navigationModule.popBack(navHostId = R.id.nav_host_fragment)
+            else dialogModule.showCloseAppDialog()
+
+        }
     }
 
     private fun showNoInternetConnection() {
@@ -81,29 +90,6 @@ class MainActivity : AppCompatActivity() {
 //            MaterialShapeDrawable(shapeAppearanceModel)
 //        )
 //    }
-
-
-//    private fun listenForSplashEnd() {
-//
-//    }
-
-    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
-        if (navigationModule.hasBackStack(R.id.nav_host_fragment))
-        else {
-            dialogModule.showCloseAppDialog()
-//            return   dialogModule.showCloseAppDialog()
-        }
-        return super.getOnBackInvokedDispatcher()
-    }
-
-//    override fun onBackPressed() {
-//        if (navigationModule.hasBackStack(R.id.nav_host_fragment))
-//            super.onBackPressed()
-//        else   dialogModule.showCloseAppDialog()
-//
-//    }
-
-
 }
 
 

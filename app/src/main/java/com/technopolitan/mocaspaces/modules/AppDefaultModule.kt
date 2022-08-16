@@ -65,9 +65,15 @@ class AppDefaultModule @Inject constructor(private var context: Context) {
 
 
     private fun initDeviceInfo() {
-        Constants.deviceInfo = "Device model: " + Build.MODEL + " ,Android version: " +
-                Build.VERSION.RELEASE + " , Api level: " + Build.VERSION.SDK_INT
-        println("device info: ${Constants.deviceInfo}")
+        Constants.model = Build.MODEL
+        Constants.OS = Build.VERSION.RELEASE
+        Constants.brand = Build.BRAND
+        var deviceInfo =
+            "Device model: ${Build.MODEL}, " +
+                    "Brand: ${Build.BRAND}, " +
+                    "Android version: ${Build.VERSION.RELEASE}, " +
+                    "Api level: ${Build.VERSION.SDK_INT}"
+        println("device info: $deviceInfo")
     }
 
     private fun initAppVersion() {

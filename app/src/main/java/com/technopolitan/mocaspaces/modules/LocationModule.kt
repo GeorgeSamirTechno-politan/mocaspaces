@@ -17,15 +17,15 @@ import javax.inject.Inject
 
 
 @Module
-class LocationModule {
-    @Inject
-    lateinit var context: Context
+class LocationModule @Inject constructor(
+    private var context: Context,
+    private var activity: Activity
+) {
 
     fun getCurrentLocation(
         locationListener: LocationListener,
         minDistanceForUpdateLocation: Long,
         minTimeBeforeUpdateLocation: Long,
-        activity: Activity,
         locationEnableListener: LocationEnableListener
     ) {
         try {
@@ -36,9 +36,7 @@ class LocationModule {
                     minDistanceForUpdateLocation
                 ) else
                 enableLocationDirectly(
-                    activity,
                     locationEnableListener,
-                    context,
                     locationListener,
                     minDistanceForUpdateLocation,
                     minTimeBeforeUpdateLocation
@@ -79,9 +77,7 @@ class LocationModule {
         }
 
     private fun enableLocationDirectly(
-        activity: Activity,
         locationEnableListener: LocationEnableListener,
-        context: Context,
         locationListener: LocationListener,
         minDistanceForUpdateLocation: Long,
         minTimeBeforeUpdateLocation: Long

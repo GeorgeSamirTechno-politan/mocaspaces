@@ -1,16 +1,18 @@
 package com.technopolitan.mocaspaces.modules
 
+import com.technopolitan.mocaspaces.SharedPrefKey
 import dagger.Module
 import dagger.Provides
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class OkHttpClient {
+class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefModule) {
 
     @Provides
     @Singleton
@@ -54,7 +56,10 @@ class OkHttpClient {
             val requestBuilder = original.newBuilder()
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
-//                .addHeader("Authorization", "")
+                .addHeader(
+                    "Authorization",
+                    sharedPrefModule.getStringFromShared(SharedPrefKey.BearerToken.name)
+                )
             val request = requestBuilder.build()
             chain.proceed(request)
         }

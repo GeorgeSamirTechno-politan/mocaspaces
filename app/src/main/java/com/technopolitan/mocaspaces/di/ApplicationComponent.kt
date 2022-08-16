@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.modules.AppModule
+import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
@@ -36,4 +37,5 @@ interface ApplicationComponent {
     fun inject(loginFragment: LoginFragment)
     fun inject(twoChooseDialogFragment: TwoChooseDialogFragment)
     fun inject(noInternetFragment: NoInternetFragment)
+    fun inject(checkMobileFragment: CheckMobileFragment)
 }

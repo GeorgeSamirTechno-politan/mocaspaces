@@ -44,7 +44,7 @@ class NetworkModule @Inject constructor(
 
     @Suppress("DEPRECATION")
     fun isInternetAvailable(): Boolean {
-        var result = false
+        val result: Boolean
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkCapabilities = connectivityManager.activeNetwork ?: return false

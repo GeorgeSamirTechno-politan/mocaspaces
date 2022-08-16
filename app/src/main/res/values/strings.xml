@@ -36,4 +36,10 @@
     to check whether you have internet or not</string>
     <string name="connection_lost">Connection Lost!</string>
     <string name="please_check_your_connection_and_swipe_down_to_try_again">Please check your connection and\nswipe down to try again.</string>
+    <string name="email_required">Email required</string>
+    <string name="required">required</string>
+    <string name="prompt_info_title">moca spaces</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">moca is using Android biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
 </resources>

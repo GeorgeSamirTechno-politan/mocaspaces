@@ -12,12 +12,17 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient()
+    fun provideSharedPrefModule(context: Context): SharedPrefModule = SharedPrefModule(context)
 
     @Singleton
     @Provides
-    fun provideNetworkModel(context: Context): NetworkModule =
-        NetworkModule(provideOkHttpClient(), context)
+    fun provideOkHttpClient(sharedPrefModule: SharedPrefModule): OkHttpClient =
+        OkHttpClient(sharedPrefModule)
+
+    @Singleton
+    @Provides
+    fun provideNetworkModel(context: Context, okHttpClient: OkHttpClient): NetworkModule =
+        NetworkModule(okHttpClient, context)
 
     @Singleton
     @Provides
@@ -49,9 +54,7 @@ class AppModule {
     @Provides
     fun provideAppDefaultModule(context: Context): AppDefaultModule = AppDefaultModule(context)
 
-    @Singleton
-    @Provides
-    fun provideSharedPrefModule(context: Context): SharedPrefModule = SharedPrefModule(context)
+
 
     @Singleton
     @Provides
@@ -85,4 +88,12 @@ class AppModule {
     ): ConnectionLiveDataModule = ConnectionLiveDataModule(
         context, networkModule
     )
+
+    @Singleton
+    @Provides
+    fun provideValidationModule(): ValidationModule = ValidationModule()
+
+    @Singleton
+    @Provides
+    fun provideRXModule(): RXModule = RXModule()
 }

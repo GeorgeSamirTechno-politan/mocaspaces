@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:background="@color/accent_color"
+    android:animateLayoutChanges="true"
     tools:context=".ui.login.LoginFragment">
 
 
@@ -16,6 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:animateLayoutChanges="true"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -57,11 +58,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text_input_layout"
-                style="@style/text_input_layout_style"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                style="@style/border_white_text_input_layout"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:hint="@string/email"
+                android:layout_height="wrap_content"
                 app:endIconCheckable="true"
                 app:endIconDrawable="@drawable/ic_checkmark"
                 app:endIconMode="custom"
@@ -73,6 +74,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_edit_text"
                     style="@style/edit_text_style"
+                    app:textInputLayoutFocusedRectEnabled="true"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:drawableStart="@drawable/ic_email"
@@ -84,9 +86,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_text_input_layout"
-                style="@style/text_input_layout_style"
+                style="@style/border_white_text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="@string/password"
                 app:endIconCheckable="true"
@@ -120,14 +122,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_text_input_layout" />
 
-            <com.apachat.loadingbutton.core.customViews.CircularProgressButton
+            <com.technopolitan.mocaspaces.transitionButton.TransitionButton
                 android:id="@+id/login_btn"
                 style="@style/progress_button_style.white"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
-                android:background="@drawable/circular_white_border_shape"
                 android:text="@string/continueText"
-                android:visibility="visible"
+                app:cornerRadius="@dimen/_60sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/forget_password_text_view"
@@ -135,6 +136,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/or_sign_in_with_text_view"
                 style="@style/light"
                 android:layout_width="wrap_content"
@@ -148,6 +150,7 @@
                 app:layout_constraintTop_toBottomOf="@id/login_btn" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/biometric_login_layout"
                 style="@style/default_field_margin"
                 android:layout_width="wrap_content"
@@ -180,11 +183,12 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:gravity="center"
                 android:padding="@dimen/_5sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/biometric_login_layout">
 
                 <TextView
@@ -206,6 +210,7 @@
                     android:textSize="@dimen/_13sdp" />
 
             </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
