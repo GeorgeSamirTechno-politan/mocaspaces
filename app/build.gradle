@@ -2,15 +2,15 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
-    compileSdk 33
-    apply plugin: 'kotlin-kapt'
+    compileSdk 32
     defaultConfig {
         applicationId "com.technopolitan.mocaspaces"
         minSdk 23
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -46,26 +46,31 @@ android {
 dependencies {
     // kotlin
     implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:ktx_life_cycle"
-
-    // testing
-    testImplementation "junit:junit:$j_unite_version"
-    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
-    androidTestImplementation "androidx.test.ext:junit:$j_unite_test"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresoo_version"
     // app compact
     implementation "androidx.appcompat:appcompat:$app_compact_version"
-    // constraint layout
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     // material design
     implementation "com.google.android.material:material:$material_design_version"
+    // constraint layout
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     //    recycler view
     implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
     // view pager
     implementation "androidx.viewpager:viewpager:$view_pager_version"
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:ktx_life_cycle"
+
+    // testing
+    testImplementation "junit:junit:$j_unite_version"
+    androidTestImplementation "androidx.test.ext:junit:$j_unite_test"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresoo_version"
+
     //    Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt  "com.google.dagger:dagger-compiler:$dagger_version"
     //    retrofit
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -77,7 +82,7 @@ dependencies {
     //    rx java 3
     implementation "io.reactivex.rxjava3:rxjava:$rx_java_version"
     //    rx android 3
-    implementation "io.reactivex.rxjava3:rxandroid:$rx_android_version"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
@@ -89,11 +94,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
-    // navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    kapt  "com.github.bumptech.glide:compiler:$glide_version"
+
     // firebase
     implementation platform ("com.google.firebase:firebase-bom:$firebase_version")
     implementation 'com.google.firebase:firebase-analytics'
@@ -103,17 +105,14 @@ dependencies {
     implementation "com.github.HBiSoft:PickiT:$pick_it_version"
     implementation  "io.ak1.pix:piximagepicker:$pix_version"
     implementation "com.intuit.sdp:sdp-android:$sdp_version"
-    implementation "com.github.georgesamirmansour:SharedPreferenceHelper:$shared_pref_version"
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation "com.google.android.gms:play-services-basement:$gms_basment_version"
     implementation "com.google.android.gms:play-services-location:$gms_location_version"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipper_refresh_version"
 //    api "cn.aigestudio.wheelpicker:WheelPicker:$wheel_picker_version"
 
-    implementation "androidx.legacy:legacy-support-v4:$legacy_version"
+//    implementation "androidx.legacy:legacy-support-v4:$legacy_version"
     implementation "androidx.browser:browser:$browser_version"
     implementation "androidx.core:core-splashscreen:$splash_version"
-    implementation "com.github.shadowalker77:wp7progressbar:$progress_version"
-    implementation group: 'com.apachat', name: 'loadingbutton-android', version: '1.0.11'
-    implementation("androidx.biometric:biometric:$biometric_version")
+    implementation "androidx.biometric:biometric:$biometric_version"
 }

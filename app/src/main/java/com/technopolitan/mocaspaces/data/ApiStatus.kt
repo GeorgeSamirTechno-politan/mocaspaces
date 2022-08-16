@@ -16,5 +16,5 @@ class ErrorStatus<T>(message: String?) : ApiStatus<T>(message, null) {
     }
 }
 
-class SuccessStatus<T>(message: String, data: T?) : ApiStatus<T>(message, data)
-class ProgressStatus<T>(message: String, data: T?) : ApiStatus<T>(message, data)
+class SuccessStatus<T>(message: String?, data: T?) : ApiStatus<T>(message, data)
+class ProgressStatus<T>(message: String?, data: T?) : ApiStatus<T>(message, data)

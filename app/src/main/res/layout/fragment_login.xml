@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent_color"
     android:animateLayoutChanges="true"
+    android:background="@color/accent_color"
     tools:context=".ui.login.LoginFragment">
 
 
@@ -16,14 +16,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:animateLayoutChanges="true"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
             <ImageView
                 android:id="@+id/moca_yellow_logo"
                 android:layout_width="@dimen/_133sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_50sdp"
                 android:src="@drawable/ic_moca"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_37sdp"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:text="@string/hello"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_25sdp"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/welcome_back_text_view"
-                style="@style/regular"
+                style="@style/medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_37sdp"
@@ -58,12 +58,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text_input_layout"
-                android:layout_width="match_parent"
                 style="@style/border_white_text_input_layout"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:hint="@string/email"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:endIconCheckable="true"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:hint="@string/email"
+                app:endIconCheckable="false"
                 app:endIconDrawable="@drawable/ic_checkmark"
                 app:endIconMode="custom"
                 app:endIconTint="@color/white"
@@ -74,7 +74,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_edit_text"
                     style="@style/edit_text_style"
-                    app:textInputLayoutFocusedRectEnabled="true"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:drawableStart="@drawable/ic_email"
@@ -114,7 +113,7 @@
                 style="@style/regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp"
@@ -127,36 +126,37 @@
                 style="@style/progress_button_style.white"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
+                android:layout_marginStart="@dimen/_60sdp"
+                android:layout_marginEnd="@dimen/_60sdp"
                 android:text="@string/continueText"
-                app:cornerRadius="@dimen/_60sdp"
+                android:textColor="@color/dark_grey_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/forget_password_text_view"
-                app:spinning_bar_color="@color/accent_color" />
+                app:layout_constraintTop_toBottomOf="@id/forget_password_text_view" />
 
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/or_sign_in_with_text_view"
-                style="@style/light"
+                style="@style/medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:text="@string/or_sign_in_with"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11sdp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_btn" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/biometric_login_layout"
                 style="@style/default_field_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:gravity="center"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/or_sign_in_with_text_view">
@@ -169,7 +169,7 @@
                     app:tint="@color/white" />
 
                 <TextView
-                    style="@style/light"
+                    style="@style/medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -186,13 +186,13 @@
                 android:layout_marginTop="@dimen/_30sdp"
                 android:gravity="center"
                 android:padding="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/biometric_login_layout">
 
                 <TextView
-                    style="@style/regular"
+                    style="@style/medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/do_not_have_account"
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/sign_up_under_line"
-                    android:textColor="@color/white"
+                    android:textColor="@color/yellow_color"
                     android:textSize="@dimen/_13sdp" />
 
             </LinearLayout>

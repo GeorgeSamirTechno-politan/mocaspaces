@@ -24,27 +24,28 @@
     </style>
 
     <style name="bold">
-        <item name="android:fontFamily">@font/gt_bold</item>
+        <item name="fontFamily">@font/gt_bold</item>
     </style>
 
     <style name="medium">
-        <item name="android:fontFamily">@font/gt_meduim</item>
+
+        <item name="fontFamily">@font/gt_meduim</item>
     </style>
 
     <style name="light">
-        <item name="android:fontFamily">@font/gt_light</item>
+        <item name="fontFamily">@font/gt_light</item>
     </style>
 
     <style name="regular">
-        <item name="android:fontFamily">@font/gt_regular</item>
+        <item name="fontFamily">@font/gt_regular</item>
     </style>
 
     <style name="oblique">
-        <item name="android:fontFamily">@font/gt_oblique</item>
+        <item name="fontFamily">@font/gt_oblique</item>
     </style>
 
     <style name="ultraBold">
-        <item name="android:fontFamily">@font/gt_ultra_bold</item>
+        <item name="fontFamily">@font/gt_ultra_bold</item>
     </style>
 
     <style name="progress_text_Style" parent="medium">
@@ -115,37 +116,38 @@
     </style>
 
 
-    <style name="border_white_text_input_layout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">@color/white</item>
+    <style name="border_white_text_input_layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/text_input_box_white_stroke</item>
         <item name="boxStrokeWidth">@dimen/_1sdp</item>
         <item name="boxStrokeWidthFocused">@dimen/_2sdp</item>
-        <item name="boxStrokeErrorColor">@color/error_color</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/_28sdp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/_28sdp</item>
         <item name="boxCornerRadiusTopEnd">@dimen/_28sdp</item>
         <item name="boxCornerRadiusTopStart">@dimen/_28sdp</item>
-        <item name="hintAnimationEnabled">true</item>
-        <item name="hintEnabled">true</item>
-        <item name="labelStyle">@style/medium</item>
-        <item name="android:textSize">@dimen/_15sdp</item>
-        <item name="passwordToggleTint">@color/white</item>
-        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
-        <item name="errorIconTint">@color/error_color</item>
-        <item name="android:textColorHint">@color/white</item>
-        <item name="boxCollapsedPaddingTop">@dimen/_1sdp</item>
-        <item name="errorEnabled">true</item>
-        <item name="errorTextColor">@color/error_color</item>
-        <item name="boxBackgroundColor">@android:color/transparent</item>
-        <item name="android:layout_marginStart">@dimen/_37sdp</item>
-        <item name="android:layout_marginEnd">@dimen/_37sdp</item>
-        <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
         <item name="placeholderTextColor">@color/white</item>
         <item name="hintTextColor">@color/white</item>
         <item name="helperTextTextColor">@color/white</item>
         <item name="prefixTextColor">@color/white</item>
-        <item name="theme">@drawable/text_input_layout_selector</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/white</item>
+        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
+        <item name="errorTextColor">@color/error_color</item>
+        <item name="boxStrokeErrorColor">@color/error_color</item>
+        <item name="errorIconTint">@color/error_color</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="hintEnabled">true</item>
+        <item name="labelStyle">@style/medium</item>
+        <item name="android:textSize">@dimen/_15sdp</item>
+        <item name="boxCollapsedPaddingTop">@dimen/_1sdp</item>
+        <item name="errorEnabled">true</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="android:layout_marginStart">@dimen/_37sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_37sdp</item>
+        <item name="android:theme">@drawable/text_input_layout_selector</item>
+    </style>
+
+    <style name="border_white_text_input_theme">
+
     </style>
 
 

@@ -31,6 +31,7 @@ class TransitionButton : MaterialButton {
     private var initialWidth = 0
     private var initialHeight = 0
     private var initialText: String? = null
+    private lateinit var btnText: String
     private var defaultColor = 0
     private var errorColor = 0
     private var loaderColor = 0
@@ -53,6 +54,7 @@ class TransitionButton : MaterialButton {
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
+        btnText = text.toString()
         currentState = State.IDLE
         errorColor = ContextCompat.getColor(getContext(), R.color.error_color)
         loaderColor = ContextCompat.getColor(getContext(), R.color.accent_color)
@@ -80,6 +82,7 @@ class TransitionButton : MaterialButton {
         initialWidth = width
         initialHeight = height
         initialText = text.toString()
+
         text = null
         isClickable = false
         startWidthAnimation(initialHeight, object : AnimatorListenerAdapter() {
@@ -130,7 +133,7 @@ class TransitionButton : MaterialButton {
                 currentState = State.ERROR
                 startWidthAnimation(initialWidth, object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        text = initialText
+                        text = btnText
                         startShakeAnimation(object : AnimationListenerAdapter() {
                             override fun onAnimationEnd(animation: Animation) {
                                 currentState = State.IDLE

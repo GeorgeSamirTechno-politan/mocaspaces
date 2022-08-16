@@ -22,18 +22,18 @@ class LoginMapper {
     fun init(loginResponse: LoginResponse, firstTimeLogin: Boolean = false): LoginMapper {
         this.firstTimeLogin = firstTimeLogin
         loginResponse.let {
-            userId = it.id!!
-            userToken = it.jWToken!!
-            profileUrl = it.profilePhoto!!
-            firstName = it.firstName!!
-            lastName = it.lastName!!
-            gender = it.gender!!
-            brand = it.brand!!
-            model = it.model!!
-            os = it.os!!
-            deviceTypes = it.deviceType!!
-            uniquelyIdentifier = it.uniquelyIdentifier!!
-            company = it.company!!
+            it.id?.let { value -> userId = value }
+            it.jWToken?.let { value -> userToken = value }
+            it.profilePhoto?.let { value -> profileUrl = value }
+            it.firstName?.let { value -> firstName = value }
+            it.lastName?.let { value -> lastName = value }
+            it.gender?.let { value -> gender = value }
+            it.brand?.let { value -> brand = value }
+            it.model?.let { value -> model = value }
+            it.os?.let { value -> os = value }
+            it.deviceType?.let { value -> deviceTypes = value }
+            it.uniquelyIdentifier?.let { value -> uniquelyIdentifier = value }
+            it.company?.let { value -> company = value }
         }
         return this
     }

@@ -32,7 +32,7 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_no_internet.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_register.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_start.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_start.xml" value="0.5" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_two_choose_dialog.xml" value="0.21" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/horizontal_loading_layout.xml" value="0.2967079948696024" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/loading_button_layout.xml" value="0.2975630611372381" />
@@ -54,5 +54,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>
