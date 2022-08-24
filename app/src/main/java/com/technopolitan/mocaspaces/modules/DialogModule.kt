@@ -56,6 +56,22 @@ class DialogModule @Inject constructor(
         }
     }
 
+    fun showMessageDialog(message: String, headerMessage: String) {
+        showTwoChooseDialogFragment(
+            message = message,
+            positiveBtnText =
+            context.getString(R.string.ok),
+            headerMessage = headerMessage,
+            singleClick = true,
+            navHostId = R.id.nav_host_fragment,
+            negativeBtnText = context.getString(R.string.cancel),
+            callBack = {
+            },
+        )
+    }
+
+
+
     fun showCloseAppDialog() {
         showTwoChooseDialogFragment(
             message = context.getString(R.string.close_app_message),

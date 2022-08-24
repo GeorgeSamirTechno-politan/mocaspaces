@@ -61,6 +61,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:ktx_life_cycle"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // testing
     testImplementation "junit:junit:$j_unite_version"
@@ -115,4 +116,8 @@ dependencies {
     implementation "androidx.browser:browser:$browser_version"
     implementation "androidx.core:core-splashscreen:$splash_version"
     implementation "androidx.biometric:biometric:$biometric_version"
+//    implementation "com.google.android.gms:play-services-mlkit-face-detection:$ml_kit_version"
+    implementation "com.github.darwinfrancis:viola:$viola_version"
+    implementation "com.github.skydoves:powermenu:$power_menu_version"
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }

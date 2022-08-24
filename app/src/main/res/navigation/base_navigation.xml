@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_navigation">
+
+    <dialog
+        android:id="@+id/two_choose_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment"
+        tools:layout="@layout/fragment_two_choose_dialog" />
+
+    <fragment
+        android:id="@+id/no_internet_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment"
+        tools:layout="@layout/fragment_no_internet" />
+
+</navigation>

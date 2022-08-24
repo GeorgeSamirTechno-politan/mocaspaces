@@ -4,8 +4,8 @@ package com.technopolitan.mocaspaces.modules
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import com.technopolitan.mocaspaces.network.BaseUrl
 import com.technopolitan.mocaspaces.network.ServiceInterface
-import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -24,8 +24,8 @@ class NetworkModule @Inject constructor(
 
     @Singleton
     @Provides
-    fun provideServiceInterfaceWithoutAuth(): ServiceInterface {
-        return Retrofit.Builder().baseUrl(Constants.baseUrl)
+    fun provideServiceInterfaceWithoutAuth(serviceName: String): ServiceInterface {
+        return Retrofit.Builder().baseUrl(BaseUrl.baseUrl(serviceName))
             .client(okHttpClient.httpClientWithoutAuth())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
@@ -34,8 +34,8 @@ class NetworkModule @Inject constructor(
 
     @Singleton
     @Provides
-    fun provideServiceInterfaceWithAuth(): ServiceInterface {
-        return Retrofit.Builder().baseUrl(Constants.baseUrl)
+    fun provideServiceInterfaceWithAuth(serviceName: String): ServiceInterface {
+        return Retrofit.Builder().baseUrl(BaseUrl.baseUrl(serviceName))
             .client(okHttpClient.httpClientWithAuth())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

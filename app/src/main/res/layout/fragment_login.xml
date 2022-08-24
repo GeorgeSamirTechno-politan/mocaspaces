@@ -58,7 +58,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text_input_layout"
-                style="@style/border_white_text_input_layout"
+                style="@style/text_input_layout_style.white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_40sdp"
@@ -73,7 +73,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_edit_text"
-                    style="@style/edit_text_style"
+                    style="@style/edit_text_style.white"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:drawableStart="@drawable/ic_email"
@@ -85,7 +85,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_text_input_layout"
-                style="@style/border_white_text_input_layout"
+                style="@style/text_input_layout_style.white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -99,7 +99,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_edit_text"
-                    style="@style/edit_text_style"
+                    style="@style/edit_text_style.white"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:drawableStart="@drawable/ic_password"
@@ -116,6 +116,8 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/white"
+                android:clickable="true"
+                android:focusable="true"
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +159,8 @@
                 android:layout_marginTop="@dimen/_30sdp"
                 android:gravity="center"
                 android:visibility="visible"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/or_sign_in_with_text_view">
@@ -202,6 +206,8 @@
                 <TextView
                     android:id="@+id/sign_up_text"
                     style="@style/medium"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"

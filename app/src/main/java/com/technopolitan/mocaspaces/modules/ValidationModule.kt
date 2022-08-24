@@ -88,7 +88,7 @@ class ValidationModule {
         editText: EditText,
         regex: String,
         validateMessage: String,
-        isRequiredFocus: Boolean
+        isRequiredFocus: Boolean = false
     ): Boolean {
         if (!Pattern.matches(regex, editText.text.toString())) {
             if (isRequiredFocus) editText.requestFocus()

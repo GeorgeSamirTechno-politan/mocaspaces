@@ -4,8 +4,7 @@ class Constants {
     companion object {
         val DeviceType: String = "Android"
         private const val IsAppLive: Boolean = false
-        private const val baseLiveUrl: String = "https://api.copolitan.com/api/"
-        private const val baseTestUrl: String = "https://testapi.techno-politan.xyz/api/"
+
         lateinit var OS: String
         lateinit var model: String
         var notificationToken: String = ""

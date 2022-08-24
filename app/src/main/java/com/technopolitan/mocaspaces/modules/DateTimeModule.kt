@@ -6,7 +6,16 @@ import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
+
+enum class DateTimeUnits{
+    DAYS,
+    SECONDS,
+    MINUTES,
+    MILLISECONDS,
+    HOURS
+}
 
 @Module
 class DateTimeModule {
@@ -54,5 +63,37 @@ class DateTimeModule {
             Calendar.getInstance().time.toString(),
             DateTimeConstants.defaultDateTimeFormatOfAndroid, format
         )
+    }
+
+    fun diffInHours(startDate: Date, endDate: Date, dateTimeUnits: DateTimeUnits = DateTimeUnits.HOURS): Int {
+        val diffInMs: Long = startDate.time - endDate.time
+        val days = TimeUnit.MILLISECONDS.toDays(diffInMs).toInt()
+        val hours = (TimeUnit.MILLISECONDS.toHours(diffInMs) - TimeUnit.DAYS.toHours(days.toLong())).toInt()
+        val minutes = (TimeUnit.MILLISECONDS.toMinutes(diffInMs) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(diffInMs)
+        )).toInt()
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(diffInMs).toInt()
+        return when (dateTimeUnits.name) {
+            DateTimeUnits.DAYS.name -> days
+            DateTimeUnits.SECONDS.name -> seconds
+            DateTimeUnits.MINUTES.name -> minutes
+            DateTimeUnits.MILLISECONDS.name -> diffInMs.toInt()
+            else -> diffInMs.toInt()
+        }
+//        return when (dateTimeUnits) {
+//             ->
+//            SECONDS -> seconds
+//            MINUTES -> minutes
+//            HOURS -> hours
+//            MILLISECONDS -> diffInMs.toInt()
+//            else -> diffInMs.toInt()
+//        }
+    }
+
+    fun formatDate(date: String, format: String): Date? {
+        return SimpleDateFormat(
+            format,
+            Locale.ENGLISH
+        ).parse(date)
     }
 }

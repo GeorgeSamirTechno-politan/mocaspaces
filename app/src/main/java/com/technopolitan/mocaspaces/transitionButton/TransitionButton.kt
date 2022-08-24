@@ -77,6 +77,7 @@ class TransitionButton : MaterialButton {
     }
 
     fun startAnimation() {
+        requestFocus()
         currentState = State.PROGRESS
         isMorphingInProgress = true
         initialWidth = width
@@ -145,13 +146,14 @@ class TransitionButton : MaterialButton {
                 })
             }
             StopAnimationStyle.EXPAND -> {
-                currentState = State.TRANSITION
-                startScaleAnimation(object : AnimationListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animation) {
-                        super.onAnimationEnd(animation)
-                        onAnimationStopEndCallBack(null)
-                    }
-                })
+                currentState = State.IDLE
+                onAnimationStopEndCallBack(null)
+//                startScaleAnimation(object : AnimationListenerAdapter() {
+//                    override fun onAnimationEnd(animation: Animation) {
+//                        super.onAnimationEnd(animation)
+//                        onAnimationStopEndCallBack(null)
+//                    }
+//                })
             }
             else -> {}
         }

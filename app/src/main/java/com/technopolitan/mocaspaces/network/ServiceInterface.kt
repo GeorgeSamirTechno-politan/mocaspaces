@@ -2,12 +2,12 @@ package com.technopolitan.mocaspaces.network
 
 
 import com.technopolitan.mocaspaces.data.HeaderResponse
+import com.technopolitan.mocaspaces.data.country.CountryResponse
 import com.technopolitan.mocaspaces.data.login.LoginResponse
+import com.technopolitan.mocaspaces.data.mobileOTP.ResendCodeRequest
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ServiceInterface {
 
@@ -30,4 +30,13 @@ interface ServiceInterface {
         @Path("version") version: Int = Constants.apiVersion,
         @Query("Mobile") mobile: String
     ): Flowable<HeaderResponse<String>>
+
+    @GET("v{version}/Country/GetAllCountriesWithoutPagination")
+    fun countries(
+        @Path("version") version: Int = Constants.apiVersion,
+    ): Flowable<HeaderResponse<List<CountryResponse>>>
+
+    @PUT("v{version}/Lounge_Client/SendVerificationCode")
+    fun resendCode( @Path("version") version: Int = Constants.apiVersion, @Body resendCodeRequest: ResendCodeRequest)
+    : Flowable<HeaderResponse<String>>
 }

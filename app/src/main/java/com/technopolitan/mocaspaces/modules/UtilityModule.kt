@@ -1,6 +1,7 @@
+@file:Suppress("DEPRECATION")
+
 package com.technopolitan.mocaspaces.modules
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.net.Uri
 import android.util.Base64
 import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabsIntent
 import com.technopolitan.mocaspaces.R.color
 import com.technopolitan.mocaspaces.R.string
@@ -24,6 +26,7 @@ class UtilityModule @Inject constructor(
     private var context: Context,
     private var activity: Activity
 ) {
+
 
 
     fun shareLink(link: String?) {
@@ -109,33 +112,64 @@ class UtilityModule @Inject constructor(
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    val darkStatusBar = 1
+    val darkNavigationBar = 1 shl 1
+    val lightStatusBar = 1 shl 3
+    val lightNavigationBar = 1 shl 4
+
     fun setStatusBar(
-        stateBarColor: Int = color.accent_color,
-        navigationColor: Int = color.white,
-        backGroundDrawable: Int? = null,
-        isLightStateBar: Boolean = false,
-        isDarkMode: Boolean = false
+        statusAndNavigationColor: Int = color.accent_color,
+        backGroundDrawable: Int? = null
     ) {
         val window: Window = activity.window
         if (backGroundDrawable != null) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = context.getColor(android.R.color.transparent)
             window.navigationBarColor = context.getColor(android.R.color.transparent)
-            window.setBackgroundDrawable(context.getDrawable(backGroundDrawable))
+            window.setBackgroundDrawable(AppCompatResources.getDrawable(context,backGroundDrawable))
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = context.getColor(stateBarColor)
-            window.navigationBarColor = context.getColor(navigationColor)
+            window.statusBarColor = context.getColor(statusAndNavigationColor)
+            window.navigationBarColor = context.getColor(statusAndNavigationColor)
         }
-//        if (isLightStateBar && !isDarkMode) {
+        if (statusAndNavigationColor == color.white) {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                window.decorView.windowInsetsController!!.setSystemBarsAppearance()
-//                window.decorView.setSystemUiVisibility(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS)
-//            }else window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-//            window.statusBarColor = context.getColor(color.white)
-//        }
+//                window.decorView.windowInsetsController?.setSystemBarsAppearance(
+//                    lightNavigationBar,
+//                    lightStatusBar
+//                )
+//
+//            }else{
+                clearLightStatusBar()
+//            }
+        }else{
+            // dark status and navigation bar here
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                window.decorView.windowInsetsController?.setSystemBarsAppearance(
+//                    darkNavigationBar,
+//                    darkStatusBar
+//                )
+//            }else{
+              setLightStatusBar()
+//            }
+        }
     }
+
+    @Suppress("DEPRECATION")
+    private fun setLightStatusBar() {
+//        var flags = activity.window.decorView.systemUiVisibility
+//        flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        activity.window.decorView.systemUiVisibility = flags
+    }
+
+    private fun clearLightStatusBar() {
+//        var flags = activity.window.decorView.systemUiVisibility
+//        flags =
+//            flags xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        activity.window.decorView.systemUiVisibility = flags
+    }
+
+
 
 
 }

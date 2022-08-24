@@ -1,13 +1,33 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Material3" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Base.Theme.Material3" parent="Theme.Material3.DynamicColors.DayNight">
         <item name="colorPrimary">@color/accent_color</item>
         <item name="colorPrimaryDark">@color/accent_color</item>
         <item name="fontFamily">@font/gt_regular</item>
         <item name="colorAccent">@color/accent_color</item>
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
         <item name="android:textCursorDrawable">@drawable/white_cursor_shape</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="materialCardViewOutlinedStyle">@style/base_card_view_style</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="base_card_view_style" parent="Widget.Material3.CardView.Filled">
+        <item name="strokeColor">@color/white</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:strokeColor">@color/white</item>
+        <item name="cardElevation">0dp</item>
+        <item name="rippleColor">@color/white</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.Material3.DynamicColors.DayNight" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/accent_color</item>
@@ -28,8 +48,11 @@
     </style>
 
     <style name="medium">
-
         <item name="fontFamily">@font/gt_meduim</item>
+    </style>
+
+    <style name="lexend_deca_regular">
+        <item name="fontFamily">@font/lexend_deca_regular</item>
     </style>
 
     <style name="light">
@@ -87,7 +110,12 @@
         <item name="loaderColor">@color/accent_color</item>
         <item name="defaultColor">@color/white</item>
         <item name="android:textColor">@color/accent_color</item>
-        <!--        <item name="android:background">@drawable/circular_white_border_shape</item>-->
+    </style>
+
+    <style name="progress_button_style.accent" parent="app_button_style">
+        <item name="loaderColor">@color/accent_color</item>
+        <item name="defaultColor">@color/accent_color</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="header_dialog_text_style" parent="medium">
@@ -116,20 +144,7 @@
     </style>
 
 
-    <style name="border_white_text_input_layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">@color/text_input_box_white_stroke</item>
-        <item name="boxStrokeWidth">@dimen/_1sdp</item>
-        <item name="boxStrokeWidthFocused">@dimen/_2sdp</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/_28sdp</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/_28sdp</item>
-        <item name="boxCornerRadiusTopEnd">@dimen/_28sdp</item>
-        <item name="boxCornerRadiusTopStart">@dimen/_28sdp</item>
-        <item name="placeholderTextColor">@color/white</item>
-        <item name="hintTextColor">@color/white</item>
-        <item name="helperTextTextColor">@color/white</item>
-        <item name="prefixTextColor">@color/white</item>
-        <item name="android:textColorHint">@color/white</item>
-        <item name="passwordToggleTint">@color/white</item>
+    <style name="text_input_layout_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
         <item name="errorTextColor">@color/error_color</item>
         <item name="boxStrokeErrorColor">@color/error_color</item>
@@ -143,19 +158,70 @@
         <item name="boxBackgroundColor">@android:color/transparent</item>
         <item name="android:layout_marginStart">@dimen/_37sdp</item>
         <item name="android:layout_marginEnd">@dimen/_37sdp</item>
-        <item name="android:theme">@drawable/text_input_layout_selector</item>
+        <item name="boxStrokeWidthFocused">@dimen/_2sdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_28sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_28sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_28sdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_28sdp</item>
+        <item name="boxStrokeWidth">@dimen/_1sdp</item>
     </style>
 
-    <style name="border_white_text_input_theme">
+    <style name="text_input_layout_style.drop_down" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
+        <item name="errorTextColor">@color/error_color</item>
+        <item name="boxStrokeErrorColor">@color/error_color</item>
+        <item name="errorIconTint">@color/error_color</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="hintEnabled">true</item>
+        <item name="labelStyle">@style/medium</item>
+        <item name="android:textSize">@dimen/_15sdp</item>
+        <item name="boxCollapsedPaddingTop">@dimen/_1sdp</item>
+        <item name="errorEnabled">true</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="android:layout_marginStart">@dimen/_37sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_37sdp</item>
+        <item name="boxStrokeWidthFocused">@dimen/_2sdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_28sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_28sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_28sdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_28sdp</item>
+        <item name="boxStrokeWidth">@dimen/_1sdp</item>
+    </style>
+
+    <style name="text_input_layout_style.white" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_white_stroke</item>
+        <item name="placeholderTextColor">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/white</item>
+        <item name="prefixTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/white</item>
 
     </style>
 
+    <style name="text_input_layout_style.dark_grey.drop_down" parent="text_input_layout_style.drop_down">
+        <item name="boxStrokeColor">@color/text_input_box_dark_grey_color</item>
+        <item name="placeholderTextColor">@color/black</item>
+        <item name="hintTextColor">@color/black</item>
+        <item name="helperTextTextColor">@color/black</item>
+        <item name="prefixTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="passwordToggleTint">@color/black</item>
+    </style>
+
+    <style name="text_input_layout_style.dark_grey" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_dark_grey_color</item>
+        <item name="placeholderTextColor">@color/black</item>
+        <item name="hintTextColor">@color/black</item>
+        <item name="helperTextTextColor">@color/black</item>
+        <item name="prefixTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="passwordToggleTint">@color/black</item>
+    </style>
 
     <style name="edit_text_style" parent="Widget.Material3.TextInputEditText.FilledBox.Dense">
         <item name="fontFamily">@font/gt_regular</item>
-        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/_13sdp</item>
-        <item name="android:textCursorDrawable">@drawable/white_cursor_shape</item>
         <item name="android:paddingTop">@dimen/_10sdp</item>
         <item name="maxLines">1</item>
         <item name="android:drawablePadding">@dimen/_10sdp</item>
@@ -164,9 +230,24 @@
     </style>
 
 
+    <style name="edit_text_style.white" parent="edit_text_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/white_cursor_shape</item>
+    </style>
+
+    <style name="edit_text_style.black" parent="edit_text_style">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textCursorDrawable">@drawable/black_cursor_shape</item>
+    </style>
+
+
     <style name="default_field_margin">
         <item name="android:layout_marginEnd">@dimen/_37sdp</item>
         <item name="android:layout_marginStart">@dimen/_37sdp</item>
+    </style>
+
+    <style name="otp_view_style" parent="lexend_deca_regular">
+
     </style>
 
     <!--    <style name="wheel_picker_style">-->

@@ -25,4 +25,12 @@ class RXModule {
         })
         return subject
     }
+
+//    fun getTextWatcherObservable(editable: Editable): Observable<String> {
+//        val subject: PublishSubject<String> = PublishSubject.create()
+//        editable.onEach {
+//            subject.onNext(it.toString())
+//        }
+//        return subject
+//    }
 }

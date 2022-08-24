@@ -10,6 +10,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentStartBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import javax.inject.Inject
 
 class StartFragment : Fragment() {
@@ -18,6 +19,9 @@ class StartFragment : Fragment() {
 
     @Inject
     lateinit var navigationModule: NavigationModule
+
+    @Inject
+    lateinit var appUtilityModule: UtilityModule
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory()
@@ -42,7 +46,7 @@ class StartFragment : Fragment() {
 
     private fun onClickOnSignUp() {
         binding.signUpBtn.setOnClickListener {
-
+            navigationModule.navigateTo(R.id.action_start_to_register)
         }
     }
 

@@ -9,6 +9,8 @@ import com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
+import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
+import com.technopolitan.mocaspaces.ui.register.RegisterFragment
 import com.technopolitan.mocaspaces.ui.splash.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import dagger.BindsInstance
@@ -37,5 +39,7 @@ interface ApplicationComponent {
     fun inject(loginFragment: LoginFragment)
     fun inject(twoChooseDialogFragment: TwoChooseDialogFragment)
     fun inject(noInternetFragment: NoInternetFragment)
+    fun inject(registerFragment: RegisterFragment)
     fun inject(checkMobileFragment: CheckMobileFragment)
+    fun inject(mobileOTPFragment: MobileOTPFragment)
 }

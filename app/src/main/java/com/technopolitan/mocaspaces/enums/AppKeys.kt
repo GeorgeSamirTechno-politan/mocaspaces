@@ -5,5 +5,11 @@ enum class AppKeys {
     NegativeBtnText,
     Message,
     HeaderMessage,
-    SingleClick;
+    SingleClick,
+    MobileNumber,
+    Blocked,
+    BlockedDateTime,
+    OTPTrys,
+    OTP;
+
 }

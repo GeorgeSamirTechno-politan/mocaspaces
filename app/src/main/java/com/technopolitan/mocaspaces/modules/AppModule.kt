@@ -96,4 +96,8 @@ class AppModule {
     @Singleton
     @Provides
     fun provideRXModule(): RXModule = RXModule()
+
+    @Singleton
+    @Provides
+    fun provideDateTimeModule(): DateTimeModule= DateTimeModule()
 }

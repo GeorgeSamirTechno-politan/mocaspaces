@@ -68,7 +68,7 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_55sdp"
         android:layout_marginEnd="@dimen/_55sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_35sdp"
         android:backgroundTint="@color/white"
         android:text="@string/login"
         android:fontFamily="@font/gt_meduim"

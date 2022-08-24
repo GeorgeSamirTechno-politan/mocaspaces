@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentNoInternetBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.ConnectionLiveDataModule
@@ -43,7 +42,7 @@ class NoInternetFragment : Fragment() {
     ): View {
         fragmentNoInternetBinding =
             FragmentNoInternetBinding.inflate(layoutInflater, container, false)
-        updateStatusBar()
+//        updateStatusBar()
         return fragmentNoInternetBinding.root
     }
 
@@ -55,21 +54,21 @@ class NoInternetFragment : Fragment() {
 
     private fun listenForOnRefresh() {
         if (networkModule.isInternetAvailable()) {
-            updateStatusBar()
+//            updateStatusBar()
             navigationModule.popBack()
         }
         fragmentNoInternetBinding.noInternetSwipeRefresh.isRefreshing = false
     }
 
-    private fun updateStatusBar(colorId: Int = R.color.white) {
-        utilityModule.setStatusBar(
-            requireContext().getColor(colorId)
-        )
-    }
+//    private fun updateStatusBar(colorId: Int = R.color.white) {
+//        utilityModule.setStatusBar(
+//            requireContext().getColor(colorId)
+//        )
+//    }
 
     private fun registerNetworkChangeListener() {
         connectionLiveDataModule.observe(viewLifecycleOwner) {
-            updateStatusBar(R.color.accent_color)
+//            updateStatusBar(R.color.accent_color)
             if (it) navigationModule.popBack()
 
         }

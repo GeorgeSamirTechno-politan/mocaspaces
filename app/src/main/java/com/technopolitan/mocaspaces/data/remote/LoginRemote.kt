@@ -9,6 +9,7 @@ import com.technopolitan.mocaspaces.data.login.LoginMapper
 import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
+import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class LoginRemote @Inject constructor(
     fun login(email: String, password: String): MediatorLiveData<ApiStatus<LoginMapper>> {
         loginMediator.value = LoadingStatus()
         val source: LiveData<ApiStatus<LoginMapper>> = LiveDataReactiveStreams.fromPublisher(
-            networkModel.provideServiceInterfaceWithoutAuth()
+            networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.emptyApi)
                 .login(email = email, password = password)
                 .map { handleResponse(it) }.onErrorReturn {
                     handleError(it)

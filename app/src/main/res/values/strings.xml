@@ -1,4 +1,11 @@
 <resources>
+    <!-- Different styles for input box. -->
+    <string name="style_square">square_box</string>
+    <string name="style_rounded">rounded_box</string>
+    <string name="style_underline">underline</string>
+    <string name="style_rounded_underline">rounded_underline</string>
+    <string name="mask_character">\u2022</string>
+
     <string name="app_name">mocaspaces</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -42,4 +49,28 @@
     <string name="prompt_info_subtitle">Please login to get access</string>
     <string name="prompt_info_description">moca is using Android biometric authentication</string>
     <string name="prompt_info_use_app_password">Use app password</string>
+    <string name="sign_up_">Sign Up!</string>
+    <string name="register">register</string>
+    <string name="verify_mobile">Verify mobile</string>
+    <string name="please_enter_your_mobile_number">Please enter your mobile number</string>
+    <string name="mobile_number">mobile number</string>
+    <string name="verify">Verify</string>
+    <string name="a_verification_code_will_be_sent_on_this_mobile_number">A verification code will be sent on\nthis mobile number</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="sign_in"><u>Sign In</u></string>
+    <string name="please_upload_a_clear_picture_of_your_face">Please upload a clear picture\nof your face.</string>
+    <string name="error">Error</string>
+    <string name="invalide_mobile_number">Invalid mobile number</string>
+    <string name="we_have_sent_you_a_verification_code_on">We have sent you a verification code on</string>
+    <string name="change_number">Change Number</string>
+    <string name="remaining">Remaining %1$s</string>
+    <string name="resend"><u>Resend</u></string>
+    <string name="wrong_verification_code">Wrong verification code. please try again</string>
+    <string name="mobile_otp">Mobile Otp</string>
+
+
+
+    <string name="please_enter_the_verification_code_above">Please enter the verification code above</string>
+    <string name="otp_send_block_message">You have been blocked from receiving SMS to this number for 2 hours</string>
+    <string name="warning">Warning</string>
 </resources>

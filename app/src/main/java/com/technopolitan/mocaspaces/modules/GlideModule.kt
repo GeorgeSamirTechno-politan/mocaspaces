@@ -3,9 +3,9 @@ package com.technopolitan.mocaspaces.modules
 import android.content.Context
 import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.technopolitan.mocaspaces.R
 import dagger.Module
 import javax.inject.Inject
@@ -24,7 +24,8 @@ class GlideModule @Inject constructor(private var context: Context) {
             if (url != null) {
                 Glide.with(context).load(url)
                     .placeholder(getCircularProgressDrawable(context))
-                    .override(SIZE_ORIGINAL, SIZE_ORIGINAL)
+                    .error(AppCompatResources.getDrawable(context,errorImage))
+                    .centerCrop()
                     .into(imageView)
             }
         } catch (e: Exception) {
