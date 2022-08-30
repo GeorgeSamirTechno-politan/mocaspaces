@@ -38,9 +38,7 @@
     <string name="close_app_message">Are you sure you want to exist moca?</string>
     <string name="ok">OK</string>
     <string name="close">close</string>
-    <string name="network_status_permission_header">Network status permission</string>
-    <string name="network_Status_permission_message">In order to use app. we require to allow access to network status\n
-    to check whether you have internet or not</string>
+
     <string name="connection_lost">Connection Lost!</string>
     <string name="please_check_your_connection_and_swipe_down_to_try_again">Please check your connection and\nswipe down to try again.</string>
     <string name="email_required">Email required</string>
@@ -69,8 +67,49 @@
     <string name="mobile_otp">Mobile Otp</string>
 
 
-
     <string name="please_enter_the_verification_code_above">Please enter the verification code above</string>
     <string name="otp_send_block_message">You have been blocked from receiving SMS to this number for 2 hours</string>
     <string name="warning">Warning</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="i_am_a">I am a</string>
+    <string name="company">Company</string>
+    <string name="job_title">Job Title</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="create_account">Create Account</string>
+
+
+    <string name="personal_info">Personal Info</string>
+    <string name="confirm">Confirm</string>
+    <string name="birth_date_error_message">Date of birth must be bigger than 16 years</string>
+    <string name="try_again">Try Again</string>
+    <string name="scanning">Scanning</string>
+
+    //network status permission
+    <string name="network_status_permission">Network status permission</string>
+    <string name="network_Status_permission_message">In order to use app. we require to allow access to network status\n
+    to check whether you have internet or not</string>
+    <string name="network_Status_setting_message"><![CDATA[access network status permission has been denied forever/nYou must you like go to setting to enable it?]]></string>
+
+    // camera permission
+    <string name="camera_permission_message">In order to change your profile image you must allow camera permission\nDo you want to proceed?</string>
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_setting_message"><![CDATA[camera permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
+
+    // sms permission
+    <string name="sms_permission">SMS Permission</string>
+    <string name="sms_permission_message">In order for fast accessing otp from your SMS you must allow SMS permission\nDo you want to proceed?</string>
+    <string name="sms_permission_setting_message"><![CDATA[SMS permission has been denied forever\nwould must you like go to setting to enable it?]]></string>
+
+    // write external storage permission
+    <string name="write_external_storage">Write external storage</string>
+    <string name="write_external_storage_message">In order to change your profile you must allow files permission\nDo you want to proceed?</string>
+    <string name="write_external_storage_permission_setting_message"><![CDATA[Wright media & files permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
+
+    // read external storage permission
+    <string name="read_external_storage">Read external storage</string>
+    <string name="read_external_storage_message">In order to change your profile you must allow read files permission\nDo you want to proceed?</string>
+    <string name="read_external_storage_setting_message"><![CDATA[Read file & media permission has been denied forever\nWould you like go to setting to enable it?]]></string>
 </resources>

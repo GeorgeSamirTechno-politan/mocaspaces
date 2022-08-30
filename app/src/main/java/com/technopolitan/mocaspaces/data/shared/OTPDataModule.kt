@@ -1,35 +1,30 @@
 package com.technopolitan.mocaspaces.data.shared
 
 import android.content.Context
-import android.os.CountDownTimer
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.enums.AppKeys
-import com.technopolitan.mocaspaces.modules.DateTimeModule
-import com.technopolitan.mocaspaces.modules.DialogModule
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
-import com.technopolitan.mocaspaces.modules.SharedPrefModule
-import com.technopolitan.mocaspaces.utilities.DateTimeConstants
+import com.technopolitan.mocaspaces.modules.SmsIdentifierModule
 import dagger.Module
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
 @Module
 class OTPDataModule @Inject constructor(
     private var context: Context,
-    private var dialogModule: DialogModule,
     private var rxModule: RXModule,
-    private var sharedPrefModule: SharedPrefModule,
-    private var dateTimeModule: DateTimeModule
+    private var otpBlockUserModule: OtpBlockUserModule,
+    private var navigationModule: NavigationModule,
+    private var smsIdentifierModule: SmsIdentifierModule
 ) {
 
     private lateinit var mobileTextView: TextView
@@ -38,33 +33,25 @@ class OTPDataModule @Inject constructor(
     private lateinit var otpSecondEditText: EditText
     private lateinit var otpThirdEditText: EditText
     private lateinit var otpFourthEditText: EditText
-    private lateinit var remainingTextView: TextView
-    private lateinit var resendTextView: TextView
+    private lateinit var countDownTextView: TextView
+    private lateinit var countDownText: TextView
     private lateinit var errorTextView: TextView
     private lateinit var firstOtpObserver: Observable<String>
     private lateinit var secondOtpObserver: Observable<String>
     private lateinit var thirdOtpObserver: Observable<String>
     private lateinit var fourthOtpObserver: Observable<String>
-    private lateinit var otp: String
-    private var remainingInSeconds: Int = 180
     private lateinit var resendCallBack: (entity: Boolean) -> Unit
     private lateinit var validOtpCallBack: (entity: Boolean) -> Unit
     private lateinit var shakeAnimation: Animation
-    private var tries: Int = 0
+    private lateinit var otp: String
+    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
-    private val count: CountDownTimer = object : CountDownTimer(getRemainingInMils(), 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-            remainingTextView.text = context.getString(
-                R.string.remaining,
-                secondsString(TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toInt())
-            )
-        }
+    /*
+    type 1 for mobile
+    type 2 for email
+     */
+    private var type: Int = 1
 
-        override fun onFinish() {
-            resendTextView.setTextColor(context.getColor(R.color.accent_color))
-            enableResend(true, tries> 0)
-        }
-    }
 
     fun init(
         mobileTextView: TextView,
@@ -73,12 +60,14 @@ class OTPDataModule @Inject constructor(
         otpSecondEditText: EditText,
         otpThirdEditText: EditText,
         otpFourthEditText: EditText,
-        remainingTextView: TextView,
+        countDownTextView: TextView,
         resendTextView: TextView,
         errorTextView: TextView,
         otp: String,
+        activityResultLauncher: ActivityResultLauncher<String>,
         resendCallBack: (entity: Boolean) -> Unit,
-        validOtpCallBack: (entity: Boolean) -> Unit
+        validOtpCallBack: (entity: Boolean) -> Unit,
+        type: Int
     ) {
         this.errorTextView = errorTextView
         this.mobileTextView = mobileTextView
@@ -88,115 +77,40 @@ class OTPDataModule @Inject constructor(
         this.otpThirdEditText = otpThirdEditText
         this.otpFourthEditText = otpFourthEditText
         this.otp = otp
-        this.remainingTextView = remainingTextView
-        this.resendTextView = resendTextView
+        this.countDownTextView = countDownTextView
+        this.countDownText = resendTextView
         this.resendCallBack = resendCallBack
         this.validOtpCallBack = validOtpCallBack
+        this.type = type
+        this.activityResultLauncher = activityResultLauncher
         initObservers()
+        otpBlockUserModule.init(type, resendTextView, countDownTextView, resendCallBack)
         shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
-        enableResend(enable = false, resendSMS = false)
-        initOTPTry()
-        startCount()
+        clickOnChangeNumber()
+        handleSmsReceiver()
+
     }
 
-
-    private fun updateRemainingObserver() {
-        resendTextView.setTextColor(context.getColor(R.color.light_black_color_68))
-        startCount()
-    }
-
-    private fun initOTPTry() {
-        tries = if (sharedPrefModule.contain(AppKeys.OTPTrys.name)) {
-            sharedPrefModule.getIntFromShared(AppKeys.OTPTrys.name)
-        }else
-            3
-    }
-
-    private fun startCount() {
-        if (sharedPrefModule.contain(AppKeys.Blocked.name) && sharedPrefModule.getBooleanFromShared(
-                AppKeys.Blocked.name
-            ) && tries > 0
-        ) {
-            if (dateTimeModule.diffInHours(
-                    Calendar.getInstance().time,
-                    dateTimeModule.formatDate(
-                        sharedPrefModule.getStringFromShared(AppKeys.BlockedDateTime.name),
-                        DateTimeConstants.dateTimeFormat
-                    )!!
-
-                ) > 2
-            ) {
-                sharedPrefModule.setBooleanToShared(AppKeys.Blocked.name, false)
-                sharedPrefModule.setStringToShared(AppKeys.BlockedDateTime.name, "")
-                count.start()
-            } else {
-                enableResend(enable = true, resendSMS = false)
-                showBlockedDialog()
+    private fun handleSmsReceiver() {
+        if (type == 1) {
+            smsIdentifierModule.init(activityResultLauncher) {
+                otpFirstEditText.setText(it.substring(0))
+                otpSecondEditText.setText(it.substring(1))
+                otpThirdEditText.setText(it.substring(2))
+                otpFourthEditText.setText(it.substring(3))
             }
-
-        } else count.start()
-
-    }
-
-
-    private fun getRemainingInMils() = TimeUnit.SECONDS.toMillis(remainingInSeconds.toLong())
-
-    private fun enableResend(enable: Boolean, resendSMS: Boolean) {
-        resendTextView.isEnabled = enable
-        resendTextView.setOnClickListener {
-            if (resendSMS) {
-                resendCallBack(true)
-            } else if (tries == 0) {
-                showBlockedDialog()
-            }
-
-
         }
     }
 
-    private fun secondsString(seconds: Int): String =
-        "${TimeUnit.SECONDS.toMinutes(seconds.toLong())}: ${seconds % 60}"
-
-    fun updateRemaining(otp: String) {
-        this.otp = otp
-        when (tries) {
-            3 -> {
-                tries = 2
-                remainingInSeconds = 300
-                updateRemainingObserver()
+    private fun clickOnChangeNumber() {
+        changeNumberTextView.setOnClickListener {
+            when (type) {
+                1 -> navigationModule.popBack()
+                2 -> {
+                    /// TODO missing implementation
+                }
             }
-            2 -> {
-                tries = 1
-                remainingInSeconds = 480
-                updateRemainingObserver()
-            }
-            1 -> {
-                tries = 0
-                remainingInSeconds = 960
-                updateRemainingObserver()
-            }
-            0 -> blockUser()
         }
-        sharedPrefModule.setIntToShared(AppKeys.OTPTrys.name, tries)
-    }
-
-    private fun showBlockedDialog() {
-        dialogModule.showMessageDialog(
-            context.getString(R.string.otp_send_block_message),
-            context.getString(R.string.warning)
-        )
-    }
-
-    private fun blockUser() {
-        enableResend(enable = true, resendSMS = false)
-        sharedPrefModule.setBooleanToShared(AppKeys.Blocked.name, true)
-        dateTimeModule.getTodayDateOrTime(DateTimeConstants.dateTimeFormat)?.let {
-            sharedPrefModule.setStringToShared(
-                AppKeys.BlockedDateTime.name,
-                it
-            )
-        }
-        showBlockedDialog()
     }
 
 
@@ -274,8 +188,10 @@ class OTPDataModule @Inject constructor(
     private fun validateOtp() {
         when {
             isSameOtp() && noAllEmpty() -> {
-                validOtpCallBack(true)
+                otpBlockUserModule.resetTries(false)
+                otpBlockUserModule.stopCount()
                 clearAnimationEditText()
+                validOtpCallBack(true)
             }
             !noAllEmpty() -> clearAnimationEditText()
             else -> animateErrorEditText()
@@ -302,5 +218,14 @@ class OTPDataModule @Inject constructor(
     private fun clearAnimationEditText() {
         errorTextView.visibility = View.GONE
     }
+
+    fun updateOtp(otp: String) {
+        this.otp = otp
+    }
+
+    fun updatePermissionResult(it: Boolean?) {
+        smsIdentifierModule.updatePermissionResult(it)
+    }
+
 
 }

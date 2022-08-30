@@ -63,25 +63,26 @@
         app:trackCornerRadius="@dimen/_25sdp"
         app:trackThickness="@dimen/_5sdp" />
 
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/progress_count_register">
+    <!--   <ScrollView-->
+    <!--       android:layout_width="match_parent"-->
+    <!--       android:layout_height="0dp"-->
+    <!--       app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--       >-->
 
-       <androidx.fragment.app.FragmentContainerView
-           android:id="@+id/register_nav_host"
-           android:name="androidx.navigation.fragment.NavHostFragment"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="@dimen/_30sdp"
-           app:defaultNavHost="true"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/register_nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
-           app:navGraph="@navigation/register_nav_graph"
+        app:navGraph="@navigation/register_nav_graph"
+        app:layout_constraintTop_toBottomOf="@id/progress_count_register"
            />
-   </ScrollView>
+    <!--   </ScrollView>-->
 
 
 

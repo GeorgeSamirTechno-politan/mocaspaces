@@ -3,6 +3,8 @@ package com.technopolitan.mocaspaces.modules
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.technopolitan.mocaspaces.data.shared.CountDownModule
+import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -55,7 +57,6 @@ class AppModule {
     fun provideAppDefaultModule(context: Context): AppDefaultModule = AppDefaultModule(context)
 
 
-
     @Singleton
     @Provides
     fun provideNavigationModule(fragment: Fragment?, activity: Activity): NavigationModule =
@@ -99,5 +100,31 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDateTimeModule(): DateTimeModule= DateTimeModule()
+    fun provideDateTimeModule(): DateTimeModule = DateTimeModule()
+
+    @Singleton
+    @Provides
+    fun provideCountDownModule(context: Context): CountDownModule = CountDownModule(context)
+
+    @Singleton
+    @Provides
+    fun provideOtpBlocUserModule(
+        context: Context,
+        dialogModule: DialogModule,
+        sharedPrefModule: SharedPrefModule,
+        dateTimeModule: DateTimeModule,
+        countDownModule: CountDownModule
+    ): OtpBlockUserModule = OtpBlockUserModule(
+        context,
+        dialogModule,
+        sharedPrefModule,
+        dateTimeModule,
+        countDownModule
+    )
+
+//    @Singleton
+//    @Provides
+//    fun provideCropFaceModule(): CropFaceModule = CropFaceModule()
+
+
 }

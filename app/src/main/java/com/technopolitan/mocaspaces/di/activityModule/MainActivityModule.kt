@@ -1,5 +1,6 @@
 package com.technopolitan.mocaspaces.di.activityModule
 
+
 import com.technopolitan.mocaspaces.data.remote.MainRemote
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import dagger.Module

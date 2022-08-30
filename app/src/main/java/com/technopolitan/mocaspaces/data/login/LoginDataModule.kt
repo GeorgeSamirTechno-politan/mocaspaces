@@ -11,6 +11,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.SharedPrefKey
 import com.technopolitan.mocaspaces.data.CryptographyManager
+import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
 import com.technopolitan.mocaspaces.modules.ValidationModule
@@ -27,7 +29,9 @@ class LoginDataModule @Inject constructor(
     private var validationModule: ValidationModule,
     private var rxModule: RXModule,
     private var sharedPrefModule: SharedPrefModule,
-    private var fragment: Fragment?
+    private var fragment: Fragment?,
+    private var navigationModule: NavigationModule,
+    private var otpBlockUserModule: OtpBlockUserModule,
 ) {
 
     private lateinit var emailObserver: Observable<String>
@@ -75,6 +79,15 @@ class LoginDataModule @Inject constructor(
         subscribeObservers()
         configBiometric()
         doAuthenticate()
+        clickOnSignUp()
+    }
+
+    private fun clickOnSignUp() {
+        signUpText.setOnClickListener {
+            if (otpBlockUserModule.canAuthenticate(1))
+                navigationModule.navigateTo(R.id.action_login_to_register)
+            else otpBlockUserModule.showBlockedDialog()
+        }
     }
 
     private fun setEmailObserver() {
@@ -135,7 +148,7 @@ class LoginDataModule @Inject constructor(
     )
 
     private fun navigateSignUp() {
-        /// TODO navigate to sign up
+        navigationModule.navigateTo(R.id.action_login_to_register)
     }
 
     private fun configBiometric() {

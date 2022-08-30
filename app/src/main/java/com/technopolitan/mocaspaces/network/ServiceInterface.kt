@@ -4,6 +4,7 @@ package com.technopolitan.mocaspaces.network
 import com.technopolitan.mocaspaces.data.HeaderResponse
 import com.technopolitan.mocaspaces.data.country.CountryResponse
 import com.technopolitan.mocaspaces.data.login.LoginResponse
+import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.data.mobileOTP.ResendCodeRequest
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
@@ -37,6 +38,14 @@ interface ServiceInterface {
     ): Flowable<HeaderResponse<List<CountryResponse>>>
 
     @PUT("v{version}/Lounge_Client/SendVerificationCode")
-    fun resendCode( @Path("version") version: Int = Constants.apiVersion, @Body resendCodeRequest: ResendCodeRequest)
-    : Flowable<HeaderResponse<String>>
+    fun resendCode(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body resendCodeRequest: ResendCodeRequest
+    )
+            : Flowable<HeaderResponse<String>>
+
+    @GET("v{version}/Country/GetAllMemberTypesWithoutPagination")
+    fun memberTypes(
+        @Path("version") version: Int = Constants.apiVersion,
+    ): Flowable<HeaderResponse<List<MemberTypeResponse>>>
 }

@@ -31,8 +31,10 @@ class CheckMobileViewModel @Inject constructor(
         countryTextView: TextView,
         countryArrowDown: ImageView,
         mobileNumberEditText: EditText,
+        signInTextView: TextView,
         button: TransitionButton,
-        callBack: (entity: String) -> Unit
+
+        callBack: (entity: CountryMapper) -> Unit
     ) {
         checkMobileDataModule.init(
             countryDropDownLayout,
@@ -40,6 +42,7 @@ class CheckMobileViewModel @Inject constructor(
             countryTextView,
             countryArrowDown,
             mobileNumberEditText,
+            signInTextView,
             button,
             callBack
         )
@@ -52,5 +55,6 @@ class CheckMobileViewModel @Inject constructor(
     fun initCountryDropDown(countryMapperList: List<CountryMapper>) {
         checkMobileDataModule.setCountryDropDown(countryMapperList)
     }
+
 
 }

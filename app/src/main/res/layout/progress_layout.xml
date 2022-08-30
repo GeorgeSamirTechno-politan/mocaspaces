@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <com.github.ybq.android.spinkit.SpinKitView
-        android:visibility="gone"
+        android:visibility="visible"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/spin_kit"
         android:indeterminate="true"

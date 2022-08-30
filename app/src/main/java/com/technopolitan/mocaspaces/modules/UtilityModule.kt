@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.util.Base64
 import android.view.Window
@@ -169,7 +170,17 @@ class UtilityModule @Inject constructor(
 //        activity.window.decorView.systemUiVisibility = flags
     }
 
+    fun getBitmap(filePath: String): Bitmap {
+        return BitmapFactory.decodeFile(filePath)
+    }
 
+    fun rotateBitmap(source: Bitmap, degrees: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height, matrix, true
+        )
+    }
 
 
 }

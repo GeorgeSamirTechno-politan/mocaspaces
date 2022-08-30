@@ -10,7 +10,6 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentSplashBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.NavigationModule
-import com.technopolitan.mocaspaces.modules.PermissionModule
 import javax.inject.Inject
 
 class SplashFragment : Fragment() {
@@ -22,8 +21,6 @@ class SplashFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
-    @Inject
-    lateinit var permissionModule: PermissionModule
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory()
@@ -41,17 +38,8 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        accessNetworkStatusPermission()
+        navigationModule.navigateTo(R.id.action_splash_to_start)
     }
 
-    private fun accessNetworkStatusPermission() {
-        permissionModule.requestPermission(permissionName = android.Manifest.permission.ACCESS_NETWORK_STATE,
-            requestCode = 1,
-            headerPermissionName = getString(R.string.network_status_permission_header),
-            detailsMessage = getString(R.string.network_Status_permission_message),
-            callBack = {
-                navigationModule.navigateTo(R.id.action_splash_to_start)
-            })
-    }
 
 }

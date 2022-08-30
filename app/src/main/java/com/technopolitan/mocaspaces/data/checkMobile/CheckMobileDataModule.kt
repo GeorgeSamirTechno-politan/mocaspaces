@@ -9,6 +9,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.data.country.CountryDataModule
 import com.technopolitan.mocaspaces.data.country.CountryMapper
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
 import com.technopolitan.mocaspaces.modules.ValidationModule
 import com.technopolitan.mocaspaces.transitionButton.TransitionButton
@@ -24,7 +25,8 @@ class CheckMobileDataModule @Inject constructor(
     private var countryDataModule: CountryDataModule,
     private var context: Context,
     private var validationModule: ValidationModule,
-    private var rxModule: RXModule
+    private var rxModule: RXModule,
+    private var navigationModule: NavigationModule
 ) {
 
     private lateinit var countryDropDownLayout: LinearLayout
@@ -33,8 +35,10 @@ class CheckMobileDataModule @Inject constructor(
     private lateinit var countryArrowDown: ImageView
     private lateinit var mobileNumberEditText: EditText
     private lateinit var mobileObserver: Observable<String>
+    private lateinit var signInTextView: TextView
     private lateinit var button: TransitionButton
-    private lateinit var callBack: (entity: String)-> Unit
+    private lateinit var countryMapperList: List<CountryMapper>
+    private lateinit var callBack: (entity: CountryMapper) -> Unit
 
     fun init(
         countryDropDownLayout: LinearLayout,
@@ -42,27 +46,42 @@ class CheckMobileDataModule @Inject constructor(
         countryTextView: TextView,
         countryArrowDown: ImageView,
         mobileNumberEditText: EditText,
+        signInTextView: TextView,
         button: TransitionButton,
-        callBack: (entity: String)-> Unit
+        callBack: (entity: CountryMapper) -> Unit
     ) {
         this.countryDropDownLayout = countryDropDownLayout
         this.countryImageView = countryImageView
         this.countryTextView = countryTextView
         this.countryArrowDown = countryArrowDown
         this.mobileNumberEditText = mobileNumberEditText
+        this.signInTextView = signInTextView
         this.button = button
         this.callBack = callBack
         initMobileObserver()
-        countryDataModule.init(countryDropDownLayout, countryImageView, countryTextView, countryArrowDown)
+        countryDataModule.init(
+            countryDropDownLayout,
+            countryImageView,
+            countryTextView,
+            countryArrowDown
+        )
         subscribeCountryDropDown()
+        setClickOnSignInTextView()
         buttonChange(false)
     }
 
-    fun setCountryDropDown(countryMapperList: List<CountryMapper>){
+    private fun setClickOnSignInTextView() {
+        signInTextView.setOnClickListener {
+            navigationModule.navigateTo(R.id.action_register_to_login, R.id.nav_host_fragment)
+        }
+    }
+
+    fun setCountryDropDown(countryMapperList: List<CountryMapper>) {
+        this.countryMapperList = countryMapperList
         countryDataModule.setCountryDropDown(countryMapperList)
     }
 
-    private fun subscribeCountryDropDown(){
+    private fun subscribeCountryDropDown() {
         countryDataModule.listenForDropDownObserver().subscribeOn(Schedulers.io())
             .observeOn(
                 AndroidSchedulers.mainThread()
@@ -100,20 +119,25 @@ class CheckMobileDataModule @Inject constructor(
     private fun subscribeMobileObserver(dropDownMapper: DropDownMapper) {
         mobileObserver.subscribe {
             validateMobile(dropDownMapper.description)
-            if(Pattern.matches(dropDownMapper.description, it)){
+            if (Pattern.matches(dropDownMapper.description, it)) {
                 buttonChange(true)
-                button.setOnClickListener { callBack(dropDownMapper.name) }
-            }else  buttonChange(false)
+                button.setOnClickListener { callBack(getCountryMapper(dropDownMapper.id)) }
+            } else buttonChange(false)
         }
     }
 
-    fun getMobileWithCountryCode(countryCode: String, mobileNumber: String) : String{
-        return if(countryCode == "+20"){
-            if(mobileNumber.startsWith("0")){
+    fun getCountryMapper(itemId: Int): CountryMapper {
+        return countryMapperList.filter { it.id == itemId }[0]
+    }
+
+    fun getMobileWithCountryCode(countryCode: String, mobileNumber: String): String {
+        return if (countryCode == "+20") {
+            if (mobileNumber.startsWith("0")) {
                 val newMobile = mobileNumber.removeRange(0, 1)
                 "${countryCode}${newMobile}"
-            }else "${countryCode}${mobileNumber}"
-        }else "${countryCode}${mobileNumber}"
+            } else "${countryCode}${mobileNumber}"
+        } else "${countryCode}${mobileNumber}"
     }
+
 
 }

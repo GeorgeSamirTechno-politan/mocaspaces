@@ -25,6 +25,7 @@ class RegisterFragment : Fragment() {
 
     @Inject
     lateinit var navigationModel: NavigationModule
+
     private lateinit var binding: FragmentRegisterBinding
 
     private lateinit var navHostFragment: NavHostFragment
@@ -59,13 +60,28 @@ class RegisterFragment : Fragment() {
         NavController.OnDestinationChangedListener { controller, destination, arguments ->
             run {
                 when (destination.id) {
-                    R.id.verify_fragment -> updateView(25, R.string.sign_up, View.VISIBLE, null)
+                    R.id.verify_mobile_fragment -> updateView(
+                        25,
+                        R.string.sign_up,
+                        View.VISIBLE,
+                        null
+                    )
                     R.id.mobile_otp_fragment -> updateView(
                         50, R.string.verify_mobile, View.VISIBLE, AppCompatResources.getDrawable(
                             requireContext(),
                             R.drawable.ic_mobile
                         )
                     )
+                    R.id.personal_info_fragment ->
+                        updateView(
+                            50,
+                            R.string.personal_info,
+                            View.VISIBLE,
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_person_round_icon
+                            )
+                        )
                 }
             }
         }

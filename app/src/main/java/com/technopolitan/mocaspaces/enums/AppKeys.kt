@@ -6,10 +6,24 @@ enum class AppKeys {
     Message,
     HeaderMessage,
     SingleClick,
+    RevertColor,
     MobileNumber,
-    Blocked,
-    BlockedDateTime,
-    OTPTrys,
-    OTP;
+    BlockedMobile,
+    BlockedDateTimeMobile,
+    OTPMobileTries,
+    BlockedEmail,
+    BlockedDateTimeEmail,
+    OTPEmailTries,
+    OTP,
+    Day,
+    Month,
+    ImageUri,
+    Year,
+    CountryMapper,
+    CameraPermissionAskedBefore,
+    NetworkStatusPermissionAskedBefore,
+    WriteExternalStoragePermissionAskedBefore,
+    ReceivingSmsPermissionAskedBefore,
+    ReadExternalStoragePermissionAskedBefore;
 
 }

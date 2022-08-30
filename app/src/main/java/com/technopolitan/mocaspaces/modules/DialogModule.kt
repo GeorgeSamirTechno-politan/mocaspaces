@@ -26,6 +26,7 @@ class DialogModule @Inject constructor(
         singleClick: Boolean = true,
         headerMessage: String? = null,
         navHostId: Int? = null,
+        revertColor: Boolean = false,
         callBack: (entity: Boolean) -> Unit,
 
         ) {
@@ -47,6 +48,7 @@ class DialogModule @Inject constructor(
             bundle.putBoolean(
                 AppKeys.SingleClick.name, singleClick
             )
+            bundle.putBoolean(AppKeys.RevertColor.name, revertColor)
             navigationModule.navigateTo(
                 R.id.two_choose_dialog,
                 bundle = bundle,
@@ -56,20 +58,39 @@ class DialogModule @Inject constructor(
         }
     }
 
-    fun showMessageDialog(message: String, headerMessage: String) {
-        showTwoChooseDialogFragment(
-            message = message,
-            positiveBtnText =
-            context.getString(R.string.ok),
-            headerMessage = headerMessage,
-            singleClick = true,
-            navHostId = R.id.nav_host_fragment,
-            negativeBtnText = context.getString(R.string.cancel),
-            callBack = {
-            },
-        )
+    private fun showSingleDialogFragment(
+        message: String,
+        btnText: String? = null,
+        navHostId: Int? = null,
+        callBack: (entity: Boolean) -> Unit,
+
+        ) {
+        if (navigationModule.savedStateHandler(R.id.single_button_dialog) == null) {
+            val bundle = Bundle()
+            bundle.putString(AppKeys.Message.name, message)
+            bundle.putString(AppKeys.PositiveBtnText.name, btnText)
+            navigationModule.navigateTo(
+                R.id.single_button_dialog,
+                bundle = bundle,
+                navHostId = navHostId
+            )
+            subscribeSingleChooseDialog(navHostId = navHostId, callBack = { callBack(it) })
+        }
     }
 
+
+    fun showMessageDialog(
+        message: String = "",
+        btnText: String = context.getString(R.string.ok),
+        callBack: ((entity: Boolean) -> Unit)
+    ) {
+        showSingleDialogFragment(
+            message = message,
+            btnText = btnText,
+            navHostId = R.id.nav_host_fragment,
+            callBack = callBack,
+        )
+    }
 
 
     fun showCloseAppDialog() {
@@ -81,12 +102,14 @@ class DialogModule @Inject constructor(
             singleClick = false,
             navHostId = R.id.nav_host_fragment,
             negativeBtnText = context.getString(R.string.cancel),
+            revertColor = false,
             callBack = {
                 if (it)
                     activity.finishAffinity()
             },
         )
     }
+
 
     private fun subscribeTwoChooseDialog(
         callBack: (entity: Boolean) -> Unit,
@@ -102,6 +125,67 @@ class DialogModule @Inject constructor(
                     if (it != null) {
                         savedState.remove<Boolean>(AppKeys.Message.name)
                         callBack((it))
+                    }
+
+                }
+        }
+    }
+
+    private fun subscribeSingleChooseDialog(
+        callBack: (entity: Boolean) -> Unit,
+        navHostId: Int? = null
+    ) {
+        val initValue: Boolean? = null
+        navigationModule.savedStateHandler(
+            navHostId = navHostId,
+            destinationId = R.id.single_button_dialog
+        )?.let { savedState ->
+            savedState.getLiveData(AppKeys.Message.name, initialValue = initValue)
+                .observe((activity as MainActivity)) {
+                    if (it != null) {
+                        savedState.remove<Boolean>(AppKeys.Message.name)
+                        callBack((it))
+                    }
+
+                }
+        }
+    }
+
+
+    fun showDatePickerDialog(
+        day: Int = 1,
+        month: Int = 1,
+        year: Int = 1,
+        navHostId: Int? = null,
+        callBack: (year: Int, month: Int, day: Int) -> Unit,
+    ) {
+        val bundle = Bundle()
+        bundle.putInt(AppKeys.Day.name, day)
+        bundle.putInt(AppKeys.Year.name, year)
+        bundle.putInt(AppKeys.Month.name, month)
+        navigationModule.navigateTo(R.id.date_picker_dialog, bundle = bundle, navHostId = navHostId)
+        subscribeDatePickerDialog(callBack, navHostId)
+    }
+
+    private fun subscribeDatePickerDialog(
+        callBack: (year: Int, month: Int, day: Int) -> Unit,
+        navHostId: Int? = null
+    ) {
+        val initValue: Boolean? = null
+        navigationModule.savedStateHandler(
+            navHostId = navHostId,
+            destinationId = R.id.date_picker_dialog
+        )?.let { savedState ->
+            savedState.getLiveData(AppKeys.Message.name, initialValue = initValue)
+                .observe((activity as MainActivity)) {
+                    if (it != null) {
+                        savedState.remove<Boolean>(AppKeys.Message.name)
+                        val splitMessage = it.toString().split(",")
+                        callBack(
+                            splitMessage[0].toInt(),
+                            splitMessage[1].toInt(),
+                            splitMessage[2].toInt()
+                        )
                     }
 
                 }

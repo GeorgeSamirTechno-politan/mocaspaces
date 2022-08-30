@@ -5,12 +5,16 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.modules.AppModule
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
+import com.technopolitan.mocaspaces.ui.fragmentUtilities.DatePickerFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment
+import com.technopolitan.mocaspaces.ui.fragmentUtilities.SingleButtonDialogFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
+import com.technopolitan.mocaspaces.ui.personalInfo.PersonalInfoFragment
 import com.technopolitan.mocaspaces.ui.register.RegisterFragment
+import com.technopolitan.mocaspaces.ui.scanningImage.ScanningFragment
 import com.technopolitan.mocaspaces.ui.splash.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import dagger.BindsInstance
@@ -42,4 +46,8 @@ interface ApplicationComponent {
     fun inject(registerFragment: RegisterFragment)
     fun inject(checkMobileFragment: CheckMobileFragment)
     fun inject(mobileOTPFragment: MobileOTPFragment)
+    fun inject(personalInfoFragment: PersonalInfoFragment)
+    fun inject(datePickerFragment: DatePickerFragment)
+    fun inject(singleButtonDialogFragment: SingleButtonDialogFragment)
+    fun inject(scanningFragment: ScanningFragment)
 }

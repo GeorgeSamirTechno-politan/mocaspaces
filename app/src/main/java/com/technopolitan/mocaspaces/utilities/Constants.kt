@@ -30,5 +30,14 @@ class Constants {
 
         /// api const value
         const val apiVersion: Int = 1
+
+        /// permission codes
+        const val cameraPermissionCode: Int = 1
+        const val readExternalStoragePermissionCode: Int = 2
+        const val writeExternalStoragePermissionCode: Int = 3
+        const val receivingSmsPermissionCode: Int = 4
+        const val networkStatusPermissionCode: Int = 5
+        const val pixPermissionRequestCode: Int = 1
+
     }
 }

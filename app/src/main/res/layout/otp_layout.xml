@@ -48,6 +48,7 @@
         android:layout_marginStart="@dimen/_7sdp"
         android:inputType="number"
         android:maxLength="1"
+        android:imeOptions="actionDone"
         android:minWidth="@dimen/_30sdp"
         android:textSize="@dimen/_45sdp" />
 

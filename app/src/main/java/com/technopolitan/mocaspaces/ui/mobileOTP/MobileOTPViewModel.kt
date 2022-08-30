@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.ui.mobileOTP
 
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.LiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
@@ -25,7 +26,8 @@ class MobileOTPViewModel @Inject constructor(
         resendTextView: TextView,
         errorTextView: TextView,
         otp: String,
-        resendCallBack: (entity: Boolean) -> Unit,
+        activityResultLauncher: ActivityResultLauncher<String>,
+        resendCallBack: (entity: Boolean?) -> Unit,
         validOtpCallBack: (entity: Boolean) -> Unit
     ) {
         otpDataModule.init(
@@ -39,8 +41,10 @@ class MobileOTPViewModel @Inject constructor(
             resendTextView,
             errorTextView,
             otp,
+            activityResultLauncher,
             resendCallBack,
-            validOtpCallBack
+            validOtpCallBack,
+            1
         )
     }
 
@@ -50,7 +54,11 @@ class MobileOTPViewModel @Inject constructor(
 
     fun handleCheckMobileApi(): LiveData<ApiStatus<String>> = apiMutableLiveData
 
-    fun updateRemaining(otp: String) {
-        otpDataModule.updateRemaining(otp)
+    fun updateOtp(otp: String) {
+        otpDataModule.updateOtp(otp)
+    }
+
+    fun updatePermissionResult(it: Boolean?) {
+        otpDataModule.updatePermissionResult(it)
     }
 }

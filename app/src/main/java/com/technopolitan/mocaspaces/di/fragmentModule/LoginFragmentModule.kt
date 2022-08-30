@@ -4,10 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.data.login.LoginDataModule
 import com.technopolitan.mocaspaces.data.remote.LoginRemote
-import com.technopolitan.mocaspaces.modules.NetworkModule
-import com.technopolitan.mocaspaces.modules.RXModule
-import com.technopolitan.mocaspaces.modules.SharedPrefModule
-import com.technopolitan.mocaspaces.modules.ValidationModule
+import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
+import com.technopolitan.mocaspaces.modules.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
@@ -27,9 +25,12 @@ class LoginFragmentModule @Inject constructor(private val networkModule: Network
         validationModule: ValidationModule,
         rxModule: RXModule,
         sharedPrefModule: SharedPrefModule,
-        fragment: Fragment?
+        fragment: Fragment?,
+        navigationModule: NavigationModule,
+        otpBlockUserModule: OtpBlockUserModule
     ): LoginDataModule = LoginDataModule(
         context,
-        validationModule, rxModule, sharedPrefModule, fragment
+        validationModule, rxModule, sharedPrefModule, fragment, navigationModule,
+        otpBlockUserModule
     )
 }

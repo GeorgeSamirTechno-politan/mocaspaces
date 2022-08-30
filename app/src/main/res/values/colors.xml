@@ -5,10 +5,20 @@
     <color name="light_black_color">#2C2C2C</color>
     <color name="light_black_color_68">#AD2C2C2C</color>
     <color name="dark_grey_color">#1E1E1E</color>
+    <color name="darker_grey_color">#DDDDDD</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey_color">#C0C0C0</color>
     <color name="yellow_color">#FFE42C</color>
     <color name="error_color">#F54E60</color>
     <color name="light_grey_color">#EEEEEE</color>
+    <color name="grey_hint_text_color">#E6D2D9E5</color>
+    <color name="dark_white_color">#D7D6D6</color>
+
+    <color name="video_counter_color_pix">#9A28CD</color>
+    <color name="primary_color_pix">#9A28CD</color>
+    <color name="primary_light_color_pix">#9A28CD</color>
+    <color name="surface_color_pix">#ffffff</color>
+    <color name="text_color_pix">#FFE42C</color>
+    <color name="blue_grey_color">#FFE42C</color>
 </resources>

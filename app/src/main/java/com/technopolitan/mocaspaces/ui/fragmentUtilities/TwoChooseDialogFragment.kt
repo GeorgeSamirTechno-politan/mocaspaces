@@ -1,10 +1,14 @@
 package com.technopolitan.mocaspaces.ui.fragmentUtilities
 
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentTwoChooseDialogBinding
@@ -15,7 +19,7 @@ import javax.inject.Inject
 
 class TwoChooseDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var twoChooseDialogBinding: FragmentTwoChooseDialogBinding
+    private lateinit var binding: FragmentTwoChooseDialogBinding
 
     @Inject
     lateinit var navigationModule: NavigationModule
@@ -24,6 +28,21 @@ class TwoChooseDialogFragment : BottomSheetDialogFragment() {
         DaggerApplicationComponent.factory()
             .buildDi(context, fragment = this, activity = requireActivity()).inject(this)
         super.onAttach(context)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.setOnShowListener { setupBottomSheet(it) }
+        return dialog
+    }
+
+    private fun setupBottomSheet(dialogInterface: DialogInterface) {
+        val bottomSheetDialog = dialogInterface as BottomSheetDialog
+        val bottomSheet = bottomSheetDialog.findViewById<View>(
+            com.google.android.material.R.id.design_bottom_sheet
+        )
+            ?: return
+        bottomSheet.setBackgroundColor(Color.TRANSPARENT)
     }
 
 //    override fun onStart() {
@@ -45,19 +64,19 @@ class TwoChooseDialogFragment : BottomSheetDialogFragment() {
 //            dialog?.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(android.R.color.transparent)))
 //            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 //        }
-        twoChooseDialogBinding =
+        binding =
             FragmentTwoChooseDialogBinding.inflate(layoutInflater, container, false)
-        return twoChooseDialogBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isCancelable = false
         getDataFromArgument()
-        twoChooseDialogBinding.positiveChooseBtn.setOnClickListener {
+        binding.positiveChooseBtn.setOnClickListener {
             popBack(true)
         }
-        twoChooseDialogBinding.negativeChooseBtn.setOnClickListener {
+        binding.negativeChooseBtn.setOnClickListener {
             popBack(false)
         }
     }
@@ -70,19 +89,19 @@ class TwoChooseDialogFragment : BottomSheetDialogFragment() {
     private fun getDataFromArgument() {
         arguments?.let {
             if (it.getString(AppKeys.PositiveBtnText.name) != null)
-                twoChooseDialogBinding.positiveChooseBtn.text =
+                binding.positiveChooseBtn.text =
                     it.getString(AppKeys.PositiveBtnText.name)
             if (it.getString(AppKeys.NegativeBtnText.name) != null)
-                twoChooseDialogBinding.negativeChooseBtn.text =
+                binding.negativeChooseBtn.text =
                     it.getString(AppKeys.NegativeBtnText.name)
             if (it.getString(AppKeys.Message.name) != null)
-                twoChooseDialogBinding.messageTextView.text = it.getString(AppKeys.Message.name)
+                binding.messageTextView.text = it.getString(AppKeys.Message.name)
             if (it.getString(AppKeys.HeaderMessage.name) != null)
-                twoChooseDialogBinding.headerDialogText.text =
+                binding.headerDialogText.text =
                     it.getString(AppKeys.HeaderMessage.name)
-            else twoChooseDialogBinding.headerDialogText.text = getString(R.string.app_name)
+            else binding.headerDialogText.text = getString(R.string.app_name)
             if (it.getBoolean(AppKeys.SingleClick.name))
-                twoChooseDialogBinding.negativeChooseBtn.visibility = View.GONE
+                binding.negativeChooseBtn.visibility = View.GONE
         }
 
     }

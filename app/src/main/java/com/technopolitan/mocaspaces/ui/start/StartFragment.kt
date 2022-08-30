@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
 import com.technopolitan.mocaspaces.databinding.FragmentStartBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.NavigationModule
@@ -22,6 +23,9 @@ class StartFragment : Fragment() {
 
     @Inject
     lateinit var appUtilityModule: UtilityModule
+
+    @Inject
+    lateinit var blockUserModule: OtpBlockUserModule
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory()
@@ -46,7 +50,9 @@ class StartFragment : Fragment() {
 
     private fun onClickOnSignUp() {
         binding.signUpBtn.setOnClickListener {
-            navigationModule.navigateTo(R.id.action_start_to_register)
+            if (blockUserModule.canAuthenticate(1))
+                navigationModule.navigateTo(R.id.action_start_to_register)
+            else blockUserModule.showBlockedDialog()
         }
     }
 

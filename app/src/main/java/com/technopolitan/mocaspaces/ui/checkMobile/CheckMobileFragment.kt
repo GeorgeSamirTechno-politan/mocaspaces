@@ -39,6 +39,7 @@ class CheckMobileFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
@@ -55,9 +56,7 @@ class CheckMobileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDataToDataModule()
-
         setCountryRequest()
-
     }
 
     private fun setDataToDataModule() {
@@ -67,9 +66,10 @@ class CheckMobileFragment : Fragment() {
             binding.mobileIncludeCheckMobile.countryCodeTextView,
             binding.mobileIncludeCheckMobile.arrowDownCountryImageView,
             binding.mobileIncludeCheckMobile.mobileNumberEditText,
-            binding.verifyButton
+            binding.signInTextView,
+            binding.verifyButton,
         ) {
-            checkMobileRequest(it)
+            checkMobileRequest(it.code)
             listenForCheckMobile(it)
         }
     }
@@ -99,12 +99,19 @@ class CheckMobileFragment : Fragment() {
         )
     }
 
-    private fun listenForCheckMobile(countryCode: String) {
+    private fun listenForCheckMobile(countryMapper: CountryMapper) {
         checkMobileViewModel.handleCheckMobileApi().observe(viewLifecycleOwner) {
-            verifyMobileHandler.handleResponse(it, binding.verifyButton) { response->
+            verifyMobileHandler.handleResponse(it, binding.verifyButton) { response ->
                 val bundle = Bundle()
                 bundle.putString(AppKeys.OTP.name, response)
-                bundle.putString(AppKeys.MobileNumber.name, checkMobileViewModel.getMobile(countryCode, binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()))
+                bundle.putParcelable(AppKeys.CountryMapper.name, countryMapper)
+                bundle.putString(
+                    AppKeys.MobileNumber.name,
+                    checkMobileViewModel.getMobile(
+                        countryMapper.code,
+                        binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
+                    )
+                )
                 navigationModule.navigateTo(R.id.action_verify_to_mobile_otp, bundle = bundle)
             }
         }

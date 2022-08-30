@@ -13,8 +13,9 @@ enum class DateTimeUnits{
     DAYS,
     SECONDS,
     MINUTES,
+    HOURS,
     MILLISECONDS,
-    HOURS
+    Years;
 }
 
 @Module
@@ -65,10 +66,15 @@ class DateTimeModule {
         )
     }
 
-    fun diffInHours(startDate: Date, endDate: Date, dateTimeUnits: DateTimeUnits = DateTimeUnits.HOURS): Int {
+    fun diffInDates(
+        startDate: Date,
+        endDate: Date,
+        dateTimeUnits: DateTimeUnits = DateTimeUnits.HOURS
+    ): Int {
         val diffInMs: Long = startDate.time - endDate.time
         val days = TimeUnit.MILLISECONDS.toDays(diffInMs).toInt()
-        val hours = (TimeUnit.MILLISECONDS.toHours(diffInMs) - TimeUnit.DAYS.toHours(days.toLong())).toInt()
+        val hours =
+            (TimeUnit.MILLISECONDS.toHours(diffInMs) - TimeUnit.DAYS.toHours(days.toLong())).toInt()
         val minutes = (TimeUnit.MILLISECONDS.toMinutes(diffInMs) - TimeUnit.HOURS.toMinutes(
             TimeUnit.MILLISECONDS.toHours(diffInMs)
         )).toInt()
@@ -78,6 +84,8 @@ class DateTimeModule {
             DateTimeUnits.SECONDS.name -> seconds
             DateTimeUnits.MINUTES.name -> minutes
             DateTimeUnits.MILLISECONDS.name -> diffInMs.toInt()
+            DateTimeUnits.HOURS.name -> hours
+            DateTimeUnits.Years.name -> days / 365
             else -> diffInMs.toInt()
         }
 //        return when (dateTimeUnits) {
