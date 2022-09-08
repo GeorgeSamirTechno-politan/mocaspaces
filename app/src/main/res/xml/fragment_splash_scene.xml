@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--    <ConstraintSet android:id="@+id/start">-->
+
+    <!--        &lt;!&ndash;        <Constraint&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:id="@+id/splash_image_view"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:layout_width="50dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:layout_height="50dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:alpha="0"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:scaleType="fitXY"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:src="@drawable/splash_logo_icon"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:tint="@color/colorAccent" />&ndash;&gt;-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/welcome_message_text_view"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_marginStart="@dimen/medium_margin"-->
+    <!--            android:layout_marginEnd="@dimen/medium_margin"-->
+    <!--            android:alpha="0"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textSize="@dimen/medium_text_size"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHeight_percent="0.3"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            tools:text="Welcome Message" />-->
+
+    <!--    </ConstraintSet>-->
+
+    <!--    <ConstraintSet android:id="@+id/end">-->
+
+    <!--        &lt;!&ndash;        <Constraint&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:id="@+id/splash_image_view"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:layout_width="300dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:layout_height="300dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:alpha="1"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:scaleType="fitXY"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:src="@drawable/splash_logo_icon"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            app:tint="@color/colorAccent" />&ndash;&gt;-->
+
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/welcome_message_text_view"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_marginStart="@dimen/medium_margin"-->
+    <!--            android:layout_marginEnd="@dimen/medium_margin"-->
+    <!--            android:alpha="1"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textSize="@dimen/medium_text_size"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHeight_percent="0.3"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            tools:text="Welcome Message" />-->
+    <!--    </ConstraintSet>-->
+
+    <Transition
+        app:autoTransition="animateToEnd"
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="5000"
+        app:layoutDuringTransition="honorRequest"
+        app:motionInterpolator="linear"
+        app:pathMotionArc="startVertical"
+        app:transitionDisable="true"
+        app:transitionFlags="beginOnFirstDraw">
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:scaleX="0.2"
+                android:scaleY="0.2"
+                app:framePosition="10"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.3"
+                android:scaleY="0.3"
+                app:framePosition="20"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.4"
+                android:scaleY="0.4"
+                app:framePosition="30"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                app:framePosition="40"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                app:framePosition="60"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                app:framePosition="70"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:framePosition="80"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="0.9"
+                android:scaleY="0.9"
+                app:framePosition="90"
+                app:motionTarget="@+id/welcome_message_text_view" />
+
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                app:framePosition="100"
+                app:motionTarget="@+id/welcome_message_text_view" />
+        </KeyFrameSet>
+
+    </Transition>
+</MotionScene>

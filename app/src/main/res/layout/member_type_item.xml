@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:paddingEnd="@dimen/_10sdp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/member_type_image_view"
+        style="@style/circle_shape"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:background="@color/accent_color"
+        android:cropToPadding="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_moca"
+        app:contentPadding="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/circle_shape.accent_border"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/member_type_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:textColor="@color/accent_color"
+        app:layout_constraintEnd_toEndOf="@id/member_type_image_view"
+        app:layout_constraintStart_toStartOf="@id/member_type_image_view"
+        app:layout_constraintTop_toBottomOf="@id/member_type_image_view"
+        tools:text="Professional" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

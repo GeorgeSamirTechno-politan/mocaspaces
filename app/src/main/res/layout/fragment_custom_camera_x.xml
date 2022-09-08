@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.customCameraX.CustomCameraXFragment">
+
+    <include
+        android:id="@+id/camera_x_app_bar"
+        layout="@layout/app_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:foreground="#30000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera_x_app_bar" />
+
+    <View
+        android:id="@+id/camera_preview_capture"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_300sdp"
+        android:foreground="@drawable/camera_selected_shape"
+        app:layout_constraintBottom_toTopOf="@id/scan_image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/camera_preview"
+        app:layout_constraintTop_toBottomOf="@id/camera_x_app_bar" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/scan_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:background="@color/accent_color"
+        android:clickable="true"
+        android:cropToPadding="true"
+        android:focusable="true"
+        android:theme="@style/circle_shape"
+        app:contentPadding="@dimen/_5sdp"
+        app:layout_constraintBottom_toTopOf="@id/or_text_view_camera_x"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_scan" />
+
+    <TextView
+        android:id="@+id/or_text_view_camera_x"
+        style="@style/medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:text="@string/or"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintBottom_toTopOf="@id/add_manually_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_manually_btn"
+        style="@style/app_button_style"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginStart="@dimen/_70sdp"
+        android:layout_marginEnd="@dimen/_70sdp"
+        android:text="@string/add_manually"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

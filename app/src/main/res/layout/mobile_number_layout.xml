@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/mobile_include_progress"
+        layout="@layout/progress_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/mobile_number_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stork_dark_grey"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/country_drop_down_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingStart="@dimen/_9sdp"
+            android:paddingTop="8dp"
+            android:paddingEnd="@dimen/_9sdp"
+            android:paddingBottom="8dp">
+
+
+            <ImageView
+                android:id="@+id/arrow_down_country_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_down" />
+
+            <ImageView
+                android:id="@+id/country_image_view"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_egypt" />
+
+            <TextView
+                android:id="@+id/country_code_text_view"
+                style="@style/regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                tools:text="+20" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/dark_grey_color" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mobile_number_edit_text"
+            style="@style/edit_text_style.black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:imeOptions="actionDone"
+            android:drawableEnd="@drawable/ic_checkmark"
+            android:drawableTint="@color/accent_color"
+            android:hint="@string/mobile_number"
+            tools:text="010 1555 4444" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

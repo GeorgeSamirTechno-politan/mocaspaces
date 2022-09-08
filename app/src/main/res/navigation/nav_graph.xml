@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/splash_fragment">
+
+
+    <dialog
+        android:id="@+id/single_button_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.SingleButtonDialogFragment"
+        tools:layout="@layout/fragment_two_choose_dialog" />
+
+
+    <dialog
+        android:id="@+id/two_choose_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment"
+        tools:layout="@layout/fragment_two_choose_dialog" />
+
+
+    <dialog
+        android:id="@+id/date_picker_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.DatePickerFragment"
+        tools:layout="@layout/fragment_date_picker" />
+
+    <dialog
+        android:id="@+id/scanning_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.scanningImage.ScanningFragment"
+        android:label="@string/scanning"
+        tools:layout="@layout/fragment_scanning" />
+
+    <fragment
+        android:id="@+id/no_internet_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment"
+        tools:layout="@layout/fragment_no_internet" />
+
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splash_to_start"
+            app:destination="@id/start_fragment"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/start_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.start.StartFragment"
+        android:label="start"
+        tools:layout="@layout/fragment_start">
+
+        <action
+            android:id="@+id/action_start_to_login"
+            app:destination="@id/login_fragment"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+        <action
+            android:id="@+id/action_start_to_register"
+            app:destination="@id/register_fragment"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.register.RegisterFragment"
+        tools:layout="@layout/fragment_register"
+        android:label="@string/register">
+
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.login.LoginFragment"
+        android:label="login"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/register_fragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_login_to_custom_camera_x"
+            app:destination="@id/camera_x_fragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:name="com.technopolitan.mocaspaces.ui.customCameraX.CustomCameraXFragment"
+        tools:layout="@layout/fragment_custom_camera_x"
+        android:id="@+id/camera_x_fragment"/>
+</navigation>

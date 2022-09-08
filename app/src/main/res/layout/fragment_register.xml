@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.register.RegisterFragment">
+
+    <ImageView
+        android:id="@+id/moca_check_mail_image_view"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:src="@drawable/ic_moca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/accent_color" />
+
+
+    <ImageView
+        android:id="@+id/step_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/step_name_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moca_check_mail_image_view"
+        app:tint="@color/accent_color" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/step_name_text_view"
+        style="@style/medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="@string/sign_up_"
+        android:textColor="@color/accent_color"
+        android:textSize="@dimen/_22sdp"
+        app:layout_constraintStart_toEndOf="@id/step_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/moca_check_mail_image_view" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_count_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:indeterminate="false"
+        android:theme="@style/Widget.Material3.LinearProgressIndicator"
+        app:indeterminateAnimationType="disjoint"
+        app:indicatorColor="@color/accent_color"
+        app:indicatorDirectionLinear="startToEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/step_name_text_view"
+        app:trackColor="@color/light_grey_color"
+        app:trackCornerRadius="@dimen/_25sdp"
+        app:trackThickness="@dimen/_5sdp" />
+
+    <!--   <ScrollView-->
+    <!--       android:layout_width="match_parent"-->
+    <!--       android:layout_height="0dp"-->
+    <!--       app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--       >-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/register_nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+        app:navGraph="@navigation/register_nav_graph"
+        app:layout_constraintTop_toBottomOf="@id/progress_count_register"
+           />
+    <!--   </ScrollView>-->
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

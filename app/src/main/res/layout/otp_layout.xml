@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/otp_first_edit_text"
+        style="@style/lexend_deca_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="1"
+        android:minWidth="@dimen/_30sdp"
+        android:nextFocusUp="@id/otp_second_edit_text"
+        android:textSize="@dimen/_45sdp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/otp_second_edit_text"
+        style="@style/lexend_deca_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:inputType="number"
+        android:maxLength="1"
+        android:minWidth="@dimen/_30sdp"
+        android:nextFocusUp="@id/otp_third_edit_text"
+        android:textSize="@dimen/_45sdp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/otp_third_edit_text"
+        style="@style/lexend_deca_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:inputType="number"
+        android:maxLength="1"
+        android:minWidth="@dimen/_30sdp"
+        android:nextFocusUp="@id/otp_fourth_edit_text"
+        android:textSize="@dimen/_45sdp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/otp_fourth_edit_text"
+        style="@style/lexend_deca_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:inputType="number"
+        android:maxLength="1"
+        android:imeOptions="actionDone"
+        android:minWidth="@dimen/_30sdp"
+        android:textSize="@dimen/_45sdp" />
+
+</LinearLayout>

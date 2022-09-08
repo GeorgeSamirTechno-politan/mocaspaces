@@ -1,0 +1,120 @@
+<resources>
+    <!-- Different styles for input box. -->
+    <string name="style_square">square_box</string>
+    <string name="style_rounded">rounded_box</string>
+    <string name="style_underline">underline</string>
+    <string name="style_rounded_underline">rounded_underline</string>
+    <string name="mask_character">\u2022</string>
+
+    //network status permission
+    <string name="network_status_permission">Network status permission</string>
+    <string name="network_Status_permission_message">In order to use app. we require to allow access to network status\n
+    to check whether you have internet or not</string>
+    <string name="network_Status_setting_message"><![CDATA[access network status permission has been denied forever/nYou must you like go to setting to enable it?]]></string>
+
+    // camera permission
+    <string name="camera_permission_message">In order to change your profile image you must allow camera permission\nDo you want to proceed?</string>
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_setting_message"><![CDATA[camera permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
+
+    // sms permission
+    <string name="sms_permission">SMS Permission</string>
+    <string name="sms_permission_message">In order for fast accessing otp from your SMS you must allow SMS permission\nDo you want to proceed?</string>
+    <string name="sms_permission_setting_message"><![CDATA[SMS permission has been denied forever\nwould must you like go to setting to enable it?]]></string>
+
+    // write external storage permission
+    <string name="write_external_storage">Write external storage</string>
+    <string name="write_external_storage_message">In order to change your profile you must allow files permission\nDo you want to proceed?</string>
+    <string name="write_external_storage_permission_setting_message"><![CDATA[Wright media & files permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
+
+    // read external storage permission
+    <string name="read_external_storage">Read external storage</string>
+    <string name="read_external_storage_message">In order to change your profile you must allow read files permission\nDo you want to proceed?</string>
+    <string name="read_external_storage_setting_message"><![CDATA[Read file & media permission has been denied forever\nWould you like go to setting to enable it?]]></string>
+    <string name="permission_header_dialog">Core fundamental are based on these permissions</string>
+
+    <string name="app_name">mocaspaces</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="my_workspace_coffee_assistant"><![CDATA[My Workspace & Coffee Assistant]]></string>
+    <string name="_2021_copolitan_all_right_reserved">©2021 Copolitan. All rights reserved</string>
+    <string name="hello">Hello,</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="continueText">Continue</string>
+    <string name="or_sign_in_with">Or Sign In With</string>
+    <string name="biometric_login">Biometric Login</string>
+    <string name="do_not_have_account">Don\'t have an account?</string>
+    <string name="sign_up_under_line"><u>Sign Up</u></string>
+    <string name="share_message">Share with</string>
+    <string name="home">Home</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="my_passes">My Passes</string>
+    <string name="notification">Notification</string>
+    <string name="my_profile">My Profile</string>
+    <string name="loading">Loading</string>
+    <string name="please_wait">Please wait</string>
+    <string name="close_app">Close moca</string>
+    <string name="close_app_message">Are you sure you want to exist moca?</string>
+    <string name="ok">OK</string>
+    <string name="close">close</string>
+
+    <string name="connection_lost">Connection Lost!</string>
+    <string name="please_check_your_connection_and_swipe_down_to_try_again">Please check your connection and\nswipe down to try again.</string>
+    <string name="email_required">Email required</string>
+    <string name="required">required</string>
+    <string name="prompt_info_title">moca spaces</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">moca is using Android biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
+    <string name="sign_up_">Sign Up!</string>
+    <string name="register">register</string>
+    <string name="verify_mobile">Verify mobile</string>
+    <string name="please_enter_your_mobile_number">Please enter your mobile number</string>
+    <string name="mobile_number">mobile number</string>
+    <string name="verify">Verify</string>
+    <string name="a_verification_code_will_be_sent_on_this_mobile_number">A verification code will be sent on\nthis mobile number</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="sign_in"><u>Sign In</u></string>
+    <string name="please_upload_a_clear_picture_of_your_face">Please upload a clear picture\nof your face.</string>
+    <string name="error">Error</string>
+    <string name="invalide_mobile_number">Invalid mobile number</string>
+    <string name="we_have_sent_you_a_verification_code_on">We have sent you a verification code on</string>
+    <string name="change_number">Change Number</string>
+    <string name="remaining">Remaining %1$s</string>
+    <string name="resend"><u>Resend</u></string>
+    <string name="wrong_verification_code">Wrong verification code. please try again</string>
+    <string name="mobile_otp">Mobile Otp</string>
+
+
+    <string name="please_enter_the_verification_code_above">Please enter the verification code above</string>
+    <string name="otp_send_block_message">You have been blocked from receiving SMS to this number for 2 hours</string>
+    <string name="warning">Warning</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="i_am_a">I am a</string>
+    <string name="company">Company</string>
+    <string name="job_title">Job Title</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="create_account">Create Account</string>
+
+
+    <string name="personal_info">Personal Info</string>
+    <string name="confirm">Confirm</string>
+    <string name="birth_date_error_message">Date of birth must be bigger than 16 years</string>
+    <string name="try_again">Try Again</string>
+    <string name="scanning">Scanning</string>
+    <string name="success_request">Success</string>
+    <string name="add_manually">Add Manually</string>
+    <string name="or">Or</string>
+    <string name="scan">Scan</string>
+</resources>
