@@ -127,7 +127,7 @@
     </fragment>
 
     <fragment
-        android:name="com.technopolitan.mocaspaces.ui.customCameraX.CustomCameraXFragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.CustomCameraXFragment"
         tools:layout="@layout/fragment_custom_camera_x"
         android:id="@+id/camera_x_fragment"/>
 </navigation>

@@ -1,11 +1,13 @@
 package com.technopolitan.mocaspaces.modules
 
+import com.technopolitan.mocaspaces.R
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.media.MediaPlayer
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
@@ -13,7 +15,6 @@ import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Size
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.core.*
@@ -31,6 +32,7 @@ import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
+
 @Module
 class CameraXModule @Inject constructor(
     private var context: Context, private var alertModule: CustomAlertModule,
@@ -47,6 +49,8 @@ class CameraXModule @Inject constructor(
     private lateinit var croppedView: View
     private lateinit var createdPath: String
     private lateinit var callBack: (path: String)-> Unit
+    private lateinit var camera: Camera
+    private lateinit var mPlayer: MediaPlayer
 
     fun create() {
         processCameraProviderFuture = ProcessCameraProvider.getInstance(context)
@@ -64,6 +68,7 @@ class CameraXModule @Inject constructor(
         this.captureImageView = captureImageView
         this.croppedView = croppedView
         this.callBack =callBack
+        mPlayer = MediaPlayer.create(context, R.raw.take_picture_sound)
         processCameraProviderFuture.addListener({
             processCameraProvider = processCameraProviderFuture.get()
             previewView.post { setupCamera() }
@@ -78,7 +83,7 @@ class CameraXModule @Inject constructor(
 
     private fun setupCamera() {
         processCameraProvider.unbindAll()
-        val camera = processCameraProvider.bindToLifecycle(
+        camera = processCameraProvider.bindToLifecycle(
             lifecycleOwner,
             CameraSelector.DEFAULT_BACK_CAMERA,
             buildPreviewUseCase(),
@@ -160,11 +165,10 @@ class CameraXModule @Inject constructor(
 //
 //    }
 
-
-
     private fun capturePhoto(capture: ImageCapture) {
         val executor = Executors.newSingleThreadExecutor()
         captureImageView.setOnClickListener {
+            mPlayer.start()
             capture.takePicture(
                 outputFileOptions(),
                 executor,
@@ -197,7 +201,6 @@ class CameraXModule @Inject constructor(
         object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 val msg = "Photo capture succeeded: ${outputFileResults.savedUri}"
-
                 outputFileResults.savedUri?.let {
                     uri = it
                     pikItModule.init(it) { path ->
@@ -209,9 +212,6 @@ class CameraXModule @Inject constructor(
 
                     }
                 }
-
-
-
                 Log.d(javaClass.name, msg)
             }
 

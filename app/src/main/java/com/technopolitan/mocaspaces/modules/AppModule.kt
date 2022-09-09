@@ -146,19 +146,7 @@ class AppModule {
 //    @Provides
 //    fun provideBitmapModule(): BitmapModule = BitmapModule()
 
-    @Singleton
-    @Provides
-    fun provideCameraXModule(
-        context: Context,
-        alertModule: CustomAlertModule,
-        activity: Activity,
-        pickItModule: PikItModule
-    ): CameraXModule = CameraXModule(
-        context,
-        alertModule,
-        activity,
-        pickItModule
-    )
+
 
 
 }

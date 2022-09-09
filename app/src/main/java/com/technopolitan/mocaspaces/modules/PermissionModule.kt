@@ -2,8 +2,10 @@ package com.technopolitan.mocaspaces.modules
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.permissionx.guolindev.PermissionMediator
@@ -23,9 +25,10 @@ class PermissionModule @Inject constructor(
     private var sharedPrefModule: SharedPrefModule
 ) {
 
-//    private lateinit var activityResult: ActivityResultLauncher<String>
+    //    private lateinit var activityResult: ActivityResultLauncher<String>
     private lateinit var permissionName: String
-//    private var requestCode: Int = 1
+
+    //    private var requestCode: Int = 1
 //    private lateinit var headerPermissionName: String
 //    private lateinit var detailsMessage: String
 //    private lateinit var settingDetailsMessage: String
@@ -115,14 +118,24 @@ class PermissionModule @Inject constructor(
                 if (allGranted) {
                     callBack(true)
                 } else {
-                    alertModule.showMessageDialog("These permissions are denied: $deniedList") {
-
-                    }
+                    alertModule.showMessageDialog("These permissions are denied: $deniedList") {}
                 }
             }
     }
 
-//    private fun requestPermission() {
+    private fun doCheckPermissionIfDenied(deniedList :List<String>){
+//        var granted = true
+//        deniedList.forEach {
+//            if (!checkCustomPermission(it))
+//                granted = false
+//        }
+//        if (granted)
+//            callBack(true)
+//        else
+//
+    }
+
+    //    private fun requestPermission() {
 //        when {
 //            checkCustomPermission(permissionName) -> callBack(true)
 //            hasAskedBefore() -> showDescriptionDialogForPermission()
@@ -142,12 +155,12 @@ class PermissionModule @Inject constructor(
 //    }
 //
 //
-//    private fun checkCustomPermission(permissionName: String): Boolean {
-//        return ContextCompat.checkSelfPermission(
-//            context,
-//            permissionName
-//        ) == PackageManager.PERMISSION_GRANTED
-//    }
+    private fun checkCustomPermission(permissionName: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            context,
+            permissionName
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 //
 //    private fun showDialogToOpenSetting() {
 //        dialogModule.showTwoChooseDialogFragment(

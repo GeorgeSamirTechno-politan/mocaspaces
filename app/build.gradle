@@ -139,4 +139,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-mlkit-face-detection:17.1.0'
     implementation 'id.zelory:compressor:3.0.1'
     implementation 'com.guolindev.permissionx:permissionx:1.5.1'
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 }
