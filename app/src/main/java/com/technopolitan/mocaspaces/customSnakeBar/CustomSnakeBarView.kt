@@ -14,7 +14,7 @@ class CustomSnakeBarView @JvmOverloads constructor(
     defaultStyle: Int = 0
 ) : ConstraintLayout(context, attributeSet, defaultStyle), ContentViewCallback {
 
-   lateinit var messageText: TextView
+   var messageText: TextView
 
     init {
         View.inflate(context, R.layout.custom_alert_layout, this)
