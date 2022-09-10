@@ -103,7 +103,7 @@ class CheckMobileFragment : Fragment() {
         checkMobileViewModel.handleCheckMobileApi().observe(viewLifecycleOwner) {
             verifyMobileHandler.handleResponse(it, binding.verifyButton) { response ->
                 val bundle = Bundle()
-                bundle.putString(AppKeys.OTP.name, response)
+                bundle.putString(AppKeys.OTP.name, "1234")
                 bundle.putParcelable(AppKeys.CountryMapper.name, countryMapper)
                 bundle.putString(
                     AppKeys.MobileNumber.name,

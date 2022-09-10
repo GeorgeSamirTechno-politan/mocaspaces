@@ -44,7 +44,7 @@ interface ServiceInterface {
     )
             : Flowable<HeaderResponse<String>>
 
-    @GET("v{version}/Country/GetAllMemberTypesWithoutPagination")
+    @GET("v{version}/MemberType/GetAllMemberTypesWithoutPagination")
     fun memberTypes(
         @Path("version") version: Int = Constants.apiVersion,
     ): Flowable<HeaderResponse<List<MemberTypeResponse>>>

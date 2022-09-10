@@ -217,6 +217,7 @@
             style="@style/base_card_view_style.without_shadow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginHorizontal="@dimen/_30sdp"
             android:animateLayoutChanges="true"
             app:cardBackgroundColor="@color/dark_white_color"
@@ -284,8 +285,9 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:enabled="true"
-                android:focusable="true"
-                android:inputType="text" />
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="none" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
