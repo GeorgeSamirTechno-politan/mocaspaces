@@ -57,7 +57,7 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun initMemberType() {
-        memberTypeViewModel.getMemberTypes()
+        memberTypeViewModel.setMemberTypeRequest()
         memberTypeViewModel.getMemberTypes().observe(viewLifecycleOwner) {
             memberTypeResponseHandler.handleResponse(
                 it,

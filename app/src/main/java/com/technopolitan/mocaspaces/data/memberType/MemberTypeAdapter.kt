@@ -46,7 +46,7 @@ class MemberTypeAdapter @Inject constructor(
         RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
         private lateinit var item: DropDownMapper
         fun bind(item: DropDownMapper) {
-            this.item
+            this.item = item
             glideModule.loadImage(item.image, itemBinding.memberTypeImageView)
             itemBinding.memberTypeTextView.text = item.name
             if (itemIndex == bindingAdapterPosition) {
@@ -64,7 +64,7 @@ class MemberTypeAdapter @Inject constructor(
         override fun onClick(v: View?) {
             itemIndex = bindingAdapterPosition
             itemClickCallBack(item)
-            notifyItemChanged(bindingAdapterPosition)
+            notifyDataSetChanged()
         }
 
     }

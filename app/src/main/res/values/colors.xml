@@ -6,7 +6,6 @@
     <color name="primary_light_color_pix">#9A28CD</color>
     <color name="surface_color_pix">#ffffff</color>
     <color name="text_color_pix">#FFE42C</color>
-    <color name="blue_grey_color">#FFE42C</color>
     <!--    end of pix style colors-->
 
     <!--    start of image picker colors-->
@@ -29,8 +28,6 @@
     <color name="light_grey_color">#EEEEEE</color>
     <color name="grey_hint_text_color">#E6D2D9E5</color>
     <color name="dark_white_color">#D7D6D6</color>
-
-
-
+    <color name="blue_grey_color">#E6D2D9E5</color>
     <color name="toast_divider_color">#472C2C33</color>
 </resources>
