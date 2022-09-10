@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white"
+    tools:context=".ui.studentVerify.StudentVerifyFragment">
+
+    <TextView
+        android:id="@+id/student_verify_text_view"
+        style="@style/medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_17sdp"
+        android:text="@string/student_verify_message"
+        android:textAlignment="textStart"
+        android:textColor="@color/dark_grey_color_80_percent"
+        android:textSize="@dimen/_9sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/front_student_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_17sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:elevation="10dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardCornerRadius="@dimen/_50sdp"
+        app:layout_constraintTop_toBottomOf="@id/student_verify_text_view"
+        app:rippleColor="@color/accent_color"
+        app:strokeColor="@color/grey_color_30_percent"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_15sdp">
+
+            <ImageView
+                android:id="@+id/front_card_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_student_card_front"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/grey_color_30_percent" />
+
+            <TextView
+                android:id="@+id/step_1_text_view"
+                style="@style/medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@string/step_1"
+                android:textColor="@color/dark_grey_color_30_percent"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@id/front_card_image_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/university_card_front_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/university_card_front"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="@id/step_1_text_view"
+                app:layout_constraintTop_toBottomOf="@id/step_1_text_view" />
+
+            <ImageView
+                android:id="@+id/upload_front_card_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_upload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/back_student_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_17sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:elevation="10dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardCornerRadius="@dimen/_50sdp"
+        app:layout_constraintTop_toBottomOf="@id/front_student_card"
+        app:rippleColor="@color/accent_color"
+        app:strokeColor="@color/grey_color_30_percent"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_15sdp">
+
+            <ImageView
+                android:id="@+id/back_card_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_student_card_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/grey_color_30_percent" />
+
+            <TextView
+                android:id="@+id/step_2_text_view"
+                style="@style/medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@string/step_2"
+                android:textColor="@color/dark_grey_color_30_percent"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@id/back_card_image_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/university_card_back_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/university_card_back"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="@id/step_2_text_view"
+                app:layout_constraintTop_toBottomOf="@id/step_2_text_view" />
+
+            <ImageView
+                android:id="@+id/upload_back_card_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_upload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/expire_date_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_17sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:elevation="10dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardCornerRadius="@dimen/_50sdp"
+        app:layout_constraintTop_toBottomOf="@id/back_student_card"
+        app:rippleColor="@color/accent_color"
+        app:strokeColor="@color/grey_color_30_percent"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_15sdp">
+
+            <ImageView
+                android:id="@+id/expire_date_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_card_expire"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/grey_color_30_percent" />
+
+            <TextView
+                android:id="@+id/step_3_text_view"
+                style="@style/medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@string/step_3"
+                android:textColor="@color/dark_grey_color_30_percent"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@id/expire_date_image_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/expire_date_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expiry_date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="@id/step_3_text_view"
+                app:layout_constraintTop_toBottomOf="@id/step_3_text_view" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expire_date_text_input_layout"
+        style="@style/text_input_layout_style.dark_grey.drop_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:focusable="true"
+        android:hint="@string/expiry_date"
+        android:textColorHint="@color/grey_color_90_percent"
+        app:endIconCheckable="false"
+        app:endIconDrawable="@drawable/ic_calender"
+        app:endIconMode="custom"
+        app:endIconTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/expire_date_card">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expire_date_edit_text"
+            style="@style/edit_text_style.black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:enabled="true"
+            android:focusable="false"
+            android:inputType="none" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.technopolitan.mocaspaces.transitionButton.TransitionButton
+        android:id="@+id/student_verify_next_btn"
+        style="@style/progress_button_style.accent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_60sdp"
+        android:layout_marginEnd="@dimen/_60sdp"
+        android:text="@string/next"
+        app:layout_constraintBottom_toTopOf="@id/skip_text_view" />
+
+    <TextView
+        android:id="@+id/skip_text_view"
+        style="@style/medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:text="@string/skip"
+        android:textColor="@color/accent_color"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

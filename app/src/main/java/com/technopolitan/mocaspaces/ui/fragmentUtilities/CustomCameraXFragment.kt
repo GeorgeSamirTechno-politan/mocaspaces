@@ -39,20 +39,21 @@ class CustomCameraXFragment : Fragment() {
     lateinit var cameraXModule: CameraXModule
 
     private lateinit var binding: FragmentCustomCameraXBinding
+    private var isFront: Boolean = true
 
     private val startForImagePickerResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-                val resultCode = result.resultCode
-                val data = result.data
+            val resultCode = result.resultCode
+            val data = result.data
 
-                if (resultCode == Activity.RESULT_OK) {
-                    //Image Uri will not be null for RESULT_OK
-                    val fileUri = data?.data!!
-                    pikItModule.init(fileUri) {
-                        handleImage(it)
-                    }
+            if (resultCode == Activity.RESULT_OK) {
+                //Image Uri will not be null for RESULT_OK
+                val fileUri = data?.data!!
+                pikItModule.init(fileUri) {
+                    handleImage(it)
                 }
             }
+        }
 
 
     override fun onAttach(context: Context) {
@@ -76,6 +77,7 @@ class CustomCameraXFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getArgument()
         initView()
         initPermissions()
     }
@@ -91,7 +93,7 @@ class CustomCameraXFragment : Fragment() {
             navigationModule.popBack()
         }
         binding.addManuallyBtn.setOnClickListener {
-            imagePickerModule.init (startForImagePickerResult) {
+            imagePickerModule.init(startForImagePickerResult) {
                 handleImage(it)
             }
         }
@@ -116,11 +118,17 @@ class CustomCameraXFragment : Fragment() {
 
     private fun handleImage(path: String) {
         Log.d(javaClass.name, "handleImage: $path")
-        navigationModule.savedStateHandler(R.id.action_login_to_custom_camera_x)
-            ?.set(AppKeys.Message.name, path)
+        navigationModule.savedStateHandler(R.id.action_student_verification_to_camera_x)
+            ?.set(if (isFront) AppKeys.FrontCardPath.name else AppKeys.BackCardPath.name, path)
         navigationModule.popBack()
     }
 
+    private fun getArgument() {
+        arguments?.let {
+            if (it.containsKey(AppKeys.FrontCardPath.name))
+                isFront = it.getBoolean(AppKeys.FrontCardPath.name)
+        }
+    }
 
 
 }
