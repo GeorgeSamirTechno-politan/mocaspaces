@@ -30,4 +30,8 @@
     <color name="dark_white_color">#D7D6D6</color>
     <color name="blue_grey_color">#E6D2D9E5</color>
     <color name="toast_divider_color">#472C2C33</color>
+    <color name="grey_color_30_percent">#4D2C2C4D</color>
+    <color name="dark_grey_color_80_percent">#CC2C2C2C</color>
+    <color name="dark_grey_color_30_percent">#4D2C2C2C</color>
+    <color name="grey_color_90_percent">#E6CED2D9</color>
 </resources>

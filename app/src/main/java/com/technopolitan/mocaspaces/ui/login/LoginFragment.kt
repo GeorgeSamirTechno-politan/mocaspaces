@@ -53,9 +53,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun initView(){
-        binding.forgetPasswordTextView.setOnClickListener{
-            navigationModule.navigateTo(R.id.action_login_to_custom_camera_x)
-        }
+//        binding.forgetPasswordTextView.setOnClickListener{
+//            navigationModule.navigateTo(R.id.action_login_to_custom_camera_x)
+//        }
     }
 
     private fun configLoginDataModule() {

@@ -18,6 +18,7 @@ import com.technopolitan.mocaspaces.ui.register.RegisterFragment
 import com.technopolitan.mocaspaces.ui.scanningImage.ScanningFragment
 import com.technopolitan.mocaspaces.ui.splash.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
+import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -52,4 +53,5 @@ interface ApplicationComponent {
     fun inject(singleButtonDialogFragment: SingleButtonDialogFragment)
     fun inject(scanningFragment: ScanningFragment)
     fun inject(customCameraXFragment: CustomCameraXFragment)
+    fun inject(studentVerifyFragment: StudentVerifyFragment)
 }

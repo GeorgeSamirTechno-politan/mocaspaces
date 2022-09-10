@@ -117,4 +117,14 @@
     <string name="add_manually">Add Manually</string>
     <string name="or">Or</string>
     <string name="scan">Scan</string>
+    <string name="student_verify_message">Please upload your proof of enrolment (University Card) to an accredited University. This will give you access to discounted seasonal Bundles for Students only.</string>
+    <string name="step_1">Step 1</string>
+    <string name="university_card_front">University card/ Front</string>
+    <string name="step_2">Step 2</string>
+    <string name="university_card_back">University card/ Back</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="step_3">Step 3</string>
+    <string name="skip"><u>Skip</u></string>
+    <string name="next">Next</string>
+    <string name="verify_student">Verify Student</string>
 </resources>
