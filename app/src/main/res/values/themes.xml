@@ -275,4 +275,6 @@
     <!--        <item name="android:paddingTop">@dimen/medium_margin</item>-->
     <!--        <item name="android:paddingBottom">@dimen/medium_margin</item>-->
     <!--    </style>-->
+
+<!--    <style name="custom_day_picker" parent=""-->
 </resources>

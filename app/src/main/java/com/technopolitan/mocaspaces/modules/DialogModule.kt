@@ -155,14 +155,17 @@ class DialogModule @Inject constructor(
     fun showDatePickerDialog(
         day: Int = 1,
         month: Int = 1,
-        year: Int = 1,
+        year: Int = 2000,
         navHostId: Int? = null,
+        maxYear: Int? = null,
         callBack: (year: Int, month: Int, day: Int) -> Unit,
     ) {
         val bundle = Bundle()
         bundle.putInt(AppKeys.Day.name, day)
         bundle.putInt(AppKeys.Year.name, year)
         bundle.putInt(AppKeys.Month.name, month)
+        if(maxYear != null)
+            bundle.putInt(AppKeys.MaxYear.name, month)
         navigationModule.navigateTo(R.id.date_picker_dialog, bundle = bundle, navHostId = navHostId)
         subscribeDatePickerDialog(callBack, navHostId)
     }
