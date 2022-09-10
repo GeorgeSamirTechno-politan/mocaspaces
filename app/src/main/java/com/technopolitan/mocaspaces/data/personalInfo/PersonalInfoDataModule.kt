@@ -111,12 +111,12 @@ class PersonalInfoDataModule @Inject constructor(
     }
 
     private fun listenForAnimeCountDown() {
-        countDownModule.startCount(3) {
+        countDownModule.startCount(2) {
             if (it) {
                 if (!stopAnime) {
                     when (startAnime) {
                         true -> endAnime()
-                        else -> startAnim()
+                        else -> endAnime()
                     }
                 }
             }

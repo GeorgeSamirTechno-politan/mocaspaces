@@ -18,6 +18,11 @@
 
 
     <dialog
+        android:id="@+id/date_picker_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.DatePickerFragment"
+        tools:layout="@layout/fragment_date_picker" />
+
+    <dialog
         android:id="@+id/two_choose_dialog"
         android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment"
         tools:layout="@layout/fragment_two_choose_dialog" />
