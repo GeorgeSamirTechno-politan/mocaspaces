@@ -84,7 +84,7 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun initDataModule() {
-        viewModel.initDataModule(binding, mobileNumber, countryMapper, activityResultLauncher) {
+        viewModel.initDataModule(binding, mobileNumber, countryMapper) {
             /// TODO missing create account api
         }
     }

@@ -282,24 +282,24 @@
 
     <!--    <style name="custom_day_picker" parent=""-->
 
-    <style name="wheel_picker_style">
-        <item name="wheel_curved">true</item>
-        <item name="wheel_indicator">true</item>
-        <item name="wheel_item_text_color">@color/black</item>
-        <item name="wheel_indicator_color">@color/light_black_color</item>
-        <item name="wheel_indicator_size">@dimen/_1sdp</item>
-        <item name="wheel_item_space">@dimen/_5sdp</item>
-        <item name="wheel_item_text_size">@dimen/_12sdp</item>
-        <item name="wheel_selected_item_position">0</item>
-        <item name="wheel_selected_item_text_color">@android:color/transparent</item>
-        <item name="wheel_visible_item_count">5</item>
-        <item name="wheel_cyclic">false</item>
-        <item name="wheel_atmospheric">true</item>
-        <item name="wheel_curtain">true</item>
-        <item name="wheel_curtain_color">@color/light_black_color</item>
-        <item name="wheel_item_align">center</item>
-        <item name="android:paddingTop">@dimen/_15sdp</item>
-        <item name="android:paddingBottom">@dimen/_15sdp</item>
-        <item name="wheel_font_path">@font/gt_regular</item>
-    </style>
+<!--    <style name="wheel_picker_style">-->
+<!--        <item name="curved">true</item>-->
+<!--        <item name="use_indicator">false</item>-->
+<!--        <item name="unselected_item_text_color">@color/black</item>-->
+<!--        <item name="indicator_color">@color/light_black_color</item>-->
+<!--        <item name="indicator_size">@dimen/_1sdp</item>-->
+<!--        <item name="item_space">@dimen/_5sdp</item>-->
+<!--        <item name="unselected_item_text_size">@dimen/_19sdp</item>-->
+<!--        <item name="selected_item_position">0</item>-->
+<!--        <item name="selected_item_text_color">@color/dark_grey_color_30_percent</item>-->
+<!--        <item name="visible_item_count">5</item>-->
+<!--        <item name="cyclic">true</item>-->
+<!--        <item name="atmospheric">true</item>-->
+<!--        <item name="curtain">true</item>-->
+<!--        <item name="curtain_color">@color/light_black_color</item>-->
+<!--        <item name="item_align">center</item>-->
+<!--        <item name="android:paddingTop">@dimen/_15sdp</item>-->
+<!--        <item name="android:paddingBottom">@dimen/_15sdp</item>-->
+<!--        <item name="font_path">@font/gt_regular</item>-->
+<!--    </style>-->
 </resources>

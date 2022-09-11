@@ -59,14 +59,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.technopolitan.mocaspaces.customWheelPicker.WheelDatePicker
+            <com.technopolitan.mocaspaces.wheelPicker.widgets.WheelDatePicker
                 android:id="@+id/date_picker_wheel_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/wheel_picker_style"
+                app:layout_constraintBottom_toTopOf="@id/confirm_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/confirm_button"
                 app:layout_constraintTop_toBottomOf="@id/cancel_text_view" />
 
 

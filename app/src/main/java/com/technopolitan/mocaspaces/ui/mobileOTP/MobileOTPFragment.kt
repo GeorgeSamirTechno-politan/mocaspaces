@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.country.CountryMapper
+import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.databinding.FragmentMobileOTPBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.enums.AppKeys
@@ -29,9 +30,11 @@ class MobileOTPFragment : Fragment() {
 
     @Inject
     lateinit var resendCodeHandler: ApiResponseModule<String>
-    private lateinit var mobileNumber: String
-    private lateinit var otp: String
-    private lateinit var countryMapper: CountryMapper
+
+    @Inject
+    lateinit var verifyMobileHandler: ApiResponseModule<String>
+    private lateinit var registerRequestMapper: RegisterRequestMapper
+
     private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
 //            viewModel.updatePermissionResult(it)
@@ -53,11 +56,12 @@ class MobileOTPFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mobileNumberTextView.text = mobileNumber
+        binding.mobileNumberTextView.text = registerRequestMapper.mobile
         initDataModule()
     }
 
-    private fun initDataModule(){
+    private fun initDataModule() {
+        binding.progressOtpResend.spinKit.visibility = View.GONE
         binding.progressOtpMobile.spinKit.visibility = View.GONE
         viewModel.initOTPDataModule(binding.mobileNumberTextView,
             binding.changeNumberTextView,
@@ -68,42 +72,48 @@ class MobileOTPFragment : Fragment() {
             binding.remainingTextView,
             binding.resendTextView,
             binding.errorTextView,
-            otp,
-            activityResultLauncher,
             { resendCode() }
-        ) { navigateToRegisterForm() }
+        ) { validateOtp(it) }
+    }
+
+    private fun validateOtp(otp: String) {
+        viewModel.verifyMobileOtp(registerRequestMapper.mobile, otp)
+        viewModel.handleVerifyMobileOtp().observe(viewLifecycleOwner) {
+            verifyMobileHandler.handleResponse(
+                it,
+                binding.progressOtpMobile.spinKit,
+                binding.otpIncludeLayout.root
+            ) {
+                navigateToRegisterForm()
+            }
+        }
     }
 
     private fun navigateToRegisterForm() {
         val bundle = Bundle()
-        bundle.putString(AppKeys.MobileNumber.name, mobileNumber)
-        bundle.putParcelable(AppKeys.CountryMapper.name, countryMapper)
+        bundle.putParcelable(AppKeys.RegisterRequestMapper.name, registerRequestMapper)
         navigationModule.navigateTo(R.id.action_mobile_otp_personal_info, bundle = bundle)
     }
 
     private fun resendCode() {
-        viewModel.checkMobile(mobileNumber)
+        viewModel.checkMobile(registerRequestMapper.mobile)
         viewModel.handleCheckMobileApi().observe(
             viewLifecycleOwner,
         ) {
             resendCodeHandler.handleResponse(
                 it,
-                binding.progressOtpMobile.spinKit,
+                binding.progressOtpResend.spinKit,
                 binding.resendTextView
             ) {
-                viewModel.updateOtp(otp)
+//                viewModel.updateOtp(otp)
             }
         }
     }
 
     private fun getOtpFromArgument() {
         arguments?.let {
-            if (it.containsKey(AppKeys.MobileNumber.name))
-                mobileNumber = it.getString(AppKeys.MobileNumber.name)!!
-            if (it.containsKey(AppKeys.OTP.name))
-                otp = it.getString(AppKeys.OTP.name)!!
-            if (it.containsKey(AppKeys.CountryMapper.name))
-                countryMapper = it.getParcelable(AppKeys.CountryMapper.name)!!
+            if (it.containsKey(AppKeys.RegisterRequestMapper.name))
+                registerRequestMapper = it.getParcelable(AppKeys.RegisterRequestMapper.name)!!
         }
 
     }

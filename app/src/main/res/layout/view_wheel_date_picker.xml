@@ -2,15 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
+    android:weightSum="3"
     android:orientation="horizontal">
 
-    <com.technopolitan.mocaspaces.customWheelPicker.WheelYearPicker
+    <com.technopolitan.mocaspaces.wheelPicker.widgets.WheelYearPicker
         android:id="@+id/wheel_date_picker_year"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        app:wheel_curved="true"
+        app:wheel_visible_item_count="7"
+        app:wheel_item_space="@dimen/_10sdp"
+        app:wheel_curtain_color="@color/black"
+        app:wheel_indicator_color="@android:color/transparent"
+        app:wheel_item_text_color="@color/unselected_wheel_text_color"
+        app:wheel_selected_item_text_color="@color/selected_wheel_text_color"
+        app:wheel_item_text_size="@dimen/_13sdp"
+        app:wheel_atmospheric="true"
+        app:wheel_curtain="false"
+        app:wheel_cyclic="false"
+        app:wheel_item_align="center"
+        app:wheel_same_width="false"
+
         android:layout_height="wrap_content" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/wheel_date_picker_year_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,12 +37,27 @@
         android:text="@string/Year"
         android:textColor="#536D8A" />
 
-    <com.technopolitan.mocaspaces.customWheelPicker.WheelMonthPicker
+    <com.technopolitan.mocaspaces.wheelPicker.widgets.WheelMonthPicker
         android:id="@+id/wheel_date_picker_month"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        app:wheel_curved="true"
+        app:wheel_visible_item_count="7"
+        app:wheel_item_space="@dimen/_10sdp"
+        app:wheel_curtain_color="@color/black"
+        app:wheel_indicator_color="@android:color/transparent"
+        app:wheel_item_text_color="@color/unselected_wheel_text_color"
+        app:wheel_selected_item_text_color="@color/selected_wheel_text_color"
+        app:wheel_item_text_size="@dimen/_13sdp"
+        app:wheel_atmospheric="true"
+        app:wheel_curtain="false"
+        app:wheel_cyclic="true"
+        app:wheel_item_align="center"
+        app:wheel_same_width="false"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/wheel_date_picker_month_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,12 +66,27 @@
         android:text="@string/Month"
         android:textColor="#536D8A" />
 
-    <com.technopolitan.mocaspaces.customWheelPicker.WheelDayPicker
+    <com.technopolitan.mocaspaces.wheelPicker.widgets.WheelDayPicker
         android:id="@+id/wheel_date_picker_day"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        app:wheel_curved="true"
+        app:wheel_visible_item_count="7"
+        app:wheel_item_space="@dimen/_10sdp"
+        app:wheel_curtain_color="@color/black"
+        app:wheel_indicator_color="@android:color/transparent"
+        app:wheel_item_text_color="@color/unselected_wheel_text_color"
+        app:wheel_selected_item_text_color="@color/selected_wheel_text_color"
+        app:wheel_item_text_size="@dimen/_13sdp"
+        app:wheel_atmospheric="true"
+        app:wheel_curtain="false"
+        app:wheel_cyclic="true"
+        app:wheel_item_align="center"
+        app:wheel_same_width="false"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/wheel_date_picker_day_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

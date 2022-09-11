@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.country.CountryDataModule
 import com.technopolitan.mocaspaces.data.country.CountryMapper
+import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.databinding.FragmentCheckMobileBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.enums.AppKeys
@@ -38,6 +39,8 @@ class CheckMobileFragment : Fragment() {
 
     @Inject
     lateinit var navigationModule: NavigationModule
+
+    private val registerRequestMapper: RegisterRequestMapper = RegisterRequestMapper()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -102,15 +105,9 @@ class CheckMobileFragment : Fragment() {
         checkMobileViewModel.handleCheckMobileApi().observe(viewLifecycleOwner) {
             verifyMobileHandler.handleResponse(it, binding.verifyButton) { response ->
                 val bundle = Bundle()
-                bundle.putString(AppKeys.OTP.name, "1234")
-                bundle.putParcelable(AppKeys.CountryMapper.name, countryMapper)
-                bundle.putString(
-                    AppKeys.MobileNumber.name,
-                    checkMobileViewModel.getMobile(
-                        countryMapper.code,
-                        binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
-                    )
-                )
+                registerRequestMapper.counterMapper = countryMapper
+                registerRequestMapper.mobile = binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
+                bundle.putParcelable(AppKeys.RegisterRequestMapper.name, registerRequestMapper)
                 navigationModule.navigateTo(R.id.action_verify_to_mobile_otp, bundle = bundle)
             }
         }

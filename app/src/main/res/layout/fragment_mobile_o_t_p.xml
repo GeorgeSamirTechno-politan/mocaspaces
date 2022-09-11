@@ -68,6 +68,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/change_number_text_view" />
 
+        <include layout="@layout/progress_layout"
+            android:id="@+id/progress_otp_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/change_number_text_view"/>
+
         <TextView
             android:id="@+id/please_enter_verification_code_text_view"
             android:layout_width="wrap_content"
@@ -120,7 +129,7 @@
             app:layout_constraintTop_toBottomOf="@id/error_text_view" />
 
         <include
-            android:id="@+id/progress_otp_mobile"
+            android:id="@+id/progress_otp_resend"
             layout="@layout/progress_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

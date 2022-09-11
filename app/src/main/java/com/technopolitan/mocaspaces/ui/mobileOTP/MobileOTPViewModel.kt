@@ -4,16 +4,22 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import com.google.android.gms.common.api.Api
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.remote.CheckMobileRemote
+import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpRemote
 import com.technopolitan.mocaspaces.data.shared.OTPDataModule
 import javax.inject.Inject
 
 class MobileOTPViewModel @Inject constructor(
     private var otpDataModule: OTPDataModule,
-    private var checkMobileRemote: CheckMobileRemote
+    private var checkMobileRemote: CheckMobileRemote,
+    private var verifyMobileOtpRemote: VerifyMobileOtpRemote
 ) : BaseViewModel<String>() {
+
+    private var verifyMobileOtpMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
 
     fun initOTPDataModule(
         mobileTextView: TextView,
@@ -25,10 +31,8 @@ class MobileOTPViewModel @Inject constructor(
         remainingTextView: TextView,
         resendTextView: TextView,
         errorTextView: TextView,
-        otp: String,
-        activityResultLauncher: ActivityResultLauncher<String>,
         resendCallBack: (entity: Boolean?) -> Unit,
-        validOtpCallBack: (entity: Boolean) -> Unit
+        validOtpCallBack: (entity: String) -> Unit
     ) {
         otpDataModule.init(
             mobileTextView,
@@ -40,8 +44,6 @@ class MobileOTPViewModel @Inject constructor(
             remainingTextView,
             resendTextView,
             errorTextView,
-            otp,
-            activityResultLauncher,
             resendCallBack,
             validOtpCallBack,
             1
@@ -54,9 +56,15 @@ class MobileOTPViewModel @Inject constructor(
 
     fun handleCheckMobileApi(): LiveData<ApiStatus<String>> = apiMutableLiveData
 
-    fun updateOtp(otp: String) {
-        otpDataModule.updateOtp(otp)
+    fun verifyMobileOtp(mobile: String, otp: String) {
+        this.verifyMobileOtpMediator = verifyMobileOtpRemote.verifyOtp(mobile, otp)
     }
+
+    fun handleVerifyMobileOtp(): LiveData<ApiStatus<String>> = verifyMobileOtpMediator
+
+//    fun updateOtp(otp: String) {
+//        otpDataModule.updateOtp(otp)
+//    }
 
 //    fun updatePermissionResult(it: Boolean?) {
 //        otpDataModule.updatePermissionResult(it)

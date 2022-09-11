@@ -41,10 +41,8 @@ class OTPDataModule @Inject constructor(
     private lateinit var thirdOtpObserver: Observable<String>
     private lateinit var fourthOtpObserver: Observable<String>
     private lateinit var resendCallBack: (entity: Boolean) -> Unit
-    private lateinit var validOtpCallBack: (entity: Boolean) -> Unit
+    private lateinit var validOtpCallBack: (entity: String) -> Unit
     private lateinit var shakeAnimation: Animation
-    private lateinit var otp: String
-    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     /*
     type 1 for mobile
@@ -63,10 +61,8 @@ class OTPDataModule @Inject constructor(
         countDownTextView: TextView,
         resendTextView: TextView,
         errorTextView: TextView,
-        otp: String,
-        activityResultLauncher: ActivityResultLauncher<String>,
         resendCallBack: (entity: Boolean) -> Unit,
-        validOtpCallBack: (entity: Boolean) -> Unit,
+        validOtpCallBack: (entity: String) -> Unit,
         type: Int
     ) {
         this.errorTextView = errorTextView
@@ -76,13 +72,11 @@ class OTPDataModule @Inject constructor(
         this.otpSecondEditText = otpSecondEditText
         this.otpThirdEditText = otpThirdEditText
         this.otpFourthEditText = otpFourthEditText
-        this.otp = otp
         this.countDownTextView = countDownTextView
         this.countDownText = resendTextView
         this.resendCallBack = resendCallBack
         this.validOtpCallBack = validOtpCallBack
         this.type = type
-        this.activityResultLauncher = activityResultLauncher
         initObservers()
         otpBlockUserModule.init(type, resendTextView, countDownTextView, resendCallBack)
         shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
@@ -93,7 +87,7 @@ class OTPDataModule @Inject constructor(
 
     private fun handleSmsReceiver() {
         if (type == 1) {
-            smsIdentifierModule.init(activityResultLauncher) {
+            smsIdentifierModule.init() {
                 otpFirstEditText.setText(it.substring(0))
                 otpSecondEditText.setText(it.substring(1))
                 otpThirdEditText.setText(it.substring(2))
@@ -187,27 +181,31 @@ class OTPDataModule @Inject constructor(
 
     private fun validateOtp() {
         when {
-            isSameOtp() && noAllEmpty() -> {
+//            isSameOtp() &&
+                    noAllEmpty() -> {
                 otpBlockUserModule.resetTries(false)
                 otpBlockUserModule.stopCount()
                 clearAnimationEditText()
-                validOtpCallBack(true)
+                validOtpCallBack(otp())
             }
             !noAllEmpty() -> clearAnimationEditText()
             else -> animateErrorEditText()
         }
     }
 
-    private fun isSameOtp(): Boolean =
-        (otpFirstEditText.text.toString() + otpSecondEditText.text.toString() + otpThirdEditText.text.toString() +
-                otpFourthEditText.text.toString()) == otp
+    private fun otp(): String = otpFirstEditText.text.toString() + otpSecondEditText.text.toString() + otpThirdEditText.text.toString() +
+                otpFourthEditText.text.toString()
+
+    private fun isSameOtp(): Boolean = true
+//        (otpFirstEditText.text.toString() + otpSecondEditText.text.toString() + otpThirdEditText.text.toString() +
+//                otpFourthEditText.text.toString()) == otp
 
     private fun noAllEmpty(): Boolean =
         otpFirstEditText.text.toString().isNotEmpty() && otpSecondEditText.text.toString()
             .isNotEmpty() && otpThirdEditText.text.toString().isNotEmpty() &&
                 otpFourthEditText.text.toString().isNotEmpty()
 
-    private fun animateErrorEditText() {
+    fun animateErrorEditText() {
         otpFirstEditText.startAnimation(shakeAnimation)
         otpSecondEditText.startAnimation(shakeAnimation)
         otpThirdEditText.startAnimation(shakeAnimation)
@@ -219,9 +217,9 @@ class OTPDataModule @Inject constructor(
         errorTextView.visibility = View.GONE
     }
 
-    fun updateOtp(otp: String) {
-        this.otp = otp
-    }
+//    fun updateOtp(otp: String) {
+//        this.otp = otp
+//    }
 
 //    fun updatePermissionResult(it: Boolean?) {
 //        smsIdentifierModule.updatePermissionResult(it)

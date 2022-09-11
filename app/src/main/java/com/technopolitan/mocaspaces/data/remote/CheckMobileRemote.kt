@@ -16,6 +16,7 @@ class CheckMobileRemote @Inject constructor(
 
     private val verifyMobileMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
 
+
     fun verifyMobile(mobile: String): MediatorLiveData<ApiStatus<String>> {
         verifyMobileMediator.value = LoadingStatus()
         val source: LiveData<ApiStatus<String>> = LiveDataReactiveStreams.fromPublisher(
@@ -39,5 +40,6 @@ class CheckMobileRemote @Inject constructor(
             SuccessStatus(data = it.data!!, message = "")
         else FailedStatus(it.message)
     }
+
 
 }

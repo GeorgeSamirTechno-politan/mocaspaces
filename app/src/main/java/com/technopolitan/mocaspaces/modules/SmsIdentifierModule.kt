@@ -14,14 +14,11 @@ class SmsIdentifierModule @Inject constructor(
 ) {
 
     private lateinit var callback: (mobile: String) -> Unit
-    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
     fun init(
-        activityResultLauncher: ActivityResultLauncher<String>,
         callback: (otp: String) -> Unit,
 
         ) {
         this.callback = callback
-        this.activityResultLauncher = activityResultLauncher
         permissionModule.init(
 //            activityResultLauncher,
             android.Manifest.permission.RECEIVE_SMS,

@@ -165,7 +165,7 @@ class DialogModule @Inject constructor(
         bundle.putInt(AppKeys.Year.name, year)
         bundle.putInt(AppKeys.Month.name, month)
         if(maxYear != null)
-            bundle.putInt(AppKeys.MaxYear.name, month)
+            bundle.putInt(AppKeys.MaxYear.name, maxYear)
         navigationModule.navigateTo(R.id.date_picker_dialog, bundle = bundle, navHostId = navHostId)
         subscribeDatePickerDialog(callBack, navHostId)
     }

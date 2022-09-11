@@ -34,4 +34,7 @@
     <color name="dark_grey_color_80_percent">#CC2C2C2C</color>
     <color name="dark_grey_color_30_percent">#4D2C2C2C</color>
     <color name="grey_color_90_percent">#E6CED2D9</color>
+
+    <color name="unselected_wheel_text_color">#992C2C2C</color>
+    <color name="selected_wheel_text_color">#2C2C2C</color>
 </resources>

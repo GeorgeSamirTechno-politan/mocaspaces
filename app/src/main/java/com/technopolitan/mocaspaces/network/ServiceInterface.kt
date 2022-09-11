@@ -3,9 +3,11 @@ package com.technopolitan.mocaspaces.network
 
 import com.technopolitan.mocaspaces.data.HeaderResponse
 import com.technopolitan.mocaspaces.data.country.CountryResponse
+import com.technopolitan.mocaspaces.data.gender.GenderResponse
 import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
+import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -41,4 +43,14 @@ interface ServiceInterface {
     fun memberTypes(
         @Path("version") version: Int = Constants.apiVersion,
     ): Flowable<HeaderResponse<List<MemberTypeResponse>>>
+
+    @POST("v{version}/UserRegister/CheckOTPMobile")
+    fun verifyMobileOtp(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body verifyMobileOtpRequest: VerifyMobileOtpRequest
+    ): Flowable<HeaderResponse<String>>
+
+    @GET("v{version}/UserRegister/GetAllGenders")
+    fun getAllGender(@Path("version") version: Int = Constants.apiVersion)
+    : Flowable<HeaderResponse<List<GenderResponse>>>
 }

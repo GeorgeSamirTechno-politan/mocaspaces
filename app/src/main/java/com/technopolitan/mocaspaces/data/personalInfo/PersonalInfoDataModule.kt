@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.data.personalInfo
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.animation.Animation
@@ -13,6 +14,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.data.country.CountryMapper
+import com.technopolitan.mocaspaces.data.gender.GenderMapper
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeAdapter
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
@@ -53,7 +55,7 @@ class PersonalInfoDataModule @Inject constructor(
     /// PUBLISHERS
     private var memberTypeItemPublisher: PublishSubject<DropDownMapper> = PublishSubject.create()
     private var imagePublisher: PublishSubject<Bitmap> = PublishSubject.create()
-    private var genderPublisher: PublishSubject<String> = PublishSubject.create()
+    private var genderPublisher: PublishSubject<GenderMapper> = PublishSubject.create()
     private var dateOfBirthPublisher: PublishSubject<String> = PublishSubject.create()
 
     /// OBSERVABLE
@@ -62,6 +64,7 @@ class PersonalInfoDataModule @Inject constructor(
     private lateinit var emailObservable: Observable<String>
     private lateinit var jobTitleObservable: Observable<String>
     private lateinit var companyObservable: Observable<String>
+    private lateinit var genderList: List<GenderMapper>
 
 
     fun init(
@@ -69,23 +72,30 @@ class PersonalInfoDataModule @Inject constructor(
         createAccountCallBack: (entity: Boolean) -> Unit,
         mobileNumber: String,
         countryMapper: CountryMapper,
-        activityResultLauncher: ActivityResultLauncher<String>
+
     ) {
         this.binding = binding
         this.createAccountCallBack = createAccountCallBack
         this.countryMapper = countryMapper
         this.mobileNumber = mobileNumber
-        this.activityResultLauncher = activityResultLauncher
-        genderPublisher.onNext(context.getString(R.string.male))
+        binding.genderLayout.visibility = View.GONE
         enableButton(false)
         initAnimation()
         clickOnImage()
         clickBirthDate()
-        initClickOnGender()
+
         initMobileView()
         initImageObservable()
         initObservables()
 
+    }
+
+    fun setGenderList(genderList: List<GenderMapper>){
+        this.genderList = genderList
+        genderPublisher.onNext(genderList[0])
+        binding.firstGenderText.text = genderList[0].genderName
+        binding.secondGenderText.text = genderList[1].genderName
+        initClickOnGender()
     }
 
     private fun initAnimation() {
@@ -124,11 +134,16 @@ class PersonalInfoDataModule @Inject constructor(
     }
 
     private fun initClickOnGender() {
-        binding.maleTextView.setOnClickListener {
-            genderPublisher.onNext(binding.maleTextView.text.toString())
+
+        binding.firstGenderText.setOnClickListener {
+            genderPublisher.onNext(genderList[0])
+            binding.firstGenderText.setBackgroundColor(context.getColor(R.color.accent_color))
+            binding.secondGenderText.setBackgroundColor(context.getColor(R.color.dark_white_color))
         }
-        binding.femaleTextView.setOnClickListener {
-            genderPublisher.onNext(binding.femaleTextView.text.toString())
+        binding.secondGenderText.setOnClickListener {
+            genderPublisher.onNext(genderList[1])
+            binding.firstGenderText.setBackgroundColor(context.getColor(R.color.dark_white_color))
+            binding.secondGenderText.setBackgroundColor(context.getColor(R.color.accent_color))
         }
     }
 
@@ -155,7 +170,9 @@ class PersonalInfoDataModule @Inject constructor(
     }
 
     private fun showDatePickerDialog() {
-        dialogModule.showDatePickerDialog { year, month, day ->
+        val maxYear = Calendar.getInstance().get(Calendar.YEAR) - 16
+        Log.d(javaClass.name, "showDatePickerDialog: $maxYear", )
+        dialogModule.showDatePickerDialog (maxYear = maxYear){ year, month, day ->
             run {
                 if (dateTimeModule.diffInDates(
                         Calendar.getInstance().time,
@@ -266,16 +283,7 @@ class PersonalInfoDataModule @Inject constructor(
             .observeOn(
                 AndroidSchedulers.mainThread()
             ).subscribe {
-                when (it) {
-                    context.getString(R.string.male) -> {
-                        binding.maleTextView.setBackgroundColor(context.getColor(R.color.accent_color))
-                        binding.femaleTextView.setBackgroundColor(context.getColor(R.color.dark_white_color))
-                    }
-                    else -> {
-                        binding.maleTextView.setBackgroundColor(context.getColor(R.color.dark_white_color))
-                        binding.femaleTextView.setBackgroundColor(context.getColor(R.color.accent_color))
-                    }
-                }
+
             }
     }
 
@@ -290,7 +298,7 @@ class PersonalInfoDataModule @Inject constructor(
             genderPublisher,
             dateOfBirthPublisher
         ) { _: String, _: String, _: String, memberType: DropDownMapper, _: String,
-            _: String, _: String, _: String ->
+            _: String, _: GenderMapper, _: String ->
             return@combineLatest validateAll(memberType.id)
         }.subscribe {
             enableButton(it)

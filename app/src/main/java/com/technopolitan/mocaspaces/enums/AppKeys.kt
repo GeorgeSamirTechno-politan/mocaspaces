@@ -23,6 +23,7 @@ enum class AppKeys {
     CountryMapper,
     FrontCardPath,
     BackCardPath,
+    RegisterRequestMapper,
     CameraPermissionAskedBefore,
     NetworkStatusPermissionAskedBefore,
     WriteExternalStoragePermissionAskedBefore,

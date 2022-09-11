@@ -17,15 +17,13 @@ class PersonalInfoViewModel @Inject constructor(
         binding: FragmentPersonalInfoBinding,
         mobileNumber: String,
         countryMapper: CountryMapper,
-        activityResultLauncher: ActivityResultLauncher<String>,
         createAccountCallBack: (entity: Boolean) -> Unit,
     ) {
         personalInfoDataModule.init(
             binding,
             createAccountCallBack,
             mobileNumber,
-            countryMapper,
-            activityResultLauncher
+            countryMapper
         )
     }
 
