@@ -63,9 +63,10 @@ class PersonalInfoFragmentModule @Inject constructor(private val networkModule: 
     @Singleton
     @Provides
     fun providePixModule(
-        context: Context, permissionModule: PermissionModule,
+        permissionModule: PermissionModule,
         navigationModule: NavigationModule, activity: Activity,
-        fragment: Fragment?
+        fragment: Fragment?,
+        pikItModule: PikItModule,
     ): PixModule =
-        PixModule(context, permissionModule, navigationModule, activity, fragment)
+        PixModule(permissionModule, navigationModule, activity, fragment, pikItModule)
 }

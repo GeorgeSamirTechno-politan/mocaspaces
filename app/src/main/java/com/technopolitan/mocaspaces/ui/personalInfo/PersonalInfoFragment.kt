@@ -31,8 +31,8 @@ class PersonalInfoFragment : Fragment() {
     private lateinit var mobileNumber: String
 
     private val activityResultLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            viewModel.updatePermissionResult(it)
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+//            viewModel.updatePermissionResult(it)
         }
 
 

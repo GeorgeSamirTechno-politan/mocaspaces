@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.animation.Animation
@@ -146,8 +147,19 @@ class TransitionButton : MaterialButton {
                 })
             }
             StopAnimationStyle.EXPAND -> {
-                currentState = State.IDLE
-                onAnimationStopEndCallBack(null)
+                startWidthAnimation(initialWidth, object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+//                        text = context.getString(R.string.success_request)
+                        text = btnText
+                        currentState = State.IDLE
+                        isClickable = true
+                        onAnimationStopEndCallBack(null)
+//                        handler.postDelayed({
+//
+//                        }, 500)
+                    }
+                })
+
 //                startScaleAnimation(object : AnimationListenerAdapter() {
 //                    override fun onAnimationEnd(animation: Animation) {
 //                        super.onAnimationEnd(animation)
@@ -204,7 +216,7 @@ class TransitionButton : MaterialButton {
         text = message
         isClickable = false
         startColorAnimation(defaultColor, errorColor)
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             text = initialText
             isClickable = true
             startColorAnimation(errorColor, defaultColor)

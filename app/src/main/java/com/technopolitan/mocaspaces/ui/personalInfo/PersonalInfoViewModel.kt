@@ -17,7 +17,7 @@ class PersonalInfoViewModel @Inject constructor(
         binding: FragmentPersonalInfoBinding,
         mobileNumber: String,
         countryMapper: CountryMapper,
-        activityResultLauncher: ActivityResultLauncher<Array<String>>,
+        activityResultLauncher: ActivityResultLauncher<String>,
         createAccountCallBack: (entity: Boolean) -> Unit,
     ) {
         personalInfoDataModule.init(
@@ -33,9 +33,9 @@ class PersonalInfoViewModel @Inject constructor(
         personalInfoDataModule.initMemberTypeAdapter(list)
     }
 
-    fun updatePermissionResult(it: Map<String, Boolean>) {
-        personalInfoDataModule.updatePermissionResult(it)
-    }
+//    fun updatePermissionResult(it: Boolean) {
+//        personalInfoDataModule.updatePermissionResult(it)
+//    }
 
 
 }

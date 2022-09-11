@@ -2,9 +2,7 @@ package com.technopolitan.mocaspaces.modules
 
 import android.content.Context
 import androidx.activity.result.ActivityResultLauncher
-import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.interfaces.OnSmsCatchListener
-import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import javax.inject.Inject
 
@@ -25,13 +23,8 @@ class SmsIdentifierModule @Inject constructor(
         this.callback = callback
         this.activityResultLauncher = activityResultLauncher
         permissionModule.init(
-            activityResultLauncher,
+//            activityResultLauncher,
             android.Manifest.permission.RECEIVE_SMS,
-            Constants.receivingSmsPermissionCode,
-            context.getString(
-                R.string.sms_permission
-            ),
-            context.getString(R.string.sms_permission_message)
         ) {
             readSMS()
         }
@@ -50,10 +43,10 @@ class SmsIdentifierModule @Inject constructor(
 
     }
 
-    fun updatePermissionResult(granted: Boolean?) {
-        granted?.let {
-            permissionModule.handlePermissionCallBack(it)
-        }
-    }
+//    fun updatePermissionResult(granted: Boolean?) {
+//        granted?.let {
+//            permissionModule.handlePermissionCallBack(it)
+//        }
+//    }
 
 }

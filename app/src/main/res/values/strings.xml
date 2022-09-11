@@ -6,6 +6,39 @@
     <string name="style_rounded_underline">rounded_underline</string>
     <string name="mask_character">\u2022</string>
 
+    <!--    wheel picker-->
+    <string name="Day">Day</string>
+    <string name="Month">Month</string>
+    <string name="Year">Year</string>
+    <!--    default wheel pickerr-->
+
+    //network status permission
+    <string name="network_status_permission">Network status permission</string>
+    <string name="network_Status_permission_message">In order to use app. we require to allow access to network status\n
+    to check whether you have internet or not</string>
+    <string name="network_Status_setting_message"><![CDATA[access network status permission has been denied forever/nYou must you like go to setting to enable it?]]></string>
+
+    // camera permission
+    <string name="camera_permission_message">In order to change your profile image you must allow camera permission\nDo you want to proceed?</string>
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_setting_message"><![CDATA[camera permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
+
+    // sms permission
+    <string name="sms_permission">SMS Permission</string>
+    <string name="sms_permission_message">In order for fast accessing otp from your SMS you must allow SMS permission\nDo you want to proceed?</string>
+    <string name="sms_permission_setting_message"><![CDATA[SMS permission has been denied forever\nwould must you like go to setting to enable it?]]></string>
+
+    // write external storage permission
+    <string name="write_external_storage">Write external storage</string>
+    <string name="write_external_storage_message">In order to change your profile you must allow files permission\nDo you want to proceed?</string>
+    <string name="write_external_storage_permission_setting_message"><![CDATA[Wright media & files permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
+
+    // read external storage permission
+    <string name="read_external_storage">Read external storage</string>
+    <string name="read_external_storage_message">In order to change your profile you must allow read files permission\nDo you want to proceed?</string>
+    <string name="read_external_storage_setting_message"><![CDATA[Read file & media permission has been denied forever\nWould you like go to setting to enable it?]]></string>
+    <string name="permission_header_dialog">Core fundamental are based on these permissions</string>
+
     <string name="app_name">mocaspaces</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -86,30 +119,20 @@
     <string name="birth_date_error_message">Date of birth must be bigger than 16 years</string>
     <string name="try_again">Try Again</string>
     <string name="scanning">Scanning</string>
+    <string name="success_request">Success</string>
+    <string name="add_manually">Add Manually</string>
+    <string name="or">Or</string>
+    <string name="scan">Scan</string>
+    <string name="student_verify_message">Please upload your proof of enrolment (University Card) to an accredited University. This will give you access to discounted seasonal Bundles for Students only.</string>
+    <string name="step_1">Step 1</string>
+    <string name="university_card_front">University card/ Front</string>
+    <string name="step_2">Step 2</string>
+    <string name="university_card_back">University card/ Back</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="step_3">Step 3</string>
+    <string name="skip"><u>Skip</u></string>
+    <string name="next">Next</string>
+    <string name="verify_student">Verify Student</string>
 
-    //network status permission
-    <string name="network_status_permission">Network status permission</string>
-    <string name="network_Status_permission_message">In order to use app. we require to allow access to network status\n
-    to check whether you have internet or not</string>
-    <string name="network_Status_setting_message"><![CDATA[access network status permission has been denied forever/nYou must you like go to setting to enable it?]]></string>
 
-    // camera permission
-    <string name="camera_permission_message">In order to change your profile image you must allow camera permission\nDo you want to proceed?</string>
-    <string name="camera_permission">Camera Permission</string>
-    <string name="camera_permission_setting_message"><![CDATA[camera permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
-
-    // sms permission
-    <string name="sms_permission">SMS Permission</string>
-    <string name="sms_permission_message">In order for fast accessing otp from your SMS you must allow SMS permission\nDo you want to proceed?</string>
-    <string name="sms_permission_setting_message"><![CDATA[SMS permission has been denied forever\nwould must you like go to setting to enable it?]]></string>
-
-    // write external storage permission
-    <string name="write_external_storage">Write external storage</string>
-    <string name="write_external_storage_message">In order to change your profile you must allow files permission\nDo you want to proceed?</string>
-    <string name="write_external_storage_permission_setting_message"><![CDATA[Wright media & files permission has been denied forever\nYou must you like go to setting to enable it?]]></string>
-
-    // read external storage permission
-    <string name="read_external_storage">Read external storage</string>
-    <string name="read_external_storage_message">In order to change your profile you must allow read files permission\nDo you want to proceed?</string>
-    <string name="read_external_storage_setting_message"><![CDATA[Read file & media permission has been denied forever\nWould you like go to setting to enable it?]]></string>
 </resources>

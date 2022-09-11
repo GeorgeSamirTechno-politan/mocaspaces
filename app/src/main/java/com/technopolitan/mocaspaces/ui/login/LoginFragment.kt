@@ -10,6 +10,7 @@ import com.technopolitan.mocaspaces.data.login.LoginMapper
 import com.technopolitan.mocaspaces.databinding.FragmentLoginBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
 import com.technopolitan.mocaspaces.modules.ValidationModule
 import javax.inject.Inject
@@ -23,6 +24,9 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var sharedPrefModule: SharedPrefModule
+
+    @Inject
+    lateinit var navigationModule: NavigationModule
 
     @Inject
     lateinit var validationModule: ValidationModule
@@ -43,7 +47,14 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         configLoginDataModule()
+    }
+
+    private fun initView() {
+//        binding.forgetPasswordTextView.setOnClickListener{
+//            navigationModule.navigateTo(R.id.action_login_to_custom_camera_x)
+//        }
     }
 
     private fun configLoginDataModule() {

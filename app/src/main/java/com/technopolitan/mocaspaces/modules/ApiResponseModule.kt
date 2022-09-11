@@ -1,9 +1,10 @@
 package com.technopolitan.mocaspaces.modules
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import com.github.ybq.android.spinkit.SpinKitView
-import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.*
 import com.technopolitan.mocaspaces.transitionButton.TransitionButton
 import javax.inject.Inject
@@ -11,6 +12,8 @@ import javax.inject.Inject
 class ApiResponseModule<T> @Inject constructor(
     private var dialogModule: DialogModule,
     private var context: Context,
+    private var customAlertModule: CustomAlertModule,
+    private var activity: Activity,
 ) {
     fun handleResponse(
         apiStatus: ApiStatus<T>,
@@ -58,12 +61,14 @@ class ApiResponseModule<T> @Inject constructor(
 
     private fun showErrorOrFailedMessage(message: String?) {
         message?.let {
-            dialogModule.showTwoChooseDialogFragment(
-                it,
-                positiveBtnText = context.getString(
-                    R.string.ok,
-                ),
-            ) { }
+//            dialogModule.showTwoChooseDialogFragment(
+//                it,
+//                positiveBtnText = context.getString(
+//                    R.string.ok,
+//                ),
+//            ) { }
+
+            customAlertModule.showSnakeBar(activity.window.decorView.rootView as ViewGroup, it)
         }
     }
 

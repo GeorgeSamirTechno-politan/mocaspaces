@@ -1,15 +1,13 @@
 package com.technopolitan.mocaspaces.ui.fragmentUtilities
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.DatePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.customWheelPicker.WheelDatePicker
 import com.technopolitan.mocaspaces.databinding.FragmentDatePickerBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.enums.AppKeys
@@ -68,16 +66,13 @@ class DatePickerFragment : BottomSheetDialogFragment() {
     }
 
     private fun initDatePicker() {
-//        val date= Date(1960, 1, 1)
-//        binding.datePickerWheelView.minDate = date
-//        val currentDateTime = Calendar.getInstance().time
-//        currentDateTime.year = currentDateTime.year - 16
-//        binding.datePickerWheelView.maxDate = currentDateTime.time
-//        binding.datePickerWheelView.updateDate(year, month, day)
-//        binding.datePickerWheelView.setDate(year, month, day)
-        binding.datePickerWheelView.init(year, month, day, onDateChange)
-
-//        binding.datePickerWheelView.setWheelListener(listener)
+        binding.datePickerWheelView.setSelectedDay(day)
+        binding.datePickerWheelView.setSelectedYear(year)
+        binding.datePickerWheelView.setSelectedMonth(month)
+        binding.datePickerWheelView.getWheelYearPicker()!!.setYearStart(1960)
+        binding.datePickerWheelView.getWheelYearPicker()!!
+            .setYearEnd(Calendar.getInstance().time.year - maxYear)
+        binding.datePickerWheelView.setOnDateSelectedListener(listener)
     }
 
 //    private val listener: DatePickerView.Listener = object : DatePickerView.Listener {
@@ -88,11 +83,16 @@ class DatePickerFragment : BottomSheetDialogFragment() {
 //        }
 //    }
 
-    private val onDateChange: DatePicker.OnDateChangedListener
-        get() = DatePicker.OnDateChangedListener { datePicker, year, month, day ->
-            this@DatePickerFragment.year = year
-            this@DatePickerFragment.month = month
-            this@DatePickerFragment.day = day
+    private val listener: WheelDatePicker.OnDateSelectedListener =
+        object : WheelDatePicker.OnDateSelectedListener {
+            override fun onDateSelected(picker: WheelDatePicker?, date: Date?) {
+                date?.let {
+                    this@DatePickerFragment.year = it.year
+                    this@DatePickerFragment.month = it.month
+                    this@DatePickerFragment.day = it.day
+                }
+            }
+
         }
 
     private fun getDataFromArgument() {

@@ -26,6 +26,7 @@ class MobileOTPFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
+
     @Inject
     lateinit var resendCodeHandler: ApiResponseModule<String>
     private lateinit var mobileNumber: String
@@ -33,7 +34,7 @@ class MobileOTPFragment : Fragment() {
     private lateinit var countryMapper: CountryMapper
     private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            viewModel.updatePermissionResult(it)
+//            viewModel.updatePermissionResult(it)
         }
 
     override fun onAttach(context: Context) {

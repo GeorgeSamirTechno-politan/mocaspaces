@@ -38,10 +38,13 @@ class AppModule {
     @Provides
     fun providePermissionModule(
         context: Context,
-        fragment: Fragment?,
         activity: Activity,
-        dialogModule: DialogModule
-    ): PermissionModule = PermissionModule(context, fragment, activity, dialogModule)
+        fragment: Fragment?,
+        alertModule: CustomAlertModule,
+        dialogModule: DialogModule,
+        sharedPrefModule: SharedPrefModule
+    ): PermissionModule =
+        PermissionModule(context, activity, fragment, alertModule, dialogModule, sharedPrefModule)
 
     @Singleton
     @Provides
@@ -76,9 +79,11 @@ class AppModule {
     @Provides
     fun provideApiResponseModule(
         dialogModule: DialogModule,
-        context: Context
+        context: Context,
+        customToastModule: CustomAlertModule,
+        activity: Activity,
     ): ApiResponseModule<Any> = ApiResponseModule<Any>(
-        dialogModule, context
+        dialogModule, context, customToastModule, activity
     )
 
     @Singleton
@@ -122,9 +127,23 @@ class AppModule {
         countDownModule
     )
 
+    @Singleton
+    @Provides
+    fun provideCustomAlertModule(context: Context, dialogModule: DialogModule): CustomAlertModule =
+        CustomAlertModule(context, dialogModule)
+
 //    @Singleton
 //    @Provides
 //    fun provideCropFaceModule(): CropFaceModule = CropFaceModule()
+
+    @Singleton
+    @Provides
+    fun providePikItModule(context: Context, activity: Activity, fragment: Fragment?) =
+        PikItModule(fragment, context, activity)
+
+//    @Singleton
+//    @Provides
+//    fun provideBitmapModule(): BitmapModule = BitmapModule()
 
 
 }

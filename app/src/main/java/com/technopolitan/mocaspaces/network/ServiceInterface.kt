@@ -5,7 +5,7 @@ import com.technopolitan.mocaspaces.data.HeaderResponse
 import com.technopolitan.mocaspaces.data.country.CountryResponse
 import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
-import com.technopolitan.mocaspaces.data.mobileOTP.ResendCodeRequest
+import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -26,23 +26,16 @@ interface ServiceInterface {
     ): Flowable<HeaderResponse<LoginResponse>>
 
 
-    @GET("v{version}/Lounge_Client/VerifySendSMS")
-    fun verifyMobile(
-        @Path("version") version: Int = Constants.apiVersion,
-        @Query("Mobile") mobile: String
-    ): Flowable<HeaderResponse<String>>
-
     @GET("v{version}/Country/GetAllCountriesWithoutPagination")
     fun countries(
         @Path("version") version: Int = Constants.apiVersion,
     ): Flowable<HeaderResponse<List<CountryResponse>>>
 
-    @PUT("v{version}/Lounge_Client/SendVerificationCode")
-    fun resendCode(
+    @POST("v{version}/UserRegister/OtpMobile")
+    fun otpMobile(
         @Path("version") version: Int = Constants.apiVersion,
-        @Body resendCodeRequest: ResendCodeRequest
-    )
-            : Flowable<HeaderResponse<String>>
+        @Body otpMobileRequest: OtpMobileRequest
+    ): Flowable<HeaderResponse<String>>
 
     @GET("v{version}/MemberType/GetAllMemberTypesWithoutPagination")
     fun memberTypes(

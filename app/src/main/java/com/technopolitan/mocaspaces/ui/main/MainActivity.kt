@@ -12,7 +12,6 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.*
-import com.technopolitan.mocaspaces.utilities.Constants
 import javax.inject.Inject
 
 
@@ -63,11 +62,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestNetworkStatusPermission() {
         permissionModule.init(
-            activityResultLauncher,
+//            activityResultLauncher,
             android.Manifest.permission.ACCESS_NETWORK_STATE,
-            Constants.networkStatusPermissionCode,
-            getString(R.string.network_status_permission),
-            getString(R.string.network_Status_permission_message)
         ) {
             showNoInternetConnection()
         }

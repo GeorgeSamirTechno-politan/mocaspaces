@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.data.*
+import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +19,8 @@ class CheckMobileRemote @Inject constructor(
     fun verifyMobile(mobile: String): MediatorLiveData<ApiStatus<String>> {
         verifyMobileMediator.value = LoadingStatus()
         val source: LiveData<ApiStatus<String>> = LiveDataReactiveStreams.fromPublisher(
-            networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.emptyApi).verifyMobile(mobile = mobile)
+            networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
+                .otpMobile(otpMobileRequest = OtpMobileRequest(mobile))
                 .map { handleResponse(it) }
                 .onErrorReturn { handlerError(it) }
                 .subscribeOn(Schedulers.io())

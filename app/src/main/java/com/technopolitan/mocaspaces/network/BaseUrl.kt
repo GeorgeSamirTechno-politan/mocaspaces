@@ -5,7 +5,8 @@ object BaseUrl {
     const val locationApi: String = "location"
     private const val testApi: String = "testapi"
     private const val api: String = "api"
-    const val emptyApi : String =""
+    const val sso: String = "sso"
+    const val emptyApi: String = ""
 
 
     fun baseUrl(serviceName: String): String{

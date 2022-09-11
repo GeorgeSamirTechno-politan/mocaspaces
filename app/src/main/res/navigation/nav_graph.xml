@@ -114,5 +114,8 @@
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
 
+
     </fragment>
+
+
 </navigation>

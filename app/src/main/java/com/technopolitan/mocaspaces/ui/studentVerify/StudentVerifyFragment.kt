@@ -1,13 +1,11 @@
 package com.technopolitan.mocaspaces.ui.studentVerify
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.technopolitan.mocaspaces.R
+import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.databinding.FragmentStudentVerifyBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 

@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.utilities
 
 class Constants {
     companion object {
+        const val mocaImagesPath: String = "Pictures/moca"
         val DeviceType: String = "Android"
         private const val IsAppLive: Boolean = false
 
@@ -18,7 +19,6 @@ class Constants {
 
 
         /// validation regex
-        const val mobileRegex: String = "^(012|015|011|010)([0-9]{8})\$"
         private const val atLeastLowerCaseRegex: String = "(?=.*[a-z])"
         private const val atLeastUpperCaseRegex: String = "(?=.*[A-Z])"
         private const val atLeastNumberCaseRegex: String = "(?=.*[0-9])"

@@ -69,7 +69,7 @@ class PersonalInfoDataModule @Inject constructor(
         createAccountCallBack: (entity: Boolean) -> Unit,
         mobileNumber: String,
         countryMapper: CountryMapper,
-        activityResultLauncher: ActivityResultLauncher<Array<String>>
+        activityResultLauncher: ActivityResultLauncher<String>
     ) {
         this.binding = binding
         this.createAccountCallBack = createAccountCallBack
@@ -345,7 +345,7 @@ class PersonalInfoDataModule @Inject constructor(
             ), false
         )
 
-    fun updatePermissionResult(it: Map<String, Boolean>) {
-        pixModule.updatePermissionResult(it)
-    }
+//    fun updatePermissionResult(it: Boolean) {
+//        pixModule.updatePermissionResult(it)
+//    }
 }

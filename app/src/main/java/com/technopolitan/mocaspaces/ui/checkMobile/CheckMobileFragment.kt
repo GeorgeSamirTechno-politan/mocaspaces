@@ -39,7 +39,6 @@ class CheckMobileFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)

@@ -223,9 +223,9 @@ class OTPDataModule @Inject constructor(
         this.otp = otp
     }
 
-    fun updatePermissionResult(it: Boolean?) {
-        smsIdentifierModule.updatePermissionResult(it)
-    }
+//    fun updatePermissionResult(it: Boolean?) {
+//        smsIdentifierModule.updatePermissionResult(it)
+//    }
 
 
 }

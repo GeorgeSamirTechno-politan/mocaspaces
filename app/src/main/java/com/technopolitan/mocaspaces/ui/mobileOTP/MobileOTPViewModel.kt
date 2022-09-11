@@ -58,7 +58,7 @@ class MobileOTPViewModel @Inject constructor(
         otpDataModule.updateOtp(otp)
     }
 
-    fun updatePermissionResult(it: Boolean?) {
-        otpDataModule.updatePermissionResult(it)
-    }
+//    fun updatePermissionResult(it: Boolean?) {
+//        otpDataModule.updatePermissionResult(it)
+//    }
 }
