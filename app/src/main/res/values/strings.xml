@@ -112,4 +112,7 @@
     <string name="read_external_storage">Read external storage</string>
     <string name="read_external_storage_message">In order to change your profile you must allow read files permission\nDo you want to proceed?</string>
     <string name="read_external_storage_setting_message"><![CDATA[Read file & media permission has been denied forever\nWould you like go to setting to enable it?]]></string>
+    <string name="Day">Day</string>
+    <string name="Month">Month</string>
+    <string name="Year">Year</string>
 </resources>
