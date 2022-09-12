@@ -2,20 +2,19 @@ package com.technopolitan.mocaspaces.data.personalInfo
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.opengl.Visibility
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.activity.result.ActivityResultLauncher
-import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.DropDownMapper
-import com.technopolitan.mocaspaces.data.country.CountryMapper
 import com.technopolitan.mocaspaces.data.gender.GenderMapper
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeAdapter
+import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
 import com.technopolitan.mocaspaces.modules.*
@@ -38,8 +37,7 @@ class PersonalInfoDataModule @Inject constructor(
     private var memberTypeAdapter: MemberTypeAdapter,
     private var dialogModule: DialogModule,
     private var dateTimeModule: DateTimeModule,
-    private var navigationModule: NavigationModule,
-    private var fragment: Fragment?
+    private var utilityModule: UtilityModule
 ) {
 
     private lateinit var binding: FragmentPersonalInfoBinding
@@ -47,10 +45,7 @@ class PersonalInfoDataModule @Inject constructor(
     private var stopAnime: Boolean = false
     private lateinit var startAnimation: Animation
     private lateinit var endAnimation: Animation
-    private lateinit var countryMapper: CountryMapper
-    private lateinit var mobileNumber: String
     private lateinit var createAccountCallBack: (entity: Boolean) -> Unit
-    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     /// PUBLISHERS
     private var memberTypeItemPublisher: PublishSubject<DropDownMapper> = PublishSubject.create()
@@ -65,20 +60,18 @@ class PersonalInfoDataModule @Inject constructor(
     private lateinit var jobTitleObservable: Observable<String>
     private lateinit var companyObservable: Observable<String>
     private lateinit var genderList: List<GenderMapper>
+    private lateinit var registerRequestMapper: RegisterRequestMapper
 
 
     fun init(
         binding: FragmentPersonalInfoBinding,
+        registerRequestMapper: RegisterRequestMapper,
         createAccountCallBack: (entity: Boolean) -> Unit,
-        mobileNumber: String,
-        countryMapper: CountryMapper,
-
     ) {
         this.binding = binding
         this.createAccountCallBack = createAccountCallBack
-        this.countryMapper = countryMapper
-        this.mobileNumber = mobileNumber
-        binding.genderLayout.visibility = View.GONE
+        this.registerRequestMapper = registerRequestMapper
+        binding.genderCardLayout.visibility = View.GONE
         enableButton(false)
         initAnimation()
         clickOnImage()
@@ -93,6 +86,7 @@ class PersonalInfoDataModule @Inject constructor(
     fun setGenderList(genderList: List<GenderMapper>){
         this.genderList = genderList
         genderPublisher.onNext(genderList[0])
+        binding.genderCardLayout.visibility = View.VISIBLE
         binding.firstGenderText.text = genderList[0].genderName
         binding.secondGenderText.text = genderList[1].genderName
         initClickOnGender()
@@ -156,7 +150,7 @@ class PersonalInfoDataModule @Inject constructor(
     private fun initPixModule() {
         pixModule.init(callBack = {
             imagePublisher.onNext(it)
-        }, activityResultLauncher = activityResultLauncher)
+        })
 
     }
 
@@ -174,20 +168,10 @@ class PersonalInfoDataModule @Inject constructor(
         Log.d(javaClass.name, "showDatePickerDialog: $maxYear", )
         dialogModule.showDatePickerDialog (maxYear = maxYear){ year, month, day ->
             run {
-                if (dateTimeModule.diffInDates(
-                        Calendar.getInstance().time,
-                        Date(year, month, day),
-                        DateTimeUnits.Years
-                    ) >= 16
-                ) {
-                    val dateString = "$year/$month$day"
-                    binding.dateOfBirthEditText.setText(dateString)
-                    dateOfBirthPublisher.onNext(dateString)
-                    binding.dateOfBirthTextInputLayout.error = null
-                } else {
-                    binding.dateOfBirthTextInputLayout.error =
-                        context.getString(R.string.birth_date_error_message)
-                }
+                val dateString = "$year/$month$day"
+                binding.dateOfBirthEditText.setText(dateString)
+                dateOfBirthPublisher.onNext(dateString)
+                binding.dateOfBirthTextInputLayout.error = null
             }
         }
     }
@@ -196,11 +180,10 @@ class PersonalInfoDataModule @Inject constructor(
     private fun initMobileView() {
         binding.mobileIncludePersonalInfo.mobileIncludeProgress.spinKit.visibility = View.GONE
         binding.mobileIncludePersonalInfo.countryDropDownLayout.visibility = View.VISIBLE
-        glideModule.loadImage(countryMapper.url, binding.mobileIncludePersonalInfo.countryImageView)
-        binding.mobileIncludePersonalInfo.countryCodeTextView.text = countryMapper.code
+        glideModule.loadImage(registerRequestMapper.counterMapper.url, binding.mobileIncludePersonalInfo.countryImageView)
+        binding.mobileIncludePersonalInfo.countryCodeTextView.text = registerRequestMapper.counterMapper.code
         binding.mobileIncludePersonalInfo.arrowDownCountryImageView.visibility = View.INVISIBLE
-        mobileNumber = mobileNumber.replace(countryMapper.code, "")
-        binding.mobileIncludePersonalInfo.mobileNumberEditText.setText(mobileNumber)
+        binding.mobileIncludePersonalInfo.mobileNumberEditText.setText(registerRequestMapper.mobile)
         binding.mobileIncludePersonalInfo.mobileNumberEditText.isEnabled = false
     }
 
@@ -209,6 +192,7 @@ class PersonalInfoDataModule @Inject constructor(
             AndroidSchedulers.mainThread()
         ).subscribe {
             stopAnime = true
+            registerRequestMapper.profileImageBase64 = utilityModule.getImageBase64(it)
             binding.roundedUserImageView.setImageBitmap(it)
             binding.roundedUserImageView.scaleType = ImageView.ScaleType.CENTER_CROP
         }
@@ -297,8 +281,16 @@ class PersonalInfoDataModule @Inject constructor(
             companyObservable,
             genderPublisher,
             dateOfBirthPublisher
-        ) { _: String, _: String, _: String, memberType: DropDownMapper, _: String,
-            _: String, _: GenderMapper, _: String ->
+        ) { firstName: String, lastName: String, email: String, memberType: DropDownMapper, jobTitle: String,
+            company: String, genderMapper: GenderMapper, dateOfBirth: String ->
+            registerRequestMapper.fistName = firstName
+            registerRequestMapper.lastName = lastName
+            registerRequestMapper.email = email
+            registerRequestMapper.memberTypeMapper = memberType
+            registerRequestMapper.jobTitle = jobTitle
+            registerRequestMapper.company = company
+            registerRequestMapper.genderMapper = genderMapper
+            registerRequestMapper.birthDate = dateOfBirth
             return@combineLatest validateAll(memberType.id)
         }.subscribe {
             enableButton(it)

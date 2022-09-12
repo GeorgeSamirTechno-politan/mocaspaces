@@ -1,10 +1,15 @@
 package com.technopolitan.mocaspaces.ui.personalInfo
 
-import androidx.activity.result.ActivityResultLauncher
+
+import androidx.lifecycle.LiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
+import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.DropDownMapper
-import com.technopolitan.mocaspaces.data.country.CountryMapper
+
+import com.technopolitan.mocaspaces.data.gender.GenderMapper
 import com.technopolitan.mocaspaces.data.personalInfo.PersonalInfoDataModule
+import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
+import com.technopolitan.mocaspaces.data.remote.GenderRemote
 import com.technopolitan.mocaspaces.data.remote.PersonalInfoRemote
 import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
 import javax.inject.Inject
@@ -12,23 +17,33 @@ import javax.inject.Inject
 class PersonalInfoViewModel @Inject constructor(
     private var personalInfoRemote: PersonalInfoRemote,
     private var personalInfoDataModule: PersonalInfoDataModule,
-) : BaseViewModel<List<DropDownMapper>>() {
+    private var genderRemote: GenderRemote
+) : BaseViewModel<List<GenderMapper>>() {
+
+
     fun initDataModule(
         binding: FragmentPersonalInfoBinding,
-        mobileNumber: String,
-        countryMapper: CountryMapper,
+        registerRequestMapper: RegisterRequestMapper,
         createAccountCallBack: (entity: Boolean) -> Unit,
     ) {
         personalInfoDataModule.init(
             binding,
+            registerRequestMapper,
             createAccountCallBack,
-            mobileNumber,
-            countryMapper
         )
     }
 
     fun setDataToAdapter(list: List<DropDownMapper>) {
         personalInfoDataModule.initMemberTypeAdapter(list)
+    }
+
+    fun setGenderRequest(){
+        apiMutableLiveData = genderRemote.getAllGender()
+    }
+
+    fun getGender(): LiveData<ApiStatus<List<GenderMapper>>> = apiMutableLiveData
+    fun setGenderList(it: List<GenderMapper>) {
+        personalInfoDataModule.setGenderList(it)
     }
 
 //    fun updatePermissionResult(it: Boolean) {

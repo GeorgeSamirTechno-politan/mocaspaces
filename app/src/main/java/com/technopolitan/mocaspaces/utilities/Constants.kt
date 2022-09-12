@@ -1,5 +1,9 @@
 package com.technopolitan.mocaspaces.utilities
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+
 class Constants {
     companion object {
         const val mocaImagesPath: String = "Pictures/moca"
@@ -38,6 +42,8 @@ class Constants {
         const val receivingSmsPermissionCode: Int = 4
         const val networkStatusPermissionCode: Int = 5
         const val pixPermissionRequestCode: Int = 1
+
+
 
     }
 }

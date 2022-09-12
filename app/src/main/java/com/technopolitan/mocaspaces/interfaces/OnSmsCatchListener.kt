@@ -2,5 +2,5 @@ package com.technopolitan.mocaspaces.interfaces
 
 interface OnSmsCatchListener<T> {
 
-    fun onSmsCatch(message: String)
+    fun onSmsCatch(message: String, header: String)
 }

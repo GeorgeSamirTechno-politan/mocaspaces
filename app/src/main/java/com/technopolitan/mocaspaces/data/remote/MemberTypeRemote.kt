@@ -3,38 +3,24 @@ package com.technopolitan.mocaspaces.data.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
+import com.technopolitan.mocaspaces.bases.BaseRemote
 import com.technopolitan.mocaspaces.data.*
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MemberTypeRemote @Inject constructor(private var networkModule: NetworkModule) {
+class MemberTypeRemote @Inject constructor(private var networkModule: NetworkModule) :
+    BaseRemote<List<DropDownMapper>, List<MemberTypeResponse>>() {
 
     private val apiMediatorLiveData: MediatorLiveData<ApiStatus<List<DropDownMapper>>> =
         MediatorLiveData()
 
-    fun getMemberType(): MediatorLiveData<ApiStatus<List<DropDownMapper>>> {
-        apiMediatorLiveData.value = LoadingStatus()
-        val source: LiveData<ApiStatus<List<DropDownMapper>>> =
-            LiveDataReactiveStreams.fromPublisher(
-                networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.locationApi).memberTypes()
-                    .map { handleResponse(it) }
-                    .onErrorReturn { handlerError(it) }
-                    .subscribeOn(Schedulers.io())
-            )
-        apiMediatorLiveData.addSource(source) {
-            apiMediatorLiveData.value = it
-            apiMediatorLiveData.removeSource(source)
-        }
-        return apiMediatorLiveData
-    }
+    fun getMemberType(): MediatorLiveData<ApiStatus<List<DropDownMapper>>> = handleApi()
 
-    private fun handlerError(it: Throwable): ApiStatus<List<DropDownMapper>> =
-        ErrorStatus(it.message)
-
-    private fun handleResponse(it: HeaderResponse<List<MemberTypeResponse>>): ApiStatus<List<DropDownMapper>> {
+    override fun handleResponse(it: HeaderResponse<List<MemberTypeResponse>>): ApiStatus<List<DropDownMapper>> {
         return if (it.succeeded) {
             val memberTypeList = mutableListOf<DropDownMapper>()
             it.data?.forEach {
@@ -51,4 +37,7 @@ class MemberTypeRemote @Inject constructor(private var networkModule: NetworkMod
             SuccessStatus(data = memberTypeList.asIterable().toList(), message = "")
         } else FailedStatus(it.message)
     }
+
+    override fun flowable(): Flowable<HeaderResponse<List<MemberTypeResponse>>> =
+        networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.locationApi).memberTypes()
 }

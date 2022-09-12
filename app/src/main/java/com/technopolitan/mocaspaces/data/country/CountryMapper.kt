@@ -13,12 +13,12 @@ class CountryMapper() : Parcelable {
     var url: String = ""
 
     constructor(parcel: Parcel) : this() {
-        id = parcel.readInt()
-        name = parcel.readString()!!
-        code = parcel.readString()!!
-        codeString = parcel.readString()!!
-        regex = parcel.readString()!!
-        url = parcel.readString()!!
+        parcel.readInt()?.let { id = it }
+        parcel.readString()?.let { name = it }
+        parcel.readString()?.let{code = it}
+        parcel.readString()?.let { codeString = it }
+        parcel.readString()?.let { regex = it }
+        parcel.readString()?.let { url = it }
     }
 
 

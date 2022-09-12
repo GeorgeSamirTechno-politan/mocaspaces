@@ -6,12 +6,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.*
+import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import javax.inject.Inject
 
 
@@ -33,10 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var permissionModule: PermissionModule
-    private val activityResultLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-//        viewModel.updatePermissionResult(it)
-        }
+
+//    @Inject
+//    protected lateinit var vmf: ViewModelProvider.Factory
+//    protected val registerViewModel: RegisterViewModel by lazy { vmf.create(RegisterViewModel::class.java) }
     private lateinit var splashScreen: SplashScreen
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController

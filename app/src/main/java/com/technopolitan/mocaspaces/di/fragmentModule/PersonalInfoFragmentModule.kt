@@ -39,12 +39,11 @@ class PersonalInfoFragmentModule @Inject constructor(private val networkModule: 
         memberTypeAdapter: MemberTypeAdapter,
         dialogModule: DialogModule,
         dateTimeModule: DateTimeModule,
-        navigationModule: NavigationModule,
-        fragment: Fragment?
+        utilityModule: UtilityModule
     ): PersonalInfoDataModule = PersonalInfoDataModule(
         context, rxModule, pixModule, validationModule,
         countDownModule, glideModule, memberTypeAdapter, dialogModule, dateTimeModule,
-        navigationModule, fragment
+        utilityModule
     )
 
     @Singleton

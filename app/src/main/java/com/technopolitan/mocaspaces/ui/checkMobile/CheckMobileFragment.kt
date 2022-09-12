@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.country.CountryDataModule
 import com.technopolitan.mocaspaces.data.country.CountryMapper
@@ -15,6 +19,7 @@ import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import com.technopolitan.mocaspaces.ui.sharedViewModel.CountryViewModel
 import javax.inject.Inject
 
@@ -40,7 +45,9 @@ class CheckMobileFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
-    private val registerRequestMapper: RegisterRequestMapper = RegisterRequestMapper()
+
+    @Inject
+    lateinit var registerViewModel: RegisterViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -95,9 +102,14 @@ class CheckMobileFragment : Fragment() {
     }
 
     private fun checkMobileRequest(countryCode: String) {
+        registerViewModel.getRegisterRequestMapper().mobile =
+            binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
+        if (countryCode == "+20") {
+            if (registerViewModel.getRegisterRequestMapper().mobile.startsWith("0"))
+                registerViewModel.getRegisterRequestMapper().mobile = registerViewModel.getRegisterRequestMapper().mobile.removeRange(0, 1)
+        }
         checkMobileViewModel.checkMobile(
-            countryCode +
-                    binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
+            countryCode + registerViewModel.getRegisterRequestMapper().mobile
         )
     }
 
@@ -105,10 +117,9 @@ class CheckMobileFragment : Fragment() {
         checkMobileViewModel.handleCheckMobileApi().observe(viewLifecycleOwner) {
             verifyMobileHandler.handleResponse(it, binding.verifyButton) { response ->
                 val bundle = Bundle()
-                registerRequestMapper.counterMapper = countryMapper
-                registerRequestMapper.mobile = binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
-                bundle.putParcelable(AppKeys.RegisterRequestMapper.name, registerRequestMapper)
-                navigationModule.navigateTo(R.id.action_verify_to_mobile_otp, bundle = bundle)
+                registerViewModel.getRegisterRequestMapper().counterMapper = countryMapper
+//                bundle.putParcelable(AppKeys.RegisterRequestMapper.name, registerRequestMapper)
+                navigationModule.navigateTo(R.id.action_verify_to_mobile_otp)
             }
         }
     }

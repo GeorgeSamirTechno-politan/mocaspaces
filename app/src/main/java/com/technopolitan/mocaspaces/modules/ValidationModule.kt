@@ -28,7 +28,7 @@ class ValidationModule {
         validateMessage: String?,
         isRequiredFocus: Boolean = true
     ): Boolean {
-        if (textInputLayout.editText!!.text.toString().isEmpty()) {
+        if (textInputLayout.editText!!.text.isNullOrEmpty()) {
             if (isRequiredFocus) textInputLayout.editText!!.requestFocus()
             textInputLayout.error = validateMessage
             return false
@@ -75,11 +75,12 @@ class ValidationModule {
         validateMessage: String,
         isRequiredFocus: Boolean = true
     ): Boolean {
-        if (!Pattern.matches(regex, textInputLayout.editText!!.text.toString())) {
-            if (isRequiredFocus) textInputLayout.editText!!.requestFocus()
-            textInputLayout.error = validateMessage
-            return false
-        }
+        if (validateEmpty(textInputLayout, validateMessage, false))
+            if (!Pattern.matches(regex, textInputLayout.editText!!.text.toString())) {
+                if (isRequiredFocus) textInputLayout.editText!!.requestFocus()
+                textInputLayout.error = validateMessage
+                return false
+            }
         textInputLayout.error = null
         return true
     }

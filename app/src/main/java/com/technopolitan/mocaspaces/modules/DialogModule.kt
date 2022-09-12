@@ -183,7 +183,7 @@ class DialogModule @Inject constructor(
                 .observe((activity as MainActivity)) {
                     if (it != null) {
                         savedState.remove<Boolean>(AppKeys.Message.name)
-                        val splitMessage = it.toString().split(",")
+                        val splitMessage = it.toString().split("-")
                         callBack(
                             splitMessage[0].toInt(),
                             splitMessage[1].toInt(),

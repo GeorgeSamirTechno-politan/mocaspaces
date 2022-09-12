@@ -3,6 +3,7 @@ package com.technopolitan.mocaspaces.di
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelModule
 import com.technopolitan.mocaspaces.modules.AppModule
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
@@ -23,6 +24,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
+        ViewModelModule::class
     ]
 )
 interface ApplicationComponent {

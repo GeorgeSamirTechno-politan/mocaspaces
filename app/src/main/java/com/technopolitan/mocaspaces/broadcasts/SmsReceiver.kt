@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.telephony.SmsMessage
+import android.util.Log
 import com.technopolitan.mocaspaces.interfaces.OnSmsCatchListener
 
 
@@ -26,11 +27,18 @@ class SmsReceiver : BroadcastReceiver() {
                     if (phoneNumberFilter != null && phoneNumber != phoneNumberFilter) {
                         return
                     }
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.displayOriginatingAddress}")
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.originatingAddress}")
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.serviceCenterAddress}")
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.pseudoSubject}")
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.}")
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.pseudoSubject}")
+//                    Log.d(javaClass.name, "onReceive: ${currentMessage.pseudoSubject}")
                     val message: String = currentMessage.displayMessageBody
                     if (filter != null && !message.matches(Regex(filter!!))) {
                         return
                     }
-                    callback.onSmsCatch(message)
+                    callback.onSmsCatch(message, currentMessage.originatingAddress!!)
                 } // end for loop
             } // bundle is null
         } catch (e: Exception) {

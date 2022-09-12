@@ -14,6 +14,7 @@ enum class AppKeys {
     BlockedEmail,
     BlockedDateTimeEmail,
     OTPEmailTries,
+    PickedDate,
     OTP,
     Day,
     Month,

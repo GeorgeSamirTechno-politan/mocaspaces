@@ -15,6 +15,7 @@ import javax.inject.Singleton
 @Module
 class RegisterFragmentModule @Inject constructor(private var networkModule: NetworkModule){
 
+
     @Singleton
     @Provides
     fun provideRegisterDataModule(context: Context,

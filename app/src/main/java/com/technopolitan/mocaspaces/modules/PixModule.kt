@@ -47,17 +47,14 @@ class PixModule @Inject constructor(
     private lateinit var pixFragment: PixFragment
     private var useCropAlgorithm: Boolean = true
     private lateinit var callBack: (bitmap: Bitmap) -> Unit
-    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
-    fun init(
-        useCropAlgorithm: Boolean = true, callBack: (bitmap: Bitmap) -> Unit,
-        activityResultLauncher: ActivityResultLauncher<String>
-    ) {
-        this.useCropAlgorithm = useCropAlgorithm
-        this.callBack = callBack
-        this.activityResultLauncher = activityResultLauncher
-        requestCameraPermission()
-    }
+//    fun init(
+//        useCropAlgorithm: Boolean = true, callBack: (bitmap: Bitmap) -> Unit,
+//    ) {
+//        this.useCropAlgorithm = useCropAlgorithm
+//        this.callBack = callBack
+//        requestCameraPermission()
+//    }
 
     fun init(useCropAlgorithm: Boolean = true, callBack: (bitmap: Bitmap) -> Unit) {
         this.useCropAlgorithm = useCropAlgorithm

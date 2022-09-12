@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.technopolitan.mocaspaces.data.DropDownMapper
-import com.technopolitan.mocaspaces.data.country.CountryMapper
+import com.technopolitan.mocaspaces.data.gender.GenderMapper
+import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.data.shared.MemberTypeViewModel
 import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
+import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import javax.inject.Inject
 
 class PersonalInfoFragment : Fragment() {
@@ -26,20 +29,20 @@ class PersonalInfoFragment : Fragment() {
 
     @Inject
     lateinit var memberTypeResponseHandler: ApiResponseModule<List<DropDownMapper>>
-    private lateinit var binding: FragmentPersonalInfoBinding
-    private lateinit var countryMapper: CountryMapper
-    private lateinit var mobileNumber: String
 
-    private val activityResultLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-//            viewModel.updatePermissionResult(it)
-        }
+    @Inject
+    lateinit var genderResponseHandler: ApiResponseModule<List<GenderMapper>>
+
+    private lateinit var binding: FragmentPersonalInfoBinding
+
+    @Inject
+    lateinit var registerViewModel: RegisterViewModel
 
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
         super.onAttach(context)
-        getDataFromArguments()
+//        getDataFromArguments()
     }
 
     override fun onCreateView(
@@ -52,8 +55,10 @@ class PersonalInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registerViewModel= ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
         initDataModule()
         initMemberType()
+        initGender()
     }
 
     private fun initMemberType() {
@@ -73,19 +78,41 @@ class PersonalInfoFragment : Fragment() {
 //        activity!.add
 //    }
 
-    private fun getDataFromArguments() {
-        arguments?.let {
-            if (it.containsKey(AppKeys.CountryMapper.name))
-                countryMapper = it.getParcelable(AppKeys.CountryMapper.name)!!
-            if (it.containsKey(AppKeys.MobileNumber.name))
-                mobileNumber = it.getString(AppKeys.MobileNumber.name)!!
-        }
+//    private fun getDataFromArguments() {
+//        arguments?.let {
+//            if (it.containsKey(AppKeys.RegisterRequestMapper.name))
+//                registerRequestMapper = it.getParcelable(AppKeys.RegisterRequestMapper.name)!!
+//
+//        }
+//
+//    }
 
+    private fun initGender() {
+        viewModel.setGenderRequest()
+        viewModel.getGender().observe(viewLifecycleOwner) {
+            genderResponseHandler.handleResponse(
+                it,
+                binding.genderProgressLayout.spinKit,
+                binding.genderCardLayout
+            ) {
+                viewModel.setGenderList(it)
+            }
+        }
     }
 
     private fun initDataModule() {
-        viewModel.initDataModule(binding, mobileNumber, countryMapper) {
-            /// TODO missing create account api
+        viewModel.initDataModule(binding, registerViewModel.getRegisterRequestMapper()) {
+            handleNavigation()
+        }
+    }
+
+    private fun handleNavigation() {
+        if (registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 1 ||
+            registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 2
+        ) {
+
+        } else if (registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 3) {
+
         }
     }
 

@@ -59,6 +59,32 @@ class ApiResponseModule<T> @Inject constructor(
         }
     }
 
+    fun handleResponse(
+        apiStatus: ApiStatus<T>,
+        spinKitView: SpinKitView,
+        view: View,
+        onSuccessCallBack: (entity: T) -> Unit,
+        onFailureCallBack: ()-> Unit
+    ) {
+        when (apiStatus) {
+            is SuccessStatus -> {
+                spinKitView.visibility = View.GONE
+                view.visibility = View.VISIBLE
+                onSuccessCallBack(apiStatus.data!!)
+            }
+            is LoadingStatus -> {
+                spinKitView.visibility = View.VISIBLE
+                view.visibility = View.GONE
+            }
+            is ErrorStatus, is FailedStatus -> {
+                spinKitView.visibility = View.GONE
+                view.visibility = View.VISIBLE
+                showErrorOrFailedMessage(apiStatus.message)
+                onFailureCallBack.invoke()
+            }
+        }
+    }
+
     private fun showErrorOrFailedMessage(message: String?) {
         message?.let {
 //            dialogModule.showTwoChooseDialogFragment(

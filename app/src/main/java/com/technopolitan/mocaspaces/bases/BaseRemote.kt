@@ -10,11 +10,11 @@ import com.technopolitan.mocaspaces.data.LoadingStatus
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
-abstract class BaseRemote<T,R,E> {
+abstract class BaseRemote<T,E> {
 
     private val apiMediator : MediatorLiveData<ApiStatus<T>> = MediatorLiveData()
 
-    fun handleApi(request: R) : MediatorLiveData<ApiStatus<T>>{
+    fun handleApi() : MediatorLiveData<ApiStatus<T>>{
         apiMediator.value = LoadingStatus()
         val source : LiveData<ApiStatus<T>> = LiveDataReactiveStreams.fromPublisher(
             flowable().map { handleResponse(it) }

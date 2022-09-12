@@ -62,6 +62,10 @@ class MobileOTPViewModel @Inject constructor(
 
     fun handleVerifyMobileOtp(): LiveData<ApiStatus<String>> = verifyMobileOtpMediator
 
+    fun showErrorOnOtp() {
+        otpDataModule.animateErrorEditText()
+    }
+
 //    fun updateOtp(otp: String) {
 //        otpDataModule.updateOtp(otp)
 //    }

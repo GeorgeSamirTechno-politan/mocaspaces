@@ -32,9 +32,9 @@ class SmsIdentifierModule @Inject constructor(
     }
 
     private val smsCatchListener = object : OnSmsCatchListener<String> {
-        override fun onSmsCatch(message: String) {
-            if (message.contains("moca")) {
-                callback(message.split(" ")[0])
+        override fun onSmsCatch(message: String, header: String) {
+            if (header.contains("moca")) {
+                callback(message.split(": ")[1])
             }
         }
 

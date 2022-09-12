@@ -210,11 +210,19 @@ class OTPDataModule @Inject constructor(
         otpSecondEditText.startAnimation(shakeAnimation)
         otpThirdEditText.startAnimation(shakeAnimation)
         otpFourthEditText.startAnimation(shakeAnimation)
+        otpFirstEditText.setTextColor(context.getColor(R.color.error_color))
+        otpSecondEditText.setTextColor(context.getColor(R.color.error_color))
+        otpThirdEditText.setTextColor(context.getColor(R.color.error_color))
+        otpFourthEditText.setTextColor(context.getColor(R.color.error_color))
         errorTextView.visibility = View.VISIBLE
     }
 
     private fun clearAnimationEditText() {
         errorTextView.visibility = View.GONE
+        otpFirstEditText.setTextColor(context.getColor(R.color.black))
+        otpSecondEditText.setTextColor(context.getColor(R.color.black))
+        otpThirdEditText.setTextColor(context.getColor(R.color.black))
+        otpFourthEditText.setTextColor(context.getColor(R.color.black))
     }
 
 //    fun updateOtp(otp: String) {

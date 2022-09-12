@@ -3,42 +3,35 @@ package com.technopolitan.mocaspaces.data.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
+import com.technopolitan.mocaspaces.bases.BaseRemote
 import com.technopolitan.mocaspaces.data.*
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CheckMobileRemote @Inject constructor(
     private val networkModel: NetworkModule
-) {
+) : BaseRemote<String, String>() {
 
-    private val verifyMobileMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
-
+    private lateinit var mobile: String
 
     fun verifyMobile(mobile: String): MediatorLiveData<ApiStatus<String>> {
-        verifyMobileMediator.value = LoadingStatus()
-        val source: LiveData<ApiStatus<String>> = LiveDataReactiveStreams.fromPublisher(
-            networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
-                .otpMobile(otpMobileRequest = OtpMobileRequest(mobile))
-                .map { handleResponse(it) }
-                .onErrorReturn { handlerError(it) }
-                .subscribeOn(Schedulers.io())
-        )
-        verifyMobileMediator.addSource(source) {
-            verifyMobileMediator.value = it
-            verifyMobileMediator.removeSource(source)
-        }
-        return verifyMobileMediator
+        this.mobile = mobile
+        return handleApi()
     }
 
-    private fun handlerError(it: Throwable): ApiStatus<String> = ErrorStatus(it.message)
-
-    private fun handleResponse(it: HeaderResponse<String>): ApiStatus<String> {
+    override fun handleResponse(it: HeaderResponse<String>): ApiStatus<String> {
         return if (it.succeeded)
             SuccessStatus(data = it.data!!, message = "")
         else FailedStatus(it.message)
+    }
+
+    override fun flowable(): Flowable<HeaderResponse<String>> {
+        return  networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
+            .otpMobile(otpMobileRequest = OtpMobileRequest(mobile))
     }
 
 

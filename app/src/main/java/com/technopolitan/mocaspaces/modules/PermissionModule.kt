@@ -45,13 +45,11 @@ class PermissionModule @Inject constructor(
     }
 
     fun init(
-//        activityResult: ActivityResultLauncher<String>,
         permissionNameList: List<String>,
         callBack: (entity: Boolean) -> Unit,
     ) {
-//        this.activityResult = activityResult
+
         this.permissionNameList = permissionNameList
-//        this.permissionName = permissionName
         this.callBack = callBack
         doRequestPermission()
     }

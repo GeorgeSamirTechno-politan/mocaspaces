@@ -68,13 +68,13 @@ class DatePickerFragment : BottomSheetDialogFragment() {
             dismiss()
         }
         binding.confirmButton.setOnClickListener {
-            popBack("$year,$month,$day")
+            popBack("$year-$month-$day")
         }
     }
 
     private fun popBack(value: String) {
         navigationModule.savedStateHandler(R.id.date_picker_dialog)
-            ?.set(AppKeys.Message.name, value)
+            ?.set(AppKeys.PickedDate.name, value)
         navigationModule.popBack()
     }
 
