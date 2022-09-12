@@ -133,6 +133,9 @@
     <string name="skip"><u>Skip</u></string>
     <string name="next">Next</string>
     <string name="verify_student">Student Verification</string>
+    <string name="verify_your_e_mail">Verify your e-mail!</string>
+    <string name="sent_email">We sent a verification code on your email</string>
+    <string name="email_enter_verification_code">please enter the verification code below:</string>
 
 
 </resources>
