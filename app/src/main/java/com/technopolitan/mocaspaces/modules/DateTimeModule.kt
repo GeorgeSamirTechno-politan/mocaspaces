@@ -9,7 +9,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-enum class DateTimeUnits{
+enum class DateTimeUnits {
     DAYS,
     SECONDS,
     MINUTES,
@@ -21,7 +21,11 @@ enum class DateTimeUnits{
 @Module
 class DateTimeModule {
 
-    fun convertDate(date: String?, fromFormat: String?, toFormat: String?): String? {
+    fun convertDate(
+        date: String?,
+        fromFormat: String?,
+        toFormat: String = DateTimeConstants.apiDefaultDateTimeFormat
+    ): String? {
         var date = date
         val inFormat = SimpleDateFormat(toFormat, Locale.US)
         try {
@@ -59,7 +63,7 @@ class DateTimeModule {
         return currentLocalTime.toString()
     }
 
-    fun getTodayDateOrTime(format: String?): String? {
+    fun getTodayDateOrTime(format: String): String? {
         return convertDate(
             Calendar.getInstance().time.toString(),
             DateTimeConstants.defaultDateTimeFormatOfAndroid, format

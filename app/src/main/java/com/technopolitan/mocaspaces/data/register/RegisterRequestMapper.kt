@@ -1,12 +1,10 @@
 package com.technopolitan.mocaspaces.data.register
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.data.country.CountryMapper
 import com.technopolitan.mocaspaces.data.gender.GenderMapper
 
-class RegisterRequestMapper(){
+class RegisterRequestMapper {
 
     lateinit var profileImageBase64: String
     lateinit var fistName: String
@@ -18,10 +16,10 @@ class RegisterRequestMapper(){
     lateinit var company: String
     lateinit var jobTitle: String
     lateinit var genderMapper: GenderMapper
-    lateinit var birthDate : String
+    var birthDate : String? = null
     lateinit var studentFrontCardPath: String
     lateinit var studentBackCardPath: String
-    lateinit var studentCardExpiryDate: String
+    var studentCardExpiryDate: String? = null
     lateinit var password: String
 
 

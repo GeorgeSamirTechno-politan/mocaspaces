@@ -2,6 +2,9 @@ package com.technopolitan.mocaspaces.ui.fragmentUtilities
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +16,7 @@ import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.wheelPicker.widgets.WheelDatePicker
+import java.util.*
 import javax.inject.Inject
 
 class DatePickerFragment : BottomSheetDialogFragment() {
@@ -22,6 +26,7 @@ class DatePickerFragment : BottomSheetDialogFragment() {
     private var month: Int = 1
     private var day: Int = 1
     private var maxYear: Int = 0
+    private var useCurrentYear: Boolean = false
 
     @Inject
     lateinit var navigationModule: NavigationModule
@@ -68,33 +73,54 @@ class DatePickerFragment : BottomSheetDialogFragment() {
             dismiss()
         }
         binding.confirmButton.setOnClickListener {
-            popBack("$year-$month-$day")
+            val pikedDate: String = "$year-$month-$day"
+            popBack(pikedDate)
         }
     }
 
     private fun popBack(value: String) {
-        navigationModule.savedStateHandler(R.id.date_picker_dialog)
-            ?.set(AppKeys.PickedDate.name, value)
-        navigationModule.popBack()
+        navigationModule.savedStateHandler(R.id.date_picker_dialog)?.let {
+            it[AppKeys.PickedDate.name] = value
+            dismiss()
+        }
+
     }
 
     private fun initDatePicker() {
-        binding.datePickerWheelView.wheelYearPicker!!.yearStart = 1960
-        val maxPikYear = dateTimeModule.getTodayDateOrTime("yyyy")!!.toInt()
-        binding.datePickerWheelView.wheelYearPicker!!.yearEnd = if(maxYear > 0) maxYear else maxPikYear
-        binding.datePickerWheelView.selectedDay = day
-        binding.datePickerWheelView.selectedYear = year
-        binding.datePickerWheelView.selectedMonth = month
+        setMiniYear()
+        setMaxYear()
         binding.datePickerWheelView.setOnDateSelectedListener(listener)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.datePickerWheelView.selectedDay = day
+            binding.datePickerWheelView.selectedYear = year
+            binding.datePickerWheelView.selectedMonth = month
+        }, 500)
     }
 
+    private fun setMiniYear(){
+        if(useCurrentYear){
+            binding.datePickerWheelView.startFromCurrentDateTime()
+        }else{
+            binding.datePickerWheelView.wheelYearPicker!!.yearStart = 1960
+        }
+
+    }
+
+    private fun setMaxYear(){
+        val maxPikYear = dateTimeModule.getTodayDateOrTime("yyyy")!!.toInt()
+        binding.datePickerWheelView.wheelYearPicker!!.yearEnd = if(maxYear > 0) maxYear else maxPikYear
+    }
 
     private val listener: WheelDatePicker.OnDateSelectedListener =
-        WheelDatePicker.OnDateSelectedListener { _, date ->
+        WheelDatePicker.OnDateSelectedListener { picker, date ->
             date?.let {
-                this@DatePickerFragment.year = it.year
-                this@DatePickerFragment.month = it.month
-                this@DatePickerFragment.day = it.day
+
+                Log.d(javaClass.name, "year: ${date.get(Calendar.YEAR)}")
+                Log.d(javaClass.name, "month: ${date.get(Calendar.MONTH) + 1}")
+                Log.d(javaClass.name, "day: ${date.get(Calendar.DAY_OF_MONTH)}")
+                this@DatePickerFragment.year = date.get(Calendar.YEAR)
+                this@DatePickerFragment.month = date.get(Calendar.MONTH) + 1
+                this@DatePickerFragment.day = date.get(Calendar.DAY_OF_MONTH)
             }
         }
 
@@ -108,6 +134,8 @@ class DatePickerFragment : BottomSheetDialogFragment() {
                 month = it.getInt(AppKeys.Month.name)
             if (it.containsKey(AppKeys.MaxYear.name))
                 maxYear = it.getInt(AppKeys.MaxYear.name)
+            if(it.containsKey(AppKeys.MiniYear.name))
+                useCurrentYear = it.getBoolean(AppKeys.MiniYear.name)
         }
 
     }

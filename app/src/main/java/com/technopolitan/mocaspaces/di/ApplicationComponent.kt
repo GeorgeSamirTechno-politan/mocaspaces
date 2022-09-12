@@ -1,9 +1,9 @@
 package com.technopolitan.mocaspaces.di
 
+//import com.technopolitan.mocaspaces.di.viewModel.ViewModelModule
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.di.viewModel.ViewModelModule
 import com.technopolitan.mocaspaces.modules.AppModule
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
@@ -12,7 +12,6 @@ import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
 import com.technopolitan.mocaspaces.ui.personalInfo.PersonalInfoFragment
 import com.technopolitan.mocaspaces.ui.register.RegisterFragment
-import com.technopolitan.mocaspaces.ui.scanningImage.ScanningFragment
 import com.technopolitan.mocaspaces.ui.splash.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment
@@ -24,7 +23,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        ViewModelModule::class
+//        ViewModelModule::class
     ]
 )
 interface ApplicationComponent {

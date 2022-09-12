@@ -12,6 +12,7 @@
         tools:layout="@layout/fragment_two_choose_dialog" />
 
 
+
     <dialog
         android:id="@+id/two_choose_dialog"
         android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment"
@@ -25,7 +26,7 @@
 
     <dialog
         android:id="@+id/scanning_dialog"
-        android:name="com.technopolitan.mocaspaces.ui.scanningImage.ScanningFragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.ScanningFragment"
         android:label="@string/scanning"
         tools:layout="@layout/fragment_scanning" />
 

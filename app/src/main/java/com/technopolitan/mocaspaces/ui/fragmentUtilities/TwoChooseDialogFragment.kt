@@ -44,7 +44,7 @@ class TwoChooseDialogFragment : BottomSheetDialogFragment() {
             ?: return
         bottomSheet.setBackgroundColor(Color.TRANSPARENT)
     }
-
+//
 //    override fun onStart() {
 //        super.onStart()
 //        val dialog: Dialog? = dialog

@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.data.gender.GenderMapper
-import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.data.shared.MemberTypeViewModel
 import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
-import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import javax.inject.Inject
 
@@ -33,16 +31,18 @@ class PersonalInfoFragment : Fragment() {
     @Inject
     lateinit var genderResponseHandler: ApiResponseModule<List<GenderMapper>>
 
+    //
     private lateinit var binding: FragmentPersonalInfoBinding
 
     @Inject
     lateinit var registerViewModel: RegisterViewModel
 
+    @Inject
+    lateinit var navigationModule: NavigationModule
 
     override fun onAttach(context: Context) {
-        DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
         super.onAttach(context)
-//        getDataFromArguments()
+        DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
     }
 
     override fun onCreateView(
@@ -55,7 +55,6 @@ class PersonalInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        registerViewModel= ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
         initDataModule()
         initMemberType()
         initGender()
@@ -110,9 +109,9 @@ class PersonalInfoFragment : Fragment() {
         if (registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 1 ||
             registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 2
         ) {
-
+            /// TODO missing navigate to verify email
         } else if (registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 3) {
-
+            navigationModule.navigateTo(R.id.action_personal_info_to_student_verify)
         }
     }
 

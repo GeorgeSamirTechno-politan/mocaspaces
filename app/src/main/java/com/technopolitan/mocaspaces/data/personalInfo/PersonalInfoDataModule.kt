@@ -2,8 +2,6 @@ package com.technopolitan.mocaspaces.data.personalInfo
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.opengl.Visibility
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.animation.Animation
@@ -18,6 +16,7 @@ import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
 import com.technopolitan.mocaspaces.modules.*
+import com.technopolitan.mocaspaces.utilities.DateTimeConstants
 import dagger.Module
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -83,7 +82,7 @@ class PersonalInfoDataModule @Inject constructor(
 
     }
 
-    fun setGenderList(genderList: List<GenderMapper>){
+    fun setGenderList(genderList: List<GenderMapper>) {
         this.genderList = genderList
         genderPublisher.onNext(genderList[0])
         binding.genderCardLayout.visibility = View.VISIBLE
@@ -165,14 +164,28 @@ class PersonalInfoDataModule @Inject constructor(
 
     private fun showDatePickerDialog() {
         val maxYear = Calendar.getInstance().get(Calendar.YEAR) - 16
-        Log.d(javaClass.name, "showDatePickerDialog: $maxYear", )
-        dialogModule.showDatePickerDialog (maxYear = maxYear){ year, month, day ->
-            run {
-                val dateString = "$year/$month$day"
-                binding.dateOfBirthEditText.setText(dateString)
-                dateOfBirthPublisher.onNext(dateString)
-                binding.dateOfBirthTextInputLayout.error = null
+        var calendar = GregorianCalendar()
+        calendar.time = Calendar.getInstance().time
+        var year = 2000
+        var month = calendar.get(Calendar.MONTH) + 1
+        var day = calendar.get(Calendar.DAY_OF_MONTH)
+        registerRequestMapper.birthDate?.let {
+            year = it.split("-")[0].toInt()
+            month = it.split("-")[1].toInt()
+            day = it.split("-")[2].split("T")[0].toInt()
+        }
+        dialogModule.showDatePickerDialog(
+            maxYear = maxYear,
+            year = year,
+            month = month,
+            day = day
+        ) { selectedYear, selectedMonth, selectedDay ->
+            val dateString = "$selectedYear-$selectedMonth-${selectedDay}"
+            dateTimeModule.convertDate(dateString, DateTimeConstants.yearMonthDayFormat)?.let {
+                registerRequestMapper.birthDate = it
             }
+            binding.dateOfBirthEditText.setText("$selectedDay/$selectedMonth/$selectedYear")
+            dateOfBirthPublisher.onNext(dateString)
         }
     }
 
@@ -180,8 +193,12 @@ class PersonalInfoDataModule @Inject constructor(
     private fun initMobileView() {
         binding.mobileIncludePersonalInfo.mobileIncludeProgress.spinKit.visibility = View.GONE
         binding.mobileIncludePersonalInfo.countryDropDownLayout.visibility = View.VISIBLE
-        glideModule.loadImage(registerRequestMapper.counterMapper.url, binding.mobileIncludePersonalInfo.countryImageView)
-        binding.mobileIncludePersonalInfo.countryCodeTextView.text = registerRequestMapper.counterMapper.code
+        glideModule.loadImage(
+            registerRequestMapper.counterMapper.url,
+            binding.mobileIncludePersonalInfo.countryImageView
+        )
+        binding.mobileIncludePersonalInfo.countryCodeTextView.text =
+            registerRequestMapper.counterMapper.code
         binding.mobileIncludePersonalInfo.arrowDownCountryImageView.visibility = View.INVISIBLE
         binding.mobileIncludePersonalInfo.mobileNumberEditText.setText(registerRequestMapper.mobile)
         binding.mobileIncludePersonalInfo.mobileNumberEditText.isEnabled = false

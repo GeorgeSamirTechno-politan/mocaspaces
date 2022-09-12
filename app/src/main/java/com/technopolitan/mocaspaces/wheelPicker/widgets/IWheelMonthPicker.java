@@ -29,4 +29,8 @@ public interface IWheelMonthPicker {
      * @return 当前选择的月份
      */
     int getCurrentMonth();
+
+    void setStartMonth(int month);
+
+    void setSelectedYearForMonthPicker(int year);
 }

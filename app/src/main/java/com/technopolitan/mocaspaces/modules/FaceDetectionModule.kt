@@ -5,6 +5,8 @@ package com.technopolitan.mocaspaces.modules
 
 import android.content.Context
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class FaceDetectionModule @Inject constructor(
     private var dialogModule: DialogModule,
     private var context: Context,
-    private var pixModule: PixModule
+    private var pixModule: PixModule,
+    private var navigationModule: NavigationModule
 
 //    private var cropFaceModule: CropFaceModule
 ) {
@@ -111,10 +114,16 @@ class FaceDetectionModule @Inject constructor(
 
     private fun detectFace() {
         FaceDetection.getClient(highAccuracyOpts).process(inputImage).addOnCompleteListener {
-            if (it.isSuccessful)
+            if (it.isSuccessful && it.result?.size == 1)
                 handleImage()
-            else
-                showError(e = it.exception!!.message!!)
+            else {
+                it.exception?.let {exp->
+                    Log.e(javaClass.name, "detectFace: ", exp)
+                }
+
+                showError()
+            }
+
         }
     }
 
@@ -123,16 +132,16 @@ class FaceDetectionModule @Inject constructor(
     }
 
 
-    private fun showError(e: String) {
-        Log.e(javaClass.name, e)
-        dialogModule.showMessageDialog(
-            context.getString(R.string.please_upload_a_clear_picture_of_your_face),
-            btnText = context.getString(R.string.try_again)
-        ) {
-            pixModule.init(callBack = {
-
-            })
-        }
+    private fun showError() {
+        navigationModule.popBack()
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialogModule.showMessageDialog(
+                context.getString(R.string.please_upload_a_clear_picture_of_your_face),
+                btnText = context.getString(R.string.try_again)
+            ) {
+                Handler(Looper.getMainLooper()).postDelayed({pixModule.showPix()}, 500)
+            }
+        }, 500)
     }
 
 

@@ -51,12 +51,12 @@ class PersonalInfoFragmentModule @Inject constructor(private val networkModule: 
     fun provideFaceDetectionModule(
         dialogModule: DialogModule,
         context: Context,
-        pixModule: PixModule
-//        cropFaceModule: CropFaceModule
+        pixModule: PixModule,
+        navigationModule: NavigationModule,
     ): FaceDetectionModule = FaceDetectionModule(
         dialogModule, context,
-        pixModule
-//        cropFaceModule
+        pixModule,
+        navigationModule
     )
 
     @Singleton

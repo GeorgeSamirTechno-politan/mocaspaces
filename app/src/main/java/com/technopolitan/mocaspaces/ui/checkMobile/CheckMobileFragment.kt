@@ -6,17 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.country.CountryDataModule
 import com.technopolitan.mocaspaces.data.country.CountryMapper
-import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.databinding.FragmentCheckMobileBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
-import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
@@ -44,6 +38,9 @@ class CheckMobileFragment : Fragment() {
 
     @Inject
     lateinit var navigationModule: NavigationModule
+
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelProvider.Factory
 
 
     @Inject
@@ -106,7 +103,8 @@ class CheckMobileFragment : Fragment() {
             binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
         if (countryCode == "+20") {
             if (registerViewModel.getRegisterRequestMapper().mobile.startsWith("0"))
-                registerViewModel.getRegisterRequestMapper().mobile = registerViewModel.getRegisterRequestMapper().mobile.removeRange(0, 1)
+                registerViewModel.getRegisterRequestMapper().mobile =
+                    registerViewModel.getRegisterRequestMapper().mobile.removeRange(0, 1)
         }
         checkMobileViewModel.checkMobile(
             countryCode + registerViewModel.getRegisterRequestMapper().mobile

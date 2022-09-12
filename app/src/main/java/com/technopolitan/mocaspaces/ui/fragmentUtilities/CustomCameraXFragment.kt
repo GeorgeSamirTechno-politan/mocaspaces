@@ -1,15 +1,20 @@
 package com.technopolitan.mocaspaces.ui.fragmentUtilities
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentCustomCameraXBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -18,7 +23,7 @@ import com.technopolitan.mocaspaces.modules.*
 import javax.inject.Inject
 
 
-class CustomCameraXFragment : Fragment() {
+class CustomCameraXFragment : DialogFragment() {
 
     @Inject
     lateinit var permissionModule: PermissionModule
@@ -53,6 +58,17 @@ class CustomCameraXFragment : Fragment() {
         }
 
 
+    override fun onStart() {
+        super.onStart()
+        val dialog: Dialog? = dialog
+        if (dialog != null) {
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog.window?.setLayout(width, height)
+        }
+    }
+
+
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
             .inject(this)
@@ -68,6 +84,10 @@ class CustomCameraXFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        if (dialog != null && dialog?.window != null) {
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(android.R.color.transparent)))
+            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        }
         binding = FragmentCustomCameraXBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -108,14 +128,14 @@ class CustomCameraXFragment : Fragment() {
                 binding.scanImageView,
                 binding.cameraPreviewCapture
             ) {
-                handleImage(it)
+                Handler(Looper.getMainLooper()).postDelayed({handleImage(it)}, 500)
             }
         }
     }
 
     private fun handleImage(path: String) {
         Log.d(javaClass.name, "handleImage: $path")
-        navigationModule.savedStateHandler(R.id.action_student_verification_to_camera_x)
+        navigationModule.savedStateHandler(R.id.camera_x_fragment)
             ?.set(if (isFront) AppKeys.FrontCardPath.name else AppKeys.BackCardPath.name, path)
         navigationModule.popBack()
     }

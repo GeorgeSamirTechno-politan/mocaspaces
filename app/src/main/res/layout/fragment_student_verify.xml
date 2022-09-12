@@ -47,8 +47,8 @@
 
             <ImageView
                 android:id="@+id/front_card_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:src="@drawable/ic_student_card_front"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,8 +117,8 @@
 
             <ImageView
                 android:id="@+id/back_card_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:src="@drawable/ic_student_card_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -187,8 +187,8 @@
 
             <ImageView
                 android:id="@+id/expire_date_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:src="@drawable/ic_card_expire"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -231,6 +231,7 @@
         android:layout_marginTop="@dimen/_14sdp"
         android:focusable="true"
         android:hint="@string/expiry_date"
+        android:visibility="gone"
         android:textColorHint="@color/grey_color_90_percent"
         app:endIconCheckable="false"
         app:endIconDrawable="@drawable/ic_calender"
@@ -247,7 +248,7 @@
             android:editable="false"
             android:enabled="true"
             android:focusable="false"
-            android:inputType="none" />
+            android:inputType="none"  />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -256,7 +257,7 @@
         android:id="@+id/student_verify_next_btn"
         style="@style/progress_button_style.accent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_60sdp"
         android:layout_marginEnd="@dimen/_60sdp"
         android:text="@string/next"

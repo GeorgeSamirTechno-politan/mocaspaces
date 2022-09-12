@@ -47,8 +47,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="988" />
-                            <option name="y" value="389" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -77,11 +77,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_login_to_custom_camera_x">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_login_to_register">
                               <value>
                                 <LayoutPositions />

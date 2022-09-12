@@ -1,6 +1,7 @@
 package com.technopolitan.mocaspaces.ui.register
 
 
+//import com.technopolitan.mocaspaces.di.AppViewModelFactory
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -9,18 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentRegisterBinding
-//import com.technopolitan.mocaspaces.di.AppViewModelFactory
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.NavigationModule
-import com.technopolitan.mocaspaces.ui.main.MainActivity
 import javax.inject.Inject
 
 class RegisterFragment : Fragment() {
@@ -34,15 +29,15 @@ class RegisterFragment : Fragment() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
 
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelFactory
     @Inject
     lateinit var registerViewModel: RegisterViewModel
-
-//    private val registerViewModel by viewModels<RegisterViewModel> { viewModelFactory }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
+
     }
 
     override fun onCreateView(
@@ -89,6 +84,17 @@ class RegisterFragment : Fragment() {
                             AppCompatResources.getDrawable(
                                 requireContext(),
                                 R.drawable.ic_person_round_icon
+                            )
+                        )
+
+                    R.id.student_verification_fragment ->
+                        updateView(
+                            75,
+                            R.string.verify_student,
+                            View.VISIBLE,
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_student_verification
                             )
                         )
                 }

@@ -1,6 +1,5 @@
 package com.technopolitan.mocaspaces.modules
 
-import com.technopolitan.mocaspaces.R
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
@@ -24,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.common.util.concurrent.ListenableFuture
+import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import java.io.*
@@ -209,7 +209,7 @@ class CameraXModule @Inject constructor(
                         val rotatedBitmap = bitmap.rotate(90)
                         val croppedImage = cropImage(rotatedBitmap, previewView, croppedView)
                         createdPath = saveImage(croppedImage)
-
+                        callBack(createdPath)
                     }
                 }
                 Log.d(javaClass.name, msg)

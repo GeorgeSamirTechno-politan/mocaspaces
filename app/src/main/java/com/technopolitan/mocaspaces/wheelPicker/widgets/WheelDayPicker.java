@@ -8,6 +8,7 @@ import com.technopolitan.mocaspaces.wheelPicker.WheelPicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,10 @@ import java.util.Map;
  */
 public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
     private static final Map<Integer, List<Integer>> DAYS = new HashMap<>();
-
-    private Calendar mCalendar;
+    private int startDay = 1;
+    private int selectedMonth = 1;
+    private int selectedYear = 1;
+    private final Calendar mCalendar;
 
     private int mYear, mMonth;
     private int mSelectedDay;
@@ -52,10 +55,15 @@ public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
         mCalendar.set(Calendar.MONTH, mMonth);
 
         int days = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(Calendar.getInstance().getTime());
         List<Integer> data = DAYS.get(days);
         if (null == data) {
             data = new ArrayList<>();
-            for (int i = 1; i <= days; i++)
+            if (calendar.get(Calendar.MONTH) + 1 == selectedMonth &&
+                    calendar.get(Calendar.YEAR) == selectedYear)
+                startDay = calendar.get(Calendar.DAY_OF_MONTH);
+            for (int i = startDay; i <= days; i++)
                 data.add(i);
             DAYS.put(days, data);
         }
@@ -114,5 +122,11 @@ public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
     public void setMonth(int month) {
         mMonth = month - 1;
         updateDays();
+    }
+
+    @Override
+    public void setSelectedMonthForStartDay(int month, int year) {
+        this.selectedMonth = month;
+        this.selectedYear = year;
     }
 }

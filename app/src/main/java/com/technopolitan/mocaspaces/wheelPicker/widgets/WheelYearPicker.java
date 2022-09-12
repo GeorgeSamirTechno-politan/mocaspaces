@@ -3,7 +3,6 @@ package com.technopolitan.mocaspaces.wheelPicker.widgets;
 import android.content.Context;
 import android.util.AttributeSet;
 
-
 import com.technopolitan.mocaspaces.wheelPicker.WheelPicker;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
  * @version 1
  */
 public class WheelYearPicker extends WheelPicker implements IWheelYearPicker {
-    private int mYearStart = 1000, mYearEnd = 3000;
+    private int mYearStart = 1900, mYearEnd = 3000;
     private int mSelectedYear;
 
     public WheelYearPicker(Context context) {
@@ -40,6 +39,7 @@ public class WheelYearPicker extends WheelPicker implements IWheelYearPicker {
             data.add(i);
         super.setData(data);
     }
+
 
     private void updateSelectedYear() {
         setSelectedItemPosition(mSelectedYear - mYearStart);

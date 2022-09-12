@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.enums.AppKeys
@@ -70,9 +69,13 @@ class PixModule @Inject constructor(
 //            activityResultLauncher,
             permissionList,
         ) {
-            getImageUsingPix()
-            callReplace()
+            showPix()
         }
+    }
+
+    fun showPix(){
+        getImageUsingPix()
+        callReplace()
     }
 
 

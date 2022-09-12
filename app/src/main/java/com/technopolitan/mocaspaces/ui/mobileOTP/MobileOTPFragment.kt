@@ -5,14 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 import com.technopolitan.mocaspaces.databinding.FragmentMobileOTPBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
-import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
@@ -35,14 +31,12 @@ class MobileOTPFragment : Fragment() {
     @Inject
     lateinit var verifyMobileHandler: ApiResponseModule<String>
 
-
     @Inject
     lateinit var registerViewModel: RegisterViewModel
 
     override fun onAttach(context: Context) {
-        DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
         super.onAttach(context)
-//        getRegisterMapperFromArgument()
+        DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
     }
 
     override fun onCreateView(
@@ -55,7 +49,6 @@ class MobileOTPFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        registerViewModel= ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
         val mobile =
             registerViewModel.getRegisterRequestMapper().counterMapper.code + registerViewModel.getRegisterRequestMapper().mobile
         binding.mobileNumberTextView.text = mobile

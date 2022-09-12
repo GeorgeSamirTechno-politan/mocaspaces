@@ -65,4 +65,6 @@ public interface IWheelDayPicker {
      * @param month 月份
      */
     void setMonth(int month);
+
+    void setSelectedMonthForStartDay(int month , int year);
 }

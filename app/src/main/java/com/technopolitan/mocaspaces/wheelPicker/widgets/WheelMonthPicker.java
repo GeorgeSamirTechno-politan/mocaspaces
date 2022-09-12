@@ -4,13 +4,13 @@ package com.technopolitan.mocaspaces.wheelPicker.widgets;
 import android.content.Context;
 import android.util.AttributeSet;
 
-
 import com.technopolitan.mocaspaces.R;
 import com.technopolitan.mocaspaces.wheelPicker.WheelPicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -23,7 +23,9 @@ import java.util.List;
  */
 public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
     private int mSelectedMonth;
-    private List<String> monthNames = Arrays.asList(getResources()
+    private int selectedYear;
+    private int startMonth = 0;
+    private final List<String> monthNames = Arrays.asList(getResources()
             .getStringArray(R.array.WheelMonthName));
     public WheelMonthPicker(Context context) {
         this(context, null);
@@ -31,9 +33,18 @@ public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
 
     public WheelMonthPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(Calendar.getInstance().getTime());
+        if(selectedYear == calendar.get(Calendar.YEAR)){
+            List<String> startedMonthList = new ArrayList<>();
+            for (int i= startMonth; i < monthNames.size(); i++){
+                startedMonthList.add(monthNames.get(i));
+            }
+            super.setData(startedMonthList);
+        }else{
+            super.setData(monthNames);
+        }
 
-        //        for (int i = 0; i <= monthNames.size(); i++)
-        super.setData(monthNames);
         mSelectedMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         updateSelectedYear();
     }
@@ -62,5 +73,15 @@ public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
     public int getCurrentMonth() {
         return getCurrentItemPosition();
 //        return Integer.valueOf(String.valueOf(getData().get(getCurrentItemPosition())));
+    }
+
+    @Override
+    public void setStartMonth(int month) {
+        this.startMonth = month;
+    }
+
+    @Override
+    public void setSelectedYearForMonthPicker(int year) {
+        this.selectedYear = year;
     }
 }

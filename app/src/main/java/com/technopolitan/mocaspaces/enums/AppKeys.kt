@@ -21,6 +21,7 @@ enum class AppKeys {
     ImageUri,
     Year,
     MaxYear,
+    MiniYear,
     CountryMapper,
     FrontCardPath,
     BackCardPath,

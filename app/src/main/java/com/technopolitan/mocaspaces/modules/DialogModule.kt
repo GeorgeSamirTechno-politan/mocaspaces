@@ -158,14 +158,16 @@ class DialogModule @Inject constructor(
         year: Int = 2000,
         navHostId: Int? = null,
         maxYear: Int? = null,
+        useCurrentYear: Boolean = false,
         callBack: (year: Int, month: Int, day: Int) -> Unit,
     ) {
         val bundle = Bundle()
         bundle.putInt(AppKeys.Day.name, day)
         bundle.putInt(AppKeys.Year.name, year)
         bundle.putInt(AppKeys.Month.name, month)
-        if(maxYear != null)
+        if (maxYear != null)
             bundle.putInt(AppKeys.MaxYear.name, maxYear)
+        bundle.putBoolean(AppKeys.MiniYear.name, useCurrentYear)
         navigationModule.navigateTo(R.id.date_picker_dialog, bundle = bundle, navHostId = navHostId)
         subscribeDatePickerDialog(callBack, navHostId)
     }
@@ -174,15 +176,15 @@ class DialogModule @Inject constructor(
         callBack: (year: Int, month: Int, day: Int) -> Unit,
         navHostId: Int? = null
     ) {
-        val initValue: Boolean? = null
+        val initValue: String? = null
         navigationModule.savedStateHandler(
             navHostId = navHostId,
             destinationId = R.id.date_picker_dialog
         )?.let { savedState ->
-            savedState.getLiveData(AppKeys.Message.name, initialValue = initValue)
+            savedState.getLiveData(AppKeys.PickedDate.name, initialValue = initValue)
                 .observe((activity as MainActivity)) {
                     if (it != null) {
-                        savedState.remove<Boolean>(AppKeys.Message.name)
+                        savedState.remove<Boolean>(AppKeys.PickedDate.name)
                         val splitMessage = it.toString().split("-")
                         callBack(
                             splitMessage[0].toInt(),

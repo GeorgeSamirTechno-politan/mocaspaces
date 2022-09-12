@@ -15,7 +15,9 @@ import com.technopolitan.mocaspaces.wheelPicker.WheelPicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -26,13 +28,15 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
     private static final SimpleDateFormat SDF =
             new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
-    private WheelYearPicker mPickerYear;
-    private WheelMonthPicker mPickerMonth;
-    private WheelDayPicker mPickerDay;
+    private final WheelYearPicker mPickerYear;
+    private final WheelMonthPicker mPickerMonth;
+    private final WheelDayPicker mPickerDay;
 
     private OnDateSelectedListener mListener;
 
-    private TextView mTVYear, mTVMonth, mTVDay;
+    private final TextView mTVYear;
+    private final TextView mTVMonth;
+    private final TextView mTVDay;
 
     private int mYear, mMonth, mDay;
 
@@ -45,9 +49,9 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
 
         LayoutInflater.from(context).inflate(R.layout.view_wheel_date_picker, this);
 
-        mPickerYear = (WheelYearPicker) findViewById(R.id.wheel_date_picker_year);
-        mPickerMonth = (WheelMonthPicker) findViewById(R.id.wheel_date_picker_month);
-        mPickerDay = (WheelDayPicker) findViewById(R.id.wheel_date_picker_day);
+        mPickerYear = findViewById(R.id.wheel_date_picker_year);
+        mPickerMonth = findViewById(R.id.wheel_date_picker_month);
+        mPickerDay = findViewById(R.id.wheel_date_picker_day);
         mPickerYear.setOnItemSelectedListener(this);
         mPickerMonth.setOnItemSelectedListener(this);
         mPickerDay.setOnItemSelectedListener(this);
@@ -56,13 +60,13 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
 //        mPickerMonth.setMaximumWidthText("00");
 //        mPickerDay.setMaximumWidthText("00");
 
-        mTVYear = (TextView) findViewById(R.id.wheel_date_picker_year_tv);
-        mTVMonth = (TextView) findViewById(R.id.wheel_date_picker_month_tv);
-        mTVDay = (TextView) findViewById(R.id.wheel_date_picker_day_tv);
+        mTVYear = findViewById(R.id.wheel_date_picker_year_tv);
+        mTVMonth = findViewById(R.id.wheel_date_picker_month_tv);
+        mTVDay = findViewById(R.id.wheel_date_picker_day_tv);
 
-        mYear = mPickerYear.getCurrentYear();
-        mMonth = mPickerMonth.getCurrentMonth();
-        mDay = mPickerDay.getCurrentDay();
+        mYear = mPickerYear.getSelectedYear();
+        mMonth = mPickerMonth.getSelectedMonth();
+        mDay = mPickerDay.getSelectedDay();
     }
 
     private void setMaximumWidthTextYear() {
@@ -80,14 +84,17 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
         if (picker.getId() == R.id.wheel_date_picker_year) {
             mYear = (int) data;
             mPickerDay.setYear(mYear);
+            setSelectedYearForMonthPicker(mYear);
         } else if (picker.getId() == R.id.wheel_date_picker_month) {
             mMonth = getSelectedMonth((String) data);
+            setSelectedMonthForStartDay(mMonth, mYear);
             mPickerDay.setMonth(mMonth);
         }
         mDay = mPickerDay.getCurrentDay();
-        String date = mYear + "-" + mMonth + "-" + mDay;
+        Calendar calender =new  GregorianCalendar();
+        calender.set(mYear, mMonth -1, mDay);
         if (null != mListener) {
-            mListener.onDateSelected(this, new Date(mYear, mMonth, mDay));
+            mListener.onDateSelected(this, calender);
         }
     }
 
@@ -541,12 +548,32 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
         mMonth = month;
         mPickerMonth.setSelectedMonth(month);
         mPickerDay.setMonth(month);
+
+    }
+
+    public void startFromCurrentDateTime(){
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(Calendar.getInstance().getTime());
+        setYearStart(calendar.get(Calendar.YEAR));
+        setSelectedYearForMonthPicker(calendar.get(Calendar.YEAR));
+        setSelectedMonthForStartDay(calendar.get(Calendar.MONTH) +1 , calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
     public int getCurrentMonth() {
         return mPickerMonth.getCurrentMonth();
     }
+
+    @Override
+    public void setStartMonth(int month) {
+
+    }
+
+    @Override
+    public void setSelectedYearForMonthPicker(int year) {
+
+    }
+
 
     @Override
     public int getSelectedDay() {
@@ -597,7 +624,14 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
         mPickerDay.setMonth(month);
     }
 
+    @Override
+    public void setSelectedMonthForStartDay(int month, int year) {
+
+    }
+
+
+
     public interface OnDateSelectedListener {
-        void onDateSelected(WheelDatePicker picker, Date date);
+        void onDateSelected(WheelDatePicker picker, Calendar calendar);
     }
 }
