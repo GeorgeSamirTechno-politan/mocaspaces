@@ -39,9 +39,6 @@ class CheckMobileFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelProvider.Factory
-
 
     @Inject
     lateinit var registerViewModel: RegisterViewModel
@@ -103,8 +100,7 @@ class CheckMobileFragment : Fragment() {
             binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
         if (countryCode == "+20") {
             if (registerViewModel.getRegisterRequestMapper().mobile.startsWith("0"))
-                registerViewModel.getRegisterRequestMapper().mobile =
-                    registerViewModel.getRegisterRequestMapper().mobile.removeRange(0, 1)
+                registerViewModel.getRegisterRequestMapper().mobile = registerViewModel.getRegisterRequestMapper().mobile.removeRange(0, 1)
         }
         checkMobileViewModel.checkMobile(
             countryCode + registerViewModel.getRegisterRequestMapper().mobile

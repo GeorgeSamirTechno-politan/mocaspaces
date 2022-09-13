@@ -5,6 +5,7 @@
     android:id="@+id/no_internet_swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/accent_color"
     app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/yellow_color"
     tools:context=".ui.fragmentUtilities.NoInternetFragment">
 
@@ -17,9 +18,9 @@
 
         <ImageView
             android:id="@+id/app_logo_no_internet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_50sdp"
             android:src="@drawable/ic_moca"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,14 +29,16 @@
 
 
         <ImageView
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:id="@+id/connection_lost_image"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/ic_connection_lost"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_logo_no_internet" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/connection_lost_text"
@@ -45,7 +48,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/connection_lost"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/_32sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +62,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/please_check_your_connection_and_swipe_down_to_try_again"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
