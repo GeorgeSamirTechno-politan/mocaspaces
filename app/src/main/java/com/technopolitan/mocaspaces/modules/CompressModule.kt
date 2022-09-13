@@ -45,12 +45,17 @@ class CompressModule @Inject constructor(
     }
 
     private suspend fun compressImage(): File {
-        return Compressor.compress(context, File(path), Dispatchers.IO) {
-            resolution(640, 960)
-            quality(60)
-            format(Bitmap.CompressFormat.PNG)
+        try {
+            return Compressor.compress(context, File(path), Dispatchers.IO) {
+                resolution(640, 960)
+                quality(60)
+                format(Bitmap.CompressFormat.PNG)
 
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
         }
+        return File(path)
     }
 
 

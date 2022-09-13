@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:paddingHorizontal="@dimen/_15sdp"
-            android:paddingVertical="@dimen/_15sdp">
+            android:paddingVertical="@dimen/_10sdp">
 
             <ImageView
                 android:id="@+id/front_card_image_view"
@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:paddingHorizontal="@dimen/_15sdp"
-            android:paddingVertical="@dimen/_15sdp">
+            android:paddingVertical="@dimen/_10sdp">
 
             <ImageView
                 android:id="@+id/back_card_image_view"
@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:paddingHorizontal="@dimen/_15sdp"
-            android:paddingVertical="@dimen/_15sdp">
+            android:paddingVertical="@dimen/_10sdp">
 
             <ImageView
                 android:id="@+id/expire_date_image_view"
@@ -258,10 +258,12 @@
         style="@style/progress_button_style.accent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="@dimen/_60sdp"
-        android:layout_marginEnd="@dimen/_60sdp"
         android:text="@string/next"
-        app:layout_constraintBottom_toTopOf="@id/skip_text_view" />
+        android:layout_marginTop="@dimen/_80sdp"
+        app:layout_constraintTop_toTopOf="@id/expire_date_text_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expire_date_card" />
 
     <TextView
         android:id="@+id/skip_text_view"
@@ -270,9 +272,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_20sdp"
         android:text="@string/skip"
+        android:layout_marginTop="@dimen/_15sdp"
         android:textColor="@color/accent_color"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_verify_next_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

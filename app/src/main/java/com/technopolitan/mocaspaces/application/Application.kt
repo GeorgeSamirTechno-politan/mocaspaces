@@ -5,6 +5,7 @@ import android.os.StrictMode
 import com.airbnb.lottie.Lottie
 import com.airbnb.lottie.LottieConfig
 
+
 open class MyApplication : Application() {
 
     override fun onCreate() {
@@ -19,5 +20,10 @@ open class MyApplication : Application() {
                 .setEnableSystraceMarkers(true)
                 .build()
         )
+
     }
+
+
 }
+
+

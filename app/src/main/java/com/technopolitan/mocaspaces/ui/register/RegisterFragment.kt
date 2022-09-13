@@ -70,7 +70,7 @@ class RegisterFragment : Fragment() {
             run {
                 when (destination.id) {
                     R.id.verify_mobile_fragment -> {
-                        utilityModule.setStatusBar(R.color.white)
+                        updateRegisterUiWhite()
                         updateView(
                             25,
                             R.string.sign_up,
@@ -79,7 +79,7 @@ class RegisterFragment : Fragment() {
                         )
                     }
                     R.id.mobile_otp_fragment -> {
-                        utilityModule.setStatusBar(R.color.white)
+                        updateRegisterUiWhite()
                         updateView(
                             50,
                             R.string.verify_mobile,
@@ -91,7 +91,7 @@ class RegisterFragment : Fragment() {
                         )
                     }
                     R.id.personal_info_fragment -> {
-                        utilityModule.setStatusBar(R.color.white)
+                        updateRegisterUiWhite()
                         updateView(
                             75,
                             R.string.personal_info,
@@ -103,7 +103,7 @@ class RegisterFragment : Fragment() {
                         )
                     }
                     R.id.student_verification_fragment -> {
-                        utilityModule.setStatusBar(R.color.white)
+                        updateRegisterUiWhite()
                         updateView(
                             85,
                             R.string.verify_student,
@@ -115,11 +115,11 @@ class RegisterFragment : Fragment() {
                         )
                     }
                     R.id.check_email_fragment -> {
-                        utilityModule.setStatusBar(R.color.accent_color)
+                        updateRegisterUiAcceent()
                         hideView()
                     }
                     R.id.fragment_password -> {
-                        utilityModule.setStatusBar(R.color.white)
+                        updateRegisterUiWhite()
                         updateView(
                             100,
                             R.string.password,
@@ -134,6 +134,16 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
+
+    private fun updateRegisterUiAcceent() {
+        binding.root.setBackgroundColor(requireContext().getColor(R.color.accent_color))
+        utilityModule.setStatusBar(R.color.accent_color)
+    }
+
+    private fun updateRegisterUiWhite() {
+        binding.root.setBackgroundColor(requireContext().getColor(R.color.white))
+        utilityModule.setStatusBar(R.color.white)
+    }
 
     private fun updateView(progressCount: Int, textId: Int, visibility: Int, drawable: Drawable?) {
         binding.progressCountRegister.visibility = View.VISIBLE

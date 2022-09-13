@@ -4,10 +4,12 @@ package com.technopolitan.mocaspaces.modules
 //import java.io.File
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.bumptech.glide.load.resource.bitmap.Rotate
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
@@ -26,6 +28,7 @@ class FaceDetectionModule @Inject constructor(
 //    private var cropFaceModule: CropFaceModule
 ) {
     private lateinit var callbacks: (uri: Uri, path: String) -> Unit
+    private lateinit var callbacksBitmap: (bitmap: Bitmap) -> Unit
 
     //    private lateinit var faceOptions: FaceOptions
     private val highAccuracyOpts = FaceDetectorOptions.Builder()
@@ -38,6 +41,8 @@ class FaceDetectionModule @Inject constructor(
     private lateinit var uri: Uri
     private var useCropAlgorithm: Boolean = false
     private lateinit var path: String
+    private var useBitmap: Boolean = false
+    private lateinit var bitmap: Bitmap
 
 //    private val orientations = SparseIntArray()
 //
@@ -112,22 +117,42 @@ class FaceDetectionModule @Inject constructor(
         detectFace()
     }
 
+    fun init(
+        bitmap: Bitmap,
+        useCropAlgorithm: Boolean = true,
+        callbacks: (bitmap: Bitmap) -> Unit
+    ) {
+        useBitmap = true
+        this.bitmap = bitmap
+        this.callbacksBitmap = callbacks
+        inputImage = InputImage.fromBitmap(bitmap, 0)
+        this.useCropAlgorithm = useCropAlgorithm
+        detectFace()
+    }
+
     private fun detectFace() {
-        FaceDetection.getClient(highAccuracyOpts).process(inputImage).addOnCompleteListener {
-            if (it.isSuccessful && it.result?.size == 1)
-                handleImage()
-            else {
-                it.exception?.let {exp->
-                    Log.e(javaClass.name, "detectFace: ", exp)
+        try {
+            FaceDetection.getClient(highAccuracyOpts).process(inputImage).addOnCompleteListener {
+                if (it.isSuccessful && it.result?.size == 1)
+                    handleImage()
+                else {
+                    it.exception?.let {exp->
+                        Log.e(javaClass.name, "detectFace: ", exp)
+                    }
+
+                    showError()
                 }
 
-                showError()
             }
-
+        }catch (e: Exception){
+            e.printStackTrace()
         }
     }
 
     private fun handleImage() {
+        if(useBitmap)
+            callbacksBitmap(bitmap)
+        else
         callbacks(uri, path)
     }
 

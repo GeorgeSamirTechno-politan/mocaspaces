@@ -13,24 +13,18 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/circular_white_border_shape.xml" value="0.268" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/dialog_top_radius.xml" value="0.267" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_baseline_warning_24.xml" value="0.1935" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_card_expire.xml" value="0.2985" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_egypt.xml" value="0.267" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_launcher_background.xml" value="0.299" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_moca.xml" value="0.1935" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_my_pass.xml" value="0.311" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_no_image_found.xml" value="0.1935" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_say_hello_to_moca.xml" value="0.1935" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_student_card_back.xml" value="0.2985" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_student_card_front.xml" value="0.2985" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_two_tone_close.xml" value="0.2985" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/ic_twotone_check.xml" value="0.2985" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/moca_yellow.xml" value="0.18" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/nav_select_un_select_color.xml" value="0.299" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/power_menu_shape.xml" value="0.267" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/round_top_corners_bottom_nav.xml" value="0.299" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/rounded_corner_white_background_shape.xml" value="0.22" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/rounded_dark_grey_stroke_color.xml" value="0.1935" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/rounded_white_stroke_color.xml" value="0.2985" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/start_storke_dark_grey.xml" value="0.18" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/stork_dark_grey.xml" value="0.267" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/text_input_layout_selector.xml" value="0.299" />
@@ -44,29 +38,17 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/circle_progress_layout.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/common_layout.xml" value="0.3625" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/coordinator_layout.xml" value="0.3614583333333333" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_alert_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_power_menu_item.xml" value="0.9" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_snake_bar_layout.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_email.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_mobile.xml" value="0.25" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_custom_camera_x.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_date_picker.xml" value="0.5" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_forget_password_mobile.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_date_picker.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_mobile_o_t_p.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_no_internet.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_password_saved.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_personal_info.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_personal_info.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_register.xml" value="0.33" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_register_password.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_reset_password.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_reset_password_otp.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_scanning.xml" value="0.22" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_single_button_dialog.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_start.xml" value="0.22" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_student_verify.xml" value="0.1" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_success_register.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_two_choose_dialog.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/gender_layout.xml" value="0.75" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/horizontal_loading_layout.xml" value="0.2967079948696024" />
@@ -75,17 +57,13 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/member_type_item.xml" value="0.18" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/mobile_number_layout.xml" value="0.4549019607843137" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/moca_yellow_logo.xml" value="0.2967079948696024" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_dark_layout.xml" value="0.2975630611372381" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_layout.xml" value="0.25" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_white_layout.xml" value="0.2967079948696024" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/password_layout.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_layout.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/profile_layout.xml" value="1.0" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/progress_button.xml" value="0.2967079948696024" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/progress_layout.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/progress_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/single_button_dialog.xml" value="0.2967079948696024" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/test_layout.xml" value="0.4430299172501591" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/user_image_layout.xml" value="0.67" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/view_wheel_date_picker.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1935" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
@@ -95,6 +73,46 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/xml/show_hide_scene.xml" value="0.3625" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/xml/sign_in_scene.xml" value="0.2967079948696024" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/xml/single_dialog_scene.xml" value="0.2975630611372381" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/drawable/camera_selected_shape.xml" value="0.2985" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/drawable/ic_card_back.xml" value="0.26" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/drawable/ic_connection_lost.xml" value="0.26" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/drawable/ic_scan.xml" value="0.26" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/app_tool_bar.xml" value="0.5" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/common_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/coordinator_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/custom_alert_layout.xml" value="0.25" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/custom_power_menu_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/custom_snake_bar_layout.xml" value="0.3614583333333333" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/custom_toast_layout.xml" value="0.33" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_check_email.xml" value="0.22" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_check_mobile.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_custom_camera_x.xml" value="0.25" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_date_picker.xml" value="0.5" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_forget_password_mobile.xml" value="0.2860196665241556" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_login.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_mobile_o_t_p.xml" value="0.33" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_no_internet.xml" value="0.25" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_password.xml" value="0.33" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_password_saved.xml" value="0.17" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_personal_info.xml" value="0.25" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_register.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_register_password.xml" value="0.2975630611372381" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_reset_password.xml" value="0.2975630611372381" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_reset_password_otp.xml" value="0.2975630611372381" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_scanning.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_single_button_dialog.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_splash.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_start.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_student_verify.xml" value="0.25" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/fragment_two_choose_dialog.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/member_type_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/mobile_number_layout.xml" value="0.5" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/otp_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/password_layout.xml" value="0.2967079948696024" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/progress_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/layout/user_image_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/technopolitan/mocaspaces-master/mocaspaces-master/app/src/main/res/xml/file_paths.xml" value="0.14791666666666667" />
       </map>
     </option>
   </component>

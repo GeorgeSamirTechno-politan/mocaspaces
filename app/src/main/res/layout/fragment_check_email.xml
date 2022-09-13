@@ -8,197 +8,183 @@
     android:animateLayoutChanges="true"
     tools:context=".ui.checkEmail.CheckEmailFragment">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/accent_color"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:animateLayoutChanges="true"
+        <ImageView
+            android:id="@+id/verify_mail_moca_image"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:src="@drawable/ic_moca"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/email_sent_lottie_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/verify_mail_moca_image"
+            style="@style/lottie_style"
+            app:lottie_rawRes="@raw/email_sent_lottie" />
+
+        <TextView
+            android:id="@+id/verify_email_text_view"
+            style="@style/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/verify_your_e_mail"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_sent_lottie_view" />
+
+        <TextView
+            android:id="@+id/sent_email_text"
+            style="@style/regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="@string/sent_email"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/verify_email_text_view" />
+
+        <TextView
+            android:id="@+id/email_text_view"
+            style="@style/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sent_email_text"
+            tools:text="gsamir@techno-politan.com" />
+
+        <TextView
+            android:id="@+id/verification_code_email_text_view"
+            style="@style/regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/email_enter_verification_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_text_view" />
+
+        <include
+            android:id="@+id/email_otp_loading_layout"
+            layout="@layout/progress_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/verification_code_email_text_view" />
+
+        <include
+            android:layout_marginTop="@dimen/_15sdp"
+            android:id="@+id/otp_email_layout"
+            layout="@layout/otp_white_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/verification_code_email_text_view" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/otp_email_progress_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="otp_email_layout,email_otp_loading_layout" />
+
+        <TextView
+            android:id="@+id/remaining_email_text_view"
+            style="@style/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/remaining"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/otp_email_progress_barrier" />
+
+        <TextView
+            android:id="@+id/error_email_text_view"
+            style="@style/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/wrong_verification_code"
+            android:textColor="@color/error_color"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/remaining_email_text_view" />
+
+        <LinearLayout
+            android:id="@+id/send_otp_email_layout"
+            android:layout_marginTop="@dimen/_25sdp"
+            app:layout_constraintTop_toBottomOf="@id/error_email_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:gravity="center"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/verify_mail_moca_image"
-                android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:src="@drawable/ic_moca"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/email_sent_lottie_view"
+            <TextView
+                android:id="@+id/did_not_receive_mail_text_view"
+                android:textSize="@dimen/_13sdp"
+                style="@style/bold"
+                android:textColor="@color/white"
+                android:text="@string/didn_t_receive_a_mail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_50sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/verify_mail_moca_image"
-                style="@style/lottie_style"
-                app:lottie_rawRes="@raw/email_sent_lottie" />
+                android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/verify_email_text_view"
+                android:id="@+id/resend_email_text_view"
                 style="@style/medium"
+                android:layout_marginStart="@dimen/_7sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/verify_your_e_mail"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_sent_lottie_view" />
+                android:textSize="@dimen/_13sdp"
+                android:text="@string/send_again"
+                android:textColor="@color/yellow_color" />
 
-            <TextView
-                android:id="@+id/sent_email_text"
-                style="@style/regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:text="@string/sent_email"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/verify_email_text_view" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/email_text_view"
-                style="@style/medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sent_email_text"
-                tools:text="gsamir@techno-politan.com" />
-
-            <TextView
-                android:id="@+id/verification_code_email_text_view"
-                style="@style/regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/email_enter_verification_code"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_text_view" />
-
-            <include
-                android:id="@+id/email_otp_loading_layout"
-                layout="@layout/progress_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/verification_code_email_text_view" />
-
-            <include
-                android:layout_marginTop="@dimen/_15sdp"
-                android:id="@+id/otp_email_layout"
-                layout="@layout/otp_white_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/verification_code_email_text_view" />
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/otp_email_progress_barrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="otp_email_layout,email_otp_loading_layout" />
-
-            <TextView
-                android:id="@+id/remaining_email_text_view"
-                style="@style/medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/remaining"
-                android:textColor="@color/white"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/otp_email_progress_barrier" />
-
-            <TextView
-                android:id="@+id/error_email_text_view"
-                style="@style/medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/wrong_verification_code"
-                android:textColor="@color/error_color"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/remaining_email_text_view" />
-
-            <LinearLayout
-                android:id="@+id/send_otp_email_layout"
-                android:layout_marginTop="@dimen/_25sdp"
-                app:layout_constraintTop_toBottomOf="@id/error_email_text_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/did_not_receive_mail_text_view"
-                    android:textSize="@dimen/_13sdp"
-                    style="@style/bold"
-                    android:textColor="@color/white"
-                    android:text="@string/didn_t_receive_a_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/resend_email_text_view"
-                    style="@style/medium"
-                    android:layout_marginStart="@dimen/_7sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_13sdp"
-                    android:text="@string/send_again"
-                    android:textColor="@color/yellow_color" />
-
-            </LinearLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/change_email_text_view"
-                style="@style/medium"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_white_stroke_color"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:paddingHorizontal="@dimen/_15sdp"
-                android:paddingVertical="@dimen/_5sdp"
-                android:text="@string/change_email"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/send_otp_email_layout" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/change_email_text_view"
+            style="@style/medium"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_white_stroke_color"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="@string/change_email"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/send_otp_email_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

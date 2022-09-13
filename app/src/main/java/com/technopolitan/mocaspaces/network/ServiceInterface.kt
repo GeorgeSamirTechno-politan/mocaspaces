@@ -20,7 +20,7 @@ import retrofit2.http.Path
 
 interface ServiceInterface {
 
-    @GET("v{version}/UserLogin/Login")
+    @POST("v{version}/UserLogin/Login")
     fun login(
         @Path("version") version: Int = Constants.apiVersion,
         @Body loginRequest: LoginRequest

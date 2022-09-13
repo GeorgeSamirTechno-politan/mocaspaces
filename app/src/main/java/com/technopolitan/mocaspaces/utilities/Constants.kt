@@ -6,7 +6,7 @@ class Constants {
     companion object {
         const val mocaImagesPath: String = "Pictures/moca"
         val DeviceType: String = "Android"
-        private const val IsAppLive: Boolean = false
+        const val IsAppLive: Boolean = false
 
         lateinit var OS: String
         lateinit var model: String

@@ -98,13 +98,11 @@ class ScanningFragment : DialogFragment() {
             if (it.containsKey(AppKeys.Message.name)) {
                 imagePath = it.getString(AppKeys.Message.name)!!
                 uri = it.getParcelable(AppKeys.ImageUri.name)!!
-                binding.scanningImageView.setImageBitmap(getBitMap(imagePath))
+               compressModule.init(uri, imagePath){bitmap->
+                   binding.scanningImageView.setImageBitmap(bitmap)
+               }
             }
         }
     }
-
-
-    private fun getBitMap(path: String): Bitmap =
-        utilityModule.rotateBitmap(utilityModule.getBitmap(path), -90.0f)
 
 }

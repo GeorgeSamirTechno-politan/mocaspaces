@@ -23,9 +23,10 @@ class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefM
             .readTimeout(requestTimeOut.toLong(), TimeUnit.SECONDS)
             .connectTimeout(requestTimeOut.toLong(), TimeUnit.SECONDS)
             .writeTimeout(requestTimeOut.toLong(), TimeUnit.SECONDS)
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        builder.addInterceptor(httpLoggingInterceptor)
+        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        builder.addNetworkInterceptor(httpLoggingInterceptor)
         builder.addInterceptor { chain ->
             val original = chain.request()
             val requestBuilder = original.newBuilder()
@@ -50,7 +51,7 @@ class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefM
             .writeTimeout(requestTimeOut.toLong(), TimeUnit.SECONDS)
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        builder.addInterceptor(httpLoggingInterceptor)
+        builder.addNetworkInterceptor(httpLoggingInterceptor)
         builder.addInterceptor { chain ->
             val original = chain.request()
             val requestBuilder = original.newBuilder()
