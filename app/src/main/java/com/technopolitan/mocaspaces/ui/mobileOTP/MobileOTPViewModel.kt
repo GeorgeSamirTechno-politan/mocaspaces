@@ -2,10 +2,8 @@ package com.technopolitan.mocaspaces.ui.mobileOTP
 
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.google.android.gms.common.api.Api
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.remote.CheckMobileRemote
@@ -22,7 +20,6 @@ class MobileOTPViewModel @Inject constructor(
     private var verifyMobileOtpMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
 
     fun initOTPDataModule(
-        mobileTextView: TextView,
         changeNumberTextView: TextView,
         otpFirstEditText: EditText,
         otpSecondEditText: EditText,
@@ -35,7 +32,6 @@ class MobileOTPViewModel @Inject constructor(
         validOtpCallBack: (entity: String) -> Unit
     ) {
         otpDataModule.init(
-            mobileTextView,
             changeNumberTextView,
             otpFirstEditText,
             otpSecondEditText,
@@ -46,7 +42,6 @@ class MobileOTPViewModel @Inject constructor(
             errorTextView,
             resendCallBack,
             validOtpCallBack,
-            1
         )
     }
 

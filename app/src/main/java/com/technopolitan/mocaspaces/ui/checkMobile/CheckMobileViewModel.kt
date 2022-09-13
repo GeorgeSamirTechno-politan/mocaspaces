@@ -31,7 +31,6 @@ class CheckMobileViewModel @Inject constructor(
         countryTextView: TextView,
         countryArrowDown: ImageView,
         mobileNumberEditText: EditText,
-        signInTextView: TextView,
         button: TransitionButton,
 
         callBack: (entity: CountryMapper) -> Unit
@@ -42,7 +41,6 @@ class CheckMobileViewModel @Inject constructor(
             countryTextView,
             countryArrowDown,
             mobileNumberEditText,
-            signInTextView,
             button,
             callBack
         )

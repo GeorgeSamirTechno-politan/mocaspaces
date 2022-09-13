@@ -78,7 +78,7 @@ class RegisterFragment : Fragment() {
                     )
                     R.id.personal_info_fragment ->
                         updateView(
-                            50,
+                            75,
                             R.string.personal_info,
                             View.VISIBLE,
                             AppCompatResources.getDrawable(
@@ -89,7 +89,7 @@ class RegisterFragment : Fragment() {
 
                     R.id.student_verification_fragment ->
                         updateView(
-                            75,
+                            85,
                             R.string.verify_student,
                             View.VISIBLE,
                             AppCompatResources.getDrawable(
@@ -97,17 +97,44 @@ class RegisterFragment : Fragment() {
                                 R.drawable.ic_student_verification
                             )
                         )
+                    R.id.check_email_fragment -> hideView()
+                    R.id.fragment_password -> {
+                        updateView(
+                            100,
+                            R.string.password,
+                            View.VISIBLE,
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_password
+                            )
+                        )
+                    }
+
                 }
             }
         }
 
     private fun updateView(progressCount: Int, textId: Int, visibility: Int, drawable: Drawable?) {
+        binding.progressCountRegister.visibility = View.VISIBLE
+        binding.stepImageView.visibility = View.VISIBLE
+        binding.stepNameTextView.visibility = View.VISIBLE
+        binding.mocaCheckMailImageView.visibility = View.VISIBLE
         binding.progressCountRegister.setProgressCompat(progressCount, true)
         binding.stepNameTextView.text = getString(textId)
         binding.stepImageView.visibility = visibility
         if (drawable == null)
             binding.stepImageView.setImageDrawable(null)
-        else binding.stepImageView.setImageDrawable(drawable)
+        else {
+            binding.stepImageView.setImageDrawable(drawable)
+            binding.stepImageView.setColorFilter(requireContext().getColor(R.color.accent_color))
+        }
+    }
+
+    private fun hideView() {
+        binding.progressCountRegister.visibility = View.GONE
+        binding.stepImageView.visibility = View.GONE
+        binding.stepNameTextView.visibility = View.GONE
+        binding.mocaCheckMailImageView.visibility = View.GONE
     }
 
 

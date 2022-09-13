@@ -119,7 +119,7 @@
         tools:layout="@layout/fragment_check_email">
 
         <action
-            android:id="@+id/action_check_email_to_fragment"
+            android:id="@+id/action_check_email_to_password"
             app:destination="@id/fragment_password"
             app:enterAnim="@animator/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

@@ -5,7 +5,9 @@ import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.modules.AppModule
+import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
+import com.technopolitan.mocaspaces.ui.forgetPasswordMobile.ForgetPasswordMobileFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
@@ -54,4 +56,6 @@ interface ApplicationComponent {
     fun inject(studentVerifyFragment: StudentVerifyFragment)
     fun inject(successRegisterFragment: SuccessRegisterFragment)
     fun inject(registerPasswordFragment: RegisterPasswordFragment)
+    fun inject(checkEmailFragment: CheckEmailFragment)
+    fun inject(forgetPasswordMobileFragment: ForgetPasswordMobileFragment)
 }

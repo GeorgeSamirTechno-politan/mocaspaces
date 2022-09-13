@@ -7,6 +7,8 @@ enum class AppKeys {
     HeaderMessage,
     SingleClick,
     RevertColor,
+    UserEmail,
+    UserPassword,
     MobileNumber,
     BlockedMobile,
     BlockedDateTimeMobile,

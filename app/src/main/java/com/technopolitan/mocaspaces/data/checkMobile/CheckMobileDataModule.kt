@@ -9,7 +9,6 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.data.country.CountryDataModule
 import com.technopolitan.mocaspaces.data.country.CountryMapper
-import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
 import com.technopolitan.mocaspaces.modules.ValidationModule
 import com.technopolitan.mocaspaces.transitionButton.TransitionButton
@@ -25,8 +24,7 @@ class CheckMobileDataModule @Inject constructor(
     private var countryDataModule: CountryDataModule,
     private var context: Context,
     private var validationModule: ValidationModule,
-    private var rxModule: RXModule,
-    private var navigationModule: NavigationModule
+    private var rxModule: RXModule
 ) {
 
     private lateinit var countryDropDownLayout: LinearLayout
@@ -35,7 +33,6 @@ class CheckMobileDataModule @Inject constructor(
     private lateinit var countryArrowDown: ImageView
     private lateinit var mobileNumberEditText: EditText
     private lateinit var mobileObserver: Observable<String>
-    private lateinit var signInTextView: TextView
     private lateinit var button: TransitionButton
     private lateinit var countryMapperList: List<CountryMapper>
     private lateinit var callBack: (entity: CountryMapper) -> Unit
@@ -46,7 +43,6 @@ class CheckMobileDataModule @Inject constructor(
         countryTextView: TextView,
         countryArrowDown: ImageView,
         mobileNumberEditText: EditText,
-        signInTextView: TextView,
         button: TransitionButton,
         callBack: (entity: CountryMapper) -> Unit
     ) {
@@ -55,7 +51,6 @@ class CheckMobileDataModule @Inject constructor(
         this.countryTextView = countryTextView
         this.countryArrowDown = countryArrowDown
         this.mobileNumberEditText = mobileNumberEditText
-        this.signInTextView = signInTextView
         this.button = button
         this.callBack = callBack
         initMobileObserver()
@@ -66,14 +61,7 @@ class CheckMobileDataModule @Inject constructor(
             countryArrowDown
         )
         subscribeCountryDropDown()
-        setClickOnSignInTextView()
         buttonChange(false)
-    }
-
-    private fun setClickOnSignInTextView() {
-        signInTextView.setOnClickListener {
-            navigationModule.navigateTo(R.id.action_register_to_login, R.id.nav_host_fragment)
-        }
     }
 
     fun setCountryDropDown(countryMapperList: List<CountryMapper>) {

@@ -2,8 +2,10 @@ package com.technopolitan.mocaspaces.network
 
 
 import com.technopolitan.mocaspaces.data.HeaderResponse
+import com.technopolitan.mocaspaces.data.checkEmail.CheckEmailRequest
 import com.technopolitan.mocaspaces.data.country.CountryResponse
 import com.technopolitan.mocaspaces.data.gender.GenderResponse
+import com.technopolitan.mocaspaces.data.login.LoginRequest
 import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
@@ -11,21 +13,17 @@ import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ServiceInterface {
 
-    @GET("v{version}/Lounge_Client/Login")
+    @GET("v{version}/UserLogin/Login")
     fun login(
         @Path("version") version: Int = Constants.apiVersion,
-        @Query("Email") email: String,
-        @Query("Password") password: String,
-        @Query("Model") model: String = Constants.model,
-        @Query("Uniquly_Identifier") uniquelyIdentifier: String = Constants.firebaseInstallationId,
-        @Query("OS") os: String = Constants.OS,
-        @Query("DeviceType") deviceTypes: String = "Android",
-        @Query("Brand") brand: String = Constants.brand,
-        @Query("NotificationToken") notificationToken: String = Constants.notificationToken
+        @Body loginRequest: LoginRequest
     ): Flowable<HeaderResponse<LoginResponse>>
 
 
@@ -56,5 +54,20 @@ interface ServiceInterface {
             : Flowable<HeaderResponse<List<GenderResponse>>>
 
     @POST("v{version}/UserRegister/UserRegister")
-    fun register(request: RegisterRequest): Flowable<HeaderResponse<String>>
+    fun register(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body request: RegisterRequest
+    ): Flowable<HeaderResponse<String>>
+
+    @POST("v{version}/UserRegister/OtpEmail")
+    fun otpEmail(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body request: CheckEmailRequest
+    ): Flowable<HeaderResponse<String>>
+
+    @POST("v{version}/UserRegister/CheckEmail")
+    fun verifyEmailOtp(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body verifyMobileOtpRequest: VerifyMobileOtpRequest
+    ): Flowable<HeaderResponse<String>>
 }

@@ -1,18 +1,19 @@
 package com.technopolitan.mocaspaces.data.remote
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.SharedPrefKey
 import com.technopolitan.mocaspaces.bases.BaseRemote
-import com.technopolitan.mocaspaces.data.*
+import com.technopolitan.mocaspaces.data.ApiStatus
+import com.technopolitan.mocaspaces.data.FailedStatus
+import com.technopolitan.mocaspaces.data.HeaderResponse
+import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.login.LoginMapper
+import com.technopolitan.mocaspaces.data.login.LoginRequest
 import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
@@ -21,7 +22,6 @@ class LoginRemote @Inject constructor(
     private var sharedPrefModule: SharedPrefModule
 ) : BaseRemote<LoginMapper, LoginResponse>(){
 
-    private val loginMediator: MediatorLiveData<ApiStatus<LoginMapper>> = MediatorLiveData()
     private lateinit var email: String
     private lateinit var password: String
 
@@ -45,6 +45,6 @@ class LoginRemote @Inject constructor(
 
     override fun flowable(): Flowable<HeaderResponse<LoginResponse>> {
         return networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.emptyApi)
-            .login(email = email, password = password)
+            .login(loginRequest = LoginRequest(email, password))
     }
 }

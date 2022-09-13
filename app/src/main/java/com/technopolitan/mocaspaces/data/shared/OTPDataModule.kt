@@ -5,8 +5,8 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
@@ -27,7 +27,6 @@ class OTPDataModule @Inject constructor(
     private var smsIdentifierModule: SmsIdentifierModule
 ) {
 
-    private lateinit var mobileTextView: TextView
     private lateinit var changeNumberTextView: TextView
     private lateinit var otpFirstEditText: EditText
     private lateinit var otpSecondEditText: EditText
@@ -36,6 +35,7 @@ class OTPDataModule @Inject constructor(
     private lateinit var countDownTextView: TextView
     private lateinit var countDownText: TextView
     private lateinit var errorTextView: TextView
+    private lateinit var emailLayout: LinearLayout
     private lateinit var firstOtpObserver: Observable<String>
     private lateinit var secondOtpObserver: Observable<String>
     private lateinit var thirdOtpObserver: Observable<String>
@@ -52,7 +52,6 @@ class OTPDataModule @Inject constructor(
 
 
     fun init(
-        mobileTextView: TextView,
         changeNumberTextView: TextView,
         otpFirstEditText: EditText,
         otpSecondEditText: EditText,
@@ -63,10 +62,8 @@ class OTPDataModule @Inject constructor(
         errorTextView: TextView,
         resendCallBack: (entity: Boolean) -> Unit,
         validOtpCallBack: (entity: String) -> Unit,
-        type: Int
     ) {
         this.errorTextView = errorTextView
-        this.mobileTextView = mobileTextView
         this.changeNumberTextView = changeNumberTextView
         this.otpFirstEditText = otpFirstEditText
         this.otpSecondEditText = otpSecondEditText
@@ -76,9 +73,42 @@ class OTPDataModule @Inject constructor(
         this.countDownText = resendTextView
         this.resendCallBack = resendCallBack
         this.validOtpCallBack = validOtpCallBack
-        this.type = type
+        this.type = 1
         initObservers()
-        otpBlockUserModule.init(type, resendTextView, countDownTextView, resendCallBack)
+        otpBlockUserModule.init(resendTextView, countDownTextView, resendCallBack)
+        shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
+        clickOnChangeNumber()
+        handleSmsReceiver()
+
+    }
+
+    fun initEmail(
+        emailLayout: LinearLayout,
+        changeNumberTextView: TextView,
+        otpFirstEditText: EditText,
+        otpSecondEditText: EditText,
+        otpThirdEditText: EditText,
+        otpFourthEditText: EditText,
+        countDownTextView: TextView,
+        resendTextView: TextView,
+        errorTextView: TextView,
+        resendCallBack: (entity: Boolean) -> Unit,
+        validOtpCallBack: (entity: String) -> Unit,
+    ) {
+        this.emailLayout = emailLayout
+        this.errorTextView = errorTextView
+        this.changeNumberTextView = changeNumberTextView
+        this.otpFirstEditText = otpFirstEditText
+        this.otpSecondEditText = otpSecondEditText
+        this.otpThirdEditText = otpThirdEditText
+        this.otpFourthEditText = otpFourthEditText
+        this.countDownTextView = countDownTextView
+        this.countDownText = resendTextView
+        this.resendCallBack = resendCallBack
+        this.validOtpCallBack = validOtpCallBack
+        this.type = 2
+        initObservers()
+        otpBlockUserModule.init(emailLayout, resendTextView, countDownTextView, resendCallBack)
         shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
         clickOnChangeNumber()
         handleSmsReceiver()
@@ -87,7 +117,7 @@ class OTPDataModule @Inject constructor(
 
     private fun handleSmsReceiver() {
         if (type == 1) {
-            smsIdentifierModule.init() {
+            smsIdentifierModule.init {
                 otpFirstEditText.setText(it.substring(0))
                 otpSecondEditText.setText(it.substring(1))
                 otpThirdEditText.setText(it.substring(2))
@@ -101,7 +131,8 @@ class OTPDataModule @Inject constructor(
             when (type) {
                 1 -> navigationModule.popBack()
                 2 -> {
-                    /// TODO missing implementation
+                    navigationModule.popBack()
+                    navigationModule.popBack()
                 }
             }
         }
@@ -219,10 +250,12 @@ class OTPDataModule @Inject constructor(
 
     private fun clearAnimationEditText() {
         errorTextView.visibility = View.GONE
-        otpFirstEditText.setTextColor(context.getColor(R.color.black))
-        otpSecondEditText.setTextColor(context.getColor(R.color.black))
-        otpThirdEditText.setTextColor(context.getColor(R.color.black))
-        otpFourthEditText.setTextColor(context.getColor(R.color.black))
+        val color =
+            if (type == 1) context.getColor(R.color.black) else context.getColor(R.color.white)
+        otpFirstEditText.setTextColor(color)
+        otpSecondEditText.setTextColor(color)
+        otpThirdEditText.setTextColor(color)
+        otpFourthEditText.setTextColor(color)
     }
 
 //    fun updateOtp(otp: String) {

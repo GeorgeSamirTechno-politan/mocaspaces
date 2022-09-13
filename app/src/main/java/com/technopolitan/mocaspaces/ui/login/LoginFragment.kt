@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.login.LoginMapper
 import com.technopolitan.mocaspaces.databinding.FragmentLoginBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
-import com.technopolitan.mocaspaces.modules.ApiResponseModule
-import com.technopolitan.mocaspaces.modules.NavigationModule
-import com.technopolitan.mocaspaces.modules.SharedPrefModule
-import com.technopolitan.mocaspaces.modules.ValidationModule
+import com.technopolitan.mocaspaces.enums.AppKeys
+import com.technopolitan.mocaspaces.modules.*
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
@@ -30,6 +29,10 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var validationModule: ValidationModule
+
+    @Inject
+    lateinit var utilityModule: UtilityModule
+
     private lateinit var binding: FragmentLoginBinding
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory()
@@ -52,9 +55,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun initView() {
-//        binding.forgetPasswordTextView.setOnClickListener{
-//            navigationModule.navigateTo(R.id.action_login_to_custom_camera_x)
-//        }
+        binding.forgetPasswordTextView.setOnClickListener {
+            utilityModule.setStatusBar(statusAndNavigationColor = R.color.white)
+            navigationModule.navigateTo(R.id.action_login_to_forget_password)
+        }
     }
 
     private fun configLoginDataModule() {
@@ -77,7 +81,14 @@ class LoginFragment : Fragment() {
         )
         loginViewModel.handleLoginApiCall().observe(viewLifecycleOwner) {
             apiResponseModule.handleResponse(it, binding.loginBtn) {
-
+                sharedPrefModule.setStringToShared(
+                    AppKeys.UserEmail.name,
+                    binding.emailEditText.text.toString()
+                )
+                sharedPrefModule.setStringToShared(
+                    AppKeys.UserPassword.name,
+                    binding.passwordEditText.text.toString()
+                )
             }
         }
     }

@@ -94,6 +94,16 @@
                 app:layout_constraintTop_toBottomOf="@id/email_text_view" />
 
             <include
+                android:id="@+id/email_otp_loading_layout"
+                layout="@layout/progress_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_35sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/verification_code_email_text_view" />
+
+            <include
                 android:layout_marginTop="@dimen/_15sdp"
                 android:id="@+id/otp_email_layout"
                 layout="@layout/otp_layout"
@@ -157,36 +167,28 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_13sdp"
                     android:text="@string/send_again"
-                    android:textColor="@color/yellow_color"/>
+                    android:textColor="@color/yellow_color" />
 
             </LinearLayout>
 
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/change_email_text_view"
+                style="@style/medium"
+                android:layout_width="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
-                app:layout_constraintTop_toBottomOf="@id/send_otp_email_layout"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_white_stroke_color"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:text="@string/change_email"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="wrap_content"
-                app:strokeColor="@color/white"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="@dimen/_50sdp"
-                style="@style/Widget.Material3.CardView.Outlined"
-                app:strokeWidth="@dimen/_2sdp"
-                android:elevation="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:paddingHorizontal="@dimen/_30sdp"
-                    android:paddingVertical="@dimen/_10sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_email"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp"
-                    style="@style/medium"/>
-
-
-            </com.google.android.material.card.MaterialCardView>
+                app:layout_constraintTop_toBottomOf="@id/send_otp_email_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

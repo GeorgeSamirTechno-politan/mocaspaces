@@ -30,6 +30,7 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/round_top_corners_bottom_nav.xml" value="0.299" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/rounded_corner_white_background_shape.xml" value="0.22" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/rounded_dark_grey_stroke_color.xml" value="0.1935" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/rounded_white_stroke_color.xml" value="0.2985" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/start_storke_dark_grey.xml" value="0.18" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/stork_dark_grey.xml" value="0.267" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/drawable/text_input_layout_selector.xml" value="0.299" />
@@ -47,6 +48,7 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_email.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_mobile.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_date_picker.xml" value="0.5" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_forget_password_mobile.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_mobile_o_t_p.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_no_internet.xml" value="0.2975630611372381" />

@@ -60,7 +60,6 @@ class MobileOTPFragment : Fragment() {
         binding.progressOtpResend.spinKit.visibility = View.GONE
         binding.progressOtpMobile.spinKit.visibility = View.GONE
         viewModel.initOTPDataModule(binding.mobileNumberTextView,
-            binding.changeNumberTextView,
             binding.otpIncludeLayout.otpFirstEditText,
             binding.otpIncludeLayout.otpSecondEditText,
             binding.otpIncludeLayout.otpThirdEditText,

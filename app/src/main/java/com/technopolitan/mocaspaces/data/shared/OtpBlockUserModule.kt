@@ -1,6 +1,8 @@
 package com.technopolitan.mocaspaces.data.shared
 
 import android.content.Context
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.enums.AppKeys
@@ -30,6 +32,7 @@ class OtpBlockUserModule @Inject constructor(
     private var triesPublished: PublishSubject<Int> = PublishSubject.create()
     private lateinit var resendTextView: TextView
     private lateinit var countDownTextView: TextView
+    private lateinit var emailLayout: LinearLayout
     private lateinit var resendCallBack: (entity: Boolean) -> Unit
     private val maxTries = 4
 
@@ -41,13 +44,30 @@ class OtpBlockUserModule @Inject constructor(
 
 
     fun init(
-        type: Int,
         resendTextView: TextView,
         countDownTextView: TextView,
         resendCallBack: (entity: Boolean) -> Unit
 
     ) {
-        this.type = type
+        this.type = 1
+        this.resendTextView = resendTextView
+        this.countDownTextView = countDownTextView
+        this.resendCallBack = resendCallBack
+        initTriesObserver()
+        countDownModule.init(countDownTextView)
+        initOTPTry()
+
+    }
+
+    fun init(
+        emailLayout: LinearLayout,
+        resendTextView: TextView,
+        countDownTextView: TextView,
+        resendCallBack: (entity: Boolean) -> Unit
+
+    ) {
+        this.emailLayout = emailLayout
+        this.type = 2
         this.resendTextView = resendTextView
         this.countDownTextView = countDownTextView
         this.resendCallBack = resendCallBack
@@ -219,9 +239,13 @@ class OtpBlockUserModule @Inject constructor(
         resendTextView.isEnabled = enable
         if (enable) {
             resendTextView.setTextColor(context.getColor(R.color.accent_color))
+            if (type == 2)
+                emailLayout.visibility = View.VISIBLE
 
         } else {
             resendTextView.setTextColor(context.getColor(R.color.light_black_color_68))
+            if (type == 2)
+                emailLayout.visibility = View.GONE
         }
         resendTextView.setOnClickListener {
             if (resendSMS) {

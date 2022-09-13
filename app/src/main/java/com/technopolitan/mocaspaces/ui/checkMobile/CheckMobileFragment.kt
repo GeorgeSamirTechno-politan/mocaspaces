@@ -60,6 +60,13 @@ class CheckMobileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setDataToDataModule()
         setCountryRequest()
+        setClickOnSignIn()
+    }
+
+    private fun setClickOnSignIn() {
+        binding.signInTextView.setOnClickListener {
+            navigationModule.navigateTo(R.id.action_register_to_login, R.id.nav_host_fragment)
+        }
     }
 
     private fun setDataToDataModule() {
@@ -69,7 +76,6 @@ class CheckMobileFragment : Fragment() {
             binding.mobileIncludeCheckMobile.countryCodeTextView,
             binding.mobileIncludeCheckMobile.arrowDownCountryImageView,
             binding.mobileIncludeCheckMobile.mobileNumberEditText,
-            binding.signInTextView,
             binding.verifyButton,
         ) {
             checkMobileRequest(it.code)
