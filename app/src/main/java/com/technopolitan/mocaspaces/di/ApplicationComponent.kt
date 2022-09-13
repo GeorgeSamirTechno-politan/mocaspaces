@@ -12,6 +12,7 @@ import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
 import com.technopolitan.mocaspaces.ui.personalInfo.PersonalInfoFragment
 import com.technopolitan.mocaspaces.ui.register.RegisterFragment
+import com.technopolitan.mocaspaces.ui.registerPassword.RegisterPasswordFragment
 import com.technopolitan.mocaspaces.ui.splash.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment
@@ -51,4 +52,6 @@ interface ApplicationComponent {
     fun inject(scanningFragment: ScanningFragment)
     fun inject(customCameraXFragment: CustomCameraXFragment)
     fun inject(studentVerifyFragment: StudentVerifyFragment)
+    fun inject(successRegisterFragment: SuccessRegisterFragment)
+    fun inject(registerPasswordFragment: RegisterPasswordFragment)
 }

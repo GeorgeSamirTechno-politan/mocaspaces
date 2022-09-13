@@ -133,5 +133,18 @@
         android:label="@string/password"
         tools:layout="@layout/fragment_register_password">
 
+        <action
+            android:id="@+id/action_fragment_password_to_success_register_dialog"
+            app:destination="@id/success_register_dialog_fragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
+    <dialog
+        android:id="@+id/success_register_dialog_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.SuccessRegisterFragment"
+        android:label="@string/success_register"
+        tools:layout="@layout/fragment_success_register" />
 </navigation>

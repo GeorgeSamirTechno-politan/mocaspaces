@@ -11,14 +11,14 @@ class RegisterRequestMapper {
     lateinit var lastName: String
     lateinit var email: String
     lateinit var mobile: String
-    lateinit var counterMapper : CountryMapper
+    lateinit var counterMapper: CountryMapper
     lateinit var memberTypeMapper: DropDownMapper
     lateinit var company: String
     lateinit var jobTitle: String
     lateinit var genderMapper: GenderMapper
-    var birthDate : String? = null
-    lateinit var studentFrontCardPath: String
-    lateinit var studentBackCardPath: String
+    var birthDate: String? = null
+    var studentFrontCardPath: String? = null
+    var studentBackCardPath: String? = null
     var studentCardExpiryDate: String? = null
     lateinit var password: String
 

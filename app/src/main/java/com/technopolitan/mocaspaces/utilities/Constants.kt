@@ -21,12 +21,13 @@ class Constants {
 
 
         /// validation regex
-        private const val atLeastLowerCaseRegex: String = "(?=.*[a-z])"
-        private const val atLeastUpperCaseRegex: String = "(?=.*[A-Z])"
-        private const val atLeastNumberCaseRegex: String = "(?=.*[0-9])"
-        private const val atLeastSpecialCharacter: String = "(?=.*[\\\\W-_])"
+        const val atLeastLowerCaseRegex: String = "(?=.*[a-z])"
+        const val atLeastUpperCaseRegex: String = "(?=.*[A-Z])"
+        const val atLeastNumberCaseRegex: String = "(?=.*[0-9])"
+        const val atLeastSpecialCharacter: String = "(?=.*[\\\\W-_])"
+        const val passwordLength = 8
         const val passwordRegex: String =
-            "$atLeastLowerCaseRegex$atLeastUpperCaseRegex$atLeastNumberCaseRegex$atLeastSpecialCharacter{8,}"
+            "$atLeastLowerCaseRegex$atLeastUpperCaseRegex$atLeastNumberCaseRegex$atLeastSpecialCharacter{${passwordLength},}"
         const val urlRegex: String =
             "^((?:.|\n)*?)((http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(?[A-Z0-9+&@#/%=~_|!:,.;]*)?)"
 

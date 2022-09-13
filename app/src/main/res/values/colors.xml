@@ -37,4 +37,5 @@
 
     <color name="unselected_wheel_text_color">#992C2C2C</color>
     <color name="selected_wheel_text_color">#2C2C2C</color>
+    <color name="green_color">#00FFA6</color>
 </resources>

@@ -8,6 +8,7 @@ import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
+import com.technopolitan.mocaspaces.data.register.RegisterRequest
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -52,5 +53,8 @@ interface ServiceInterface {
 
     @GET("v{version}/UserRegister/GetAllGenders")
     fun getAllGender(@Path("version") version: Int = Constants.apiVersion)
-    : Flowable<HeaderResponse<List<GenderResponse>>>
+            : Flowable<HeaderResponse<List<GenderResponse>>>
+
+    @POST("v{version}/UserRegister/UserRegister")
+    fun register(request: RegisterRequest): Flowable<HeaderResponse<String>>
 }
