@@ -5,10 +5,7 @@ import com.technopolitan.mocaspaces.data.remote.CheckOtpEmailRemote
 import com.technopolitan.mocaspaces.data.remote.SendOtpEmailRemote
 import com.technopolitan.mocaspaces.data.shared.OTPDataModule
 import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
-import com.technopolitan.mocaspaces.modules.NavigationModule
-import com.technopolitan.mocaspaces.modules.NetworkModule
-import com.technopolitan.mocaspaces.modules.RXModule
-import com.technopolitan.mocaspaces.modules.SmsIdentifierModule
+import com.technopolitan.mocaspaces.modules.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
@@ -24,9 +21,11 @@ class CheckEmailDataModule @Inject constructor(private var networkModule: Networ
         rxModule: RXModule,
         otpBlockUserModule: OtpBlockUserModule,
         navigationModule: NavigationModule,
-        smsIdentifierModule: SmsIdentifierModule
+        smsIdentifierModule: SmsIdentifierModule,
+        utilityModule: UtilityModule
     ): OTPDataModule = OTPDataModule(
-        context, rxModule, otpBlockUserModule, navigationModule, smsIdentifierModule
+        context, rxModule, otpBlockUserModule, navigationModule, smsIdentifierModule,
+        utilityModule
     )
 
     @Singleton

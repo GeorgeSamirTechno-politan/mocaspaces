@@ -148,7 +148,7 @@
 
     <fragment
         android:id="@+id/reset_password_fragment"
-        android:name="com.technopolitan.mocaspaces.ui.resetPassword.ResetPasswordFragment"
+        android:name="com.technopolitan.mocaspaces.ui.registerPassword.RegisterPasswordFragment"
         android:label="@string/reset_password"
         tools:layout="@layout/fragment_reset_password">
 

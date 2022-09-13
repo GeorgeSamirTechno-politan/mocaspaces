@@ -60,7 +60,7 @@
 
         <include
             android:id="@+id/otp_include_layout"
-            layout="@layout/otp_layout"
+            layout="@layout/otp_dark_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_25sdp"
@@ -68,20 +68,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/change_number_text_view" />
 
-        <include layout="@layout/progress_layout"
+        <include
+            layout="@layout/progress_layout"
             android:id="@+id/progress_otp_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/change_number_text_view"/>
+            app:layout_constraintTop_toBottomOf="@id/change_number_text_view" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/otp_progress_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="progress_otp_mobile,otp_include_layout" />
 
         <TextView
             android:id="@+id/please_enter_verification_code_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/otp_include_layout"
+            app:layout_constraintTop_toBottomOf="@id/otp_progress_barrier"
             android:text="@string/please_enter_the_verification_code_above"
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/black"

@@ -47,7 +47,7 @@ class RegisterRemote @Inject constructor(
         registerRequest = RegisterRequest(
             firstName = registerRequestMapper.fistName,
             lastName = registerRequestMapper.lastName,
-            jobTitle = registerRequestMapper.jobTitle,
+            jobTitle = registerRequestMapper.jobTitle.ifEmpty { null },
             email = registerRequestMapper.email,
             countryId = registerRequestMapper.counterMapper.id,
             mobileNumber = registerRequestMapper.mobile,
@@ -57,7 +57,7 @@ class RegisterRemote @Inject constructor(
             userDocumentsDtoRequest = getUserDocumentsDtoRequest(),
             plateForm = "Android",
             genderId = registerRequestMapper.genderMapper.genderId,
-            company = registerRequestMapper.company,
+            company = registerRequestMapper.company.ifEmpty { null },
             password = registerRequestMapper.password,
         )
     }

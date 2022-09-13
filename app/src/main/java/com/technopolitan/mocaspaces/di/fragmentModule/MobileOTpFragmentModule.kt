@@ -33,9 +33,13 @@ class MobileOTpFragmentModule @Inject constructor(private var networkModule: Net
         rxModule: RXModule,
         otpBlockUserModule: OtpBlockUserModule,
         navigationModule: NavigationModule,
-        smsIdentifierModule: SmsIdentifierModule
+        smsIdentifierModule: SmsIdentifierModule,
+        utilityModule: UtilityModule
     ): OTPDataModule =
-        OTPDataModule(context, rxModule, otpBlockUserModule, navigationModule, smsIdentifierModule)
+        OTPDataModule(
+            context, rxModule, otpBlockUserModule, navigationModule, smsIdentifierModule,
+            utilityModule
+        )
 
     @Singleton
     @Provides

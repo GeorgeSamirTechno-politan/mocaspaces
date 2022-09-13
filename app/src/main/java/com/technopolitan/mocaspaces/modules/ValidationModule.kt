@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import java.util.regex.Pattern
 
@@ -75,8 +76,31 @@ class ValidationModule {
         validateMessage: String,
         isRequiredFocus: Boolean = true
     ): Boolean {
+        val pattern = Pattern.compile(regex)
         if (validateEmpty(textInputLayout, validateMessage, false))
-            if (!Pattern.matches(regex, textInputLayout.editText!!.text.toString())) {
+            if (!pattern.matcher(textInputLayout.editText!!.text.toString()).matches()) {
+                if (isRequiredFocus) textInputLayout.editText!!.requestFocus()
+                textInputLayout.error = validateMessage
+                return false
+            }
+        textInputLayout.error = null
+        return true
+    }
+
+    fun validatePassword(
+        textInputLayout: TextInputLayout,
+        validateMessage: String,
+        isRequiredFocus: Boolean = true
+    ): Boolean {
+        val upperCase = Pattern.compile(Constants.atLeastUpperCaseRegex)
+        val lowerCase = Pattern.compile(Constants.atLeastLowerCaseRegex)
+        val specialChar = Pattern.compile(Constants.atLeastSpecialCharacter)
+        val number = Pattern.compile(Constants.atLeastNumberCaseRegex)
+        val text = textInputLayout.editText!!.text.toString()
+        if (validateEmpty(textInputLayout, validateMessage, false))
+            if (upperCase.matcher(text).find() && lowerCase.matcher(text)
+                    .find() && specialChar.matcher(text).find() && number.matcher(text).find()
+            ) {
                 if (isRequiredFocus) textInputLayout.editText!!.requestFocus()
                 textInputLayout.error = validateMessage
                 return false

@@ -14,6 +14,7 @@ import com.technopolitan.mocaspaces.databinding.FragmentPersonalInfoBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import javax.inject.Inject
 
@@ -40,6 +41,9 @@ class PersonalInfoFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
+    @Inject
+    lateinit var utilityModule: UtilityModule
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
@@ -65,7 +69,7 @@ class PersonalInfoFragment : Fragment() {
         memberTypeViewModel.getMemberTypes().observe(viewLifecycleOwner) {
             memberTypeResponseHandler.handleResponse(
                 it,
-                binding.personalInfoProgress.spinKit,
+                binding.personalInfoProgress.progressView,
                 binding.memberTypeRecycler
             ) { list ->
                 viewModel.setDataToAdapter(list)
@@ -91,7 +95,7 @@ class PersonalInfoFragment : Fragment() {
         viewModel.getGender().observe(viewLifecycleOwner) {
             genderResponseHandler.handleResponse(
                 it,
-                binding.genderProgressLayout.spinKit,
+                binding.genderProgressLayout.progressView,
                 binding.genderCardLayout
             ) {
                 viewModel.setGenderList(it)
@@ -109,7 +113,8 @@ class PersonalInfoFragment : Fragment() {
         if (registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 1 ||
             registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 2
         ) {
-            /// TODO missing navigate to verify email
+            utilityModule.setStatusBar(R.color.accent_color)
+            navigationModule.navigateTo(R.id.action_personal_info_to_check_email)
         } else if (registerViewModel.getRegisterRequestMapper().memberTypeMapper.id == 3) {
             navigationModule.navigateTo(R.id.action_personal_info_to_student_verify)
         }

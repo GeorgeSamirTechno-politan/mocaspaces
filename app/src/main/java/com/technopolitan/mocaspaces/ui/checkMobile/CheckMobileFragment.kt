@@ -92,7 +92,7 @@ class CheckMobileFragment : Fragment() {
         countryViewModel.getCountry().observe(viewLifecycleOwner) {
             countryResponseHandler.handleResponse(
                 it,
-                binding.mobileIncludeCheckMobile.mobileIncludeProgress.spinKit,
+                binding.mobileIncludeCheckMobile.mobileIncludeProgress.progressView,
                 binding.mobileIncludeCheckMobile.mobileNumberLayout
             ) { list ->
                 checkMobileViewModel.initCountryDropDown(list)

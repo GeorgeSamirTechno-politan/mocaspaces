@@ -44,18 +44,25 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/circle_progress_layout.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/common_layout.xml" value="0.3625" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/coordinator_layout.xml" value="0.3614583333333333" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_alert_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_power_menu_item.xml" value="0.9" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_snake_bar_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_email.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_mobile.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_custom_camera_x.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_date_picker.xml" value="0.5" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_forget_password_mobile.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_mobile_o_t_p.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_no_internet.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_password_saved.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_personal_info.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_register_password.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_reset_password.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_reset_password_otp.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_scanning.xml" value="0.22" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_single_button_dialog.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_start.xml" value="0.22" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_student_verify.xml" value="0.1" />
@@ -68,10 +75,13 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/member_type_item.xml" value="0.18" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/mobile_number_layout.xml" value="0.4549019607843137" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/moca_yellow_logo.xml" value="0.2967079948696024" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_layout.xml" value="0.33" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_dark_layout.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_layout.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/otp_white_layout.xml" value="0.2967079948696024" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/password_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/profile_layout.xml" value="1.0" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/progress_button.xml" value="0.2967079948696024" />
-        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/progress_layout.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/progress_layout.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/single_button_dialog.xml" value="0.2967079948696024" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/test_layout.xml" value="0.4430299172501591" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/user_image_layout.xml" value="0.67" />

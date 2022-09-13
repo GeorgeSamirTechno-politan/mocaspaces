@@ -60,7 +60,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/positive_choose_btn"
-                style="@style/app_button_style"
+                style="@style/app_button_style.accent"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="@dimen/_10sdp"
@@ -74,7 +74,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/negative_choose_btn"
-                style="@style/app_button_style"
+                style="@style/app_button_style.accent"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="@dimen/_5sdp"

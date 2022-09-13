@@ -11,6 +11,7 @@ import com.technopolitan.mocaspaces.databinding.FragmentCheckEmailBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import javax.inject.Inject
 
@@ -30,6 +31,9 @@ class CheckEmailFragment : Fragment() {
 
     @Inject
     lateinit var verifyOtpApiHandler: ApiResponseModule<String>
+
+    @Inject
+    lateinit var utilityModule: UtilityModule
 
     private lateinit var binding: FragmentCheckEmailBinding
 
@@ -62,7 +66,7 @@ class CheckEmailFragment : Fragment() {
         viewModel.setSendEmailOtp(registerViewModel.getRegisterRequestMapper().email)
         viewModel.handleSentOtpEmail().observe(viewLifecycleOwner) {
             sendEmailOtpApiHandler.handleResponse(
-                it, binding.emailOtpLoadingLayout.spinKit,
+                it, binding.emailOtpLoadingLayout.progressView,
                 binding.otpEmailLayout.root
             ) {
 
@@ -73,8 +77,9 @@ class CheckEmailFragment : Fragment() {
     private fun handleCheckEmailOtp(otp: String) {
         viewModel.verifyEmailOtp(registerViewModel.getRegisterRequestMapper().email, otp)
         viewModel.handleVerifyMobileOtp().observe(viewLifecycleOwner) {
-            verifyOtpApiHandler.handleResponse(it, binding.emailOtpLoadingLayout.spinKit,
+            verifyOtpApiHandler.handleResponse(it, binding.emailOtpLoadingLayout.progressView,
                 binding.otpEmailLayout.root, {
+                    utilityModule.setStatusBar(R.color.white)
                     navigationModule.navigateTo(R.id.action_check_email_to_password)
                 }, {
                     viewModel.showErrorOnOtp()

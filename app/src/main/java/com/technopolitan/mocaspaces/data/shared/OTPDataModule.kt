@@ -11,6 +11,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
 import com.technopolitan.mocaspaces.modules.SmsIdentifierModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import dagger.Module
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -24,7 +25,8 @@ class OTPDataModule @Inject constructor(
     private var rxModule: RXModule,
     private var otpBlockUserModule: OtpBlockUserModule,
     private var navigationModule: NavigationModule,
-    private var smsIdentifierModule: SmsIdentifierModule
+    private var smsIdentifierModule: SmsIdentifierModule,
+    private var utilityModule: UtilityModule
 ) {
 
     private lateinit var changeNumberTextView: TextView
@@ -51,7 +53,7 @@ class OTPDataModule @Inject constructor(
     private var type: Int = 1
 
 
-    fun init(
+    fun initMobile(
         changeNumberTextView: TextView,
         otpFirstEditText: EditText,
         otpSecondEditText: EditText,
@@ -128,9 +130,11 @@ class OTPDataModule @Inject constructor(
 
     private fun clickOnChangeNumber() {
         changeNumberTextView.setOnClickListener {
+            utilityModule.setStatusBar(R.color.white)
             when (type) {
                 1 -> navigationModule.popBack()
                 2 -> {
+
                     navigationModule.popBack()
                     navigationModule.popBack()
                 }
@@ -256,6 +260,7 @@ class OTPDataModule @Inject constructor(
         otpSecondEditText.setTextColor(color)
         otpThirdEditText.setTextColor(color)
         otpFourthEditText.setTextColor(color)
+
     }
 
 //    fun updateOtp(otp: String) {

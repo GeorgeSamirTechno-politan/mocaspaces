@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class RegisterRequest(
     @SerializedName("company")
     @Expose
-    val company: String,
+    val company: String?,
     @SerializedName("countryId")
     @Expose
     val countryId: Int,
@@ -25,7 +25,7 @@ data class RegisterRequest(
     val genderId: Int,
     @SerializedName("jobTitle")
     @Expose
-    val jobTitle: String,
+    val jobTitle: String?,
     @SerializedName("lastName")
     @Expose
     val lastName: String,

@@ -31,7 +31,7 @@ class MobileOTPViewModel @Inject constructor(
         resendCallBack: (entity: Boolean?) -> Unit,
         validOtpCallBack: (entity: String) -> Unit
     ) {
-        otpDataModule.init(
+        otpDataModule.initMobile(
             changeNumberTextView,
             otpFirstEditText,
             otpSecondEditText,

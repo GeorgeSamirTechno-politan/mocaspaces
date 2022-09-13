@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
     private fun initView() {
         binding.forgetPasswordTextView.setOnClickListener {
             utilityModule.setStatusBar(statusAndNavigationColor = R.color.white)
-            navigationModule.navigateTo(R.id.action_login_to_forget_password)
+            navigationModule.navigateTo(R.id.password_change_successfully_fragment)
         }
     }
 

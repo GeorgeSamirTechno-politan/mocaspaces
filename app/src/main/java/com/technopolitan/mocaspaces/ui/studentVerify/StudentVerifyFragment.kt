@@ -10,6 +10,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentStudentVerifyBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import com.technopolitan.mocaspaces.ui.register.RegisterViewModel
 import javax.inject.Inject
 
@@ -25,6 +26,9 @@ class StudentVerifyFragment : Fragment() {
 
     @Inject
     lateinit var navigationModule: NavigationModule
+
+    @Inject
+    lateinit var utilityModule: UtilityModule
 
 
     override fun onAttach(context: Context) {
@@ -66,6 +70,7 @@ class StudentVerifyFragment : Fragment() {
     }
 
     private fun navigate() {
+        utilityModule.setStatusBar(R.color.accent_color)
         navigationModule.navigateTo(R.id.action_student_verification_to_check_email)
     }
 

@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.regex.Pattern
 import javax.inject.Inject
 
+
 @Module
 class PasswordDataModule @Inject constructor(
     private var context: Context,
@@ -73,11 +74,15 @@ class PasswordDataModule @Inject constructor(
 
     private fun listenForPasswordFocus() {
         passwordTextInputLayout.editText!!.setOnFocusChangeListener { view: View, focus: Boolean ->
-            if (focus && validationLayout.visibility != View.VISIBLE)
+            if (focus && validationLayout.visibility != View.VISIBLE
+                && !validateAllForPassword(passwordTextInputLayout.editText!!.text.toString())
+            )
                 validationLayout.visibility = View.VISIBLE
-            else if (!focus && validationLayout.visibility == View.VISIBLE)
-                validationLayout.visibility = View.GONE
         }
+//        confirmPasswordTextInputLayout.editText!!.setOnFocusChangeListener{view: View, focus: Boolean ->
+//            if (focus && validationLayout.visibility == View.VISIBLE)
+//                validationLayout.visibility = View.GONE
+//        }
     }
 
     private fun initObservable() {
@@ -93,6 +98,11 @@ class PasswordDataModule @Inject constructor(
             )
         passwordObservable.subscribe {
             initValidationLayout(it)
+            if (validateAllForPassword(it)) validationLayout.visibility = View.GONE
+            else if (!validateAllForPassword(it) && validationLayout.visibility != View.VISIBLE)
+                validationLayout.visibility = View.VISIBLE
+//            if(validatePassword())
+//                validationLayout.visibility = View.GONE
         }
     }
 
@@ -101,6 +111,7 @@ class PasswordDataModule @Inject constructor(
         validateUpperAndLowerLayout(text)
         validateOneNumberLayout(text)
         validateSpecialCharLayout(text)
+
     }
 
     private fun makeChecked(textView: MaterialTextView) {
@@ -143,21 +154,35 @@ class PasswordDataModule @Inject constructor(
 
     private fun validateSpecialCharLayout(text: String) {
         if (validateAtLeastOneSpecialChar(text))
-            makeChecked(atLeastEightCharTextView)
-        else makeUnChecked(atLeastEightCharTextView)
+            makeChecked(atLeastSpecialCharTextView)
+        else makeUnChecked(atLeastSpecialCharTextView)
     }
 
     private fun validateLength(text: String): Boolean = text.length >= Constants.passwordLength
-    private fun validateUpperAndLowerCase(text: String): Boolean = Pattern.matches(
-        Constants.atLeastLowerCaseRegex,
-        text
-    ) && Pattern.matches(Constants.atLeastUpperCaseRegex, text)
 
-    private fun validateAtLeastOneNumber(text: String): Boolean =
-        Pattern.matches(Constants.atLeastNumberCaseRegex, text)
+    private fun validateUpperAndLowerCase(text: String): Boolean {
+        val upperCase = Pattern.compile(Constants.atLeastUpperCaseRegex)
+        val lowerCase = Pattern.compile(Constants.atLeastLowerCaseRegex)
+        val valid = upperCase.matcher(text).find() && lowerCase.matcher(text).find()
+        return valid
+    }
 
-    private fun validateAtLeastOneSpecialChar(text: String): Boolean =
-        Pattern.matches(Constants.atLeastSpecialCharacter, text)
+
+    private fun validateAtLeastOneNumber(text: String): Boolean {
+        val numberPattern = Pattern.compile(Constants.atLeastNumberCaseRegex)
+        val valid = numberPattern.matcher(text).find()
+        return valid
+    }
+
+    private fun validateAtLeastOneSpecialChar(text: String): Boolean {
+        val specialCharPattern = Pattern.compile(Constants.atLeastSpecialCharacter)
+        val valid = specialCharPattern.matcher(text).find()
+        return valid
+    }
+
+    private fun validateAllForPassword(text: String) =
+        validateLength(text) && validateUpperAndLowerCase(text) &&
+                validateAtLeastOneNumber(text) && validateAtLeastOneSpecialChar(text)
 
 
     private fun initConfirmPasswordPublisher() {
@@ -171,23 +196,21 @@ class PasswordDataModule @Inject constructor(
         }
     }
 
-    private fun validateConfirmPassword(): Boolean = validationModule.validateWithRegex(
+    private fun validateConfirmPassword(): Boolean = validationModule.validatePassword(
         confirmPasswordTextInputLayout,
-        Constants.passwordRegex,
         "",
         false
     )
 
     private fun validatePasswordSame(): Boolean = validationModule.validateMatches(
-        passwordTextInputLayout,
         confirmPasswordTextInputLayout,
+        passwordTextInputLayout,
         context.getString(R.string.password_not_matach),
         false
     )
 
-    private fun validatePassword(): Boolean = validationModule.validateWithRegex(
+    private fun validatePassword(): Boolean = validationModule.validatePassword(
         passwordTextInputLayout,
-        Constants.passwordRegex,
         "",
         false
     )
@@ -206,7 +229,7 @@ class PasswordDataModule @Inject constructor(
     }
 
     private fun validatePasswordAndConfirm(): Boolean {
-        return validatePassword() && validateConfirmPassword() && validatePasswordSame()
+        return validatePasswordSame()
     }
 
 

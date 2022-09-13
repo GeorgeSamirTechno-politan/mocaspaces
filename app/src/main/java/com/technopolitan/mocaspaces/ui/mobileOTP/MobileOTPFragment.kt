@@ -57,9 +57,10 @@ class MobileOTPFragment : Fragment() {
     }
 
     private fun initDataModule() {
-        binding.progressOtpResend.spinKit.visibility = View.GONE
-        binding.progressOtpMobile.spinKit.visibility = View.GONE
-        viewModel.initOTPDataModule(binding.mobileNumberTextView,
+        binding.progressOtpResend.progressView.visibility = View.GONE
+        binding.progressOtpMobile.progressView.visibility = View.GONE
+        viewModel.initOTPDataModule(
+            binding.changeNumberTextView,
             binding.otpIncludeLayout.otpFirstEditText,
             binding.otpIncludeLayout.otpSecondEditText,
             binding.otpIncludeLayout.otpThirdEditText,
@@ -79,7 +80,7 @@ class MobileOTPFragment : Fragment() {
         viewModel.handleVerifyMobileOtp().observe(viewLifecycleOwner) {
             verifyMobileHandler.handleResponse(
                 it,
-                binding.progressOtpMobile.spinKit,
+                binding.progressOtpMobile.progressView,
                 binding.otpIncludeLayout.root, {
                     navigateToPersonalInfo()
                 }, {
@@ -101,7 +102,7 @@ class MobileOTPFragment : Fragment() {
         ) {
             resendCodeHandler.handleResponse(
                 it,
-                binding.progressOtpResend.spinKit,
+                binding.progressOtpResend.progressView,
                 binding.resendTextView
             ) {
 //                viewModel.updateOtp(otp)

@@ -47,6 +47,8 @@ class RegisterPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initDataModule(binding) {
+            registerViewModel.getRegisterRequestMapper().password =
+                binding.registerPasswordLayout.newPasswordTextInputLayout.editText!!.text.toString()
             viewModel.setRegisterRequest(registerViewModel.getRegisterRequestMapper())
             handleRegisterApi()
         }

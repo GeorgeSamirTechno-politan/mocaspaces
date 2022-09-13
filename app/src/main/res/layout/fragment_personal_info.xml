@@ -40,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
+            android:textSize="@dimen/_12sdp"
             android:text="@string/please_upload_a_clear_picture_of_your_face"
             app:layout_constraintBottom_toBottomOf="@id/rounded_user_image_view"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,6 +163,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/member_type_recycler" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/type_progress_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="personal_info_progress,member_type_recycler" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/company_text_input_layout"
             style="@style/text_input_layout_style.dark_grey"
@@ -176,7 +184,7 @@
             app:endIconDrawable="@drawable/ic_checkmark"
             app:endIconMode="custom"
             app:endIconTint="@color/accent_color"
-            app:layout_constraintTop_toBottomOf="@id/member_type_recycler">
+            app:layout_constraintTop_toBottomOf="@id/type_progress_barrier">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/company_edit_text"
@@ -274,6 +282,13 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/gender_progress_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="gender_card_layout,gender_progress_layout" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/date_of_birth_text_input_layout"
             style="@style/text_input_layout_style.dark_grey.drop_down"
@@ -288,7 +303,7 @@
             app:endIconDrawable="@drawable/ic_calender"
             app:endIconMode="custom"
             app:endIconTint="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/gender_card_layout">
+            app:layout_constraintTop_toBottomOf="@id/gender_progress_barrier">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_of_birth_edit_text"

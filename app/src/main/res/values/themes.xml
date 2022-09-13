@@ -122,7 +122,7 @@
     </style>
 
     <style name="progress_button_style.accent" parent="app_button_style">
-        <item name="loaderColor">@color/accent_color</item>
+        <item name="loaderColor">@color/white</item>
         <item name="defaultColor">@color/accent_color</item>
         <item name="android:textColor">@color/white</item>
     </style>
@@ -300,14 +300,21 @@
 <!--        <item name="unselected_item_text_size">@dimen/_19sdp</item>-->
 <!--        <item name="selected_item_position">0</item>-->
 <!--        <item name="selected_item_text_color">@color/dark_grey_color_30_percent</item>-->
-<!--        <item name="visible_item_count">5</item>-->
-<!--        <item name="cyclic">true</item>-->
-<!--        <item name="atmospheric">true</item>-->
-<!--        <item name="curtain">true</item>-->
-<!--        <item name="curtain_color">@color/light_black_color</item>-->
-<!--        <item name="item_align">center</item>-->
-<!--        <item name="android:paddingTop">@dimen/_15sdp</item>-->
-<!--        <item name="android:paddingBottom">@dimen/_15sdp</item>-->
-<!--        <item name="font_path">@font/gt_regular</item>-->
-<!--    </style>-->
+    <!--        <item name="visible_item_count">5</item>-->
+    <!--        <item name="cyclic">true</item>-->
+    <!--        <item name="atmospheric">true</item>-->
+    <!--        <item name="curtain">true</item>-->
+    <!--        <item name="curtain_color">@color/light_black_color</item>-->
+    <!--        <item name="item_align">center</item>-->
+    <!--        <item name="android:paddingTop">@dimen/_15sdp</item>-->
+    <!--        <item name="android:paddingBottom">@dimen/_15sdp</item>-->
+    <!--        <item name="font_path">@font/gt_regular</item>-->
+    <!--    </style>-->
+
+    <style name="lottie_style">
+        <item name="lottie_autoPlay">true</item>
+        <item name="lottie_loop">true</item>
+        <item name="lottie_ignoreDisabledSystemAnimations">true</item>
+        <item name="lottie_clipToCompositionBounds">true</item>
+    </style>
 </resources>

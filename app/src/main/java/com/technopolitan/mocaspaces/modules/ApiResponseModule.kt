@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import com.github.ybq.android.spinkit.SpinKitView
+import com.airbnb.lottie.LottieAnimationView
 import com.technopolitan.mocaspaces.data.*
 import com.technopolitan.mocaspaces.transitionButton.TransitionButton
 import javax.inject.Inject
@@ -37,22 +37,22 @@ class ApiResponseModule<T> @Inject constructor(
 
     fun handleResponse(
         apiStatus: ApiStatus<T>,
-        spinKitView: SpinKitView,
+        loadingView: LottieAnimationView,
         view: View,
         onSuccessCallBack: (entity: T) -> Unit
     ) {
         when (apiStatus) {
             is SuccessStatus -> {
-                spinKitView.visibility = View.GONE
+                loadingView.visibility = View.GONE
                 view.visibility = View.VISIBLE
                 onSuccessCallBack(apiStatus.data!!)
             }
             is LoadingStatus -> {
-                spinKitView.visibility = View.VISIBLE
+                loadingView.visibility = View.VISIBLE
                 view.visibility = View.GONE
             }
             is ErrorStatus, is FailedStatus -> {
-                spinKitView.visibility = View.GONE
+                loadingView.visibility = View.GONE
                 view.visibility = View.VISIBLE
                 showErrorOrFailedMessage(apiStatus.message)
             }
@@ -61,23 +61,23 @@ class ApiResponseModule<T> @Inject constructor(
 
     fun handleResponse(
         apiStatus: ApiStatus<T>,
-        spinKitView: SpinKitView,
+        loadingView: LottieAnimationView,
         view: View,
         onSuccessCallBack: (entity: T) -> Unit,
-        onFailureCallBack: ()-> Unit
+        onFailureCallBack: () -> Unit
     ) {
         when (apiStatus) {
             is SuccessStatus -> {
-                spinKitView.visibility = View.GONE
+                loadingView.visibility = View.GONE
                 view.visibility = View.VISIBLE
                 onSuccessCallBack(apiStatus.data!!)
             }
             is LoadingStatus -> {
-                spinKitView.visibility = View.VISIBLE
+                loadingView.visibility = View.VISIBLE
                 view.visibility = View.GONE
             }
             is ErrorStatus, is FailedStatus -> {
-                spinKitView.visibility = View.GONE
+                loadingView.visibility = View.GONE
                 view.visibility = View.VISIBLE
                 showErrorOrFailedMessage(apiStatus.message)
                 onFailureCallBack.invoke()

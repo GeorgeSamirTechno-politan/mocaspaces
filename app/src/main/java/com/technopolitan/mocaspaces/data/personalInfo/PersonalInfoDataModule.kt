@@ -191,7 +191,7 @@ class PersonalInfoDataModule @Inject constructor(
 
 
     private fun initMobileView() {
-        binding.mobileIncludePersonalInfo.mobileIncludeProgress.spinKit.visibility = View.GONE
+        binding.mobileIncludePersonalInfo.mobileIncludeProgress.progressView.visibility = View.GONE
         binding.mobileIncludePersonalInfo.countryDropDownLayout.visibility = View.VISIBLE
         glideModule.loadImage(
             registerRequestMapper.counterMapper.url,

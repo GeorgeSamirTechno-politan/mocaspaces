@@ -74,7 +74,7 @@ class ForgetPasswordMobileFragment : Fragment() {
         countryViewModel.getCountry().observe(viewLifecycleOwner) {
             countryResponseHandler.handleResponse(
                 it,
-                binding.mobileNumberForgotPasswordLayout.mobileIncludeProgress.spinKit,
+                binding.mobileNumberForgotPasswordLayout.mobileIncludeProgress.progressView,
                 binding.mobileNumberForgotPasswordLayout.mobileNumberLayout
             ) { list ->
                 viewModel.initCountryDropDown(list)

@@ -47,7 +47,6 @@ class OtpBlockUserModule @Inject constructor(
         resendTextView: TextView,
         countDownTextView: TextView,
         resendCallBack: (entity: Boolean) -> Unit
-
     ) {
         this.type = 1
         this.resendTextView = resendTextView
@@ -104,6 +103,7 @@ class OtpBlockUserModule @Inject constructor(
             if (tries == 0)
                 enableSendOtpEmail()
         } else {
+
             sharedPrefModule.setIntToShared(AppKeys.OTPEmailTries.name, maxTries)
             tries = maxTries
         }
@@ -238,13 +238,15 @@ class OtpBlockUserModule @Inject constructor(
     private fun enableResend(enable: Boolean, resendSMS: Boolean) {
         resendTextView.isEnabled = enable
         if (enable) {
-            resendTextView.setTextColor(context.getColor(R.color.accent_color))
-            if (type == 2)
+            if (type == 1)
+                resendTextView.setTextColor(context.getColor(R.color.accent_color))
+            else if (type == 2)
                 emailLayout.visibility = View.VISIBLE
 
         } else {
-            resendTextView.setTextColor(context.getColor(R.color.light_black_color_68))
-            if (type == 2)
+            if (type == 1)
+                resendTextView.setTextColor(context.getColor(R.color.light_black_color_68))
+            else if (type == 2)
                 emailLayout.visibility = View.GONE
         }
         resendTextView.setOnClickListener {

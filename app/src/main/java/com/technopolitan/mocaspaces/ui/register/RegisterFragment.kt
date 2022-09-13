@@ -16,6 +16,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentRegisterBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import javax.inject.Inject
 
 class RegisterFragment : Fragment() {
@@ -31,6 +32,10 @@ class RegisterFragment : Fragment() {
 
 //    @Inject
 //    lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var utilityModule: UtilityModule
+
     @Inject
     lateinit var registerViewModel: RegisterViewModel
 
@@ -64,19 +69,29 @@ class RegisterFragment : Fragment() {
         NavController.OnDestinationChangedListener { controller, destination, arguments ->
             run {
                 when (destination.id) {
-                    R.id.verify_mobile_fragment -> updateView(
-                        25,
-                        R.string.sign_up,
-                        View.VISIBLE,
-                        null
-                    )
-                    R.id.mobile_otp_fragment -> updateView(
-                        50, R.string.verify_mobile, View.VISIBLE, AppCompatResources.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_mobile
+                    R.id.verify_mobile_fragment -> {
+                        utilityModule.setStatusBar(R.color.white)
+                        updateView(
+                            25,
+                            R.string.sign_up,
+                            View.VISIBLE,
+                            null
                         )
-                    )
-                    R.id.personal_info_fragment ->
+                    }
+                    R.id.mobile_otp_fragment -> {
+                        utilityModule.setStatusBar(R.color.white)
+                        updateView(
+                            50,
+                            R.string.verify_mobile,
+                            View.VISIBLE,
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_mobile
+                            )
+                        )
+                    }
+                    R.id.personal_info_fragment -> {
+                        utilityModule.setStatusBar(R.color.white)
                         updateView(
                             75,
                             R.string.personal_info,
@@ -86,8 +101,9 @@ class RegisterFragment : Fragment() {
                                 R.drawable.ic_person_round_icon
                             )
                         )
-
-                    R.id.student_verification_fragment ->
+                    }
+                    R.id.student_verification_fragment -> {
+                        utilityModule.setStatusBar(R.color.white)
                         updateView(
                             85,
                             R.string.verify_student,
@@ -97,8 +113,13 @@ class RegisterFragment : Fragment() {
                                 R.drawable.ic_student_verification
                             )
                         )
-                    R.id.check_email_fragment -> hideView()
+                    }
+                    R.id.check_email_fragment -> {
+                        utilityModule.setStatusBar(R.color.accent_color)
+                        hideView()
+                    }
                     R.id.fragment_password -> {
+                        utilityModule.setStatusBar(R.color.white)
                         updateView(
                             100,
                             R.string.password,
