@@ -147,6 +147,11 @@ class AppModule {
     fun providePikItModule(context: Context, activity: Activity, fragment: Fragment?) =
         PikItModule(fragment, context, activity)
 
+    @Singleton
+    @Provides
+    fun provideSpannableStringModule(context: Context): SpannableStringModule =
+        SpannableStringModule(context)
+
 //    @Singleton
 //    @Provides
 //    fun provideBitmapModule(): BitmapModule = BitmapModule()

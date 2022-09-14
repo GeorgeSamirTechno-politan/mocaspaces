@@ -1,6 +1,5 @@
 package com.technopolitan.mocaspaces.models.location.mappers
 
-class AmenityMapper {
-
-    var image : String = ""
-}
+data class AmenityMapper(
+    var image: String = ""
+)

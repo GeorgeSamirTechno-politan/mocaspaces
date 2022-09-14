@@ -161,6 +161,12 @@
     <string name="open">Open</string>
     <string name="opening_hours">Opening hours</string>
     <string name="book">Book</string>
+    <string name="tailored">Tailored</string>
+    <string name="tailored_starting">Tailored starting</string>
+    <string name="hour">hour</string>
+    <string name="hourly_starting">Hourly starting</string>
+    <string name="day_pass">Day Pass</string>
+    <string name="bundle_starting">Bundle Starting</string>
 
 
 </resources>

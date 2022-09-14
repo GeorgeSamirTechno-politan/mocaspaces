@@ -93,8 +93,9 @@ class PersonalInfoDataModule @Inject constructor(
 
     private fun initAnimation() {
         startAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-        endAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
-        countDownModule.init()
+        startAnimation.repeatCount = Animation.INFINITE
+//        endAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+//        countDownModule.init()
         startAnim()
 
     }
@@ -103,7 +104,7 @@ class PersonalInfoDataModule @Inject constructor(
         startAnime = true
         binding.roundedUserImageView.startAnimation(startAnimation)
         binding.cameraImageView.startAnimation(startAnimation)
-        listenForAnimeCountDown()
+//        listenForAnimeCountDown()
     }
 
     private fun endAnime() {
@@ -148,6 +149,8 @@ class PersonalInfoDataModule @Inject constructor(
 
     private fun initPixModule() {
         pixModule.init(callBack = {
+            binding.roundedUserImageView.clearAnimation()
+            binding.cameraImageView.clearAnimation()
             imagePublisher.onNext(it)
         })
 

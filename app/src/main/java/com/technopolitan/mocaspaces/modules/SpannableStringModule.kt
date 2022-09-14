@@ -13,14 +13,37 @@ import javax.inject.Inject
 @Module
 class SpannableStringModule @Inject constructor(private var context: Context) {
 
-    private var spannableString:SpannableString = SpannableString("")
+    private var spannableString: SpannableString = SpannableString("")
+    private var addedString: String = ""
+    private var start: Int = 0
+    private var end: Int = 0
 
     fun addString(vararg strings: String): SpannableStringModule {
         for (s in strings) spannableString = SpannableString(spannableString.toString() + s)
+        addedString = strings.toString()
+        start = if (spannableString.length == addedString.length) 0
+        else spannableString.length - 1
+        end =
+            if (spannableString.length == addedString.length) (spannableString.length + addedString.length) - 2
+            else addedString.length - 1
         return this
     }
 
-    fun setColor(
+    fun init(
+        colorResourceId: Int? = null,
+        dimen: Int? = null,
+        fontResourceId: Int? = null
+    ): SpannableStringModule {
+        if (colorResourceId != null)
+            setColor(colorResourceId, start, end)
+        if (dimen != null)
+            setSize(dimen, start, end)
+        if (fontResourceId != null)
+            setTypeFace(fontResourceId, start, end)
+        return this
+    }
+
+    private fun setColor(
         colorResourceId: Int,
         start: Int,
         end: Int
@@ -32,7 +55,7 @@ class SpannableStringModule @Inject constructor(private var context: Context) {
         return this
     }
 
-    fun setSize(dimen: Int, start: Int, end: Int): SpannableStringModule {
+    private fun setSize(dimen: Int, start: Int, end: Int): SpannableStringModule {
         spannableString.setSpan(
             AbsoluteSizeSpan(getDimensToFloat(context, dimen)),
             start,
@@ -42,8 +65,7 @@ class SpannableStringModule @Inject constructor(private var context: Context) {
         return this
     }
 
-    fun setTypeFace(
-        context: Context,
+    private fun setTypeFace(
         fontResourceId: Int,
         start: Int,
         end: Int

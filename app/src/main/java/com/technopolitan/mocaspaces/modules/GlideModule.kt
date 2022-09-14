@@ -27,14 +27,14 @@ class GlideModule @Inject constructor(private var context: Context) {
     fun loadImage(
         url: String?,
         imageView: ImageView,
-        errorImage: Int = R.drawable.ic_no_image_found
+        errorImage: Int = R.drawable.ic_no_image_found,
     ) {
         try {
             if (url != null) {
                 Glide.with(context).load(url)
                     .placeholder(getCircularProgressDrawable(context))
                     .error(AppCompatResources.getDrawable(context, errorImage))
-                    .centerCrop()
+                    .optionalFitCenter()
                     .into(imageView)
             }
         } catch (e: Exception) {

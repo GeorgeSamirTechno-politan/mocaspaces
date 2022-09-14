@@ -59,9 +59,11 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_mobile.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_custom_camera_x.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_date_picker.xml" value="0.5" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_event_space.xml" value="0.2860196665241556" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_forget_password_mobile.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_meeting_room.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_mobile_o_t_p.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_no_internet.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_password_saved.xml" value="0.2975630611372381" />
@@ -77,6 +79,7 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_student_verify.xml" value="0.1" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_success_register.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_two_choose_dialog.xml" value="0.25" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_work_space.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/gender_layout.xml" value="0.75" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/home_fragment.xml" value="0.33" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/horizontal_loading_layout.xml" value="0.2967079948696024" />

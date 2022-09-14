@@ -11,6 +11,8 @@ import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
+import com.technopolitan.mocaspaces.models.location.request.LocationRequest
+import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
 import retrofit2.http.Body
@@ -70,4 +72,12 @@ interface ServiceInterface {
         @Path("version") version: Int = Constants.apiVersion,
         @Body verifyMobileOtpRequest: VerifyMobileOtpRequest
     ): Flowable<HeaderResponse<String>>
+
+    @POST("v{version}/Location/GetFilterLocationWorkspaceMobile")
+    fun getAllWorkSpace(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body request: LocationRequest
+    ): Flowable<HeaderResponse<List<WorkSpaceResponse>>>
+
+
 }

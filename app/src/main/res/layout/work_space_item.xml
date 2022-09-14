@@ -125,19 +125,18 @@
             app:layout_constraintTop_toBottomOf="@id/work_space_name_text_view"
             tools:text="Zayed City, Giza" />
 
-        <TextView
+        <TextSwitcher
             android:id="@+id/price_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:textColor="@color/accent_color"
-            android:textSize="@dimen/_10sdp"
+            android:inAnimation="@anim/fade_in"
+            android:outAnimation="@anim/fade_out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/work_space_info_guide_line"
-            app:layout_constraintTop_toBottomOf="@id/work_space_image_view"
-            tools:text="Desk Starting at\n125/ hour \nEGP" />
+            app:layout_constraintTop_toBottomOf="@id/work_space_image_view" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/amenity_barrier"
