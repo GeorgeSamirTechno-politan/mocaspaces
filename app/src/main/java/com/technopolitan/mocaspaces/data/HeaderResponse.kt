@@ -23,5 +23,6 @@ data class HeaderResponse<T>(
     val pageSize: Int? = null,
 
     @SerializedName("pg_total")
-    val pageTotal: Int? = null
+    val pageTotal: Int? = null,
+
 )

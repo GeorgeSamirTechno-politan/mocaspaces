@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_20sdp"
+    app:cardCornerRadius="@dimen/_25sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/work_space_image_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_150sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/text_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/work_space_status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/green_shape"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/open"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintCircleRadius="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@color/light_black_color_50"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="@id/work_space_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/work_space_image_view">
+
+            <ImageView
+                android:id="@+id/favourite_status_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:src="@drawable/ic_un_favourite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:src="@drawable/ic_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/favourite_status_image_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/work_space_info_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:dividerColor="@color/grey_color_90_percent"
+            app:layout_constraintStart_toStartOf="@id/work_space_info_guide_line"
+            app:layout_constraintStart_toEndOf="@id/work_space_info_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/work_space_image_view"
+            app:layout_constraintBottom_toTopOf="@id/amenity_top_divider"/>
+
+        <TextView
+            android:id="@+id/location_distance_text_view"
+            style="@style/medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textColor="@color/accent_color"
+            app:layout_constraintEnd_toEndOf="@id/work_space_info_guide_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/work_space_image_view"
+            tools:text="8 km away" />
+
+        <TextView
+            android:id="@+id/work_space_name_text_view"
+            style="@style/medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18sdp"
+            app:layout_constraintEnd_toEndOf="@id/work_space_info_guide_line"
+            app:layout_constraintStart_toStartOf="@id/location_distance_text_view"
+            app:layout_constraintTop_toBottomOf="@id/location_distance_text_view"
+            tools:text="Palm Hils Club" />
+
+        <TextView
+            android:id="@+id/work_space_address_text_view"
+            style="@style/regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="@id/work_space_info_guide_line"
+            app:layout_constraintStart_toStartOf="@id/location_distance_text_view"
+            app:layout_constraintTop_toBottomOf="@id/work_space_name_text_view"
+            tools:text="Zayed City, Giza" />
+
+        <TextView
+            android:id="@+id/price_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textColor="@color/accent_color"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/work_space_info_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/work_space_image_view"
+            tools:text="Desk Starting at\n125/ hour \nEGP" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/amenity_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="work_space_address_text_view,price_text_view" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            app:dividerColor="@color/grey_color_90_percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:id="@+id/amenity_top_divider"
+            app:layout_constraintTop_toBottomOf="@id/amenity_barrier"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/amenity_recycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:listitem="@layout/amenity_item"
+            tools:itemCount="6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            android:paddingVertical="@dimen/_7sdp"
+            android:clipToPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/amenity_top_divider"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:dividerColor="@color/grey_color_90_percent"
+            android:id="@+id/amenity_bottom_divider"
+            app:layout_constraintTop_toBottomOf="@id/amenity_recycler"/>
+
+        <ImageView
+            android:layout_marginTop="@dimen/_9sdp"
+            android:id="@+id/work_hour_image_view"
+            android:scaleType="center"
+            app:tint="@color/black"
+
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/amenity_bottom_divider"
+            android:src="@drawable/ic_clock"/>
+
+        <TextView
+            app:layout_constraintStart_toEndOf="@id/work_hour_image_view"
+            android:text="@string/opening_hours"
+            android:id="@+id/opening_hour_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/black"
+            style="@style/regular"
+            app:layout_constraintTop_toTopOf="@id/work_hour_image_view"
+            app:layout_constraintBottom_toBottomOf="@id/work_hour_image_view"/>
+
+        <TextView
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:id="@+id/working_hour_text_view"
+            android:layout_marginTop="@dimen/_2sdp"
+            style="@style/medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:lineSpacingExtra="@dimen/_5sdp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/work_space_info_guide_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/opening_hour_text_view"
+            tools:text="All Weekdays 9am - 5pm\nSaturday 10am - 5pm" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/app_button_style.accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="@dimen/_14sdp"
+            android:text="@string/book"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/working_hour_text_view"
+            app:layout_constraintTop_toBottomOf="@id/work_hour_image_view" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

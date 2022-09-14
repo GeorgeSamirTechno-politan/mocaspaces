@@ -157,6 +157,10 @@
     <string name="awesome">Awesome!</string>
     <string name="let_s_get_to_work">Let’s Get to Work!</string>
     <string name="success_register">Success Register</string>
+    <string name="active_session_time_remaining_1_s">Active Session - Time Remaining %1$s</string>
+    <string name="open">Open</string>
+    <string name="opening_hours">Opening hours</string>
+    <string name="book">Book</string>
 
 
 </resources>

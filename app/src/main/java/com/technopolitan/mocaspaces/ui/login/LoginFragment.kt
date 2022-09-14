@@ -1,6 +1,7 @@
 package com.technopolitan.mocaspaces.ui.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,8 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.login.LoginMapper
 import com.technopolitan.mocaspaces.databinding.FragmentLoginBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
-import com.technopolitan.mocaspaces.enums.AppKeys
 import com.technopolitan.mocaspaces.modules.*
+import com.technopolitan.mocaspaces.ui.main.MainActivity
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
@@ -81,14 +82,7 @@ class LoginFragment : Fragment() {
         )
         loginViewModel.handleLoginApiCall().observe(viewLifecycleOwner) {
             apiResponseModule.handleResponse(it, binding.loginBtn) {
-                sharedPrefModule.setStringToShared(
-                    AppKeys.UserEmail.name,
-                    binding.emailEditText.text.toString()
-                )
-                sharedPrefModule.setStringToShared(
-                    AppKeys.UserPassword.name,
-                    binding.passwordEditText.text.toString()
-                )
+                startActivity(Intent(requireActivity(), MainActivity::class.java))
             }
         }
     }

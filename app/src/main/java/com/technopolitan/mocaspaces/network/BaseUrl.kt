@@ -22,4 +22,18 @@ object BaseUrl {
             "https://${serviceName}.techno-politan.xyz/api/"
         }
     }
+
+    fun baseForImage(serviceName: String): String{
+        var serviceName = serviceName
+        return if(appLive){
+            if(serviceName == "")
+                serviceName = api
+            "https://${serviceName}.copolitan.com/"
+        }
+        else {
+            if(serviceName == "")
+                serviceName = testApi
+            "https://${serviceName}.techno-politan.xyz/"
+        }
+    }
 }

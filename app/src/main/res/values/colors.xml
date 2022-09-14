@@ -18,6 +18,7 @@
     <color name="accent_color_58">#949A28CD</color>
     <color name="light_black_color">#2C2C2C</color>
     <color name="light_black_color_68">#AD2C2C2C</color>
+    <color name="light_black_color_50">#802C2C2C</color>
     <color name="dark_grey_color">#1E1E1E</color>
     <color name="darker_grey_color">#DDDDDD</color>
     <color name="black">#000000</color>
@@ -38,4 +39,5 @@
     <color name="unselected_wheel_text_color">#992C2C2C</color>
     <color name="selected_wheel_text_color">#2C2C2C</color>
     <color name="green_color">#00FFA6</color>
+    <color name="background_color">#eeeeee</color>
 </resources>

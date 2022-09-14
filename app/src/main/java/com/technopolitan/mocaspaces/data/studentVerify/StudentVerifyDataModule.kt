@@ -232,7 +232,7 @@ class StudentVerifyDataModule @Inject constructor(
         year = year, month = month, day = day){ selectedYear, selectedMonth, selectedDay ->
             val dateString = "$selectedYear-$selectedMonth-${selectedDay}"
             dateTimeModule.convertDate(dateString, DateTimeConstants.yearMonthDayFormat)?.let {
-                registerRequestMapper.birthDate = it
+                registerRequestMapper.studentCardExpiryDate = it
                 expireDate = it
             }
             binding.expireDateEditText.setText("$selectedDay/$selectedMonth/$selectedYear")

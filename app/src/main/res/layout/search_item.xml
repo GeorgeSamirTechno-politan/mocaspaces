@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<!--    <com.mancj.materialsearchbar.MaterialSearchBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:mt_clearIconDrawable="@drawable/ic_two_tone_close_purble"-->
+<!--        app:mt_searchBarColor="@android:color/transparent"-->
+<!--        app:mt_backIconDrawable="@drawable/ic_back_animated"-->
+<!--        app:mt_searchIconDrawable="@drawable/ic_home_search"-->
+<!--        app:color/>-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

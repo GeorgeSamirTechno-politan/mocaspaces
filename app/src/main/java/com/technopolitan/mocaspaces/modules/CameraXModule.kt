@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.media.MediaPlayer
 import android.media.MediaScannerConnection
 import android.net.Uri
@@ -24,6 +23,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.common.util.concurrent.ListenableFuture
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.utilities.BitmapExtension.rotate
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import java.io.*
@@ -271,32 +271,7 @@ class CameraXModule @Inject constructor(
         return createdPath
     }
 
-    private fun Bitmap.rotate(degree: Int): Bitmap {
-        // Initialize a new matrix
-        val matrix = Matrix()
 
-        // Rotate the bitmap
-        matrix.postRotate(degree.toFloat())
-
-        // Resize the bitmap
-        val scaledBitmap = Bitmap.createScaledBitmap(
-            this,
-            width,
-            height,
-            true
-        )
-
-        // Create and return the rotated bitmap
-        return Bitmap.createBitmap(
-            scaledBitmap,
-            0,
-            0,
-            scaledBitmap.width,
-            scaledBitmap.height,
-            matrix,
-            true
-        )
-    }
 
 
 }

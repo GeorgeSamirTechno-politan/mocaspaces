@@ -4,6 +4,7 @@
     package="com.technopolitan.mocaspaces">
 
     <uses-feature android:name="android.hardware.camera.any" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission -->
@@ -51,8 +52,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "example://gizmos” -->
                 <data
-                    android:host="www.google.com"
-                    android:scheme="https" />
+                    android:host="www.moca-app.com"
+                    android:scheme="http"
+                    android:path="/#/PHC/Menu/" />
             </intent-filter>
         </activity>
 

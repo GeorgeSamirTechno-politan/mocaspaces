@@ -18,5 +18,6 @@ class DateTimeConstants {
         const val hourFormat = "hh"
         const val minuteFormat = "mm"
         const val amPmFormat = "aa"
+        const val fullDayName = "EEEE"
     }
 }
