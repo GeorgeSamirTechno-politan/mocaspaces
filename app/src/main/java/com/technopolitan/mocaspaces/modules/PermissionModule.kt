@@ -2,8 +2,15 @@ package com.technopolitan.mocaspaces.modules
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+import android.provider.Settings
+import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.permissionx.guolindev.PermissionMediator
@@ -32,25 +39,31 @@ class PermissionModule @Inject constructor(
 //    private lateinit var settingDetailsMessage: String
     private lateinit var callBack: (entity: Boolean) -> Unit
     private var permissionNameList: List<String>? = null
+    private var requiredPermission: Boolean = true
 
     fun init(
 //        activityResult: ActivityResultLauncher<String>,
         permissionName: String,
+        requiredPermission: Boolean = true,
         callBack: (entity: Boolean) -> Unit,
+
     ) {
 //        this.activityResult = activityResult
         this.permissionName = permissionName
         this.callBack = callBack
+        this.requiredPermission = requiredPermission
         doRequestPermission()
     }
 
     fun init(
         permissionNameList: List<String>,
+        requiredPermission: Boolean = true,
         callBack: (entity: Boolean) -> Unit,
     ) {
 
         this.permissionNameList = permissionNameList
         this.callBack = callBack
+        this.requiredPermission = requiredPermission
         doRequestPermission()
     }
 
@@ -114,7 +127,21 @@ class PermissionModule @Inject constructor(
                 if (allGranted) {
                     callBack(true)
                 } else {
-                    alertModule.showMessageDialog("These permissions are denied: $deniedList") {}
+                    if (requiredPermission)
+                        alertModule.showMessageDialog(
+                            context.getString(
+                                R.string.denied_permission_message_settings,
+                                deniedList
+                            )
+                        ) {
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                val uri: Uri = Uri.fromParts("package", context.packageName, null)
+                                intent.data = uri
+                                context.startActivity(intent)
+                            }, 500)
+                        }
                 }
             }
     }

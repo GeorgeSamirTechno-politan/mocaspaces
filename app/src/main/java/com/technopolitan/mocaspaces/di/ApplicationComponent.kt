@@ -9,6 +9,8 @@ import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
 import com.technopolitan.mocaspaces.ui.forgetPasswordMobile.ForgetPasswordMobileFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
+import com.technopolitan.mocaspaces.ui.home.HomeFragment
+import com.technopolitan.mocaspaces.ui.home.WorkSpaceFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
@@ -58,4 +60,6 @@ interface ApplicationComponent {
     fun inject(registerPasswordFragment: RegisterPasswordFragment)
     fun inject(checkEmailFragment: CheckEmailFragment)
     fun inject(forgetPasswordMobileFragment: ForgetPasswordMobileFragment)
+    fun inject(homeFragment: HomeFragment)
+    fun inject(workSpaceFragment: WorkSpaceFragment)
 }

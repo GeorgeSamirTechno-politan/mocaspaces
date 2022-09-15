@@ -5,11 +5,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.IntentSender
+import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.util.Log
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.type.LatLng
 import com.technopolitan.mocaspaces.interfaces.LocationEnableListener
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
@@ -22,44 +24,51 @@ class LocationModule @Inject constructor(
     private var activity: Activity
 ) {
 
-    fun getCurrentLocation(
-        locationListener: LocationListener,
-        minDistanceForUpdateLocation: Long,
-        minTimeBeforeUpdateLocation: Long,
-        locationEnableListener: LocationEnableListener
+    private lateinit var callback: (location: Location)-> Unit
+    private var minDistanceForUpdateLocation: Long = 100
+    private var minTimeBeforeUpdateLocation: Long = 60
+
+    private val locationListener: LocationListener = LocationListener {
+        callback(it)
+    }
+
+    private val locationEnableListener: LocationEnableListener = object : LocationEnableListener{
+        override fun onSuccess(locationSettingsResponse: LocationSettingsResponse) {
+            if (locationSettingsResponse.locationSettingsStates!!.isLocationPresent &&
+                locationSettingsResponse.locationSettingsStates!!.isNetworkLocationPresent
+            ) getLocation()
+        }
+
+    }
+    fun init(
+        callback: (location: Location)-> Unit,
+        minDistanceForUpdateLocation: Long = 100,
+        minTimeBeforeUpdateLocation: Long = 60,
     ) {
+        this.callback = callback
+        this.minTimeBeforeUpdateLocation = minTimeBeforeUpdateLocation
+        this.minDistanceForUpdateLocation = minDistanceForUpdateLocation
         try {
             if (isLocationEnabled())
-                getLocation(
-                    locationListener,
-                    minTimeBeforeUpdateLocation,
-                    minDistanceForUpdateLocation
-                ) else
-                enableLocationDirectly(
-                    locationEnableListener,
-                    locationListener,
-                    minDistanceForUpdateLocation,
-                    minTimeBeforeUpdateLocation
-                )
+                getLocation() else
+                enableLocationDirectly()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
 
+
+
     @SuppressLint("MissingPermission")
-    private fun getLocation(
-        locationListener: LocationListener,
-        minTimeBeforeUpdate: Long,
-        minDistanceForUpdate: Long
-    ) {
+    private fun getLocation() {
         try {
             val locationManager = context.getSystemService(LOCATION_SERVICE) as LocationManager
             val locationProvider = LocationManager.NETWORK_PROVIDER
             locationManager.requestLocationUpdates(
                 locationProvider,
-                minTimeBeforeUpdate,
-                minDistanceForUpdate.toFloat(),
+                minTimeBeforeUpdateLocation,
+                minDistanceForUpdateLocation.toFloat(),
                 locationListener
             )
         } catch (e: java.lang.Exception) {
@@ -73,15 +82,9 @@ class LocationModule @Inject constructor(
             fastestInterval = 50
             priority = Priority.PRIORITY_HIGH_ACCURACY
             maxWaitTime = 100
-
         }
 
-    private fun enableLocationDirectly(
-        locationEnableListener: LocationEnableListener,
-        locationListener: LocationListener,
-        minDistanceForUpdateLocation: Long,
-        minTimeBeforeUpdateLocation: Long
-    ) {
+    private fun enableLocationDirectly() {
         try {
 //            val api =
 //                GoogleApi(context, LocationServices.API, 0, GoogleApi.Settings.DEFAULT_SETTINGS)
@@ -95,13 +98,7 @@ class LocationModule @Inject constructor(
                     onFailure(e, activity)
 
                 }.addOnSuccessListener {
-                    onSuccess(
-                        locationEnableListener,
-                        locationListener,
-                        minDistanceForUpdateLocation,
-                        minTimeBeforeUpdateLocation,
-                        it
-                    )
+                    locationEnableListener.onSuccess(it)
                 }
 
         } catch (e: Exception) {
@@ -109,17 +106,6 @@ class LocationModule @Inject constructor(
         }
     }
 
-    private fun onSuccess(
-        locationEnableListener: LocationEnableListener,
-        locationListener: LocationListener,
-        minDistanceForUpdateLocation: Long,
-        minTimeBeforeUpdateLocation: Long,
-        locationSettingsResponse: LocationSettingsResponse
-    ) {
-        locationEnableListener.onSuccess(locationSettingsResponse = locationSettingsResponse)
-        if (locationSettingsResponse.locationSettingsStates!!.isLocationPresent && locationSettingsResponse.locationSettingsStates!!.isNetworkLocationPresent)
-            getLocation(locationListener, minTimeBeforeUpdateLocation, minDistanceForUpdateLocation)
-    }
 
     private fun onFailure(e: java.lang.Exception, activity: Activity) {
         try {

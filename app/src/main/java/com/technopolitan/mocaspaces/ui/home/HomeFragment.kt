@@ -1,19 +1,38 @@
 package com.technopolitan.mocaspaces.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter
 import com.technopolitan.mocaspaces.databinding.HomeFragmentBinding
+import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.modules.LocationModule
+import com.technopolitan.mocaspaces.modules.PermissionModule
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
+    override fun onAttach(context: Context) {
+        DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
+            .inject(this)
+        super.onAttach(context)
     }
 
-    private lateinit var viewModel: HomeViewModel
+    @Inject
+    lateinit var permissionModule: PermissionModule
+
+    @Inject
+    lateinit var viewModel: HomeViewModel
+
+    @Inject
+    lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
+
+    @Inject
+    lateinit var locationModule: LocationModule
 
     private lateinit var binding: HomeFragmentBinding
 
@@ -23,6 +42,31 @@ class HomeFragment : Fragment() {
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requestLocationPermission()
+    }
+
+    private fun requestLocationPermission() {
+        val permissionList: MutableList<String> = mutableListOf()
+        permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION)
+        permissionList.add(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+        permissionModule.init(permissionList, requiredPermission = false) {
+            if(it){
+                locationModule.init({location->
+                    viewModel.setLocation(location)
+                })
+                handleHomeFragment()
+            }else
+                handleHomeFragment()
+
+        }
+    }
+
+    private fun handleHomeFragment() {
+        binding.homeFragmentViewPager.adapter = homeViewPagerAdapter
     }
 
 }

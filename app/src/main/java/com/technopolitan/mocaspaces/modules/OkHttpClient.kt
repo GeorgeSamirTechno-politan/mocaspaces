@@ -1,6 +1,9 @@
 package com.technopolitan.mocaspaces.modules
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import dagger.Provides
 
@@ -12,7 +15,10 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefModule) {
+class OkHttpClient @Inject constructor(
+    private var sharedPrefModule: SharedPrefModule,
+    private var context: Context
+) {
 
     @Provides
     @Singleton
@@ -26,6 +32,8 @@ class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefM
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+        if (!Constants.IsAppLive)
+            builder.addInterceptor(ChuckerInterceptor(context))
         builder.addNetworkInterceptor(httpLoggingInterceptor)
         builder.addInterceptor { chain ->
             val original = chain.request()
@@ -51,6 +59,8 @@ class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefM
             .writeTimeout(requestTimeOut.toLong(), TimeUnit.SECONDS)
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        if (!Constants.IsAppLive)
+            builder.addInterceptor(ChuckerInterceptor(context))
         builder.addNetworkInterceptor(httpLoggingInterceptor)
         builder.addInterceptor { chain ->
             val original = chain.request()
@@ -59,7 +69,7 @@ class OkHttpClient @Inject constructor(private var sharedPrefModule: SharedPrefM
                 .addHeader("Content-Type", "application/json")
                 .addHeader(
                     "Authorization",
-                    sharedPrefModule.getStringFromShared(SharedPrefKey.BearerToken.name)
+                    "Bearer ${sharedPrefModule.getStringFromShared(SharedPrefKey.BearerToken.name)}"
                 )
             val request = requestBuilder.build()
             chain.proceed(request)

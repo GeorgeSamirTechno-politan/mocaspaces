@@ -7,7 +7,7 @@ import java.util.*
 
 class WorkTimeMapper constructor(private var dateTimeModule: DateTimeModule) {
 
-    var list: List<LocationWorkTimeMapper> = mutableListOf()
+    var locationWorkTimeMapperList: List<LocationWorkTimeMapper> = mutableListOf()
     private val dayList: MutableList<String> = mutableListOf()
     private val workTimeMap: MutableMap<String, TimeMapper> = mutableMapOf()
 
@@ -18,7 +18,7 @@ class WorkTimeMapper constructor(private var dateTimeModule: DateTimeModule) {
 
     private fun initWorkTimeMapper() {
         initDayList()
-        this.list.forEach { item ->
+        this.locationWorkTimeMapperList.forEach { item ->
             dayList.sortBy { item.dayFrom.lowercase() }
             dayList.forEach { dayItem ->
                 if (item.dayFrom.lowercase() == dayItem.lowercase() || inBetween(
@@ -49,7 +49,7 @@ class WorkTimeMapper constructor(private var dateTimeModule: DateTimeModule) {
         list.forEach { item ->
             workTimeList.add(LocationWorkTimeMapper(dateTimeModule).init(item))
         }
-        this.list = workTimeList
+        this.locationWorkTimeMapperList = workTimeList
     }
 
 
