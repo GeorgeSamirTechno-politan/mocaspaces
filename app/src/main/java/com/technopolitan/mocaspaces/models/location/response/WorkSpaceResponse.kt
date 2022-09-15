@@ -3,7 +3,8 @@ package com.technopolitan.mocaspaces.models.location.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.technopolitan.mocaspaces.models.shared.*
+import com.technopolitan.mocaspaces.models.shared.NameResponse
+import com.technopolitan.mocaspaces.models.shared.PricesResponse
 
 data class WorkSpaceResponse(
     @SerializedName("Address")
@@ -11,16 +12,16 @@ data class WorkSpaceResponse(
     val address: String,
     @SerializedName("City")
     @Expose
-    val cityResponse: CityResponse,
+    val nameResponse: NameResponse,
     @SerializedName("Country")
     @Expose
-    val country: CountryResponse,
+    val country: NameResponse,
     @SerializedName("Currency")
     @Expose
-    val currencyResponse: CurrencyResponse,
+    val currencyResponse: NameResponse,
     @SerializedName("District")
     @Expose
-    val districtResponse: DistrictResponse,
+    val districtResponse: NameResponse,
     @SerializedName("Id")
     @Expose
     val id: Int,
@@ -35,7 +36,7 @@ data class WorkSpaceResponse(
     val locationAmenities: List<LocationAmenityResponse>,
     @SerializedName("LocationImages")
     @Expose
-    val locationImagesResponse: LocationImagesResponse,
+    val locationImagesResponse: LocationImagesResponse?,
     @SerializedName("LocationWorkingHours")
     @Expose
     val locationWorkingHourResponses: List<LocationWorkingHourResponse>,

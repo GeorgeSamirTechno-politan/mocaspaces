@@ -109,7 +109,17 @@ class CheckMobileDataModule @Inject constructor(
             validateMobile(dropDownMapper.description)
             if (Pattern.matches(dropDownMapper.description, it)) {
                 buttonChange(true)
-                button.setOnClickListener { callBack(getCountryMapper(dropDownMapper.id)) }
+                button.setOnClickListener {
+                    val countryMapper = getCountryMapper(dropDownMapper.id)
+                    if (countryMapper.code == "+20") {
+                        if(mobileNumberEditText.text.toString().startsWith("0")){
+                            countryMapper.mobile = mobileNumberEditText.text.toString().removeRange(0, 1)
+                        }else{
+                            countryMapper.mobile = mobileNumberEditText.text.toString()
+                        }
+                    }
+                    callBack(countryMapper)
+                }
             } else buttonChange(false)
         }
     }

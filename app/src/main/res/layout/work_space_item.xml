@@ -12,6 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -37,13 +38,13 @@
             android:text="@string/open"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintCircleRadius="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:animateLayoutChanges="true"
             android:background="@color/light_black_color_50"
             android:paddingStart="@dimen/_5sdp"
             android:paddingEnd="@dimen/_9sdp"
@@ -142,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="work_space_address_text_view,@+id/price_view_pager" />
+            app:constraint_referenced_ids="work_space_address_text_view,price_view_pager" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"

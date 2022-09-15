@@ -1,60 +1,100 @@
 package com.technopolitan.mocaspaces.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.technopolitan.mocaspaces.data.SuccessStatus
+import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter
+import com.technopolitan.mocaspaces.databinding.FragmentEventSpaceBinding
+import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
+import com.technopolitan.mocaspaces.modules.ApiResponseModule
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EventSpaceFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EventSpaceFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    @Inject
+    lateinit var viewModel: HomeViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    lateinit var binding: FragmentEventSpaceBinding
+
+    @Inject
+    lateinit var eventSpaceAdapter: MeetingRoomAdapter
+
+    @Inject
+    lateinit var eventSpaceApiHandler: ApiResponseModule<List<MeetingRoomMapper>>
+
+    override fun onAttach(context: Context) {
+        DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
+            .inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_space, container, false)
+    ): View {
+        binding = FragmentEventSpaceBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EventSpaceFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EventSpaceFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initMeetingLiveData()
+    }
+
+
+    private fun initView() {
+        binding.eventSpaceLoadMore.progressView.visibility = View.GONE
+        binding.eventRecycler.adapter = eventSpaceAdapter
+        listenForScrolling()
+        binding.eventRefreshLayout.setOnRefreshListener {
+            viewModel.resetEventSpace()
+            binding.eventRefreshLayout.isRefreshing = false
+
+        }
+    }
+
+    private fun listenForScrolling() {
+        binding.eventRecycler.addOnScrollListener(scrollListener)
+    }
+
+    private val scrollListener: RecyclerView.OnScrollListener = object :
+        RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
+            if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == eventSpaceAdapter.itemCount - 1 && eventSpaceAdapter.itemCount> 10) {
+                viewModel.updatePageNumber()
+                binding.eventSpaceLoadMore.progressView.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun initMeetingLiveData() {
+        viewModel.getEventRoomList().observe(viewLifecycleOwner) { response ->
+            if (eventSpaceAdapter.itemCount == 0)
+                eventSpaceApiHandler.handleResponse(
+                    response,
+                    binding.eventProgress.progressView,
+                    binding.eventRefreshLayout
+                ) {
+                    viewModel.updateEventSpacePage(response.remainingPage)
+                    eventSpaceAdapter.init(it.toMutableList())
+                }
+            else {
+                if(response is SuccessStatus){
+                    eventSpaceAdapter.init(response.data!!.toMutableList())
+                    viewModel.updateEventSpacePage(response.remainingPage)
+                    binding.eventSpaceLoadMore.progressView.visibility = View.GONE
                 }
             }
+        }
     }
 }

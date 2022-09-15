@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.R
@@ -79,9 +78,24 @@ class WorkSpaceAdapter @Inject constructor(
                 itemBinding.amenityRecycler.adapter = amenityAdapter
                 itemBinding.workingHourTextView.text =
                     getOpenHourText(context, spannableStringModule)
+                if(workTimeMapper.isOpen()){
+                  setOpen()
+                }else{
+                    setClose()
+                }
             }
             updatePrice()
 //            itemBinding.priceTextView.animation.setAnimationListener(this)
+        }
+
+        private fun setOpen(){
+            itemBinding.workSpaceStatusTextView.background = AppCompatResources.getDrawable(context, R.drawable.green_shape)
+            itemBinding.workSpaceStatusTextView.text = context.getText(R.string.open)
+        }
+
+        private fun setClose(){
+            itemBinding.workSpaceStatusTextView.background = AppCompatResources.getDrawable(context, R.drawable.red_shape)
+            itemBinding.workSpaceStatusTextView.text = context.getText(R.string.close)
         }
 
         private fun setFavourite() {
@@ -110,7 +124,7 @@ class WorkSpaceAdapter @Inject constructor(
                 priceIndex = if(priceIndex == 4) 0 else priceIndex+1
                 itemBinding.priceViewPager.currentItem = priceIndex
                 updatePrice()
-//                notifyItemChanged(bindingAdapterPosition)
+//                notifyDataSetChanged()
             }
         }
 

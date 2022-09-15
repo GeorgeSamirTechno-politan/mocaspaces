@@ -15,6 +15,7 @@ class LocationWorkTimeMapper constructor(private var dateTimeModule: DateTimeMod
     var endWorkString: String = ""
 
     fun init(workTimeResponse: LocationWorkingHourResponse): LocationWorkTimeMapper {
+        val currentDateTime = Calendar.getInstance().time
         dayFrom = workTimeResponse.dayFrom
         dayTo = workTimeResponse.dayTo
         startWorkString = workTimeResponse.startWorkingHour
@@ -23,7 +24,7 @@ class LocationWorkTimeMapper constructor(private var dateTimeModule: DateTimeMod
             dateTimeModule.formatDate(
                 workTimeResponse.startWorkingHour,
                 DateTimeConstants.timeFormat
-            )?.let { startWorkAt = it }
+            )?.let { startWorkAt = startWorkAt }
             dateTimeModule.formatDate(workTimeResponse.endWorkingHour, DateTimeConstants.timeFormat)
                 ?.let { endWorkAt = it }
         }

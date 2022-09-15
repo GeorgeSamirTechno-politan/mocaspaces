@@ -34,7 +34,7 @@ class RegisterRemote @Inject constructor(
 
 
     override fun flowable(): Flowable<HeaderResponse<String>> =
-        networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
+        networkModule.provideService(BaseUrl.sso)
             .register(request = registerRequest)
 
     override fun handleResponse(it: HeaderResponse<String>): ApiStatus<String> {
@@ -81,7 +81,7 @@ class RegisterRemote @Inject constructor(
             userDocumentsDtoRequest = UserDocumentsDtoRequest(
                 expirationDate = registerRequestMapper.studentCardExpiryDate!!,
                 imageUploadRequest = list,
-                membersRequiredDocumentId = 0
+                membersRequiredDocumentId = 1
             )
         }
         return userDocumentsDtoRequest

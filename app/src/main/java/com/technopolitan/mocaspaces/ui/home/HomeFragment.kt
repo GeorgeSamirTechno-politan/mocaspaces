@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter
 import com.technopolitan.mocaspaces.databinding.HomeFragmentBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -67,6 +67,15 @@ class HomeFragment : Fragment() {
 
     private fun handleHomeFragment() {
         binding.homeFragmentViewPager.adapter = homeViewPagerAdapter
+        binding.homeFragmentViewPager.registerOnPageChangeCallback(pageChangeCallBack)
+    }
+
+    private val pageChangeCallBack: ViewPager2.OnPageChangeCallback = object :
+        ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            viewModel.setViewType(position+ 1)
+        }
     }
 
 }

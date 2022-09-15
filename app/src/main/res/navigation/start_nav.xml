@@ -148,7 +148,7 @@
 
     <fragment
         android:id="@+id/reset_password_fragment"
-        android:name="com.technopolitan.mocaspaces.ui.registerPassword.RegisterPasswordFragment"
+        android:name="com.technopolitan.mocaspaces.ui.resetPassword.ResetPasswordFragment"
         android:label="@string/reset_password"
         tools:layout="@layout/fragment_reset_password">
 
@@ -187,6 +187,15 @@
         tools:layout="@layout/fragment_password_saved">
 
 
+        <action
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_password_change_successfully_fragment_to_login_fragment"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
 

@@ -1,7 +1,5 @@
 package com.technopolitan.mocaspaces.data.remote
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseRemote
 import com.technopolitan.mocaspaces.data.*
@@ -9,7 +7,6 @@ import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MemberTypeRemote @Inject constructor(private var networkModule: NetworkModule) :
@@ -39,5 +36,5 @@ class MemberTypeRemote @Inject constructor(private var networkModule: NetworkMod
     }
 
     override fun flowable(): Flowable<HeaderResponse<List<MemberTypeResponse>>> =
-        networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.locationApi).memberTypes()
+        networkModule.provideService(BaseUrl.locationApi).memberTypes()
 }

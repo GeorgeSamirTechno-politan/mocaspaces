@@ -78,7 +78,7 @@ class CheckMobileFragment : Fragment() {
             binding.mobileIncludeCheckMobile.mobileNumberEditText,
             binding.verifyButton,
         ) {
-            checkMobileRequest(it.code)
+            checkMobileRequest(it)
             listenForCheckMobile(it)
         }
     }
@@ -101,22 +101,14 @@ class CheckMobileFragment : Fragment() {
         }
     }
 
-    private fun checkMobileRequest(countryCode: String) {
-        registerViewModel.getRegisterRequestMapper().mobile =
-            binding.mobileIncludeCheckMobile.mobileNumberEditText.text.toString()
-        if (countryCode == "+20") {
-            if (registerViewModel.getRegisterRequestMapper().mobile.startsWith("0"))
-                registerViewModel.getRegisterRequestMapper().mobile = registerViewModel.getRegisterRequestMapper().mobile.removeRange(0, 1)
-        }
-        checkMobileViewModel.checkMobile(
-            countryCode + registerViewModel.getRegisterRequestMapper().mobile
-        )
+    private fun checkMobileRequest(it: CountryMapper) {
+        registerViewModel.getRegisterRequestMapper().mobile = it.mobile
+        checkMobileViewModel.checkMobile(it.code + it.mobile)
     }
 
     private fun listenForCheckMobile(countryMapper: CountryMapper) {
         checkMobileViewModel.handleCheckMobileApi().observe(viewLifecycleOwner) {
             verifyMobileHandler.handleResponse(it, binding.verifyButton) { response ->
-                val bundle = Bundle()
                 registerViewModel.getRegisterRequestMapper().counterMapper = countryMapper
 //                bundle.putParcelable(AppKeys.RegisterRequestMapper.name, registerRequestMapper)
                 navigationModule.navigateTo(R.id.action_verify_to_mobile_otp)

@@ -7,46 +7,48 @@
 
     <TextView
         android:id="@+id/type_start_from_text_view"
+        style="@style/regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/accent_color"
         android:textSize="@dimen/_10sdp"
-        style="@style/regular"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hourly Starting" />
 
     <TextView
         android:id="@+id/price_text_view"
-        app:layout_constraintStart_toStartOf="parent"
+        style="@style/medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/medium"
-        android:textSize="@dimen/_18sdp"
-        tools:text="140"
         android:textColor="@color/accent_color"
-        app:layout_constraintTop_toBottomOf="@id/type_start_from_text_view"/>
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintStart_toStartOf="@id/type_start_from_text_view"
+        app:layout_constraintTop_toBottomOf="@id/type_start_from_text_view"
+        tools:text="140" />
 
     <TextView
         android:id="@+id/per_type_text_view"
-        app:layout_constraintBottom_toBottomOf="@id/price_text_view"
+        style="@style/regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="/hour"
-        style="@style/regular"
-        android:textSize="@dimen/_10sdp"
         android:textColor="@color/accent_color"
-        app:layout_constraintStart_toEndOf="@id/price_text_view"/>
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@id/price_text_view"
+        app:layout_constraintStart_toEndOf="@id/price_text_view"
+        tools:text="/hour" />
 
     <TextView
-        app:layout_constraintStart_toStartOf="parent"
+
         android:id="@+id/currency_text_view"
-        app:layout_constraintTop_toBottomOf="@id/price_text_view"
-        android:layout_width="wrap_content"
         style="@style/regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="@color/accent_color"
-        tools:text="EGP"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintStart_toStartOf="@id/type_start_from_text_view"
+        app:layout_constraintTop_toBottomOf="@id/price_text_view"
+        tools:text="EGP" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

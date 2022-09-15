@@ -78,7 +78,7 @@ class LoginRemote @Inject constructor(
     }
 
     override fun flowable(): Flowable<HeaderResponse<LoginResponse>> {
-        return networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
+        return networkModel.provideService(BaseUrl.sso)
             .login(loginRequest = LoginRequest(email, password))
     }
 }

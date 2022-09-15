@@ -1,16 +1,16 @@
 package com.technopolitan.mocaspaces.data.remote
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseRemote
-import com.technopolitan.mocaspaces.data.*
+import com.technopolitan.mocaspaces.data.ApiStatus
+import com.technopolitan.mocaspaces.data.FailedStatus
+import com.technopolitan.mocaspaces.data.HeaderResponse
+import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.country.CountryMapper
 import com.technopolitan.mocaspaces.data.country.CountryResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CountryRemote @Inject constructor(private var networkModule: NetworkModule) : BaseRemote<List<CountryMapper>, List<CountryResponse>>(){
@@ -31,6 +31,6 @@ class CountryRemote @Inject constructor(private var networkModule: NetworkModule
     }
 
     override fun flowable(): Flowable<HeaderResponse<List<CountryResponse>>> {
-        return networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.locationApi).countries()
+        return networkModule.provideService(BaseUrl.locationApi).countries()
     }
 }

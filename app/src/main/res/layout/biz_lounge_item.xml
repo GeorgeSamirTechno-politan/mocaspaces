@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_20sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_20sdp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/biz_lounge_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.40" />
+
+        <ImageView
+            android:id="@+id/meeting_room_image_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/text_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/biz_lounge_guide_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/biz_lounge_expand_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:src="@drawable/ic_expand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/biz_lounge_status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginBottom="@dimen/_9sdp"
+            android:background="@drawable/green_shape"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/open"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/biz_lounge_guide_line"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/biz_lounge_room_name"
+                style="@style/medium"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textColor="@color/accent_color"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Palm Hall @" />
+
+            <TextView
+                android:id="@+id/biz_lounge_location_name_text_view"
+                style="@style/medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/biz_lounge_room_name"
+                app:layout_constraintTop_toBottomOf="@id/biz_lounge_room_name"
+                tools:text="Palm Hils Club" />
+
+            <TextView
+                android:id="@+id/biz_lounge_location_address_text_view"
+                style="@style/regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/biz_lounge_location_name_text_view"
+                app:layout_constraintTop_toBottomOf="@id/biz_lounge_location_name_text_view"
+                tools:text="Zayed City, Giza" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/biz_lounge_info_top_divider"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                app:dividerColor="@color/grey_color_90_percent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biz_lounge_location_address_text_view" />
+
+
+            <ImageView
+                android:id="@+id/work_hour_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:scaleType="center"
+                android:src="@drawable/ic_clock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biz_lounge_info_top_divider"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/opening_hour_text_view"
+                style="@style/regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:text="@string/opening_hours"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/work_hour_image_view"
+                app:layout_constraintStart_toEndOf="@id/work_hour_image_view"
+                app:layout_constraintTop_toTopOf="@id/work_hour_image_view" />
+
+            <TextView
+                android:id="@+id/working_hour_text_view"
+                style="@style/medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:lineSpacingExtra="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/opening_hour_text_view"
+                tools:text="All Weekdays 9am - 5pm\nSaturday 10am - 5pm" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/biz_lounge_divider_bottom"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="vertical"
+                app:dividerColor="@color/grey_color_90_percent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/working_hour_text_view" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/biz_lounge_check_price_button"
+                style="@style/app_button_style.accent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:text="@string/book"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biz_lounge_divider_bottom" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

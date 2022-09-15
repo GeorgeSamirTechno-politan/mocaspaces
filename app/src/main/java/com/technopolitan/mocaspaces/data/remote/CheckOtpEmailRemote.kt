@@ -25,7 +25,7 @@ class CheckOtpEmailRemote @Inject constructor(private var networkModule: Network
     }
 
     override fun flowable(): Flowable<HeaderResponse<String>> {
-        return networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.sso).verifyEmailOtp(
+        return networkModule.provideService(BaseUrl.sso).verifyEmailOtp(
             verifyMobileOtpRequest = VerifyMobileOtpRequest(
                 check = email,
                 otp = otp

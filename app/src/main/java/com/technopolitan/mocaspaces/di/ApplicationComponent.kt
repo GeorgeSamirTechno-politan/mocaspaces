@@ -9,14 +9,19 @@ import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
 import com.technopolitan.mocaspaces.ui.forgetPasswordMobile.ForgetPasswordMobileFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
+import com.technopolitan.mocaspaces.ui.home.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.HomeFragment
+import com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment
 import com.technopolitan.mocaspaces.ui.home.WorkSpaceFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
+import com.technopolitan.mocaspaces.ui.passwordSaved.PasswordSavedFragment
 import com.technopolitan.mocaspaces.ui.personalInfo.PersonalInfoFragment
 import com.technopolitan.mocaspaces.ui.register.RegisterFragment
 import com.technopolitan.mocaspaces.ui.registerPassword.RegisterPasswordFragment
+import com.technopolitan.mocaspaces.ui.resetPassword.ResetPasswordFragment
+import com.technopolitan.mocaspaces.ui.resetPasswordOtp.ResetPasswordOtpFragment
 import com.technopolitan.mocaspaces.ui.splash.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment
@@ -62,4 +67,9 @@ interface ApplicationComponent {
     fun inject(forgetPasswordMobileFragment: ForgetPasswordMobileFragment)
     fun inject(homeFragment: HomeFragment)
     fun inject(workSpaceFragment: WorkSpaceFragment)
+    fun inject(meetingRoomFragment: MeetingRoomFragment)
+    fun inject(eventSpaceFragment: EventSpaceFragment)
+    fun inject(resetPasswordOtpFragment: ResetPasswordOtpFragment)
+    fun inject(resetPasswordFragment: ResetPasswordFragment)
+    fun inject(passwordSavedFragment: PasswordSavedFragment)
 }

@@ -34,7 +34,7 @@ class WorkSpaceRemote @Inject constructor(
     }
 
     override fun flowable(): Flowable<HeaderResponse<List<WorkSpaceResponse>>> {
-        return networkModule.provideServiceInterfaceWithAuth(BaseUrl.locationApi).getAllWorkSpace(
+        return networkModule.provideService(BaseUrl.locationApi).getAllWorkSpacePagination(
             request = LocationRequest(
                 pageNumber = pageNumber,
                 pageSize = 10
@@ -45,8 +45,10 @@ class WorkSpaceRemote @Inject constructor(
     override fun handleResponse(it: HeaderResponse<List<WorkSpaceResponse>>): ApiStatus<List<WorkSpaceMapper>> {
         val list = mutableListOf<WorkSpaceMapper>()
         return if (it.succeeded) {
-            it.data!!.forEach {
-                list.add(WorkSpaceMapper(dateTimeModule).init(it, location))
+            it.data?.let {
+                it.forEach { item ->
+                    list.add(WorkSpaceMapper(dateTimeModule).init(item, location))
+                }
             }
             val remaining: Int = it.pageTotal!! - it.pageNumber!!
             SuccessStatus(message = "", list, remaining)

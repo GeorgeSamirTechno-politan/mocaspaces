@@ -36,6 +36,6 @@
         android:enabled="true"
         app:showAsAction="ifRoom"
         android:checked="false"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_persons"
         android:title="@string/my_profile" />
 </menu>

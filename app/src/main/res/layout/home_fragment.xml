@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/active_session_text_view"
             style="@style/regular"
             android:layout_width="0dp"

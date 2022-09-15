@@ -48,6 +48,29 @@ class DateTimeModule {
         return date
     }
 
+    fun addCurrentDayMonthYearToDate(
+        date: Date
+    ): Date {
+        var date: Date = date
+        try {
+            val currentDateCalender = GregorianCalendar()
+            val timeCalender = GregorianCalendar()
+            currentDateCalender.time = Calendar.getInstance().time
+            timeCalender.time = date
+            currentDateCalender.set(
+                currentDateCalender.get(Calendar.YEAR),
+                currentDateCalender.get(Calendar.MONTH),
+                currentDateCalender.get(Calendar.DAY_OF_MONTH),
+                timeCalender.get(Calendar.HOUR_OF_DAY),
+                timeCalender.get(Calendar.MINUTE)
+            )
+            date = currentDateCalender.time
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return date
+    }
+
     fun convertMilliToDate(timeInSecond: String, format: String?): String? {
         val time = timeInSecond.trim { it <= ' ' }.toLong()
         val calendar = Calendar.getInstance(TimeZone.getDefault())

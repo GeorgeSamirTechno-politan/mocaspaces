@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentWorkSpaceBinding
@@ -56,6 +54,11 @@ class WorkSpaceFragment : Fragment() {
         binding.workSpaceLoadMore.progressView.visibility = View.GONE
         binding.workSpaceRecycler.adapter = workSpaceAdapter
         listenForScrolling()
+        binding.workSpaceRefreshLayout.setOnRefreshListener {
+            viewModel.resetWorkSpace()
+            binding.workSpaceRefreshLayout.isRefreshing = false
+
+        }
     }
 
     private fun listenForScrolling() {
@@ -64,9 +67,6 @@ class WorkSpaceFragment : Fragment() {
 
     private val scrollListener: RecyclerView.OnScrollListener = object :
         RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-        }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)

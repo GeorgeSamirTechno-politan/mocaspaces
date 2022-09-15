@@ -3,7 +3,6 @@ package com.technopolitan.mocaspaces.models.location.mappers
 import android.content.Context
 import android.location.Location
 import android.text.Spannable
-import com.google.maps.android.SphericalUtil
 import com.google.type.LatLng
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
@@ -26,13 +25,14 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
     var latLng: LatLng = LatLng.getDefaultInstance()
     var longitude: Double = 0.0
     var amenityList: List<AmenityMapper> = mutableListOf()
-    private val workTimeMapper: WorkTimeMapper = WorkTimeMapper(dateTimeModule)
+    val workTimeMapper: WorkTimeMapper = WorkTimeMapper(dateTimeModule)
     var currency: String = ""
     var priceList: MutableList<PricePagerMapper> = mutableListOf()
 
 
     fun init(response: WorkSpaceResponse, location: Location? = null): WorkSpaceMapper {
         isFavourite = response.isFavourite
+        if(response.locationImagesResponse != null)
         image =
             BaseUrl.baseForImage(BaseUrl.locationApi) + response.locationImagesResponse.locationImageFilePath
 //        shareLink = response.sh
@@ -42,7 +42,7 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
 //        ), com.google.android.gms.maps.model.LatLng(latitude, longitude)) }
 
         locationName = response.name
-        address = "${response.districtResponse.name}, ${response.cityResponse.name}"
+        address = "${response.districtResponse.name}, ${response.nameResponse.name}"
         hourlyPrice = response.pricesResponse.hourly.toInt().toString()
         tailoredPrice = response.pricesResponse.tailored.toInt().toString()
         dayPassPrice = response.pricesResponse.day.toInt().toString()

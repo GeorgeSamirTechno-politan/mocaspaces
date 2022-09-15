@@ -1,15 +1,15 @@
 package com.technopolitan.mocaspaces.data.remote
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseRemote
-import com.technopolitan.mocaspaces.data.*
+import com.technopolitan.mocaspaces.data.ApiStatus
+import com.technopolitan.mocaspaces.data.FailedStatus
+import com.technopolitan.mocaspaces.data.HeaderResponse
+import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CheckMobileRemote @Inject constructor(
@@ -30,7 +30,7 @@ class CheckMobileRemote @Inject constructor(
     }
 
     override fun flowable(): Flowable<HeaderResponse<String>> {
-        return  networkModel.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
+        return  networkModel.provideService(BaseUrl.sso)
             .otpMobile(otpMobileRequest = OtpMobileRequest(mobile))
     }
 

@@ -170,6 +170,11 @@
     <string name="all_text">All</string>
     <string name="to">to</string>
     <string name="denied_permission_message_settings">These permissions are denied: %1$s \nYou will redirect to settings to enable them to you this feature</string>
+    <string name="capacity">Capacity</string>
+    <string name="pax">Pax</string>
+    <string name="check_price">Check Price</string>
+    <string name="starting_at">Starting at</string>
+    <string name="back">Back</string>
 
 
 </resources>

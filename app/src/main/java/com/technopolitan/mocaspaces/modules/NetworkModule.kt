@@ -4,6 +4,7 @@ package com.technopolitan.mocaspaces.modules
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import com.technopolitan.mocaspaces.SharedPrefKey
 import com.technopolitan.mocaspaces.network.BaseUrl
 import com.technopolitan.mocaspaces.network.ServiceInterface
 import dagger.Module
@@ -18,13 +19,22 @@ import javax.inject.Singleton
 @Module
 class NetworkModule @Inject constructor(
     private val okHttpClient: OkHttpClient,
-    private var context: Context
+    private var context: Context,
+    private var sharedPrefModule: SharedPrefModule,
 ) {
 
 
     @Singleton
     @Provides
-    fun provideServiceInterfaceWithoutAuth(serviceName: String): ServiceInterface {
+    fun provideService(serviceName: String): ServiceInterface {
+        return if(sharedPrefModule.contain(SharedPrefKey.BearerToken.name)){
+            provideServiceInterfaceWithAuth(serviceName)
+        }else provideServiceInterfaceWithoutAuth(serviceName)
+    }
+
+
+
+    private fun provideServiceInterfaceWithoutAuth(serviceName: String): ServiceInterface {
         return Retrofit.Builder().baseUrl(BaseUrl.baseUrl(serviceName))
             .client(okHttpClient.httpClientWithoutAuth())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -32,9 +42,7 @@ class NetworkModule @Inject constructor(
             .build().create(ServiceInterface::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun provideServiceInterfaceWithAuth(serviceName: String): ServiceInterface {
+    private fun provideServiceInterfaceWithAuth(serviceName: String): ServiceInterface {
         return Retrofit.Builder().baseUrl(BaseUrl.baseUrl(serviceName))
             .client(okHttpClient.httpClientWithAuth())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

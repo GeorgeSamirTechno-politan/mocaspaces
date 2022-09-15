@@ -57,8 +57,13 @@ class WorkTimeMapper constructor(private var dateTimeModule: DateTimeModule) {
         dayList.indexOf(dayName) >= dayList.indexOf(endWorkDayName)
 
     fun isOpen(): Boolean {
-        val currentDateDayName = dateTimeModule.getTodayDateOrTime(DateTimeConstants.fullDayName)!!
-        return Calendar.getInstance().time.before(workTimeMap.getValue(currentDateDayName).closeHour)
+        val keyDayName = dateTimeModule.getTodayDateOrTime(DateTimeConstants.fullDayName)
+        if(keyDayName !=null){
+            val currentDateTime = Calendar.getInstance().time
+            val closeHour = dateTimeModule.addCurrentDayMonthYearToDate(workTimeMap.getValue(keyDayName.lowercase()).closeHour)
+            return currentDateTime.before(closeHour)
+        }
+        return false
     }
 
 

@@ -29,8 +29,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideNetworkModel(context: Context, okHttpClient: OkHttpClient): NetworkModule =
-        NetworkModule(okHttpClient, context)
+    fun provideNetworkModel(context: Context, okHttpClient: OkHttpClient, sharedPrefModule: SharedPrefModule): NetworkModule =
+        NetworkModule(okHttpClient, context, sharedPrefModule)
 
     @Singleton
     @Provides

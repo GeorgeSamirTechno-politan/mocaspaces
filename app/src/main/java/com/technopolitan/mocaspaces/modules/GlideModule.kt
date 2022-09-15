@@ -60,7 +60,7 @@ class GlideModule @Inject constructor(private var context: Context) {
                 .placeholder(getCircularProgressDrawable(context))
                 .error(errorImage)
                 .apply(
-                    RequestOptions.circleCropTransform().placeholder(R.drawable.ic_person)
+                    RequestOptions.circleCropTransform().placeholder(R.drawable.ic_persons)
                 )
                 .into(object :
                     CustomTarget<Bitmap>(width, height) {

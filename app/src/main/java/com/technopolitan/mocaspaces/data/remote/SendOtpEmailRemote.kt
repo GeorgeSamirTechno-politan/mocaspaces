@@ -23,7 +23,7 @@ class SendOtpEmailRemote @Inject constructor(private var networkModule: NetworkM
     }
 
     override fun flowable(): Flowable<HeaderResponse<String>> {
-        return networkModule.provideServiceInterfaceWithoutAuth(BaseUrl.sso)
+        return networkModule.provideService(BaseUrl.sso)
             .otpEmail(request = CheckEmailRequest(email))
     }
 
