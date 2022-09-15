@@ -24,8 +24,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(sharedPrefModule: SharedPrefModule): OkHttpClient =
-        OkHttpClient(sharedPrefModule)
+    fun provideOkHttpClient(sharedPrefModule: SharedPrefModule, context: Context): OkHttpClient =
+        OkHttpClient(sharedPrefModule, context)
 
     @Singleton
     @Provides

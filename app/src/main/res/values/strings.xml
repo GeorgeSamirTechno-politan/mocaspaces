@@ -167,6 +167,9 @@
     <string name="hourly_starting">Hourly starting</string>
     <string name="day_pass">Day Pass</string>
     <string name="bundle_starting">Bundle Starting</string>
+    <string name="all_text">All</string>
+    <string name="to">to</string>
+    <string name="denied_permission_message_settings">These permissions are denied: %1$s \nYou will redirect to settings to enable them to you this feature</string>
 
 
 </resources>

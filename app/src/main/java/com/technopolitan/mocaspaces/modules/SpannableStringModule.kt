@@ -18,14 +18,21 @@ class SpannableStringModule @Inject constructor(private var context: Context) {
     private var start: Int = 0
     private var end: Int = 0
 
+    fun newString() : SpannableStringModule{
+        spannableString = SpannableString("")
+        return this
+    }
+
     fun addString(vararg strings: String): SpannableStringModule {
-        for (s in strings) spannableString = SpannableString(spannableString.toString() + s)
-        addedString = strings.toString()
+        addedString = ""
+        for (s in strings) {
+            spannableString = SpannableString(spannableString.toString() + s)
+            addedString += s
+        }
+
         start = if (spannableString.length == addedString.length) 0
-        else spannableString.length - 1
-        end =
-            if (spannableString.length == addedString.length) (spannableString.length + addedString.length) - 2
-            else addedString.length - 1
+        else spannableString.length - addedString.length
+        end = spannableString.length -1
         return this
     }
 

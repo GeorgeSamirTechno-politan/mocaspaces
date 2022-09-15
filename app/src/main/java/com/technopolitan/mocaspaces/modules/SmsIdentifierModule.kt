@@ -22,6 +22,7 @@ class SmsIdentifierModule @Inject constructor(
         permissionModule.init(
 //            activityResultLauncher,
             android.Manifest.permission.RECEIVE_SMS,
+            requiredPermission = false
         ) {
             readSMS()
         }

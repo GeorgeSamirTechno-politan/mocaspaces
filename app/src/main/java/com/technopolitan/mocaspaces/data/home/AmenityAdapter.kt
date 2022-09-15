@@ -11,10 +11,12 @@ import javax.inject.Inject
 class AmenityAdapter @Inject constructor(private var glideModule: GlideModule) :
     RecyclerView.Adapter<AmenityAdapter.ViewHolder>() {
 
-    private lateinit var list: List<AmenityMapper>
+    private val list: MutableList<AmenityMapper> = mutableListOf()
 
-    private fun init(list: List<AmenityMapper>) {
-        this.list = list
+    fun init(list: List<AmenityMapper>) {
+        val startPosition = this.list.size
+        this.list.addAll(list)
+        notifyItemRangeInserted(startPosition, itemCount)
     }
 
 
@@ -29,9 +31,7 @@ class AmenityAdapter @Inject constructor(private var glideModule: GlideModule) :
     }
 
     override fun getItemCount(): Int {
-        return if (::list.isInitialized)
-            list.size
-        else 0
+        return list.size
     }
 
     inner class ViewHolder(private val itemBinding: AmenityItemBinding) :
@@ -40,9 +40,7 @@ class AmenityAdapter @Inject constructor(private var glideModule: GlideModule) :
             amenityMapper.run {
                 glideModule.loadImage(image, itemBinding.amenityImageView)
             }
-
         }
-
     }
 
 }

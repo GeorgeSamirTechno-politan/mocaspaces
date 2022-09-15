@@ -22,15 +22,18 @@ class WorkSpaceAdapter @Inject constructor(
     private var context: Context,
     private var amenityAdapter: AmenityAdapter,
     private var countDownModule: CountDownModule,
-    private var spannableStringModule: SpannableStringModule
+    private var spannableStringModule: SpannableStringModule,
+    private var priceViewPagerAdapter: PriceViewPagerAdapter,
 ) : RecyclerView.Adapter<WorkSpaceAdapter.ViewHolder>() {
 
-    private lateinit var list: MutableList<WorkSpaceMapper>
+    private val list: MutableList<WorkSpaceMapper> = mutableListOf()
     private lateinit var textAnimation: Animation
 
     fun init(list: MutableList<WorkSpaceMapper>) {
-        this.list = list
-        textAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+        val startPosition = this.list.size
+        this.list.addAll(list)
+        notifyItemRangeInserted(startPosition, itemCount)
+        textAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
     }
 
 
@@ -45,55 +48,23 @@ class WorkSpaceAdapter @Inject constructor(
     }
 
     override fun getItemCount(): Int {
-        return if (::list.isInitialized)
-            list.size
-        else 0
+        return list.size
     }
 
     inner class ViewHolder(private val itemBinding: WorkSpaceItemBinding) :
-        RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener,
-        Animation.AnimationListener {
+        RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
+
         lateinit var item: WorkSpaceMapper
         private var priceIndex = 0
 
         override fun onClick(v: View?) {
-            TODO("Not yet implemented")
-        }
 
-        override fun onAnimationStart(animation: Animation?) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onAnimationEnd(animation: Animation?) {
-//            if(item.dayPassShowed && !item.hourlyShowed){
-//                getPriceForHourly(item.hourlyPrice, item.currency)
-//                item.hourlyShowed = true
-//            }else if(item.dayPassShowed && item.hourlyShowed && !item.tailoredShowed){
-//                getPriceForTailored(item.tailoredPrice, item.currency)
-//                item.tailoredShowed = true
-//            }else if(item.dayPassShowed && item.hourlyShowed && item.tailoredShowed && !item.bundlePassShowed){
-//                getPriceForBundle(item.bundlePrice, item.currency)
-//                item.bundlePassShowed = true
-//            }else{
-//                getPriceForHourly(item.hourlyPrice, item.currency)
-//                item.hourlyShowed = false
-//                item.bundlePassShowed = false
-//                item.tailoredShowed = false
-//            }
-//
-//                notifyItemChanged(bindingAdapterPosition)
-            priceIndex += 1
-            notifyItemChanged(bindingAdapterPosition)
-        }
-
-        override fun onAnimationRepeat(animation: Animation?) {
-            TODO("Not yet implemented")
         }
 
         fun bind(it: WorkSpaceMapper) {
             this.item = it
             it.run {
-                initPriceList(context, spannableStringModule)
+                this.initPriceList(context)
                 glideModule.loadImage(image, itemBinding.workSpaceImageView)
                 if (isFavourite)
                     setFavourite()
@@ -101,13 +72,16 @@ class WorkSpaceAdapter @Inject constructor(
                     setUnFavourite()
                 itemBinding.workSpaceNameTextView.text = locationName
                 itemBinding.workSpaceAddressTextView.text = address
-                itemBinding.priceTextView.setFactory {
-                    return@setFactory TextView(context)
-                }
-                itemBinding.priceTextView.setText(priceList[priceIndex])
-            }
-            itemBinding.priceTextView.animation.setAnimationListener(this)
 
+                itemBinding.priceViewPager.adapter = priceViewPagerAdapter
+                priceViewPagerAdapter.init(priceList)
+                amenityAdapter.init(amenityList)
+                itemBinding.amenityRecycler.adapter = amenityAdapter
+                itemBinding.workingHourTextView.text =
+                    getOpenHourText(context, spannableStringModule)
+            }
+            updatePrice()
+//            itemBinding.priceTextView.animation.setAnimationListener(this)
         }
 
         private fun setFavourite() {
@@ -130,10 +104,13 @@ class WorkSpaceAdapter @Inject constructor(
 
 
         private fun updatePrice() {
+            itemBinding.priceViewPager.startAnimation(textAnimation)
             countDownModule.init()
-            countDownModule.startCount(3) {
-                itemBinding.priceTextView.startAnimation(textAnimation)
-                textAnimation.setAnimationListener(this)
+            countDownModule.startCount(5) {
+                priceIndex = if(priceIndex == 4) 0 else priceIndex+1
+                itemBinding.priceViewPager.currentItem = priceIndex
+                updatePrice()
+//                notifyItemChanged(bindingAdapterPosition)
             }
         }
 

@@ -1,11 +1,48 @@
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="true"
-    android:clipToPadding="true"
-    android:paddingVertical="@dimen/_10sdp"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:itemCount="2"
-    tools:listitem="@layout/work_space_item" />
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/work_space_progress"
+        layout="@layout/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/work_space_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/accent_color"
+        app:layout_constraintBottom_toTopOf="@id/work_space_load_more"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/work_space_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipChildren="true"
+            android:clipToPadding="true"
+            android:paddingVertical="@dimen/_10sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            tools:itemCount="2"
+            tools:listitem="@layout/work_space_item" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+    <include
+        android:id="@+id/work_space_load_more"
+        layout="@layout/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

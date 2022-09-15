@@ -11,10 +11,14 @@ class LocationWorkTimeMapper constructor(private var dateTimeModule: DateTimeMod
     var dayTo: String = ""
     var startWorkAt: Date = Calendar.getInstance().time
     var endWorkAt: Date = Calendar.getInstance().time
+    var startWorkString: String = ""
+    var endWorkString: String = ""
 
     fun init(workTimeResponse: LocationWorkingHourResponse): LocationWorkTimeMapper {
         dayFrom = workTimeResponse.dayFrom
         dayTo = workTimeResponse.dayTo
+        startWorkString = workTimeResponse.startWorkingHour
+        endWorkString = workTimeResponse.endWorkingHour
         if (workTimeResponse.endWorkingHour.isNotEmpty() && workTimeResponse.startWorkingHour.isNotEmpty()) {
             dateTimeModule.formatDate(
                 workTimeResponse.startWorkingHour,
