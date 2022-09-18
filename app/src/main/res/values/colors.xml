@@ -25,8 +25,8 @@
     <color name="white">#FFFFFF</color>
     <color name="grey_color">#C0C0C0</color>
     <color name="workspace_color">#FFE42C</color>
-    <color name="meeting_color">#FFA380</color>
-    <color name="event_color">#00FFA6</color>
+    <color name="meeting_space_color">#FFA380</color>
+    <color name="event_space_color">#00FFA6</color>
     <color name="biz_lounge_color">#FF64FF</color>
     <color name="error_color">#F54E60</color>
     <color name="light_grey_color">#EEEEEE</color>

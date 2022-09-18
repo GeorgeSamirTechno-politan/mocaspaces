@@ -15,6 +15,7 @@ import com.technopolitan.mocaspaces.databinding.HomeFragmentBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.LocationModule
 import com.technopolitan.mocaspaces.modules.PermissionModule
+import com.technopolitan.mocaspaces.modules.UtilityModule
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -39,6 +40,9 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var homeSearchAdapter: HomeSearchAdapter
+
+    @Inject
+    lateinit var utilityModule: UtilityModule
 
     private val homeSearchMapperList: MutableList<HomeSearchMapper> = mutableListOf()
 
@@ -78,44 +82,39 @@ class HomeFragment : Fragment() {
             HomeSearchMapper(
                 R.color.workspace_color,
                 requireActivity().getString(R.string.workspace),
-                0
+                0,
+                R.color.text_input_box_work_space_color
             )
         )
         homeSearchMapperList.add(
             HomeSearchMapper(
-                R.color.meeting_color,
+                R.color.meeting_space_color,
                 requireActivity().getString(R.string.meeting_space),
-                1
+                1,
+                R.color.text_input_box_meeting_space_color
             )
         )
         homeSearchMapperList.add(
             HomeSearchMapper(
-                R.color.event_color,
+                R.color.event_space_color,
                 requireActivity().getString(R.string.event_space),
-                2
+                2,
+                R.color.text_input_box_event_space_color
             )
         )
         homeSearchMapperList.add(
             HomeSearchMapper(
                 R.color.biz_lounge_color,
                 requireActivity().getString(R.string.biz_lounge),
-                3
+                3,
+                R.color.text_input_box_biz_lounge_color
             )
         )
         homeSearchAdapter.setList(homeSearchMapperList)
         binding.homeSearchViewPager.adapter = homeSearchAdapter
         binding.homeSearchViewPager.offscreenPageLimit = 1
-        val nextItemVisiblePx = resources.getDimension(com.intuit.sdp.R.dimen._30sdp)
-        val currentItemHorizontalMarginPx = resources.getDimension(com.intuit.sdp.R.dimen._15sdp)
-        val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
-        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
-            page.translationX = -pageTranslationX * position
-            // Next line scales the item's height. You can remove it if you don't want this effect
-//            page.scaleY = 1 - (0.25f * abs(position))
-            // If you want a fading effect uncomment the next line:
-            // page.alpha = 0.25f + (1 - abs(position))
-        }
-        binding.homeSearchViewPager.setPageTransformer(pageTransformer)
+
+        binding.homeSearchViewPager.setPageTransformer(utilityModule.getPageTransformationForViewPager2())
         binding.homeSearchViewPager.registerOnPageChangeCallback(searchPageChangeCallBack)
     }
 

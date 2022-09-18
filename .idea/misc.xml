@@ -55,6 +55,7 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/common_layout.xml" value="0.3625" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/coordinator_layout.xml" value="0.3614583333333333" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_alert_layout.xml" value="0.2975630611372381" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_bottom_navigation_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_power_menu_item.xml" value="0.9" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/custom_snake_bar_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_check_email.xml" value="0.25" />
@@ -67,6 +68,7 @@
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_meeting_room.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_mobile_o_t_p.xml" value="0.33" />
+        <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_my_booking.xml" value="0.15220179563916203" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_no_internet.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_password_saved.xml" value="0.2975630611372381" />
         <entry key="..\:/nativeAndroid/Moca/app/src/main/res/layout/fragment_personal_info.xml" value="0.25" />

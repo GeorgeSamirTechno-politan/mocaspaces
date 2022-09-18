@@ -2,6 +2,9 @@ package com.technopolitan.mocaspaces.data.home
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -11,6 +14,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.HomeSearchItemBinding
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import javax.inject.Inject
+
 
 class HomeSearchAdapter @Inject constructor(
     private var context: Context,
@@ -57,15 +61,30 @@ class HomeSearchAdapter @Inject constructor(
         fun bind(item: HomeSearchMapper) {
             this.item = item
             itemIndex = bindingAdapterPosition
-            itemBinding.searchItemCard.strokeColor = context.getColor(item.color)
-            itemBinding.searchTextInput.startIconDrawable?.let { it.setTint(context.getColor(item.color)) }
-            itemBinding.searchTextInput.endIconDrawable?.let { it.setTint(context.getColor(item.color)) }
+            itemBinding.searchTextInput.setBoxStrokeColorStateList(getColorStateList())
+            itemBinding.searchTextInput.startIconDrawable?.let {
+                updateDrawable(it)
+            }
+            itemBinding.searchTextInput.endIconDrawable?.let { updateDrawable(it) }
+
+//            itemBinding.searchItemCard.setCardBackgroundColor(context.getColor(item.color))
             spannableStringModule.newString().addString(context.getString(R.string.findMeA) + " ")
                 .init(R.color.white, fontResourceId = R.font.gt_meduim)
                 .addString(item.hintSearch)
                 .init(item.color, fontResourceId = R.font.gt_meduim)
             itemBinding.searchTextInput.hint = spannableStringModule.getSpannableString()
         }
+
+        private fun updateDrawable(it: Drawable) {
+            it.setColorFilter(context.getColor(item.color), PorterDuff.Mode.SRC_IN)
+            it.setBounds(100, 100, 100, 100)
+            it.setHotspotBounds(100, 100, 100, 100)
+        }
+
+        private fun getColorStateList(): ColorStateList {
+            return context.resources.getColorStateList(item.textInputLayoutBoxColor, context.theme)
+        }
+
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
@@ -80,5 +99,6 @@ class HomeSearchAdapter @Inject constructor(
         }
 
     }
+
 
 }

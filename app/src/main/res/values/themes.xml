@@ -273,6 +273,50 @@
 
     </style>
 
+    <style name="text_input_layout_style.workspace" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_work_space_color</item>
+        <item name="placeholderTextColor">@color/workspace_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/workspace_color</item>
+        <item name="prefixTextColor">@color/workspace_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.meeting_space" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_meeting_space_color</item>
+        <item name="placeholderTextColor">@color/meeting_space_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/meeting_space_color</item>
+        <item name="prefixTextColor">@color/meeting_space_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.event_space" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_event_space_color</item>
+        <item name="placeholderTextColor">@color/event_space_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/event_space_color</item>
+        <item name="prefixTextColor">@color/event_space_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.biz_lounge_space" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_biz_lounge_color</item>
+        <item name="placeholderTextColor">@color/biz_lounge_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/biz_lounge_color</item>
+        <item name="prefixTextColor">@color/biz_lounge_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
     <style name="edit_text_style" parent="Widget.Material3.TextInputEditText.FilledBox.Dense">
         <item name="fontFamily">@font/gt_regular</item>
         <item name="android:textSize">@dimen/_13sdp</item>

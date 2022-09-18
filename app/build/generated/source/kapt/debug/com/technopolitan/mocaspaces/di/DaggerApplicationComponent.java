@@ -856,6 +856,7 @@ public final class DaggerApplicationComponent {
       HomeFragment_MembersInjector.injectHomeViewPagerAdapter(instance, homeViewPagerAdapter());
       HomeFragment_MembersInjector.injectLocationModule(instance, locationModule());
       HomeFragment_MembersInjector.injectHomeSearchAdapter(instance, homeSearchAdapter());
+      HomeFragment_MembersInjector.injectUtilityModule(instance, provideUtilityModuleProvider.get());
       return instance;
     }
 

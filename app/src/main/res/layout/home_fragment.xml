@@ -21,7 +21,7 @@
             style="@style/regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/event_color"
+            android:background="@color/event_space_color"
             android:padding="@dimen/_10sdp"
             android:text="@string/active_session_time_remaining_1_s"
             android:textAlignment="center"
