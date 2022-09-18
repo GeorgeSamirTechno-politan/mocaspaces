@@ -1,8 +1,4 @@
-//package com.technopolitan.mocaspaces.data.home
-//
-//import androidx.annotation.StyleableRes
-//
-//class HomeSearchMapper {
-//
-//    private var textInputItemStyle: StyleableRes
-//}
+package com.technopolitan.mocaspaces.data.home
+
+
+data class HomeSearchMapper(var color: Int, var hintSearch: String, var itemIdWithPosition: Int = 0)

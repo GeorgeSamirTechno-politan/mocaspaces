@@ -50,7 +50,7 @@
             android:indeterminate="true"
             android:theme="@style/Widget.Material3.LinearProgressIndicator"
             app:indeterminateAnimationType="disjoint"
-            app:indicatorColor="@color/yellow_color"
+            app:indicatorColor="@color/workspace_color"
             app:indicatorDirectionLinear="startToEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

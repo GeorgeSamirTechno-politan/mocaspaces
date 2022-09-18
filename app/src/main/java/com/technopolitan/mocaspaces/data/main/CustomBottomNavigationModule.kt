@@ -1,12 +1,13 @@
 package com.technopolitan.mocaspaces.data.main
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.imageview.ShapeableImageView
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.SharedPrefKey
 import com.technopolitan.mocaspaces.databinding.CustomBottomNavigationLayoutBinding
@@ -32,16 +33,30 @@ class CustomBottomNavigationModule @Inject constructor(
 ) {
 
     private lateinit var binding: CustomBottomNavigationLayoutBinding
-    private val loggedInPublisherSubject: PublishSubject<Boolean> = PublishSubject.create()
     private val myProfilePathPublisherSubject: PublishSubject<String> = PublishSubject.create()
+    private var selectedItemId = 0
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
+    private var selectedColor: Int = 0
+    private var unSelectedColor: Int = 0
+    private lateinit var selectedAnimator: ValueAnimator
+    private lateinit var unSelectedAnimator: ValueAnimator
 
     fun init(binding: CustomBottomNavigationLayoutBinding) {
         this.binding = binding
-        loggedIn()
+        setUpColorWithAnimator()
         setUpNavController()
         listenForLoggedInPublisher()
+    }
+
+    private fun setUpColorWithAnimator() {
+        selectedColor = context.getColor(R.color.accent_color)
+        unSelectedColor = context.getColor(R.color.grey_color)
+        selectedAnimator = ValueAnimator.ofObject(ArgbEvaluator(), unSelectedColor, selectedColor)
+        selectedAnimator.duration = 500
+        unSelectedAnimator =
+            ValueAnimator.ofObject(ArgbEvaluator(), unSelectedColor, unSelectedColor)
+        unSelectedAnimator.duration = 500
     }
 
     private fun setUpNavController() {
@@ -51,11 +66,7 @@ class CustomBottomNavigationModule @Inject constructor(
         navController.addOnDestinationChangedListener(listener)
     }
 
-    private fun loggedIn() {
-        if (isLoggedIn()) {
-            loggedInPublisherSubject.onNext(true)
-        } else loggedInPublisherSubject.onNext(false)
-    }
+
 
     private fun isLoggedIn(): Boolean {
         return sharedPrefModule.contain(SharedPrefKey.BearerToken.name)
@@ -63,15 +74,13 @@ class CustomBottomNavigationModule @Inject constructor(
     }
 
     private fun listenForLoggedInPublisher() {
-        loggedInPublisherSubject.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                if (it) setLogInView() else setStartView()
-            }
+        if (isLoggedIn())
+            setLogInView()
+        else setStartView()
     }
 
     private fun setStartView() {
-        binding.bottomNavLayout.visibility = View.GONE
+        binding.root.visibility = View.GONE
         navController.setGraph(R.navigation.start_nav)
 
     }
@@ -79,12 +88,18 @@ class CustomBottomNavigationModule @Inject constructor(
     private fun setLogInView() {
         navController.setGraph(R.navigation.logged_in_nav)
         binding.bottomNavLayout.visibility = View.VISIBLE
+        initHome()
         setUpCustomBottomNav()
         listenForMyProfilePathPublisherSubject()
+        updateMyProfileImageView()
+    }
+
+    fun updateMyProfileImageView() {
+        val imagePath = sharedPrefModule.getStringFromShared(
+            SharedPrefKey.ProfileUrl.name
+        )
         myProfilePathPublisherSubject.onNext(
-            sharedPrefModule.getStringFromShared(
-                SharedPrefKey.ProfileUrl.name
-            )
+            imagePath
         )
     }
 
@@ -93,7 +108,7 @@ class CustomBottomNavigationModule @Inject constructor(
         myProfilePathPublisherSubject.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                glideModule.loadImage(it, binding.myProfileTab)
+                glideModule.loadImage(it, binding.myProfileTab, R.drawable.ic_person_grey)
             }
     }
 
@@ -107,31 +122,39 @@ class CustomBottomNavigationModule @Inject constructor(
 
     private fun clickOnHome() {
         binding.homeTab.setOnClickListener {
-            if (binding.homeTab.solidColor == R.color.grey_color)
+            if (binding.homeTab.id != selectedItemId)
                 initHome()
         }
     }
 
     private fun initHome() {
         disableAllAndEnableSelected(binding.homeTab.id)
-        navigationModule.navigateTo(R.id.home_fragment)
+        navigateHome()
+    }
+
+    private fun navigateHome() {
+        navigationModule.navigateTo(R.id.home_fragment, R.id.nav_host_fragment)
     }
 
     private fun clickOnMyBookings() {
         binding.myBookingTab.setOnClickListener {
-            if (binding.myBookingTab.solidColor == R.color.grey_color)
+            if (binding.myBookingTab.id != selectedItemId)
                 initMyBookings()
         }
     }
 
     private fun initMyBookings() {
         disableAllAndEnableSelected(binding.myBookingTab.id)
-        /// TODO missing click on my bookings
+        navigateToMyBooking()
+    }
+
+    private fun navigateToMyBooking() {
+        navigationModule.navigateTo(R.id.my_bookings_fragment, R.id.nav_host_fragment)
     }
 
     private fun clickOnMyPass() {
         binding.myPassTab.setOnClickListener {
-            if (binding.myPassTab.solidColor == R.color.grey_color)
+            if (binding.myPassTab.id != selectedItemId)
                 initMyPass()
         }
     }
@@ -143,7 +166,7 @@ class CustomBottomNavigationModule @Inject constructor(
 
     private fun clickOnNotification() {
         binding.notificationTab.setOnClickListener {
-            if (binding.notificationTab.solidColor == R.color.grey_color)
+            if (binding.notificationTab.id != selectedItemId)
                 initMyNotification()
         }
     }
@@ -155,7 +178,7 @@ class CustomBottomNavigationModule @Inject constructor(
 
     private fun clickOnMyProfile() {
         binding.myProfileTab.setOnClickListener {
-            if (binding.myProfileTab.solidColor == R.color.grey_color)
+            if (binding.myProfileTab.id != selectedItemId)
                 initMyProfile()
         }
     }
@@ -172,33 +195,44 @@ class CustomBottomNavigationModule @Inject constructor(
 
     private fun disableAllUnselected(itemId: Int) {
         if (itemId != binding.homeTab.id) {
-            binding.homeTab.setBackgroundColor(context.getColor(R.color.grey_color))
+            setUnSelected(binding.homeTab)
         }
         if (itemId != binding.myBookingTab.id) {
-            binding.myBookingTab.setBackgroundColor(context.getColor(R.color.grey_color))
+            setUnSelected(binding.myBookingTab)
         }
         if (itemId != binding.notificationTab.id) {
-            binding.notificationTab.setBackgroundColor(context.getColor(R.color.grey_color))
+            setUnSelected(binding.notificationTab)
         }
+    }
+
+    private fun setUnSelected(image: ShapeableImageView) {
+        selectedAnimator.addUpdateListener { image.setColorFilter(unSelectedAnimator.animatedValue as Int) }
+        unSelectedAnimator.start()
     }
 
     private fun enableSelected(itemId: Int) {
         when (itemId) {
             binding.homeTab.id -> {
-                binding.homeTab.setBackgroundColor(context.getColor(R.color.accent_color))
+                setSelectedItem(binding.homeTab)
             }
             binding.myBookingTab.id -> {
-                binding.myBookingTab.setBackgroundColor(context.getColor(R.color.accent_color))
+                setSelectedItem(binding.myBookingTab)
             }
             binding.notificationTab.id -> {
-                binding.notificationTab.setBackgroundColor(context.getColor(R.color.accent_color))
+                setSelectedItem(binding.notificationTab)
             }
         }
     }
 
+    private fun setSelectedItem(image: ShapeableImageView) {
+        selectedItemId = image.id
+        selectedAnimator.addUpdateListener { image.setColorFilter(selectedAnimator.animatedValue as Int) }
+        selectedAnimator.start()
+    }
+
 
     private val listener: NavController.OnDestinationChangedListener =
-        NavController.OnDestinationChangedListener { controller, destination, arguments ->
+        NavController.OnDestinationChangedListener { _, destination, _ ->
             run {
                 when (destination.id) {
                     R.id.register_fragment -> utilityModule.setStatusBar(R.color.white)

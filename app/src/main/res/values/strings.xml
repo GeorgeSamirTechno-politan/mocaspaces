@@ -175,6 +175,11 @@
     <string name="check_price">Check Price</string>
     <string name="starting_at">Starting at</string>
     <string name="back">Back</string>
+    <string name="findMeA">Find me a</string>
+    <string name="workspace">Workspace</string>
+    <string name="biz_lounge">Biz Lounge</string>
+    <string name="event_space">Eventspace</string>
+    <string name="meeting_space">Meeting Space</string>
 
 
 </resources>

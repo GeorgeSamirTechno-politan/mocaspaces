@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.di.viewModel;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -9,9 +10,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Singleton
-public class
-
-ViewViewModelProviderFactory implements ViewModelProvider.Factory {
+public class ViewViewModelProviderFactory implements ViewModelProvider.Factory {
 
     private static final String TAG = "ViewModelProviderFactor";
 

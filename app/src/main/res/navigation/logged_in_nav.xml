@@ -5,10 +5,30 @@
     app:startDestination="@id/home_fragment"
     android:id="@+id/logged_in_nav">
 
-    <fragment android:id="@+id/home_fragment"
+    <fragment
+        android:id="@+id/home_fragment"
         android:name="com.technopolitan.mocaspaces.ui.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/home_fragment">
+
+        <action
+            android:id="@+id/action_home_to_my_bookings"
+            app:destination="@id/my_bookings_fragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/home_fragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_bookings_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.myBookings.MyBookingFragment"
+        android:label="@string/my_bookings"
+        tools:layout="@layout/fragment_my_booking">
+
 
     </fragment>
 

@@ -24,7 +24,10 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey_color">#C0C0C0</color>
-    <color name="yellow_color">#FFE42C</color>
+    <color name="workspace_color">#FFE42C</color>
+    <color name="meeting_color">#FFA380</color>
+    <color name="event_color">#00FFA6</color>
+    <color name="biz_lounge_color">#FF64FF</color>
     <color name="error_color">#F54E60</color>
     <color name="light_grey_color">#EEEEEE</color>
     <color name="light_grey_color_80_percent">#CCEEEEEE</color>
@@ -39,6 +42,6 @@
 
     <color name="unselected_wheel_text_color">#992C2C2C</color>
     <color name="selected_wheel_text_color">#2C2C2C</color>
-    <color name="green_color">#00FFA6</color>
+
     <color name="background_color">#eeeeee</color>
 </resources>

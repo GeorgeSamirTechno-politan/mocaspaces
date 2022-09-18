@@ -262,12 +262,12 @@
         <item name="passwordToggleTint">@color/black</item>
     </style>
 
-    <style name="text_input_layout_style.yellow" parent="text_input_layout_style">
-        <item name="boxStrokeColor">@color/text_input_box_yellow_color</item>
-        <item name="placeholderTextColor">@color/yellow_color</item>
+    <style name="text_input_layout_style.transparent" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_transparent_color</item>
+        <item name="placeholderTextColor">@android:color/transparent</item>
         <item name="hintTextColor">@color/white</item>
-        <item name="helperTextTextColor">@color/yellow_color</item>
-        <item name="prefixTextColor">@color/yellow_color</item>
+        <item name="helperTextTextColor">@android:color/transparent</item>
+        <item name="prefixTextColor">@android:color/transparent</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="passwordToggleTint">@color/black</item>
 

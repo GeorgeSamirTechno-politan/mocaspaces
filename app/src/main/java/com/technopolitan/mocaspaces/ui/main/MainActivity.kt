@@ -1,23 +1,12 @@
 package com.technopolitan.mocaspaces.ui.main
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.BitmapDrawable
-import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.navigation.NavigationBarView
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.SharedPrefKey
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.modules.*
@@ -67,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         requestNetworkStatusPermission()
         onBackPressedCallBack()
-
+        mainViewModel.initCustomBottomNavigationModule(binding.customBottomNavLayout)
 //        addPixToActivity(R.id.nav_host_fragment, pixModule.options)
     }
 

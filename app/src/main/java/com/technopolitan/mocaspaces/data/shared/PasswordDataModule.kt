@@ -115,7 +115,7 @@ class PasswordDataModule @Inject constructor(
     }
 
     private fun makeChecked(textView: MaterialTextView) {
-        textView.setTextColor(context.getColor(R.color.green_color))
+        textView.setTextColor(context.getColor(R.color.event_color))
         textView.setCompoundDrawablesWithIntrinsicBounds(
             R.drawable.ic_two_tone_check_green,
             0,

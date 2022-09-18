@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/yellow_color" />
+                app:tint="@color/workspace_color" />
 
             <TextView
                 android:id="@+id/hello_text_view"
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/sign_up_under_line"
-                    android:textColor="@color/yellow_color"
+                    android:textColor="@color/workspace_color"
                     android:textSize="@dimen/_13sdp" />
 
             </LinearLayout>

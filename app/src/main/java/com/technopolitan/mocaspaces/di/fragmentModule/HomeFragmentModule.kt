@@ -3,10 +3,7 @@ package com.technopolitan.mocaspaces.di.fragmentModule
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.data.home.AmenityAdapter
-import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter
-import com.technopolitan.mocaspaces.data.home.PriceViewPagerAdapter
-import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
+import com.technopolitan.mocaspaces.data.home.*
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.modules.DateTimeModule
@@ -51,4 +48,12 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
         glideModule,
         context, amenityAdapter, countDownModule, spannableStringModule, priceViewPagerAdapter
     )
+
+    @Singleton
+    @Provides
+    fun provideHomeSearchAdapter(
+        context: Context,
+        activity: Activity,
+        spannableStringModule: SpannableStringModule
+    ): HomeSearchAdapter = HomeSearchAdapter(context, activity, spannableStringModule)
 }

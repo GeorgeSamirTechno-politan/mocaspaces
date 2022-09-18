@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/yellow_color" />
+        app:tint="@color/workspace_color" />
 
 
     <com.google.android.material.button.MaterialButton
@@ -70,7 +70,7 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_55sdp"
         android:layout_marginEnd="@dimen/_55sdp"
-        android:layout_marginBottom="@dimen/_35sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:backgroundTint="@color/white"
         android:text="@string/login"
         android:fontFamily="@font/gt_meduim"

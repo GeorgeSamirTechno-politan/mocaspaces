@@ -32,7 +32,7 @@ class SpannableStringModule @Inject constructor(private var context: Context) {
 
         start = if (spannableString.length == addedString.length) 0
         else spannableString.length - addedString.length
-        end = spannableString.length -1
+        end = spannableString.length
         return this
     }
 
