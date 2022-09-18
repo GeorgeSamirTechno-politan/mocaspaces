@@ -27,6 +27,7 @@
     <color name="yellow_color">#FFE42C</color>
     <color name="error_color">#F54E60</color>
     <color name="light_grey_color">#EEEEEE</color>
+    <color name="light_grey_color_80_percent">#CCEEEEEE</color>
     <color name="grey_hint_text_color">#E6D2D9E5</color>
     <color name="dark_white_color">#D7D6D6</color>
     <color name="blue_grey_color">#E6D2D9E5</color>
