@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPrefModule: SharedPrefModule
     private lateinit var splashScreen: SplashScreen
-    private lateinit var navHostFragment: NavHostFragment
+
     private lateinit var navController: NavController
 
     //
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpNavController()
         requestNetworkStatusPermission()
         onBackPressedCallBack()
 
@@ -112,110 +111,67 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpNavController() {
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-        if (loggedIn()) {
-            setLogInView()
-        } else {
-            setStartView()
-        }
-        navController.addOnDestinationChangedListener(listener)
-    }
-
-    private fun setStartView() {
-        navController.setGraph(R.navigation.start_nav)
-        binding.myPassFab.visibility = View.GONE
-        binding.bottomAppBar.visibility = View.GONE
-        binding.mainCoordinatorLayout.visibility = View.GONE
-    }
-
-    private fun setLogInView() {
-        navController.setGraph(R.navigation.logged_in_nav)
-        binding.myPassFab.visibility = View.VISIBLE
-        binding.bottomAppBar.visibility = View.VISIBLE
-        binding.mainCoordinatorLayout.visibility = View.VISIBLE
-        roundedCornersForBottomAppBar()
-        glideModule.loadImageBitmap(
-            sharedPrefModule.getStringFromShared(SharedPrefKey.ProfileUrl.name),
-            callback = {
-                binding.bottomNav.menu.findItem(R.id.profile).icon = BitmapDrawable(resources, it)
-            },
-            res = resources
-        )
-        binding.bottomNav.setOnItemSelectedListener(bottomNavListener)
-    }
 
 
-    private fun loggedIn(): Boolean {
-        return sharedPrefModule.contain(SharedPrefKey.BearerToken.name)
-            .and(sharedPrefModule.getStringFromShared(SharedPrefKey.BearerToken.name).isNotEmpty())
-    }
 
-    private val bottomNavListener: NavigationBarView.OnItemSelectedListener =
-        object : NavigationBarView.OnItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when (item.itemId) {
-                    R.id.home -> setHome(item)
-                    R.id.my_bookings -> {
-                        return true
-                    }
-                    R.id.notification -> {
-                        return true
-                    }
-                    R.id.profile -> setProfile(item)
-                }
-                return false
-            }
 
-        }
 
-    private fun setHome(item: MenuItem): Boolean {
-        return if (item.isChecked) {
-            changeBottomItemColor(R.color.grey_color, item)
-            false
-        } else {
-            changeBottomItemColor(R.color.accent_color, item)
-            navigationModule.navigateTo(R.id.home_fragment)
-            item.isChecked = true
-            true
-        }
-    }
 
-    private fun setProfile(item: MenuItem) : Boolean{
-        return if (item.isChecked) {
-            changeBottomItemColor(android.R.color.transparent, item)
-            false
-        } else {
-            changeBottomItemColor(android.R.color.transparent, item)
+
+
+
+//    private val bottomNavListener: NavigationBarView.OnItemSelectedListener =
+//        object : NavigationBarView.OnItemSelectedListener {
+//            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//                when (item.itemId) {
+//                    R.id.home -> setHome(item)
+//                    R.id.my_bookings -> {
+//                        return true
+//                    }
+//                    R.id.notification -> {
+//                        return true
+//                    }
+//                    R.id.profile -> setProfile(item)
+//                }
+//                return false
+//            }
+//
+//        }
+
+//    private fun setHome(item: MenuItem): Boolean {
+//        return if (item.isChecked) {
+//            changeBottomItemColor(R.color.grey_color, item)
+//            false
+//        } else {
+//            changeBottomItemColor(R.color.accent_color, item)
 //            navigationModule.navigateTo(R.id.home_fragment)
-            item.isChecked = true
-            true
-        }
-    }
+//            item.isChecked = true
+//            true
+//        }
+//    }
+//
+//    private fun setProfile(item: MenuItem) : Boolean{
+//        return if (item.isChecked) {
+//            changeBottomItemColor(android.R.color.transparent, item)
+//            false
+//        } else {
+//            changeBottomItemColor(android.R.color.transparent, item)
+////            navigationModule.navigateTo(R.id.home_fragment)
+//            item.isChecked = true
+//            true
+//        }
+//    }
+//
+//    private fun changeBottomItemColor(color: Int, item: MenuItem){
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            item.icon.colorFilter = BlendModeColorFilter(getColor(color), BlendMode.SRC_OUT)
+//        }else{
+//            item.icon.colorFilter =
+//                PorterDuffColorFilter(getColor(color), PorterDuff.Mode.SRC_OUT)
+//        }
+//    }
 
-    private fun changeBottomItemColor(color: Int, item: MenuItem){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            item.icon.colorFilter = BlendModeColorFilter(getColor(color), BlendMode.SRC_OUT)
-        }else{
-            item.icon.colorFilter =
-                PorterDuffColorFilter(getColor(color), PorterDuff.Mode.SRC_OUT)
-        }
-    }
 
-    private val listener: NavController.OnDestinationChangedListener =
-        NavController.OnDestinationChangedListener { controller, destination, arguments ->
-            run {
-                when (destination.id) {
-                    R.id.register_fragment -> utilityModule.setStatusBar(R.color.white)
-                    R.id.login_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                    R.id.start_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                    R.id.no_internet_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                    R.id.splash_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                }
-            }
-        }
 
     private fun roundedCornersForBottomAppBar() {
 //        activityMainBinding.bottomNav.background = null

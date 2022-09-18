@@ -11,83 +11,91 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        android:paddingBottom="-30dp"
-        app:layout_constraintBottom_toTopOf="@id/main_coordinator_layout"
+        app:layout_constraintBottom_toTopOf="@id/custom_bottom_nav_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_coordinator_layout"
+    <include
+        android:id="@+id/custom_bottom_nav_layout"
+        layout="@layout/custom_bottom_navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@android:color/transparent"
-            android:visibility="visible"
-            app:backgroundTint="@android:color/transparent"
-            app:contentInsetEnd="0dp"
-            app:contentInsetStart="-10dp"
-            app:elevation="@dimen/_3sdp"
-            app:fabAlignmentMode="center"
-            app:fabAnimationMode="slide"
-            app:fabCradleMargin="0dp"
-            app:fabCradleRoundedCornerRadius="30dp"
-            app:fabCradleVerticalOffset="0dp"
-            app:hideOnScroll="true">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_nav"
-                style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingVertical="10dp"
-                android:fadingEdgeLength="@dimen/_30sdp"
-                app:itemBackground="@color/white"
-                app:itemHorizontalTranslationEnabled="true"
-                app:itemIconSize="@dimen/_20sdp"
-                app:itemIconTint="@drawable/nav_select_un_select_color"
-                app:itemRippleColor="@color/white"
-                app:itemTextAppearanceActive="@style/medium"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_nav_menu"
-                app:menuGravity="center" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-        </com.google.android.material.bottomappbar.BottomAppBar>
+    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+    <!--        android:id="@+id/main_coordinator_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
+
+    <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
+    <!--            android:id="@+id/bottom_app_bar"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            android:background="@android:color/transparent"-->
+    <!--            android:backgroundTint="@android:color/transparent"-->
+    <!--            android:visibility="visible"-->
+    <!--            app:backgroundTint="@android:color/transparent"-->
+    <!--            app:contentInsetEnd="0dp"-->
+    <!--            app:contentInsetStart="-10dp"-->
+    <!--            app:elevation="@dimen/_3sdp"-->
+    <!--            app:fabAlignmentMode="center"-->
+    <!--            app:fabAnimationMode="slide"-->
+    <!--            app:fabCradleMargin="0dp"-->
+    <!--            app:fabCradleRoundedCornerRadius="30dp"-->
+    <!--            app:fabCradleVerticalOffset="0dp"-->
+    <!--            app:hideOnScroll="true">-->
+
+    <!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--                android:id="@+id/bottom_nav"-->
+    <!--                style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:background="@color/white"-->
+    <!--                android:paddingVertical="10dp"-->
+    <!--                android:fadingEdgeLength="@dimen/_30sdp"-->
+    <!--                app:itemBackground="@color/white"-->
+    <!--                app:itemHorizontalTranslationEnabled="true"-->
+    <!--                app:itemIconSize="@dimen/_20sdp"-->
+    <!--                app:itemIconTint="@drawable/nav_select_un_select_color"-->
+    <!--                app:itemRippleColor="@color/white"-->
+    <!--                app:itemTextAppearanceActive="@style/medium"-->
+    <!--                app:labelVisibilityMode="unlabeled"-->
+    <!--                app:menu="@menu/bottom_nav_menu"-->
+    <!--                app:menuGravity="center" />-->
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!--        </com.google.android.material.bottomappbar.BottomAppBar>-->
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/my_pass_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="-30dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_my_pass"
-        android:visibility="visible"
-        app:backgroundTint="@color/accent_color"
-        app:elevation="1dp"
-        app:fabCustomSize="@dimen/_45sdp"
-        app:layout_anchorGravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/accent_color"
-        app:shapeAppearanceOverlay="@style/circle_shape"
-        app:tint="@color/white" />
+
+    <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/my_pass_fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="-30dp"-->
+    <!--        android:contentDescription="@string/app_name"-->
+    <!--        android:src="@drawable/ic_my_pass"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:backgroundTint="@color/accent_color"-->
+    <!--        app:elevation="1dp"-->
+    <!--        app:fabCustomSize="@dimen/_45sdp"-->
+    <!--        app:layout_anchorGravity="center_vertical"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:rippleColor="@color/accent_color"-->
+    <!--        app:shapeAppearanceOverlay="@style/circle_shape"-->
+    <!--        app:tint="@color/white" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

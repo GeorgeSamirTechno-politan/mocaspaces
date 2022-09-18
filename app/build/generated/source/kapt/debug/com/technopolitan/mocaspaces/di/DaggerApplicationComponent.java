@@ -18,6 +18,7 @@ import com.technopolitan.mocaspaces.data.home.PriceViewPagerAdapter;
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
 import com.technopolitan.mocaspaces.data.login.LoginDataModule;
 import com.technopolitan.mocaspaces.data.login.LoginMapper;
+import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule;
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeAdapter;
 import com.technopolitan.mocaspaces.data.personalInfo.PersonalInfoDataModule;
 import com.technopolitan.mocaspaces.data.register.RegisterDataModule;
@@ -188,11 +189,11 @@ public final class DaggerApplicationComponent {
   }
 
   private static final class ApplicationComponentImpl implements ApplicationComponent {
+    private final Context context;
+
     private final Activity activity;
 
     private final Fragment fragment;
-
-    private final Context context;
 
     private final ApplicationComponentImpl applicationComponentImpl = this;
 
@@ -208,11 +209,13 @@ public final class DaggerApplicationComponent {
 
     private Provider<ConnectionLiveDataModule> provideConnectionStateLiveDataModuleProvider;
 
-    private Provider<Activity> activityProvider;
-
     private Provider<Fragment> fragmentProvider;
 
+    private Provider<Activity> activityProvider;
+
     private Provider<NavigationModule> provideNavigationModuleProvider;
+
+    private Provider<GlideModule> provideGlideModuleProvider;
 
     private Provider<DialogModule> provideDialogModuleProvider;
 
@@ -221,8 +224,6 @@ public final class DaggerApplicationComponent {
     private Provider<PermissionModule> providePermissionModuleProvider;
 
     private Provider<PikItModule> providePikItModuleProvider;
-
-    private Provider<GlideModule> provideGlideModuleProvider;
 
     private Provider<UtilityModule> provideUtilityModuleProvider;
 
@@ -240,9 +241,9 @@ public final class DaggerApplicationComponent {
 
     private ApplicationComponentImpl(AppModule appModuleParam, Context contextParam,
         Activity activityParam, Fragment fragmentParam) {
+      this.context = contextParam;
       this.activity = activityParam;
       this.fragment = fragmentParam;
-      this.context = contextParam;
       initialize(appModuleParam, contextParam, activityParam, fragmentParam);
 
     }
@@ -251,8 +252,12 @@ public final class DaggerApplicationComponent {
       return new MainRemote(provideNetworkModelProvider.get());
     }
 
+    private CustomBottomNavigationModule customBottomNavigationModule() {
+      return new CustomBottomNavigationModule(context, provideSharedPrefModuleProvider.get(), provideNavigationModuleProvider.get(), provideGlideModuleProvider.get());
+    }
+
     private MainViewModel mainViewModel() {
-      return new MainViewModel(mainRemote(), provideConnectionStateLiveDataModuleProvider.get());
+      return new MainViewModel(mainRemote(), provideConnectionStateLiveDataModuleProvider.get(), customBottomNavigationModule());
     }
 
     private PixModule pixModule() {
@@ -513,14 +518,14 @@ public final class DaggerApplicationComponent {
       this.provideOkHttpClientProvider = DoubleCheck.provider(AppModule_ProvideOkHttpClientFactory.create(appModuleParam, provideSharedPrefModuleProvider, contextProvider));
       this.provideNetworkModelProvider = DoubleCheck.provider(AppModule_ProvideNetworkModelFactory.create(appModuleParam, contextProvider, provideOkHttpClientProvider, provideSharedPrefModuleProvider));
       this.provideConnectionStateLiveDataModuleProvider = DoubleCheck.provider(AppModule_ProvideConnectionStateLiveDataModuleFactory.create(appModuleParam, contextProvider, provideNetworkModelProvider));
-      this.activityProvider = InstanceFactory.create(activityParam);
       this.fragmentProvider = InstanceFactory.createNullable(fragmentParam);
+      this.activityProvider = InstanceFactory.create(activityParam);
       this.provideNavigationModuleProvider = DoubleCheck.provider(AppModule_ProvideNavigationModuleFactory.create(appModuleParam, fragmentProvider, activityProvider));
+      this.provideGlideModuleProvider = DoubleCheck.provider(AppModule_ProvideGlideModuleFactory.create(appModuleParam, contextProvider));
       this.provideDialogModuleProvider = DoubleCheck.provider(AppModule_ProvideDialogModuleFactory.create(appModuleParam, contextProvider, activityProvider, provideNavigationModuleProvider));
       this.provideCustomAlertModuleProvider = DoubleCheck.provider(AppModule_ProvideCustomAlertModuleFactory.create(appModuleParam, contextProvider, provideDialogModuleProvider));
       this.providePermissionModuleProvider = DoubleCheck.provider(AppModule_ProvidePermissionModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider, provideCustomAlertModuleProvider, provideDialogModuleProvider, provideSharedPrefModuleProvider));
       this.providePikItModuleProvider = DoubleCheck.provider(AppModule_ProvidePikItModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider));
-      this.provideGlideModuleProvider = DoubleCheck.provider(AppModule_ProvideGlideModuleFactory.create(appModuleParam, contextProvider));
       this.provideUtilityModuleProvider = DoubleCheck.provider(AppModule_ProvideUtilityModuleFactory.create(appModuleParam, contextProvider, activityProvider));
       this.provideDateTimeModuleProvider = DoubleCheck.provider(AppModule_ProvideDateTimeModuleFactory.create(appModuleParam));
       this.provideCountDownModuleProvider = DoubleCheck.provider(AppModule_ProvideCountDownModuleFactory.create(appModuleParam, contextProvider));

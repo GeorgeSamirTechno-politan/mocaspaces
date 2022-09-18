@@ -18,7 +18,7 @@
         android:background="@color/darker_grey_color"
         android:padding="2dp"
         android:scaleType="center"
-        android:src="@drawable/ic_persons"
+        android:src="@drawable/ic_person"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/circle_shape" />

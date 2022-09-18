@@ -3,13 +3,16 @@ package com.technopolitan.mocaspaces.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
+import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule
 import com.technopolitan.mocaspaces.data.remote.MainRemote
+import com.technopolitan.mocaspaces.databinding.CustomBottomNavigationLayoutBinding
 import com.technopolitan.mocaspaces.modules.ConnectionLiveDataModule
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val mainRemote: MainRemote,
-    private var connectionLiveDataModule: ConnectionLiveDataModule
+    private var connectionLiveDataModule: ConnectionLiveDataModule,
+    private val customBottomNavigationModule: CustomBottomNavigationModule
 ) : BaseViewModel<Any>() {
     private var networkChangeMediator = MediatorLiveData<Boolean>()
 
@@ -21,5 +24,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun connectionChangeLiveData(): LiveData<Boolean> = networkChangeMediator
+
+    fun initCustomBottomNavigationModule(binding: CustomBottomNavigationLayoutBinding){
+        customBottomNavigationModule.init(binding)
+    }
 
 }

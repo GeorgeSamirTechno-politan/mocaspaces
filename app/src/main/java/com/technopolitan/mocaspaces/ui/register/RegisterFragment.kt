@@ -10,13 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.FragmentRegisterBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.di.viewModel.ViewViewModelProviderFactory
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.UtilityModule
+import com.technopolitan.mocaspaces.ui.main.MainActivity
 import javax.inject.Inject
 
 class RegisterFragment : Fragment() {
@@ -33,11 +36,14 @@ class RegisterFragment : Fragment() {
 //    @Inject
 //    lateinit var viewModelFactory: ViewModelFactory
 
+//    @Inject
+//    lateinit var providerFactory: ViewViewModelProviderFactory
+
     @Inject
     lateinit var utilityModule: UtilityModule
 
     @Inject
-    lateinit var registerViewModel: RegisterViewModel
+    lateinit var  registerViewModel: RegisterViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
