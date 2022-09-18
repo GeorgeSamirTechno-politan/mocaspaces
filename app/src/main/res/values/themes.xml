@@ -157,6 +157,11 @@
         <item name="strokeWidth">@dimen/_1sdp</item>
     </style>
 
+    <style name="circle_shape.white_border">
+        <item name="strokeColor">@color/white</item>
+        <item name="strokeWidth">@dimen/_4sdp</item>
+    </style>
+
 
     <style name="text_input_layout_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
