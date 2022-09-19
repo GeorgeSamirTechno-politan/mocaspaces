@@ -15,6 +15,7 @@
     <!--    end of image pickers colors-->
 
     <color name="accent_color">#9A28CD</color>
+    <color name="accent_color_60">#999A28CD</color>
     <color name="accent_color_58">#949A28CD</color>
     <color name="light_black_color">#2C2C2C</color>
     <color name="light_black_color_68">#AD2C2C2C</color>
@@ -25,6 +26,7 @@
     <color name="white">#FFFFFF</color>
     <color name="grey_color">#C0C0C0</color>
     <color name="workspace_color">#FFE42C</color>
+    <color name="workspace_color_50">#80FFE42C</color>
     <color name="meeting_space_color">#FFA380</color>
     <color name="event_space_color">#00FFA6</color>
     <color name="biz_lounge_color">#FF64FF</color>

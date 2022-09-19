@@ -16,6 +16,7 @@ import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter;
 import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter;
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter;
 import com.technopolitan.mocaspaces.data.home.PriceViewPagerAdapter;
+import com.technopolitan.mocaspaces.data.home.SearchHintListAdapter;
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
 import com.technopolitan.mocaspaces.data.login.LoginDataModule;
 import com.technopolitan.mocaspaces.data.login.LoginMapper;
@@ -35,6 +36,7 @@ import com.technopolitan.mocaspaces.data.remote.MemberTypeRemote;
 import com.technopolitan.mocaspaces.data.remote.PersonalInfoRemote;
 import com.technopolitan.mocaspaces.data.remote.RegisterRemote;
 import com.technopolitan.mocaspaces.data.remote.ResetPasswordRemote;
+import com.technopolitan.mocaspaces.data.remote.SearchHintRemote;
 import com.technopolitan.mocaspaces.data.remote.SendOtpEmailRemote;
 import com.technopolitan.mocaspaces.data.remote.SendOtpForgotPasswordMobile;
 import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpForgotPasswordRemote;
@@ -46,6 +48,7 @@ import com.technopolitan.mocaspaces.data.shared.OTPDataModule;
 import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule;
 import com.technopolitan.mocaspaces.data.shared.PasswordDataModule;
 import com.technopolitan.mocaspaces.data.studentVerify.StudentVerifyDataModule;
+import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper;
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
@@ -445,6 +448,10 @@ public final class DaggerApplicationComponent {
       return new ForgetPasswordMobileViewModel(checkMobileDataModule(), sendOtpForgotPasswordMobile());
     }
 
+    private SearchHintRemote searchHintRemote() {
+      return new SearchHintRemote(provideNetworkModelProvider.get());
+    }
+
     private WorkSpaceRemote workSpaceRemote() {
       return new WorkSpaceRemote(provideNetworkModelProvider.get(), provideDateTimeModuleProvider.get());
     }
@@ -458,7 +465,7 @@ public final class DaggerApplicationComponent {
     }
 
     private HomeViewModel homeViewModel() {
-      return new HomeViewModel(workSpaceRemote(), meetingRoomRemote(), eventSpaceRemote());
+      return new HomeViewModel(searchHintRemote(), workSpaceRemote(), meetingRoomRemote(), eventSpaceRemote());
     }
 
     private HomeViewPagerAdapter homeViewPagerAdapter() {
@@ -469,8 +476,16 @@ public final class DaggerApplicationComponent {
       return new LocationModule(context, activity);
     }
 
+    private ApiResponseModule<List<SearchHintMapper>> apiResponseModuleOfListOfSearchHintMapper() {
+      return new ApiResponseModule<List<SearchHintMapper>>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
+    }
+
+    private SearchHintListAdapter searchHintListAdapter() {
+      return new SearchHintListAdapter(context, provideSpannableStringModuleProvider.get());
+    }
+
     private HomeSearchAdapter homeSearchAdapter() {
-      return new HomeSearchAdapter(context, activity, provideSpannableStringModuleProvider.get());
+      return new HomeSearchAdapter(context, activity, provideSpannableStringModuleProvider.get(), searchHintListAdapter());
     }
 
     private AmenityAdapter amenityAdapter() {
@@ -855,6 +870,7 @@ public final class DaggerApplicationComponent {
       HomeFragment_MembersInjector.injectViewModel(instance, homeViewModel());
       HomeFragment_MembersInjector.injectHomeViewPagerAdapter(instance, homeViewPagerAdapter());
       HomeFragment_MembersInjector.injectLocationModule(instance, locationModule());
+      HomeFragment_MembersInjector.injectSearchHintApiHandler(instance, apiResponseModuleOfListOfSearchHintMapper());
       HomeFragment_MembersInjector.injectHomeSearchAdapter(instance, homeSearchAdapter());
       HomeFragment_MembersInjector.injectUtilityModule(instance, provideUtilityModuleProvider.get());
       return instance;

@@ -49,11 +49,24 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
         context, amenityAdapter, countDownModule, spannableStringModule, priceViewPagerAdapter
     )
 
+//    @Singleton
+//    @Provides
+//    fun provideSearchHintAdapter(spannableStringModule: SpannableStringModule) : SearchHintAdapter = SearchHintAdapter(spannableStringModule)
+
+    @Singleton
+    @Provides
+    fun provideSearchHintAdapter(
+        context: Context,
+        spannableStringModule: SpannableStringModule
+    ): SearchHintListAdapter = SearchHintListAdapter(context, spannableStringModule)
+
     @Singleton
     @Provides
     fun provideHomeSearchAdapter(
         context: Context,
         activity: Activity,
-        spannableStringModule: SpannableStringModule
-    ): HomeSearchAdapter = HomeSearchAdapter(context, activity, spannableStringModule)
+        spannableStringModule: SpannableStringModule,
+        searchHintListAdapter: SearchHintListAdapter,
+    ): HomeSearchAdapter =
+        HomeSearchAdapter(context, activity, spannableStringModule, searchHintListAdapter)
 }

@@ -4,15 +4,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
+    android:padding="@dimen/_15sdp"
     android:layout_marginBottom="@dimen/_2sdp">
+
+    <TextView
+        android:id="@+id/home_search_no_result_text_view"
+        style="@style/regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_result_found"
+        android:textColor="@color/accent_color"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/search_item"
         style="@style/regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:textSize="@dimen/_12sdp"
+        android:textColor="@color/accent_color_60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="test" />

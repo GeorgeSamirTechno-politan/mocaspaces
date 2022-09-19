@@ -24,27 +24,32 @@ public final class HomeSearchAdapter_Factory implements Factory<HomeSearchAdapte
 
   private final Provider<SpannableStringModule> spannableStringModuleProvider;
 
+  private final Provider<SearchHintListAdapter> searchHintAdapterProvider;
+
   public HomeSearchAdapter_Factory(Provider<Context> contextProvider,
       Provider<Activity> activtyProvider,
-      Provider<SpannableStringModule> spannableStringModuleProvider) {
+      Provider<SpannableStringModule> spannableStringModuleProvider,
+      Provider<SearchHintListAdapter> searchHintAdapterProvider) {
     this.contextProvider = contextProvider;
     this.activtyProvider = activtyProvider;
     this.spannableStringModuleProvider = spannableStringModuleProvider;
+    this.searchHintAdapterProvider = searchHintAdapterProvider;
   }
 
   @Override
   public HomeSearchAdapter get() {
-    return newInstance(contextProvider.get(), activtyProvider.get(), spannableStringModuleProvider.get());
+    return newInstance(contextProvider.get(), activtyProvider.get(), spannableStringModuleProvider.get(), searchHintAdapterProvider.get());
   }
 
   public static HomeSearchAdapter_Factory create(Provider<Context> contextProvider,
       Provider<Activity> activtyProvider,
-      Provider<SpannableStringModule> spannableStringModuleProvider) {
-    return new HomeSearchAdapter_Factory(contextProvider, activtyProvider, spannableStringModuleProvider);
+      Provider<SpannableStringModule> spannableStringModuleProvider,
+      Provider<SearchHintListAdapter> searchHintAdapterProvider) {
+    return new HomeSearchAdapter_Factory(contextProvider, activtyProvider, spannableStringModuleProvider, searchHintAdapterProvider);
   }
 
   public static HomeSearchAdapter newInstance(Context context, Activity activty,
-      SpannableStringModule spannableStringModule) {
-    return new HomeSearchAdapter(context, activty, spannableStringModule);
+      SpannableStringModule spannableStringModule, SearchHintListAdapter searchHintAdapter) {
+    return new HomeSearchAdapter(context, activty, spannableStringModule, searchHintAdapter);
   }
 }

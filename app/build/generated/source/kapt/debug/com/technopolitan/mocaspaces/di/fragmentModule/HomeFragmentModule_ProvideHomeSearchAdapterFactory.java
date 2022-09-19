@@ -4,6 +4,7 @@ package com.technopolitan.mocaspaces.di.fragmentModule;
 import android.app.Activity;
 import android.content.Context;
 import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter;
+import com.technopolitan.mocaspaces.data.home.SearchHintListAdapter;
 import com.technopolitan.mocaspaces.modules.SpannableStringModule;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -28,28 +29,34 @@ public final class HomeFragmentModule_ProvideHomeSearchAdapterFactory implements
 
   private final Provider<SpannableStringModule> spannableStringModuleProvider;
 
+  private final Provider<SearchHintListAdapter> searchHintListAdapterProvider;
+
   public HomeFragmentModule_ProvideHomeSearchAdapterFactory(HomeFragmentModule module,
       Provider<Context> contextProvider, Provider<Activity> activityProvider,
-      Provider<SpannableStringModule> spannableStringModuleProvider) {
+      Provider<SpannableStringModule> spannableStringModuleProvider,
+      Provider<SearchHintListAdapter> searchHintListAdapterProvider) {
     this.module = module;
     this.contextProvider = contextProvider;
     this.activityProvider = activityProvider;
     this.spannableStringModuleProvider = spannableStringModuleProvider;
+    this.searchHintListAdapterProvider = searchHintListAdapterProvider;
   }
 
   @Override
   public HomeSearchAdapter get() {
-    return provideHomeSearchAdapter(module, contextProvider.get(), activityProvider.get(), spannableStringModuleProvider.get());
+    return provideHomeSearchAdapter(module, contextProvider.get(), activityProvider.get(), spannableStringModuleProvider.get(), searchHintListAdapterProvider.get());
   }
 
   public static HomeFragmentModule_ProvideHomeSearchAdapterFactory create(HomeFragmentModule module,
       Provider<Context> contextProvider, Provider<Activity> activityProvider,
-      Provider<SpannableStringModule> spannableStringModuleProvider) {
-    return new HomeFragmentModule_ProvideHomeSearchAdapterFactory(module, contextProvider, activityProvider, spannableStringModuleProvider);
+      Provider<SpannableStringModule> spannableStringModuleProvider,
+      Provider<SearchHintListAdapter> searchHintListAdapterProvider) {
+    return new HomeFragmentModule_ProvideHomeSearchAdapterFactory(module, contextProvider, activityProvider, spannableStringModuleProvider, searchHintListAdapterProvider);
   }
 
   public static HomeSearchAdapter provideHomeSearchAdapter(HomeFragmentModule instance,
-      Context context, Activity activity, SpannableStringModule spannableStringModule) {
-    return Preconditions.checkNotNullFromProvides(instance.provideHomeSearchAdapter(context, activity, spannableStringModule));
+      Context context, Activity activity, SpannableStringModule spannableStringModule,
+      SearchHintListAdapter searchHintListAdapter) {
+    return Preconditions.checkNotNullFromProvides(instance.provideHomeSearchAdapter(context, activity, spannableStringModule, searchHintListAdapter));
   }
 }

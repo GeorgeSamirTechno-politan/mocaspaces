@@ -7,15 +7,20 @@ import androidx.lifecycle.ViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote
 import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote
+import com.technopolitan.mocaspaces.data.remote.SearchHintRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
+import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(private var workSpaceRemote: WorkSpaceRemote,
-private var meetingRoomRemote: MeetingRoomRemote,
-private var eventSpaceRemote: EventSpaceRemote) :
+class HomeViewModel @Inject constructor(
+    private var searchHintRemote: SearchHintRemote,
+    private var workSpaceRemote: WorkSpaceRemote,
+    private var meetingRoomRemote: MeetingRoomRemote,
+    private var eventSpaceRemote: EventSpaceRemote
+) :
     ViewModel() {
 
     private val workSpacePageNumberMediator: MediatorLiveData<Int> = MediatorLiveData()
@@ -28,6 +33,8 @@ private var eventSpaceRemote: EventSpaceRemote) :
     private var meetingRoomMediator: MediatorLiveData<ApiStatus<List<MeetingRoomMapper>>> =
         MediatorLiveData()
     private var eventSpaceMediator: MediatorLiveData<ApiStatus<List<MeetingRoomMapper>>> =
+        MediatorLiveData()
+    private var searchHintMediator: MediatorLiveData<ApiStatus<List<SearchHintMapper>>> =
         MediatorLiveData()
     private val viewTypeMediator: MediatorLiveData<Int> = MediatorLiveData()
     private val pageSize: Int = 10
@@ -42,19 +49,34 @@ private var eventSpaceRemote: EventSpaceRemote) :
         eventSpacePageNumberMediator.value = 1
         bizLoungePageNumberMediator.value = 1
         viewTypeMediator.value = 1
+        setSearchHintRequest()
         setWorkSpaceRequest()
         setMeetingRoomRequest()
         setEventSpaceRequest()
     }
 
+    private fun setSearchHintRequest() {
+        searchHintMediator = searchHintRemote.getAllSearchHint()
+    }
+
+    fun getSearchHintApi(): LiveData<ApiStatus<List<SearchHintMapper>>> = searchHintMediator
+
     private fun setWorkSpaceRequest() {
-        workSpaceMediator = workSpaceRemote.getWorkSpace(workSpacePageNumberMediator.value!!, pageSize, locationMediator.value)
+        workSpaceMediator = workSpaceRemote.getWorkSpace(
+            workSpacePageNumberMediator.value!!,
+            pageSize,
+            locationMediator.value
+        )
     }
 
     fun getWorkSpaceList(): LiveData<ApiStatus<List<WorkSpaceMapper>>> = workSpaceMediator
 
     private fun setMeetingRoomRequest() {
-        meetingRoomMediator = meetingRoomRemote.getMeetingRoom(meetingRoomPageNumberMediator.value!!, pageSize, locationMediator.value)
+        meetingRoomMediator = meetingRoomRemote.getMeetingRoom(
+            meetingRoomPageNumberMediator.value!!,
+            pageSize,
+            locationMediator.value
+        )
     }
 
     fun getMeetingRoomList(): LiveData<ApiStatus<List<MeetingRoomMapper>>> = meetingRoomMediator

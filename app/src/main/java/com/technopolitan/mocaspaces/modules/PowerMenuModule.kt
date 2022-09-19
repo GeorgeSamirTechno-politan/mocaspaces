@@ -8,6 +8,7 @@ import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.data.customPowerMenu.CustomIconMenuAdapter
+import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
 import dagger.Module
 import javax.inject.Inject
 
@@ -19,9 +20,38 @@ class PowerMenuModule @Inject constructor(
     private lateinit var callBack: (entity: DropDownMapper) -> Unit
     private lateinit var powerMenu: CustomPowerMenu<DropDownMapper, CustomIconMenuAdapter>
     private lateinit var dropDownList: List<DropDownMapper>
+    private lateinit var homeSearchHintList: List<SearchHintMapper>
 
 
     fun init(callBack: (entity: DropDownMapper) -> Unit, dropDownList: List<DropDownMapper>) {
+        this.dropDownList = dropDownList
+        this.callBack = callBack
+        powerMenu = CustomPowerMenu.Builder<DropDownMapper, CustomIconMenuAdapter>(
+            context,
+            customIconMenuAdapter
+        )
+            .addItemList(dropDownList)
+            .setAnimation(MenuAnimation.FADE)
+            .setMenuRadius(context.resources.getDimension(com.intuit.sdp.R.dimen._5sdp))
+//            .setMenuShadow(context.resources.getDimension(com.intuit.sdp.R.dimen._3sdp))
+            .setOnMenuItemClickListener(onItemClickListen)
+            .setMenuShadow(10f)
+            .setAutoDismiss(false)
+            .setIsClipping(true)
+            .setDismissIfShowAgain(true)
+            .setIsMaterial(true)
+            .setFocusable(true)
+            .setAutoDismiss(false)
+            .setPadding(0)
+            .setShowBackground(false)
+            .setWidth(250)
+            .build()
+    }
+
+    fun initHomeSearchMenu(
+        callBack: (entity: DropDownMapper) -> Unit,
+        dropDownList: List<DropDownMapper>
+    ) {
         this.dropDownList = dropDownList
         this.callBack = callBack
         powerMenu = CustomPowerMenu.Builder<DropDownMapper, CustomIconMenuAdapter>(

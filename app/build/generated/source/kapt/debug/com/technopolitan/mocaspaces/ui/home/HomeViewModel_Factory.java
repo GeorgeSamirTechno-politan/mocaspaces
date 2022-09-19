@@ -3,6 +3,7 @@ package com.technopolitan.mocaspaces.ui.home;
 
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote;
 import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote;
+import com.technopolitan.mocaspaces.data.remote.SearchHintRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -18,15 +19,19 @@ import javax.inject.Provider;
     "rawtypes"
 })
 public final class HomeViewModel_Factory implements Factory<HomeViewModel> {
+  private final Provider<SearchHintRemote> searchHintRemoteProvider;
+
   private final Provider<WorkSpaceRemote> workSpaceRemoteProvider;
 
   private final Provider<MeetingRoomRemote> meetingRoomRemoteProvider;
 
   private final Provider<EventSpaceRemote> eventSpaceRemoteProvider;
 
-  public HomeViewModel_Factory(Provider<WorkSpaceRemote> workSpaceRemoteProvider,
+  public HomeViewModel_Factory(Provider<SearchHintRemote> searchHintRemoteProvider,
+      Provider<WorkSpaceRemote> workSpaceRemoteProvider,
       Provider<MeetingRoomRemote> meetingRoomRemoteProvider,
       Provider<EventSpaceRemote> eventSpaceRemoteProvider) {
+    this.searchHintRemoteProvider = searchHintRemoteProvider;
     this.workSpaceRemoteProvider = workSpaceRemoteProvider;
     this.meetingRoomRemoteProvider = meetingRoomRemoteProvider;
     this.eventSpaceRemoteProvider = eventSpaceRemoteProvider;
@@ -34,17 +39,19 @@ public final class HomeViewModel_Factory implements Factory<HomeViewModel> {
 
   @Override
   public HomeViewModel get() {
-    return newInstance(workSpaceRemoteProvider.get(), meetingRoomRemoteProvider.get(), eventSpaceRemoteProvider.get());
+    return newInstance(searchHintRemoteProvider.get(), workSpaceRemoteProvider.get(), meetingRoomRemoteProvider.get(), eventSpaceRemoteProvider.get());
   }
 
-  public static HomeViewModel_Factory create(Provider<WorkSpaceRemote> workSpaceRemoteProvider,
+  public static HomeViewModel_Factory create(Provider<SearchHintRemote> searchHintRemoteProvider,
+      Provider<WorkSpaceRemote> workSpaceRemoteProvider,
       Provider<MeetingRoomRemote> meetingRoomRemoteProvider,
       Provider<EventSpaceRemote> eventSpaceRemoteProvider) {
-    return new HomeViewModel_Factory(workSpaceRemoteProvider, meetingRoomRemoteProvider, eventSpaceRemoteProvider);
+    return new HomeViewModel_Factory(searchHintRemoteProvider, workSpaceRemoteProvider, meetingRoomRemoteProvider, eventSpaceRemoteProvider);
   }
 
-  public static HomeViewModel newInstance(WorkSpaceRemote workSpaceRemote,
-      MeetingRoomRemote meetingRoomRemote, EventSpaceRemote eventSpaceRemote) {
-    return new HomeViewModel(workSpaceRemote, meetingRoomRemote, eventSpaceRemote);
+  public static HomeViewModel newInstance(SearchHintRemote searchHintRemote,
+      WorkSpaceRemote workSpaceRemote, MeetingRoomRemote meetingRoomRemote,
+      EventSpaceRemote eventSpaceRemote) {
+    return new HomeViewModel(searchHintRemote, workSpaceRemote, meetingRoomRemote, eventSpaceRemote);
   }
 }
