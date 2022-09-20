@@ -11,7 +11,6 @@ import android.location.LocationManager
 import android.util.Log
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.type.LatLng
 import com.technopolitan.mocaspaces.interfaces.LocationEnableListener
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
@@ -64,7 +63,7 @@ class LocationModule @Inject constructor(
     private fun getLocation() {
         try {
             val locationManager = context.getSystemService(LOCATION_SERVICE) as LocationManager
-            val locationProvider = LocationManager.NETWORK_PROVIDER
+            val locationProvider = LocationManager.GPS_PROVIDER
             locationManager.requestLocationUpdates(
                 locationProvider,
                 minTimeBeforeUpdateLocation,

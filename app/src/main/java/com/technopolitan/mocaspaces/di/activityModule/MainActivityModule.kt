@@ -42,4 +42,6 @@ class MainActivityModule @Inject constructor(private val networkModule: NetworkM
     @Provides
     fun provideConnectionLiveDataModule(context: Context): ConnectionLiveDataModule =
         ConnectionLiveDataModule(context, networkModule)
+
+
 }

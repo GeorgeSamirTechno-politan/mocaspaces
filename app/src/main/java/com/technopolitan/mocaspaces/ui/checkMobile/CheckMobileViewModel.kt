@@ -20,10 +20,10 @@ class CheckMobileViewModel @Inject constructor(
     BaseViewModel<String>() {
 
     fun checkMobile(mobile: String) {
-        this.apiMutableLiveData = checkMobileRemote.verifyMobile(mobile)
+        this.apiMediatorLiveData = checkMobileRemote.verifyMobile(mobile)
     }
 
-    fun handleCheckMobileApi(): LiveData<ApiStatus<String>> = apiMutableLiveData
+    fun handleCheckMobileApi(): LiveData<ApiStatus<String>> = apiMediatorLiveData
 
     fun initCheckMobileDataModule(
         countryDropDownLayout: LinearLayout,

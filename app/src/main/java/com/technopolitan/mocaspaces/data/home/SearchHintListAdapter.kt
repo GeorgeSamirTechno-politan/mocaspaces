@@ -28,9 +28,17 @@ class SearchHintListAdapter @Inject constructor(
 
 
     fun setList(list: List<SearchHintMapper>) {
+        clearAll()
         filteredList.addAll(list)
         this.list.addAll(list)
         notifyDataSetChanged()
+    }
+
+    fun clearAll() {
+        if (this.list.isNotEmpty())
+            this.list.clear()
+        if (this.filteredList.isEmpty())
+            this.filteredList.clear()
     }
 
 
@@ -38,14 +46,15 @@ class SearchHintListAdapter @Inject constructor(
 
     override fun getItem(position: Int): SearchHintMapper = filteredList[position]
 
-    override fun getItemId(position: Int): Long = filteredList[position].id.toLong()
+    override fun getItemId(position: Int): Long {
+        return filteredList[position].id?.toLong() ?: 0
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val item = filteredList[position]
-
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         itemBinding = HomeSearchItemHintBinding.inflate(inflater, parent, false)
-        if (filteredList[position].id == -1 && count == 1) {
+        if (filteredList[position].id == null && count == 1) {
             itemBinding.homeSearchNoResultTextView.visibility = View.VISIBLE
         } else {
             itemBinding.homeSearchNoResultTextView.visibility = View.GONE
@@ -56,14 +65,28 @@ class SearchHintListAdapter @Inject constructor(
 
 
     private fun getTypedAndUnTypedText(hintMapper: SearchHintMapper): SpannableString {
-        val split = hintMapper.name.lowercase().split(typedText.lowercase())
-        return spannableStringModule.newString().addString(typedText)
-            .init(R.color.accent_color_60)
-            .addString(split[1])
-            .init(R.color.accent_color)
-            .getSpannableString()
-
+        spannableStringModule.newString()
+        val otherWord = hintMapper.name.split(typedText, ignoreCase = true)
+        val typedWord = this.typedText.split(hintMapper.name, ignoreCase = true)
+//        var position: Int = 0
+//        for (typedChar in typedText){
+//            if(typedChar.lowercaseChar() == name[position].lowercaseChar()){
+//                typedWork += name[position]
+//                name = name.removeRange(0,1)
+//                position +=1
+//            }else if(typedChar.lowercaseChar() != name[position].lowercaseChar()){
+//                break
+//            }
+//        }
+        if (typedWord[0].isEmpty() && typedWord[1].isEmpty() && otherWord[0].isEmpty() && otherWord[1].isEmpty()) {
+            spannableStringModule.addString(hintMapper.name).init(R.color.accent_color)
+        } else {
+            spannableStringModule.addString(typedWord[0]).init(R.color.accent_color_60)
+            spannableStringModule.addString(otherWord[1]).init(R.color.accent_color)
+        }
+        return spannableStringModule.getSpannableString()
     }
+
 
     fun updateTypedText(typedText: String) {
         this.typedText = typedText
@@ -74,11 +97,10 @@ class SearchHintListAdapter @Inject constructor(
 
     inner class ItemFilter : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filterString = constraint.toString().lowercase()
             val results = FilterResults()
             val filteredList = mutableListOf<SearchHintMapper>()
             list.forEach { item ->
-                if (item.name.lowercase().contains(filterString)) {
+                if (item.name.contains(typedText, ignoreCase = true)) {
                     filteredList.add(item)
                 }
             }

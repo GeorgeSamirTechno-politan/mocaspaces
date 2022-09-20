@@ -13,5 +13,8 @@ data class SearchHintResponse(
     val name: String,
     @SerializedName("Type")
     @Expose
-    val type: Int
+    val type: Int,
+    @SerializedName("SpaceType")
+    @Expose
+    val spaceTypeResponseList: List<SpaceTypeResponse>
 )

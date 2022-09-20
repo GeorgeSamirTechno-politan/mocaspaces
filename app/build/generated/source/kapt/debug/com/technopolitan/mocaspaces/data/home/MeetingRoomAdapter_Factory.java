@@ -19,31 +19,29 @@ import javax.inject.Provider;
 public final class MeetingRoomAdapter_Factory implements Factory<MeetingRoomAdapter> {
   private final Provider<GlideModule> glideModuleProvider;
 
-  private final Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider;
+  private final Provider<PriceAdapter> priceAdapterProvider;
 
   private final Provider<Context> contextProvider;
 
   public MeetingRoomAdapter_Factory(Provider<GlideModule> glideModuleProvider,
-      Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider,
-      Provider<Context> contextProvider) {
+      Provider<PriceAdapter> priceAdapterProvider, Provider<Context> contextProvider) {
     this.glideModuleProvider = glideModuleProvider;
-    this.priceViewPagerAdapterProvider = priceViewPagerAdapterProvider;
+    this.priceAdapterProvider = priceAdapterProvider;
     this.contextProvider = contextProvider;
   }
 
   @Override
   public MeetingRoomAdapter get() {
-    return newInstance(glideModuleProvider.get(), priceViewPagerAdapterProvider.get(), contextProvider.get());
+    return newInstance(glideModuleProvider.get(), priceAdapterProvider.get(), contextProvider.get());
   }
 
   public static MeetingRoomAdapter_Factory create(Provider<GlideModule> glideModuleProvider,
-      Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider,
-      Provider<Context> contextProvider) {
-    return new MeetingRoomAdapter_Factory(glideModuleProvider, priceViewPagerAdapterProvider, contextProvider);
+      Provider<PriceAdapter> priceAdapterProvider, Provider<Context> contextProvider) {
+    return new MeetingRoomAdapter_Factory(glideModuleProvider, priceAdapterProvider, contextProvider);
   }
 
-  public static MeetingRoomAdapter newInstance(GlideModule glideModule,
-      PriceViewPagerAdapter priceViewPagerAdapter, Context context) {
-    return new MeetingRoomAdapter(glideModule, priceViewPagerAdapter, context);
+  public static MeetingRoomAdapter newInstance(GlideModule glideModule, PriceAdapter priceAdapter,
+      Context context) {
+    return new MeetingRoomAdapter(glideModule, priceAdapter, context);
   }
 }

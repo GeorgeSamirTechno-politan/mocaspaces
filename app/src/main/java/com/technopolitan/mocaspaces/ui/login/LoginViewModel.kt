@@ -39,8 +39,8 @@ class LoginViewModel @Inject constructor(
     }
 
     fun login(email: String, password: String) {
-        this.apiMutableLiveData = loginRemote.login(email, password)
+        this.apiMediatorLiveData = loginRemote.login(email, password)
     }
 
-    fun handleLoginApiCall(): LiveData<ApiStatus<LoginMapper>> = apiMutableLiveData
+    fun handleLoginApiCall(): LiveData<ApiStatus<LoginMapper>> = apiMediatorLiveData
 }

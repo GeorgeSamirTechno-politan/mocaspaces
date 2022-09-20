@@ -26,13 +26,13 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
 
     @Singleton
     @Provides
-    fun provideWorkSpaceRemote(dateTimeModule: DateTimeModule): WorkSpaceRemote =
-        WorkSpaceRemote(networkModule, dateTimeModule)
+    fun provideWorkSpaceRemote(dateTimeModule: DateTimeModule, context: Context): WorkSpaceRemote =
+        WorkSpaceRemote(networkModule, dateTimeModule, context)
 
     @Singleton
     @Provides
-    fun providePriceViewPager(activity: Activity): PriceViewPagerAdapter =
-        PriceViewPagerAdapter(activity)
+    fun providePriceAdapter(countDownModule: CountDownModule): PriceAdapter =
+        PriceAdapter(countDownModule)
 
     @Singleton
     @Provides
@@ -40,13 +40,12 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
         glideModule: GlideModule,
         context: Context,
         amenityAdapter: AmenityAdapter,
-        countDownModule: CountDownModule,
         spannableStringModule: SpannableStringModule,
-        priceViewPagerAdapter: PriceViewPagerAdapter
+        priceAdapter: PriceAdapter
     )
             : WorkSpaceAdapter = WorkSpaceAdapter(
         glideModule,
-        context, amenityAdapter, countDownModule, spannableStringModule, priceViewPagerAdapter
+        context, amenityAdapter, spannableStringModule, priceAdapter
     )
 
 //    @Singleton

@@ -46,10 +46,10 @@ class ResetPasswordOtpViewModel @Inject constructor(
     }
 
     fun checkMobile(mobile: String) {
-        this.apiMutableLiveData = checkMobileRemote.verifyMobile(mobile)
+        this.apiMediatorLiveData = checkMobileRemote.verifyMobile(mobile)
     }
 
-    fun handleCheckMobileApi(): LiveData<ApiStatus<String>> = apiMutableLiveData
+    fun handleCheckMobileApi(): LiveData<ApiStatus<String>> = apiMediatorLiveData
 
     fun verifyMobileOtp(mobile: String, otp: String) {
         this.verifyMobileOtpMediator = verifyMobileOtpForgotPasswordRemote.verifyOtp(mobile, otp)

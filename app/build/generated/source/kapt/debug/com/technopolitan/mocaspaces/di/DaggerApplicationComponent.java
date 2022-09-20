@@ -4,6 +4,7 @@ package com.technopolitan.mocaspaces.di;
 import android.app.Activity;
 import android.content.Context;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.technopolitan.mocaspaces.data.DropDownMapper;
 import com.technopolitan.mocaspaces.data.checkMobile.CheckMobileDataModule;
@@ -15,7 +16,7 @@ import com.technopolitan.mocaspaces.data.home.AmenityAdapter;
 import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter;
 import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter;
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter;
-import com.technopolitan.mocaspaces.data.home.PriceViewPagerAdapter;
+import com.technopolitan.mocaspaces.data.home.PriceAdapter;
 import com.technopolitan.mocaspaces.data.home.SearchHintListAdapter;
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
 import com.technopolitan.mocaspaces.data.login.LoginDataModule;
@@ -28,26 +29,32 @@ import com.technopolitan.mocaspaces.data.remote.CheckMobileRemote;
 import com.technopolitan.mocaspaces.data.remote.CheckOtpEmailRemote;
 import com.technopolitan.mocaspaces.data.remote.CountryRemote;
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote;
+import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.GenderRemote;
 import com.technopolitan.mocaspaces.data.remote.LoginRemote;
 import com.technopolitan.mocaspaces.data.remote.MainRemote;
 import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote;
+import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.MemberTypeRemote;
 import com.technopolitan.mocaspaces.data.remote.PersonalInfoRemote;
 import com.technopolitan.mocaspaces.data.remote.RegisterRemote;
 import com.technopolitan.mocaspaces.data.remote.ResetPasswordRemote;
 import com.technopolitan.mocaspaces.data.remote.SearchHintRemote;
+import com.technopolitan.mocaspaces.data.remote.SearchHintRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.SendOtpEmailRemote;
 import com.technopolitan.mocaspaces.data.remote.SendOtpForgotPasswordMobile;
 import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpForgotPasswordRemote;
 import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote;
+import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote_Factory;
 import com.technopolitan.mocaspaces.data.shared.CountDownModule;
 import com.technopolitan.mocaspaces.data.shared.MemberTypeViewModel;
 import com.technopolitan.mocaspaces.data.shared.OTPDataModule;
 import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule;
 import com.technopolitan.mocaspaces.data.shared.PasswordDataModule;
 import com.technopolitan.mocaspaces.data.studentVerify.StudentVerifyDataModule;
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory_Factory;
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper;
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper;
@@ -124,10 +131,13 @@ import com.technopolitan.mocaspaces.ui.home.EventSpaceFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.home.HomeFragment;
 import com.technopolitan.mocaspaces.ui.home.HomeFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel;
+import com.technopolitan.mocaspaces.ui.home.HomeViewModel_Factory;
 import com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment;
 import com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment_MembersInjector;
-import com.technopolitan.mocaspaces.ui.home.WorkSpaceFragment;
-import com.technopolitan.mocaspaces.ui.home.WorkSpaceFragment_MembersInjector;
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment;
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment_MembersInjector;
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel;
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel_Factory;
 import com.technopolitan.mocaspaces.ui.login.LoginFragment;
 import com.technopolitan.mocaspaces.ui.login.LoginFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.login.LoginViewModel;
@@ -166,8 +176,10 @@ import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyViewModel;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.DoubleCheck;
 import dagger.internal.InstanceFactory;
+import dagger.internal.MapProviderFactory;
 import dagger.internal.Preconditions;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Provider;
 
 @DaggerGenerated
@@ -242,6 +254,22 @@ public final class DaggerApplicationComponent {
     private Provider<RXModule> provideRXModuleProvider;
 
     private Provider<SpannableStringModule> provideSpannableStringModuleProvider;
+
+    private Provider<SearchHintRemote> searchHintRemoteProvider;
+
+    private Provider<WorkSpaceRemote> workSpaceRemoteProvider;
+
+    private Provider<MeetingRoomRemote> meetingRoomRemoteProvider;
+
+    private Provider<EventSpaceRemote> eventSpaceRemoteProvider;
+
+    private Provider<HomeViewModel> homeViewModelProvider;
+
+    private Provider<WorkSpaceViewModel> workSpaceViewModelProvider;
+
+    private Provider<Map<Class<? extends ViewModel>, Provider<ViewModel>>> mapOfClassOfAndProviderOfViewModelProvider;
+
+    private Provider<ViewModelFactory> viewModelFactoryProvider;
 
     private ApplicationComponentImpl(AppModule appModuleParam, Context contextParam,
         Activity activityParam, Fragment fragmentParam) {
@@ -448,26 +476,6 @@ public final class DaggerApplicationComponent {
       return new ForgetPasswordMobileViewModel(checkMobileDataModule(), sendOtpForgotPasswordMobile());
     }
 
-    private SearchHintRemote searchHintRemote() {
-      return new SearchHintRemote(provideNetworkModelProvider.get());
-    }
-
-    private WorkSpaceRemote workSpaceRemote() {
-      return new WorkSpaceRemote(provideNetworkModelProvider.get(), provideDateTimeModuleProvider.get());
-    }
-
-    private MeetingRoomRemote meetingRoomRemote() {
-      return new MeetingRoomRemote(provideNetworkModelProvider.get(), context, provideDateTimeModuleProvider.get());
-    }
-
-    private EventSpaceRemote eventSpaceRemote() {
-      return new EventSpaceRemote(provideNetworkModelProvider.get(), context, provideDateTimeModuleProvider.get());
-    }
-
-    private HomeViewModel homeViewModel() {
-      return new HomeViewModel(searchHintRemote(), workSpaceRemote(), meetingRoomRemote(), eventSpaceRemote());
-    }
-
     private HomeViewPagerAdapter homeViewPagerAdapter() {
       return new HomeViewPagerAdapter(context, fragment);
     }
@@ -492,12 +500,12 @@ public final class DaggerApplicationComponent {
       return new AmenityAdapter(provideGlideModuleProvider.get());
     }
 
-    private PriceViewPagerAdapter priceViewPagerAdapter() {
-      return new PriceViewPagerAdapter(activity);
+    private PriceAdapter priceAdapter() {
+      return new PriceAdapter(provideCountDownModuleProvider.get());
     }
 
     private WorkSpaceAdapter workSpaceAdapter() {
-      return new WorkSpaceAdapter(provideGlideModuleProvider.get(), context, amenityAdapter(), provideCountDownModuleProvider.get(), provideSpannableStringModuleProvider.get(), priceViewPagerAdapter());
+      return new WorkSpaceAdapter(provideGlideModuleProvider.get(), context, amenityAdapter(), provideSpannableStringModuleProvider.get(), priceAdapter());
     }
 
     private ApiResponseModule<List<WorkSpaceMapper>> apiResponseModuleOfListOfWorkSpaceMapper() {
@@ -505,7 +513,7 @@ public final class DaggerApplicationComponent {
     }
 
     private MeetingRoomAdapter meetingRoomAdapter() {
-      return new MeetingRoomAdapter(provideGlideModuleProvider.get(), priceViewPagerAdapter(), context);
+      return new MeetingRoomAdapter(provideGlideModuleProvider.get(), priceAdapter(), context);
     }
 
     private ApiResponseModule<List<MeetingRoomMapper>> apiResponseModuleOfListOfMeetingRoomMapper(
@@ -553,6 +561,14 @@ public final class DaggerApplicationComponent {
       this.provideValidationModuleProvider = DoubleCheck.provider(AppModule_ProvideValidationModuleFactory.create(appModuleParam));
       this.provideRXModuleProvider = DoubleCheck.provider(AppModule_ProvideRXModuleFactory.create(appModuleParam));
       this.provideSpannableStringModuleProvider = DoubleCheck.provider(AppModule_ProvideSpannableStringModuleFactory.create(appModuleParam, contextProvider));
+      this.searchHintRemoteProvider = SearchHintRemote_Factory.create(provideNetworkModelProvider);
+      this.workSpaceRemoteProvider = WorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideDateTimeModuleProvider, contextProvider);
+      this.meetingRoomRemoteProvider = MeetingRoomRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider);
+      this.eventSpaceRemoteProvider = EventSpaceRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider);
+      this.homeViewModelProvider = HomeViewModel_Factory.create(searchHintRemoteProvider, workSpaceRemoteProvider, meetingRoomRemoteProvider, eventSpaceRemoteProvider, contextProvider);
+      this.workSpaceViewModelProvider = WorkSpaceViewModel_Factory.create(workSpaceRemoteProvider);
+      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(2).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).build();
+      this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
     }
 
     @Override
@@ -867,36 +883,36 @@ public final class DaggerApplicationComponent {
     @CanIgnoreReturnValue
     private HomeFragment injectHomeFragment(HomeFragment instance) {
       HomeFragment_MembersInjector.injectPermissionModule(instance, providePermissionModuleProvider.get());
-      HomeFragment_MembersInjector.injectViewModel(instance, homeViewModel());
       HomeFragment_MembersInjector.injectHomeViewPagerAdapter(instance, homeViewPagerAdapter());
       HomeFragment_MembersInjector.injectLocationModule(instance, locationModule());
       HomeFragment_MembersInjector.injectSearchHintApiHandler(instance, apiResponseModuleOfListOfSearchHintMapper());
       HomeFragment_MembersInjector.injectHomeSearchAdapter(instance, homeSearchAdapter());
       HomeFragment_MembersInjector.injectUtilityModule(instance, provideUtilityModuleProvider.get());
+      HomeFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       return instance;
     }
 
     @CanIgnoreReturnValue
     private WorkSpaceFragment injectWorkSpaceFragment(WorkSpaceFragment instance) {
-      WorkSpaceFragment_MembersInjector.injectViewModel(instance, homeViewModel());
       WorkSpaceFragment_MembersInjector.injectWorkSpaceAdapter(instance, workSpaceAdapter());
       WorkSpaceFragment_MembersInjector.injectWorkSpaceApiHandler(instance, apiResponseModuleOfListOfWorkSpaceMapper());
+      WorkSpaceFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       return instance;
     }
 
     @CanIgnoreReturnValue
     private MeetingRoomFragment injectMeetingRoomFragment(MeetingRoomFragment instance) {
-      MeetingRoomFragment_MembersInjector.injectViewModel(instance, homeViewModel());
       MeetingRoomFragment_MembersInjector.injectMeetingRoomAdapter(instance, meetingRoomAdapter());
       MeetingRoomFragment_MembersInjector.injectWorkSpaceApiHandler(instance, apiResponseModuleOfListOfMeetingRoomMapper());
+      MeetingRoomFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       return instance;
     }
 
     @CanIgnoreReturnValue
     private EventSpaceFragment injectEventSpaceFragment(EventSpaceFragment instance) {
-      EventSpaceFragment_MembersInjector.injectViewModel(instance, homeViewModel());
       EventSpaceFragment_MembersInjector.injectEventSpaceAdapter(instance, meetingRoomAdapter());
       EventSpaceFragment_MembersInjector.injectEventSpaceApiHandler(instance, apiResponseModuleOfListOfMeetingRoomMapper());
+      EventSpaceFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       return instance;
     }
 

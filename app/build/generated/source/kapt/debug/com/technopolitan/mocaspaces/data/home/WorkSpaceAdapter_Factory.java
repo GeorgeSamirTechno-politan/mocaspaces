@@ -2,7 +2,6 @@
 package com.technopolitan.mocaspaces.data.home;
 
 import android.content.Context;
-import com.technopolitan.mocaspaces.data.shared.CountDownModule;
 import com.technopolitan.mocaspaces.modules.GlideModule;
 import com.technopolitan.mocaspaces.modules.SpannableStringModule;
 import dagger.internal.DaggerGenerated;
@@ -25,41 +24,36 @@ public final class WorkSpaceAdapter_Factory implements Factory<WorkSpaceAdapter>
 
   private final Provider<AmenityAdapter> amenityAdapterProvider;
 
-  private final Provider<CountDownModule> countDownModuleProvider;
-
   private final Provider<SpannableStringModule> spannableStringModuleProvider;
 
-  private final Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider;
+  private final Provider<PriceAdapter> priceAdapterProvider;
 
   public WorkSpaceAdapter_Factory(Provider<GlideModule> glideModuleProvider,
       Provider<Context> contextProvider, Provider<AmenityAdapter> amenityAdapterProvider,
-      Provider<CountDownModule> countDownModuleProvider,
       Provider<SpannableStringModule> spannableStringModuleProvider,
-      Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider) {
+      Provider<PriceAdapter> priceAdapterProvider) {
     this.glideModuleProvider = glideModuleProvider;
     this.contextProvider = contextProvider;
     this.amenityAdapterProvider = amenityAdapterProvider;
-    this.countDownModuleProvider = countDownModuleProvider;
     this.spannableStringModuleProvider = spannableStringModuleProvider;
-    this.priceViewPagerAdapterProvider = priceViewPagerAdapterProvider;
+    this.priceAdapterProvider = priceAdapterProvider;
   }
 
   @Override
   public WorkSpaceAdapter get() {
-    return newInstance(glideModuleProvider.get(), contextProvider.get(), amenityAdapterProvider.get(), countDownModuleProvider.get(), spannableStringModuleProvider.get(), priceViewPagerAdapterProvider.get());
+    return newInstance(glideModuleProvider.get(), contextProvider.get(), amenityAdapterProvider.get(), spannableStringModuleProvider.get(), priceAdapterProvider.get());
   }
 
   public static WorkSpaceAdapter_Factory create(Provider<GlideModule> glideModuleProvider,
       Provider<Context> contextProvider, Provider<AmenityAdapter> amenityAdapterProvider,
-      Provider<CountDownModule> countDownModuleProvider,
       Provider<SpannableStringModule> spannableStringModuleProvider,
-      Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider) {
-    return new WorkSpaceAdapter_Factory(glideModuleProvider, contextProvider, amenityAdapterProvider, countDownModuleProvider, spannableStringModuleProvider, priceViewPagerAdapterProvider);
+      Provider<PriceAdapter> priceAdapterProvider) {
+    return new WorkSpaceAdapter_Factory(glideModuleProvider, contextProvider, amenityAdapterProvider, spannableStringModuleProvider, priceAdapterProvider);
   }
 
   public static WorkSpaceAdapter newInstance(GlideModule glideModule, Context context,
-      AmenityAdapter amenityAdapter, CountDownModule countDownModule,
-      SpannableStringModule spannableStringModule, PriceViewPagerAdapter priceViewPagerAdapter) {
-    return new WorkSpaceAdapter(glideModule, context, amenityAdapter, countDownModule, spannableStringModule, priceViewPagerAdapter);
+      AmenityAdapter amenityAdapter, SpannableStringModule spannableStringModule,
+      PriceAdapter priceAdapter) {
+    return new WorkSpaceAdapter(glideModule, context, amenityAdapter, spannableStringModule, priceAdapter);
   }
 }

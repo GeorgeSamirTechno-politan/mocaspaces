@@ -46,11 +46,11 @@ class ForgetPasswordMobileViewModel @Inject constructor(
     }
 
     fun setSendMobileOtpRequest(mobile: String){
-        apiMutableLiveData = sendOtpForgotPasswordMobile.verifyMobile(mobile)
+        apiMediatorLiveData = sendOtpForgotPasswordMobile.verifyMobile(mobile)
     }
 
     fun getMobileOtp(): LiveData<ApiStatus<String>>{
-        return apiMutableLiveData
+        return apiMediatorLiveData
     }
 
 

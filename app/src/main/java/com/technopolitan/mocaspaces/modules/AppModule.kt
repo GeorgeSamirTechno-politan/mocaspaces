@@ -12,12 +12,6 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideViewModelFactory(creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelFactory {
-//        return ViewModelFactory(creators)
-//    }
-
     @Singleton
     @Provides
     fun provideSharedPrefModule(context: Context): SharedPrefModule = SharedPrefModule(context)

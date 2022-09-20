@@ -122,7 +122,7 @@ class HomeSearchAdapter @Inject constructor(
                 else
                     itemBinding.searchItemAutoCompleteText.setText(item.name)
                 itemBinding.searchLayout.visibility = View.GONE
-//                searchCallBack(item)
+                searchCallBack(item)
             }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

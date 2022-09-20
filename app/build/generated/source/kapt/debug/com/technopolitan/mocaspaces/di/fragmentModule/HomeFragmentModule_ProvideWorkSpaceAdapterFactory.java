@@ -3,9 +3,8 @@ package com.technopolitan.mocaspaces.di.fragmentModule;
 
 import android.content.Context;
 import com.technopolitan.mocaspaces.data.home.AmenityAdapter;
-import com.technopolitan.mocaspaces.data.home.PriceViewPagerAdapter;
+import com.technopolitan.mocaspaces.data.home.PriceAdapter;
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
-import com.technopolitan.mocaspaces.data.shared.CountDownModule;
 import com.technopolitan.mocaspaces.modules.GlideModule;
 import com.technopolitan.mocaspaces.modules.SpannableStringModule;
 import dagger.internal.DaggerGenerated;
@@ -31,45 +30,39 @@ public final class HomeFragmentModule_ProvideWorkSpaceAdapterFactory implements 
 
   private final Provider<AmenityAdapter> amenityAdapterProvider;
 
-  private final Provider<CountDownModule> countDownModuleProvider;
-
   private final Provider<SpannableStringModule> spannableStringModuleProvider;
 
-  private final Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider;
+  private final Provider<PriceAdapter> priceAdapterProvider;
 
   public HomeFragmentModule_ProvideWorkSpaceAdapterFactory(HomeFragmentModule module,
       Provider<GlideModule> glideModuleProvider, Provider<Context> contextProvider,
       Provider<AmenityAdapter> amenityAdapterProvider,
-      Provider<CountDownModule> countDownModuleProvider,
       Provider<SpannableStringModule> spannableStringModuleProvider,
-      Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider) {
+      Provider<PriceAdapter> priceAdapterProvider) {
     this.module = module;
     this.glideModuleProvider = glideModuleProvider;
     this.contextProvider = contextProvider;
     this.amenityAdapterProvider = amenityAdapterProvider;
-    this.countDownModuleProvider = countDownModuleProvider;
     this.spannableStringModuleProvider = spannableStringModuleProvider;
-    this.priceViewPagerAdapterProvider = priceViewPagerAdapterProvider;
+    this.priceAdapterProvider = priceAdapterProvider;
   }
 
   @Override
   public WorkSpaceAdapter get() {
-    return provideWorkSpaceAdapter(module, glideModuleProvider.get(), contextProvider.get(), amenityAdapterProvider.get(), countDownModuleProvider.get(), spannableStringModuleProvider.get(), priceViewPagerAdapterProvider.get());
+    return provideWorkSpaceAdapter(module, glideModuleProvider.get(), contextProvider.get(), amenityAdapterProvider.get(), spannableStringModuleProvider.get(), priceAdapterProvider.get());
   }
 
   public static HomeFragmentModule_ProvideWorkSpaceAdapterFactory create(HomeFragmentModule module,
       Provider<GlideModule> glideModuleProvider, Provider<Context> contextProvider,
       Provider<AmenityAdapter> amenityAdapterProvider,
-      Provider<CountDownModule> countDownModuleProvider,
       Provider<SpannableStringModule> spannableStringModuleProvider,
-      Provider<PriceViewPagerAdapter> priceViewPagerAdapterProvider) {
-    return new HomeFragmentModule_ProvideWorkSpaceAdapterFactory(module, glideModuleProvider, contextProvider, amenityAdapterProvider, countDownModuleProvider, spannableStringModuleProvider, priceViewPagerAdapterProvider);
+      Provider<PriceAdapter> priceAdapterProvider) {
+    return new HomeFragmentModule_ProvideWorkSpaceAdapterFactory(module, glideModuleProvider, contextProvider, amenityAdapterProvider, spannableStringModuleProvider, priceAdapterProvider);
   }
 
   public static WorkSpaceAdapter provideWorkSpaceAdapter(HomeFragmentModule instance,
       GlideModule glideModule, Context context, AmenityAdapter amenityAdapter,
-      CountDownModule countDownModule, SpannableStringModule spannableStringModule,
-      PriceViewPagerAdapter priceViewPagerAdapter) {
-    return Preconditions.checkNotNullFromProvides(instance.provideWorkSpaceAdapter(glideModule, context, amenityAdapter, countDownModule, spannableStringModule, priceViewPagerAdapter));
+      SpannableStringModule spannableStringModule, PriceAdapter priceAdapter) {
+    return Preconditions.checkNotNullFromProvides(instance.provideWorkSpaceAdapter(glideModule, context, amenityAdapter, spannableStringModule, priceAdapter));
   }
 }

@@ -6,18 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentMeetingRoomBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import javax.inject.Inject
 
 class MeetingRoomFragment : Fragment() {
-    @Inject
+    //    @Inject
     lateinit var viewModel: HomeViewModel
 
     lateinit var binding: FragmentMeetingRoomBinding
@@ -27,6 +29,9 @@ class MeetingRoomFragment : Fragment() {
 
     @Inject
     lateinit var workSpaceApiHandler: ApiResponseModule<List<MeetingRoomMapper>>
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
@@ -44,6 +49,8 @@ class MeetingRoomFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
         initView()
         initMeetingLiveData()
     }
@@ -89,7 +96,7 @@ class MeetingRoomFragment : Fragment() {
                     meetingRoomAdapter.init(it.toMutableList())
                 }
             else {
-                if(response is SuccessStatus){
+                if (response is SuccessStatus) {
                     meetingRoomAdapter.init(response.data!!.toMutableList())
                     viewModel.updateMeetingRoomPage(response.remainingPage)
                     binding.meetingSpaceLoadMore.progressView.visibility = View.GONE

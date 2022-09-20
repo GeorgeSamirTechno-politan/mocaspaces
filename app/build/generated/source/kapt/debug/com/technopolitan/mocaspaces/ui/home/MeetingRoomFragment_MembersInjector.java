@@ -2,6 +2,7 @@
 package com.technopolitan.mocaspaces.ui.home;
 
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter;
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
 import dagger.MembersInjector;
@@ -18,37 +19,33 @@ import javax.inject.Provider;
     "rawtypes"
 })
 public final class MeetingRoomFragment_MembersInjector implements MembersInjector<MeetingRoomFragment> {
-  private final Provider<HomeViewModel> viewModelProvider;
-
   private final Provider<MeetingRoomAdapter> meetingRoomAdapterProvider;
 
   private final Provider<ApiResponseModule<List<MeetingRoomMapper>>> workSpaceApiHandlerProvider;
 
-  public MeetingRoomFragment_MembersInjector(Provider<HomeViewModel> viewModelProvider,
+  private final Provider<ViewModelFactory> viewModelFactoryProvider;
+
+  public MeetingRoomFragment_MembersInjector(
       Provider<MeetingRoomAdapter> meetingRoomAdapterProvider,
-      Provider<ApiResponseModule<List<MeetingRoomMapper>>> workSpaceApiHandlerProvider) {
-    this.viewModelProvider = viewModelProvider;
+      Provider<ApiResponseModule<List<MeetingRoomMapper>>> workSpaceApiHandlerProvider,
+      Provider<ViewModelFactory> viewModelFactoryProvider) {
     this.meetingRoomAdapterProvider = meetingRoomAdapterProvider;
     this.workSpaceApiHandlerProvider = workSpaceApiHandlerProvider;
+    this.viewModelFactoryProvider = viewModelFactoryProvider;
   }
 
   public static MembersInjector<MeetingRoomFragment> create(
-      Provider<HomeViewModel> viewModelProvider,
       Provider<MeetingRoomAdapter> meetingRoomAdapterProvider,
-      Provider<ApiResponseModule<List<MeetingRoomMapper>>> workSpaceApiHandlerProvider) {
-    return new MeetingRoomFragment_MembersInjector(viewModelProvider, meetingRoomAdapterProvider, workSpaceApiHandlerProvider);
+      Provider<ApiResponseModule<List<MeetingRoomMapper>>> workSpaceApiHandlerProvider,
+      Provider<ViewModelFactory> viewModelFactoryProvider) {
+    return new MeetingRoomFragment_MembersInjector(meetingRoomAdapterProvider, workSpaceApiHandlerProvider, viewModelFactoryProvider);
   }
 
   @Override
   public void injectMembers(MeetingRoomFragment instance) {
-    injectViewModel(instance, viewModelProvider.get());
     injectMeetingRoomAdapter(instance, meetingRoomAdapterProvider.get());
     injectWorkSpaceApiHandler(instance, workSpaceApiHandlerProvider.get());
-  }
-
-  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment.viewModel")
-  public static void injectViewModel(MeetingRoomFragment instance, HomeViewModel viewModel) {
-    instance.viewModel = viewModel;
+    injectViewModelFactory(instance, viewModelFactoryProvider.get());
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment.meetingRoomAdapter")
@@ -61,5 +58,11 @@ public final class MeetingRoomFragment_MembersInjector implements MembersInjecto
   public static void injectWorkSpaceApiHandler(MeetingRoomFragment instance,
       ApiResponseModule<List<MeetingRoomMapper>> workSpaceApiHandler) {
     instance.workSpaceApiHandler = workSpaceApiHandler;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment.viewModelFactory")
+  public static void injectViewModelFactory(MeetingRoomFragment instance,
+      ViewModelFactory viewModelFactory) {
+    instance.viewModelFactory = viewModelFactory;
   }
 }

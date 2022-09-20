@@ -29,10 +29,10 @@ class RegisterPasswordViewModel @Inject constructor(
     }
 
     fun setRegisterRequest(registerRequestMapper: RegisterRequestMapper) {
-        apiMutableLiveData = registerRemote.register(registerRequestMapper)
+        apiMediatorLiveData = registerRemote.register(registerRequestMapper)
     }
 
     fun getRegisterHandler(): MutableLiveData<ApiStatus<String>> {
-        return apiMutableLiveData
+        return apiMediatorLiveData
     }
 }
