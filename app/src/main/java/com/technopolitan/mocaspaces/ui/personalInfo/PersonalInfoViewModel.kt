@@ -38,10 +38,10 @@ class PersonalInfoViewModel @Inject constructor(
     }
 
     fun setGenderRequest(){
-        apiMutableLiveData = genderRemote.getAllGender()
+        apiMediatorLiveData = genderRemote.getAllGender()
     }
 
-    fun getGender(): LiveData<ApiStatus<List<GenderMapper>>> = apiMutableLiveData
+    fun getGender(): LiveData<ApiStatus<List<GenderMapper>>> = apiMediatorLiveData
     fun setGenderList(it: List<GenderMapper>) {
         personalInfoDataModule.setGenderList(it)
     }

@@ -28,10 +28,10 @@ class ResetPasswordViewModel@Inject constructor(
     }
 
     fun setResetPassword(mobile: String, newPassword: String) {
-        apiMutableLiveData = resetPasswordRemote.getResetPassword(mobile, newPassword)
+        apiMediatorLiveData = resetPasswordRemote.getResetPassword(mobile, newPassword)
     }
 
     fun getResetPassword(): MutableLiveData<ApiStatus<String>> {
-        return apiMutableLiveData
+        return apiMediatorLiveData
     }
 }

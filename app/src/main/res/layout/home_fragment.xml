@@ -8,9 +8,18 @@
     tools:context=".ui.home.HomeFragment">
 
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/home_fragment_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_layout" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="wrap_content"
         android:id="@+id/search_bar_layout"
         android:background="@color/accent_color"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,7 +30,7 @@
             style="@style/regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/green_color"
+            android:background="@color/event_space_color"
             android:padding="@dimen/_10sdp"
             android:text="@string/active_session_time_remaining_1_s"
             android:textAlignment="center"
@@ -31,43 +40,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <include-->
-<!--            android:id="@+id/text_layout"-->
-<!--            layout="@layout/search_item"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/active_session_text_view"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent" />-->
+        <include
+            android:id="@+id/search_progress"
+            layout="@layout/progress_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/active_session_text_view" />
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/search_view_pager"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="0dp"-->
-<!--            android:clipToPadding="true"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingStart="@dimen/_40sdp"-->
-<!--            android:paddingEnd="@dimen/_40sdp"-->
-<!--            tools:itemCount="4"-->
-<!--            app:flow_verticalAlign="center"-->
-        <!--            android:nestedScrollingEnabled="true"-->
-        <!--            tools:listitem="@layout/search_item"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/active_session_text_view"/>-->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_search_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/active_session_text_view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/home_fragment_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_bar_layout"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

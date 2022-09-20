@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class MeetingRoomAdapter @Inject constructor(
     private var glideModule: GlideModule,
-    private var priceViewPagerAdapter: PriceViewPagerAdapter,
+    private var priceAdapter: PriceAdapter,
     private var context: Context
 ) : RecyclerView.Adapter<MeetingRoomAdapter.ViewHolder>() {
 
@@ -50,13 +50,13 @@ class MeetingRoomAdapter @Inject constructor(
             itemBinding.meetingLocationAddressTextView.text = it.address
             itemBinding.meetingRoomName.text = it.venueName
             itemBinding.capacityTextView.text = it.capacity.toString()
-            itemBinding.meetingRoomViewPagerAdapter.adapter = priceViewPagerAdapter
-            priceViewPagerAdapter.init(it.priceList)
+            itemBinding.meetingRoomViewPagerAdapter.adapter = priceAdapter
+            priceAdapter.init(it.priceList)
             glideModule.loadImage(it.image, itemBinding.meetingRoomImageView)
-            if(it.workTimeMapper.isOpen()){
-               setOpen()
-            }else{
-              setClose()
+            if (it.workTimeMapper.isOpen()) {
+                setOpen()
+            } else {
+                setClose()
             }
         }
 

@@ -11,10 +11,10 @@ class MemberTypeViewModel @Inject constructor(private var memberTypeRemote: Memb
     BaseViewModel<List<DropDownMapper>>() {
 
     fun setMemberTypeRequest() {
-        apiMutableLiveData = memberTypeRemote.getMemberType()
+        apiMediatorLiveData = memberTypeRemote.getMemberType()
     }
 
     fun getMemberTypes(): MutableLiveData<ApiStatus<List<DropDownMapper>>> {
-        return apiMutableLiveData
+        return apiMediatorLiveData
     }
 }

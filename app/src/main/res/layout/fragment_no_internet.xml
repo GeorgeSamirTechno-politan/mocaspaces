@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/accent_color"
-    app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/yellow_color"
+    app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/workspace_color"
     tools:context=".ui.fragmentUtilities.NoInternetFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/yellow_color" />
+            app:tint="@color/workspace_color" />
 
 
         <ImageView

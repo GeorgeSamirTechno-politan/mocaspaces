@@ -126,10 +126,11 @@
             app:layout_constraintTop_toBottomOf="@id/work_space_name_text_view"
             tools:text="Zayed City, Giza" />
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/price_view_pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:orientation="horizontal"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginEnd="@dimen/_10sdp"

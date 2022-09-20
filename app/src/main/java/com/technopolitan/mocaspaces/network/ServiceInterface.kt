@@ -13,6 +13,7 @@ import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
 import com.technopolitan.mocaspaces.models.ResetPasswordRequest
 import com.technopolitan.mocaspaces.models.location.request.LocationRequest
+import com.technopolitan.mocaspaces.models.location.response.SearchHintResponse
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomResponse
 import com.technopolitan.mocaspaces.utilities.Constants
@@ -111,6 +112,10 @@ interface ServiceInterface {
         @Body request: LocationRequest
     ): Flowable<HeaderResponse<List<MeetingRoomResponse>>>
 
+    @GET("v{version}/Location/GetLocationDistrictMobile")
+    fun getAllSearchHint(
+        @Path("version") version: Int = Constants.apiVersion
+    ): Flowable<HeaderResponse<List<SearchHintResponse>>>
 
 
 }

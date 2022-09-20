@@ -4,35 +4,41 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.databinding.WorkSpaceItemBinding
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.modules.GlideModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
+import com.technopolitan.mocaspaces.utilities.autoScroll
 import javax.inject.Inject
 
 class WorkSpaceAdapter @Inject constructor(
     private var glideModule: GlideModule,
     private var context: Context,
     private var amenityAdapter: AmenityAdapter,
-    private var countDownModule: CountDownModule,
     private var spannableStringModule: SpannableStringModule,
-    private var priceViewPagerAdapter: PriceViewPagerAdapter,
+    private var priceAdapter: PriceAdapter,
 ) : RecyclerView.Adapter<WorkSpaceAdapter.ViewHolder>() {
 
     private val list: MutableList<WorkSpaceMapper> = mutableListOf()
-    private lateinit var textAnimation: Animation
+//    private lateinit var textAnimation: Animation
 
-    fun init(list: MutableList<WorkSpaceMapper>) {
+    fun addList(list: MutableList<WorkSpaceMapper>) {
         val startPosition = this.list.size
         this.list.addAll(list)
         notifyItemRangeInserted(startPosition, itemCount)
-        textAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+//        textAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+    }
+
+    fun init(list: MutableList<WorkSpaceMapper>) {
+        val startPosition = 0
+        if (this.list.isNotEmpty())
+            this.list.clear()
+        this.list.addAll(list)
+        notifyDataSetChanged()
+//        textAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
     }
 
 
@@ -50,51 +56,73 @@ class WorkSpaceAdapter @Inject constructor(
         return list.size
     }
 
+    fun clearList() {
+        var endPosition = 0
+        if (this.list.isNotEmpty()) {
+            endPosition = itemCount
+            this.list.clear()
+        }
+        notifyItemRangeRemoved(0, endPosition)
+    }
+
     inner class ViewHolder(private val itemBinding: WorkSpaceItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         lateinit var item: WorkSpaceMapper
-        private var priceIndex = 0
-
         override fun onClick(v: View?) {
 
         }
 
         fun bind(it: WorkSpaceMapper) {
             this.item = it
-            it.run {
-                this.initPriceList(context)
-                glideModule.loadImage(image, itemBinding.workSpaceImageView)
-                if (isFavourite)
-                    setFavourite()
-                else
-                    setUnFavourite()
-                itemBinding.workSpaceNameTextView.text = locationName
-                itemBinding.workSpaceAddressTextView.text = address
-
-                itemBinding.priceViewPager.adapter = priceViewPagerAdapter
-                priceViewPagerAdapter.init(priceList)
-                amenityAdapter.init(amenityList)
-                itemBinding.amenityRecycler.adapter = amenityAdapter
-                itemBinding.workingHourTextView.text =
-                    getOpenHourText(context, spannableStringModule)
-                if(workTimeMapper.isOpen()){
-                  setOpen()
-                }else{
-                    setClose()
-                }
-            }
-            updatePrice()
-//            itemBinding.priceTextView.animation.setAnimationListener(this)
+            setPrice(it)
+            glideModule.loadImage(it.image, itemBinding.workSpaceImageView)
+            setFavouriteAndUnFavourite(item)
+            itemBinding.workSpaceNameTextView.text = item.locationName
+            itemBinding.workSpaceAddressTextView.text = item.address
+            itemBinding.locationDistanceTextView.text = item.distance
+            setAmenities(item)
+            itemBinding.workingHourTextView.text =
+                item.getOpenHourText(context, spannableStringModule)
+            setOpenClose(item)
         }
 
-        private fun setOpen(){
-            itemBinding.workSpaceStatusTextView.background = AppCompatResources.getDrawable(context, R.drawable.green_shape)
+        private fun setOpenClose(item: WorkSpaceMapper) {
+            if (item.workTimeMapper.isOpen()) {
+                setOpen()
+            } else {
+                setClose()
+            }
+        }
+
+        private fun setAmenities(item: WorkSpaceMapper) {
+            amenityAdapter.init(item.amenityList)
+            itemBinding.amenityRecycler.adapter = amenityAdapter
+        }
+
+        private fun setFavouriteAndUnFavourite(item: WorkSpaceMapper) {
+            if (item.isFavourite)
+                setFavourite()
+            else
+                setUnFavourite()
+        }
+
+        private fun setPrice(item: WorkSpaceMapper) {
+            item.initPriceList(context)
+            priceAdapter.init(item.priceList)
+            itemBinding.priceViewPager.adapter = priceAdapter
+            itemBinding.priceViewPager.autoScroll(5000)
+        }
+
+        private fun setOpen() {
+            itemBinding.workSpaceStatusTextView.background =
+                AppCompatResources.getDrawable(context, R.drawable.green_shape)
             itemBinding.workSpaceStatusTextView.text = context.getText(R.string.open)
         }
 
-        private fun setClose(){
-            itemBinding.workSpaceStatusTextView.background = AppCompatResources.getDrawable(context, R.drawable.red_shape)
+        private fun setClose() {
+            itemBinding.workSpaceStatusTextView.background =
+                AppCompatResources.getDrawable(context, R.drawable.red_shape)
             itemBinding.workSpaceStatusTextView.text = context.getText(R.string.close)
         }
 
@@ -115,19 +143,5 @@ class WorkSpaceAdapter @Inject constructor(
                 )
             )
         }
-
-
-        private fun updatePrice() {
-            itemBinding.priceViewPager.startAnimation(textAnimation)
-            countDownModule.init()
-            countDownModule.startCount(5) {
-                priceIndex = if(priceIndex == 4) 0 else priceIndex+1
-                itemBinding.priceViewPager.currentItem = priceIndex
-                updatePrice()
-//                notifyDataSetChanged()
-            }
-        }
-
-
     }
 }

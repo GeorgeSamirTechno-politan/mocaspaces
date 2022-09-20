@@ -6,18 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentEventSpaceBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import javax.inject.Inject
 
 class EventSpaceFragment : Fragment() {
-    @Inject
+    //    @Inject
     lateinit var viewModel: HomeViewModel
 
     lateinit var binding: FragmentEventSpaceBinding
@@ -27,6 +29,9 @@ class EventSpaceFragment : Fragment() {
 
     @Inject
     lateinit var eventSpaceApiHandler: ApiResponseModule<List<MeetingRoomMapper>>
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
@@ -44,6 +49,8 @@ class EventSpaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
         initView()
         initMeetingLiveData()
     }

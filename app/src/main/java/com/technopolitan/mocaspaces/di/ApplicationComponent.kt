@@ -3,7 +3,6 @@ package com.technopolitan.mocaspaces.di
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactoryModule
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelModule
 import com.technopolitan.mocaspaces.modules.AppModule
 import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment
@@ -13,7 +12,7 @@ import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
 import com.technopolitan.mocaspaces.ui.home.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.HomeFragment
 import com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment
-import com.technopolitan.mocaspaces.ui.home.WorkSpaceFragment
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
@@ -34,7 +33,6 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        ViewModelFactoryModule::class,
         ViewModelModule::class
     ]
 )

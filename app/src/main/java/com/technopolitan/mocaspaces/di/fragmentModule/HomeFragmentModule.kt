@@ -3,10 +3,7 @@ package com.technopolitan.mocaspaces.di.fragmentModule
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.data.home.AmenityAdapter
-import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter
-import com.technopolitan.mocaspaces.data.home.PriceViewPagerAdapter
-import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
+import com.technopolitan.mocaspaces.data.home.*
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.modules.DateTimeModule
@@ -29,13 +26,13 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
 
     @Singleton
     @Provides
-    fun provideWorkSpaceRemote(dateTimeModule: DateTimeModule): WorkSpaceRemote =
-        WorkSpaceRemote(networkModule, dateTimeModule)
+    fun provideWorkSpaceRemote(dateTimeModule: DateTimeModule, context: Context): WorkSpaceRemote =
+        WorkSpaceRemote(networkModule, dateTimeModule, context)
 
     @Singleton
     @Provides
-    fun providePriceViewPager(activity: Activity): PriceViewPagerAdapter =
-        PriceViewPagerAdapter(activity)
+    fun providePriceAdapter(countDownModule: CountDownModule): PriceAdapter =
+        PriceAdapter(countDownModule)
 
     @Singleton
     @Provides
@@ -43,12 +40,32 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
         glideModule: GlideModule,
         context: Context,
         amenityAdapter: AmenityAdapter,
-        countDownModule: CountDownModule,
         spannableStringModule: SpannableStringModule,
-        priceViewPagerAdapter: PriceViewPagerAdapter
+        priceAdapter: PriceAdapter
     )
             : WorkSpaceAdapter = WorkSpaceAdapter(
         glideModule,
-        context, amenityAdapter, countDownModule, spannableStringModule, priceViewPagerAdapter
+        context, amenityAdapter, spannableStringModule, priceAdapter
     )
+
+//    @Singleton
+//    @Provides
+//    fun provideSearchHintAdapter(spannableStringModule: SpannableStringModule) : SearchHintAdapter = SearchHintAdapter(spannableStringModule)
+
+    @Singleton
+    @Provides
+    fun provideSearchHintAdapter(
+        context: Context,
+        spannableStringModule: SpannableStringModule
+    ): SearchHintListAdapter = SearchHintListAdapter(context, spannableStringModule)
+
+    @Singleton
+    @Provides
+    fun provideHomeSearchAdapter(
+        context: Context,
+        activity: Activity,
+        spannableStringModule: SpannableStringModule,
+        searchHintListAdapter: SearchHintListAdapter,
+    ): HomeSearchAdapter =
+        HomeSearchAdapter(context, activity, spannableStringModule, searchHintListAdapter)
 }

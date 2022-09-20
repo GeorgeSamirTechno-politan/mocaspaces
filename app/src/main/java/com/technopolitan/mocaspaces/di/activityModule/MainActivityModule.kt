@@ -1,6 +1,7 @@
 package com.technopolitan.mocaspaces.di.activityModule
 
 
+import android.app.Activity
 import android.content.Context
 import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule
 import com.technopolitan.mocaspaces.data.remote.MainRemote
@@ -21,6 +22,7 @@ class MainActivityModule @Inject constructor(private val networkModule: NetworkM
     @Provides
     fun provideCustomBottomNavigationModule(
         context: Context,
+        activity: Activity,
         sharedPrefModule: SharedPrefModule,
         navigationModule: NavigationModule,
         glideModule: GlideModule,
@@ -29,6 +31,7 @@ class MainActivityModule @Inject constructor(private val networkModule: NetworkM
             CustomBottomNavigationModule =
         CustomBottomNavigationModule(
             context,
+            activity,
             sharedPrefModule,
             navigationModule,
             glideModule,
@@ -39,4 +42,6 @@ class MainActivityModule @Inject constructor(private val networkModule: NetworkM
     @Provides
     fun provideConnectionLiveDataModule(context: Context): ConnectionLiveDataModule =
         ConnectionLiveDataModule(context, networkModule)
+
+
 }

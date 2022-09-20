@@ -116,13 +116,17 @@ dependencies {
     implementation "androidx.camera:camera-extensions:${camerax_version}"
 
     // firebase
-    implementation platform ("com.google.firebase:firebase-bom:$firebase_version")
+    implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging'
     implementation "com.google.firebase:firebase-installations:$firebase_installation_version"
+
+    // google map
+    implementation 'com.google.maps.android:android-maps-utils:2.4.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     // others
     implementation "com.github.HBiSoft:PickiT:$pick_it_version"
-    implementation  "io.ak1.pix:piximagepicker:$pix_version"
+    implementation "io.ak1.pix:piximagepicker:$pix_version"
     implementation "com.intuit.sdp:sdp-android:$sdp_version"
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation "com.google.android.gms:play-services-basement:$gms_basment_version"
@@ -145,5 +149,12 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
-    implementation 'com.google.maps.android:android-maps-utils:2.4.0'
+
+
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "500"
+    }
 }

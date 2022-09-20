@@ -15,6 +15,7 @@
     <!--    end of image pickers colors-->
 
     <color name="accent_color">#9A28CD</color>
+    <color name="accent_color_60">#999A28CD</color>
     <color name="accent_color_58">#949A28CD</color>
     <color name="light_black_color">#2C2C2C</color>
     <color name="light_black_color_68">#AD2C2C2C</color>
@@ -24,9 +25,14 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey_color">#C0C0C0</color>
-    <color name="yellow_color">#FFE42C</color>
+    <color name="workspace_color">#FFE42C</color>
+    <color name="workspace_color_50">#80FFE42C</color>
+    <color name="meeting_space_color">#FFA380</color>
+    <color name="event_space_color">#00FFA6</color>
+    <color name="biz_lounge_color">#FF64FF</color>
     <color name="error_color">#F54E60</color>
     <color name="light_grey_color">#EEEEEE</color>
+    <color name="light_grey_color_80_percent">#CCEEEEEE</color>
     <color name="grey_hint_text_color">#E6D2D9E5</color>
     <color name="dark_white_color">#D7D6D6</color>
     <color name="blue_grey_color">#E6D2D9E5</color>
@@ -38,6 +44,6 @@
 
     <color name="unselected_wheel_text_color">#992C2C2C</color>
     <color name="selected_wheel_text_color">#2C2C2C</color>
-    <color name="green_color">#00FFA6</color>
+
     <color name="background_color">#eeeeee</color>
 </resources>

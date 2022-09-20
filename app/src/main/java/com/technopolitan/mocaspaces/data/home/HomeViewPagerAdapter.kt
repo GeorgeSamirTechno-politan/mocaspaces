@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.technopolitan.mocaspaces.ui.home.BizLoungeFragment
 import com.technopolitan.mocaspaces.ui.home.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment
-import com.technopolitan.mocaspaces.ui.home.WorkSpaceFragment
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
 import javax.inject.Inject
 
 class HomeViewPagerAdapter @Inject constructor(

@@ -11,8 +11,8 @@ class CountryViewModel @Inject constructor(private var countryRemote: CountryRem
     BaseViewModel<List<CountryMapper>>() {
 
         fun setCountryRequest(){
-            apiMutableLiveData = countryRemote.getCountry()
+            apiMediatorLiveData = countryRemote.getCountry()
         }
 
-    fun getCountry(): LiveData<ApiStatus<List<CountryMapper>>> = apiMutableLiveData
+    fun getCountry(): LiveData<ApiStatus<List<CountryMapper>>> = apiMediatorLiveData
 }

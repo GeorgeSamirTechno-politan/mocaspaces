@@ -39,10 +39,10 @@ class CheckEmailViewModel @Inject constructor(
     }
 
     fun setSendEmailOtp(email: String) {
-        this.apiMutableLiveData = sendOtpEmailRemote.otpEmail(email)
+        this.apiMediatorLiveData = sendOtpEmailRemote.otpEmail(email)
     }
 
-    fun handleSentOtpEmail(): LiveData<ApiStatus<String>> = apiMutableLiveData
+    fun handleSentOtpEmail(): LiveData<ApiStatus<String>> = apiMediatorLiveData
 
     fun verifyEmailOtp(email: String, otp: String) {
         this.verifyEmailOtpMediator = checkOtpEmailRemote.verifyEmailOtp(otp, email)

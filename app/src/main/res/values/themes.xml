@@ -14,6 +14,7 @@
         <item name="backgroundColor">@color/white</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="listPopupWindowStyle">@style/myListPopupWindow</item>
     </style>
 
     <style name="base_card_view_style" parent="Widget.Material3.CardView.Filled">
@@ -262,12 +263,56 @@
         <item name="passwordToggleTint">@color/black</item>
     </style>
 
-    <style name="text_input_layout_style.yellow" parent="text_input_layout_style">
-        <item name="boxStrokeColor">@color/text_input_box_yellow_color</item>
-        <item name="placeholderTextColor">@color/yellow_color</item>
+    <style name="text_input_layout_style.transparent" parent="text_input_layout_style.dark_grey.drop_down">
+        <item name="boxStrokeColor">@color/text_input_box_transparent_color</item>
+        <item name="placeholderTextColor">@android:color/transparent</item>
         <item name="hintTextColor">@color/white</item>
-        <item name="helperTextTextColor">@color/yellow_color</item>
-        <item name="prefixTextColor">@color/yellow_color</item>
+        <item name="helperTextTextColor">@android:color/transparent</item>
+        <item name="prefixTextColor">@android:color/transparent</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.workspace" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_work_space_color</item>
+        <item name="placeholderTextColor">@color/workspace_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/workspace_color</item>
+        <item name="prefixTextColor">@color/workspace_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.meeting_space" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_meeting_space_color</item>
+        <item name="placeholderTextColor">@color/meeting_space_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/meeting_space_color</item>
+        <item name="prefixTextColor">@color/meeting_space_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.event_space" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_event_space_color</item>
+        <item name="placeholderTextColor">@color/event_space_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/event_space_color</item>
+        <item name="prefixTextColor">@color/event_space_color</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="passwordToggleTint">@color/black</item>
+
+    </style>
+
+    <style name="text_input_layout_style.biz_lounge_space" parent="text_input_layout_style">
+        <item name="boxStrokeColor">@color/text_input_box_biz_lounge_color</item>
+        <item name="placeholderTextColor">@color/biz_lounge_color</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="helperTextTextColor">@color/biz_lounge_color</item>
+        <item name="prefixTextColor">@color/biz_lounge_color</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="passwordToggleTint">@color/black</item>
 
@@ -356,5 +401,9 @@
         <item name="lottie_loop">true</item>
         <item name="lottie_ignoreDisabledSystemAnimations">true</item>
         <item name="lottie_clipToCompositionBounds">true</item>
+    </style>
+
+    <style name="myListPopupWindow" parent="Widget.Material3.PopupMenu.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/pop_up_menu_back_ground</item>
     </style>
 </resources>

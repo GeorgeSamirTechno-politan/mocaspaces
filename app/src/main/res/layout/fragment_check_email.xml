@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_13sdp"
                 android:text="@string/send_again"
-                android:textColor="@color/yellow_color" />
+                android:textColor="@color/workspace_color" />
 
         </LinearLayout>
 
