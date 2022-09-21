@@ -22,17 +22,23 @@ import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
 import com.technopolitan.mocaspaces.data.login.LoginDataModule;
 import com.technopolitan.mocaspaces.data.login.LoginMapper;
 import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule;
+import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule_Factory;
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeAdapter;
 import com.technopolitan.mocaspaces.data.personalInfo.PersonalInfoDataModule;
 import com.technopolitan.mocaspaces.data.register.RegisterDataModule;
+import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote;
+import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.CheckMobileRemote;
 import com.technopolitan.mocaspaces.data.remote.CheckOtpEmailRemote;
 import com.technopolitan.mocaspaces.data.remote.CountryRemote;
+import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote;
+import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote;
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.GenderRemote;
 import com.technopolitan.mocaspaces.data.remote.LoginRemote;
 import com.technopolitan.mocaspaces.data.remote.MainRemote;
+import com.technopolitan.mocaspaces.data.remote.MainRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote;
 import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.MemberTypeRemote;
@@ -144,6 +150,7 @@ import com.technopolitan.mocaspaces.ui.login.LoginViewModel;
 import com.technopolitan.mocaspaces.ui.main.MainActivity;
 import com.technopolitan.mocaspaces.ui.main.MainActivity_MembersInjector;
 import com.technopolitan.mocaspaces.ui.main.MainViewModel;
+import com.technopolitan.mocaspaces.ui.main.MainViewModel_Factory;
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment;
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPViewModel;
@@ -205,11 +212,11 @@ public final class DaggerApplicationComponent {
   }
 
   private static final class ApplicationComponentImpl implements ApplicationComponent {
-    private final Context context;
-
     private final Activity activity;
 
     private final Fragment fragment;
+
+    private final Context context;
 
     private final ApplicationComponentImpl applicationComponentImpl = this;
 
@@ -223,17 +230,45 @@ public final class DaggerApplicationComponent {
 
     private Provider<NetworkModule> provideNetworkModelProvider;
 
+    private Provider<SearchHintRemote> searchHintRemoteProvider;
+
+    private Provider<DateTimeModule> provideDateTimeModuleProvider;
+
+    private Provider<WorkSpaceRemote> workSpaceRemoteProvider;
+
+    private Provider<MeetingRoomRemote> meetingRoomRemoteProvider;
+
+    private Provider<EventSpaceRemote> eventSpaceRemoteProvider;
+
+    private Provider<HomeViewModel> homeViewModelProvider;
+
+    private Provider<AddFavouriteWorkSpaceRemote> addFavouriteWorkSpaceRemoteProvider;
+
+    private Provider<DeleteWorkSpaceFavouriteRemote> deleteWorkSpaceFavouriteRemoteProvider;
+
+    private Provider<WorkSpaceViewModel> workSpaceViewModelProvider;
+
+    private Provider<MainRemote> mainRemoteProvider;
+
     private Provider<ConnectionLiveDataModule> provideConnectionStateLiveDataModuleProvider;
 
-    private Provider<Fragment> fragmentProvider;
-
     private Provider<Activity> activityProvider;
+
+    private Provider<Fragment> fragmentProvider;
 
     private Provider<NavigationModule> provideNavigationModuleProvider;
 
     private Provider<GlideModule> provideGlideModuleProvider;
 
     private Provider<UtilityModule> provideUtilityModuleProvider;
+
+    private Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider;
+
+    private Provider<MainViewModel> mainViewModelProvider;
+
+    private Provider<Map<Class<? extends ViewModel>, Provider<ViewModel>>> mapOfClassOfAndProviderOfViewModelProvider;
+
+    private Provider<ViewModelFactory> viewModelFactoryProvider;
 
     private Provider<DialogModule> provideDialogModuleProvider;
 
@@ -242,8 +277,6 @@ public final class DaggerApplicationComponent {
     private Provider<PermissionModule> providePermissionModuleProvider;
 
     private Provider<PikItModule> providePikItModuleProvider;
-
-    private Provider<DateTimeModule> provideDateTimeModuleProvider;
 
     private Provider<CountDownModule> provideCountDownModuleProvider;
 
@@ -255,45 +288,21 @@ public final class DaggerApplicationComponent {
 
     private Provider<SpannableStringModule> provideSpannableStringModuleProvider;
 
-    private Provider<SearchHintRemote> searchHintRemoteProvider;
-
-    private Provider<WorkSpaceRemote> workSpaceRemoteProvider;
-
-    private Provider<MeetingRoomRemote> meetingRoomRemoteProvider;
-
-    private Provider<EventSpaceRemote> eventSpaceRemoteProvider;
-
-    private Provider<HomeViewModel> homeViewModelProvider;
-
-    private Provider<WorkSpaceViewModel> workSpaceViewModelProvider;
-
-    private Provider<Map<Class<? extends ViewModel>, Provider<ViewModel>>> mapOfClassOfAndProviderOfViewModelProvider;
-
-    private Provider<ViewModelFactory> viewModelFactoryProvider;
-
     private ApplicationComponentImpl(AppModule appModuleParam, Context contextParam,
         Activity activityParam, Fragment fragmentParam) {
-      this.context = contextParam;
       this.activity = activityParam;
       this.fragment = fragmentParam;
+      this.context = contextParam;
       initialize(appModuleParam, contextParam, activityParam, fragmentParam);
 
     }
 
-    private MainRemote mainRemote() {
-      return new MainRemote(provideNetworkModelProvider.get());
-    }
-
-    private CustomBottomNavigationModule customBottomNavigationModule() {
-      return new CustomBottomNavigationModule(context, activity, provideSharedPrefModuleProvider.get(), provideNavigationModuleProvider.get(), provideGlideModuleProvider.get(), provideUtilityModuleProvider.get());
-    }
-
-    private MainViewModel mainViewModel() {
-      return new MainViewModel(mainRemote(), provideConnectionStateLiveDataModuleProvider.get(), customBottomNavigationModule());
-    }
-
     private PixModule pixModule() {
       return new PixModule(providePermissionModuleProvider.get(), provideNavigationModuleProvider.get(), activity, fragment, providePikItModuleProvider.get());
+    }
+
+    private MainRemote mainRemote() {
+      return new MainRemote(provideNetworkModelProvider.get());
     }
 
     private SplashViewModel splashViewModel() {
@@ -500,12 +509,8 @@ public final class DaggerApplicationComponent {
       return new AmenityAdapter(provideGlideModuleProvider.get());
     }
 
-    private PriceAdapter priceAdapter() {
-      return new PriceAdapter(provideCountDownModuleProvider.get());
-    }
-
     private WorkSpaceAdapter workSpaceAdapter() {
-      return new WorkSpaceAdapter(provideGlideModuleProvider.get(), context, amenityAdapter(), provideSpannableStringModuleProvider.get(), priceAdapter());
+      return new WorkSpaceAdapter(provideGlideModuleProvider.get(), context, amenityAdapter(), provideSpannableStringModuleProvider.get(), new PriceAdapter());
     }
 
     private ApiResponseModule<List<WorkSpaceMapper>> apiResponseModuleOfListOfWorkSpaceMapper() {
@@ -513,7 +518,7 @@ public final class DaggerApplicationComponent {
     }
 
     private MeetingRoomAdapter meetingRoomAdapter() {
-      return new MeetingRoomAdapter(provideGlideModuleProvider.get(), priceAdapter(), context);
+      return new MeetingRoomAdapter(provideGlideModuleProvider.get(), new PriceAdapter(), context);
     }
 
     private ApiResponseModule<List<MeetingRoomMapper>> apiResponseModuleOfListOfMeetingRoomMapper(
@@ -545,30 +550,35 @@ public final class DaggerApplicationComponent {
       this.provideSharedPrefModuleProvider = DoubleCheck.provider(AppModule_ProvideSharedPrefModuleFactory.create(appModuleParam, contextProvider));
       this.provideOkHttpClientProvider = DoubleCheck.provider(AppModule_ProvideOkHttpClientFactory.create(appModuleParam, provideSharedPrefModuleProvider, contextProvider));
       this.provideNetworkModelProvider = DoubleCheck.provider(AppModule_ProvideNetworkModelFactory.create(appModuleParam, contextProvider, provideOkHttpClientProvider, provideSharedPrefModuleProvider));
+      this.searchHintRemoteProvider = SearchHintRemote_Factory.create(provideNetworkModelProvider);
+      this.provideDateTimeModuleProvider = DoubleCheck.provider(AppModule_ProvideDateTimeModuleFactory.create(appModuleParam));
+      this.workSpaceRemoteProvider = WorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideDateTimeModuleProvider, contextProvider);
+      this.meetingRoomRemoteProvider = MeetingRoomRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider);
+      this.eventSpaceRemoteProvider = EventSpaceRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider);
+      this.homeViewModelProvider = HomeViewModel_Factory.create(searchHintRemoteProvider, workSpaceRemoteProvider, meetingRoomRemoteProvider, eventSpaceRemoteProvider, contextProvider);
+      this.addFavouriteWorkSpaceRemoteProvider = AddFavouriteWorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideSharedPrefModuleProvider);
+      this.deleteWorkSpaceFavouriteRemoteProvider = DeleteWorkSpaceFavouriteRemote_Factory.create(provideNetworkModelProvider);
+      this.workSpaceViewModelProvider = WorkSpaceViewModel_Factory.create(workSpaceRemoteProvider, addFavouriteWorkSpaceRemoteProvider, deleteWorkSpaceFavouriteRemoteProvider);
+      this.mainRemoteProvider = MainRemote_Factory.create(provideNetworkModelProvider);
       this.provideConnectionStateLiveDataModuleProvider = DoubleCheck.provider(AppModule_ProvideConnectionStateLiveDataModuleFactory.create(appModuleParam, contextProvider, provideNetworkModelProvider));
-      this.fragmentProvider = InstanceFactory.createNullable(fragmentParam);
       this.activityProvider = InstanceFactory.create(activityParam);
+      this.fragmentProvider = InstanceFactory.createNullable(fragmentParam);
       this.provideNavigationModuleProvider = DoubleCheck.provider(AppModule_ProvideNavigationModuleFactory.create(appModuleParam, fragmentProvider, activityProvider));
       this.provideGlideModuleProvider = DoubleCheck.provider(AppModule_ProvideGlideModuleFactory.create(appModuleParam, contextProvider));
       this.provideUtilityModuleProvider = DoubleCheck.provider(AppModule_ProvideUtilityModuleFactory.create(appModuleParam, contextProvider, activityProvider));
+      this.customBottomNavigationModuleProvider = CustomBottomNavigationModule_Factory.create(contextProvider, activityProvider, provideSharedPrefModuleProvider, provideNavigationModuleProvider, provideGlideModuleProvider, provideUtilityModuleProvider);
+      this.mainViewModelProvider = MainViewModel_Factory.create(mainRemoteProvider, provideConnectionStateLiveDataModuleProvider, customBottomNavigationModuleProvider);
+      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(3).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).build();
+      this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
       this.provideDialogModuleProvider = DoubleCheck.provider(AppModule_ProvideDialogModuleFactory.create(appModuleParam, contextProvider, activityProvider, provideNavigationModuleProvider));
       this.provideCustomAlertModuleProvider = DoubleCheck.provider(AppModule_ProvideCustomAlertModuleFactory.create(appModuleParam, contextProvider, provideDialogModuleProvider));
       this.providePermissionModuleProvider = DoubleCheck.provider(AppModule_ProvidePermissionModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider, provideCustomAlertModuleProvider, provideDialogModuleProvider, provideSharedPrefModuleProvider));
       this.providePikItModuleProvider = DoubleCheck.provider(AppModule_ProvidePikItModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider));
-      this.provideDateTimeModuleProvider = DoubleCheck.provider(AppModule_ProvideDateTimeModuleFactory.create(appModuleParam));
       this.provideCountDownModuleProvider = DoubleCheck.provider(AppModule_ProvideCountDownModuleFactory.create(appModuleParam, contextProvider));
       this.provideOtpBlocUserModuleProvider = DoubleCheck.provider(AppModule_ProvideOtpBlocUserModuleFactory.create(appModuleParam, contextProvider, provideDialogModuleProvider, provideSharedPrefModuleProvider, provideDateTimeModuleProvider, provideCountDownModuleProvider));
       this.provideValidationModuleProvider = DoubleCheck.provider(AppModule_ProvideValidationModuleFactory.create(appModuleParam));
       this.provideRXModuleProvider = DoubleCheck.provider(AppModule_ProvideRXModuleFactory.create(appModuleParam));
       this.provideSpannableStringModuleProvider = DoubleCheck.provider(AppModule_ProvideSpannableStringModuleFactory.create(appModuleParam, contextProvider));
-      this.searchHintRemoteProvider = SearchHintRemote_Factory.create(provideNetworkModelProvider);
-      this.workSpaceRemoteProvider = WorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideDateTimeModuleProvider, contextProvider);
-      this.meetingRoomRemoteProvider = MeetingRoomRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider);
-      this.eventSpaceRemoteProvider = EventSpaceRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider);
-      this.homeViewModelProvider = HomeViewModel_Factory.create(searchHintRemoteProvider, workSpaceRemoteProvider, meetingRoomRemoteProvider, eventSpaceRemoteProvider, contextProvider);
-      this.workSpaceViewModelProvider = WorkSpaceViewModel_Factory.create(workSpaceRemoteProvider);
-      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(2).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).build();
-      this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
     }
 
     @Override
@@ -704,7 +714,7 @@ public final class DaggerApplicationComponent {
     @CanIgnoreReturnValue
     private MainActivity injectMainActivity(MainActivity instance) {
       MainActivity_MembersInjector.injectAppDefaultModel(instance, provideAppDefaultModuleProvider.get());
-      MainActivity_MembersInjector.injectMainViewModel(instance, mainViewModel());
+      MainActivity_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       MainActivity_MembersInjector.injectDialogModule(instance, provideDialogModuleProvider.get());
       MainActivity_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
       MainActivity_MembersInjector.injectPixModule(instance, pixModule());
@@ -896,6 +906,7 @@ public final class DaggerApplicationComponent {
     private WorkSpaceFragment injectWorkSpaceFragment(WorkSpaceFragment instance) {
       WorkSpaceFragment_MembersInjector.injectWorkSpaceAdapter(instance, workSpaceAdapter());
       WorkSpaceFragment_MembersInjector.injectWorkSpaceApiHandler(instance, apiResponseModuleOfListOfWorkSpaceMapper());
+      WorkSpaceFragment_MembersInjector.injectFavouriteApiHandler(instance, apiResponseModuleOfString());
       WorkSpaceFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       return instance;
     }

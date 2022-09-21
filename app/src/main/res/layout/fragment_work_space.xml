@@ -19,7 +19,7 @@
         android:layout_height="0dp"
         android:visibility="visible"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/accent_color"
-        app:layout_constraintBottom_toTopOf="@id/work_space_load_more"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -37,13 +37,12 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
-    <include
-        android:id="@+id/work_space_load_more"
-        layout="@layout/progress_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <!--    <include-->
+    <!--        android:id="@+id/work_space_load_more"-->
+    <!--        layout="@layout/progress_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

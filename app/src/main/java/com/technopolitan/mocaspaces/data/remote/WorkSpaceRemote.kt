@@ -41,11 +41,12 @@ class WorkSpaceRemote @Inject constructor(
         return handleApi()
     }
 
+
     override fun flowable(): Flowable<HeaderResponse<List<WorkSpaceResponse>>> {
         return networkModule.provideService(BaseUrl.locationApi).getAllWorkSpacePagination(
             request = LocationRequest(
                 pageNumber = pageNumber,
-                pageSize = 10,
+                pageSize = pageSize,
                 type = type,
                 id = id
             )
@@ -60,7 +61,11 @@ class WorkSpaceRemote @Inject constructor(
                     list.add(WorkSpaceMapper(dateTimeModule).init(item, location, context))
                 }
             }
-            val remaining: Int = it.pageTotal!! - it.pageNumber!!
+            var remaining: Int = 0
+            val pageTotal = it.pageTotal!!
+            if (pageTotal > pageSize) {
+                remaining = pageTotal / pageNumber
+            }
             SuccessStatus(message = "", list, remaining)
         } else FailedStatus(it.message)
     }

@@ -37,6 +37,20 @@ class ApiResponseModule<T> @Inject constructor(
 
     fun handleResponse(
         apiStatus: ApiStatus<T>,
+        onSuccessCallBack: (entity: T) -> Unit
+    ) {
+        when (apiStatus) {
+            is SuccessStatus -> {
+                onSuccessCallBack(apiStatus.data!!)
+            }
+            is ErrorStatus, is FailedStatus -> {
+                showErrorOrFailedMessage(apiStatus.message)
+            }
+        }
+    }
+
+    fun handleResponse(
+        apiStatus: ApiStatus<T>,
         loadingView: LottieAnimationView,
         view: View,
         onSuccessCallBack: (entity: T) -> Unit

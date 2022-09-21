@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentWorkSpaceBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -28,6 +27,9 @@ class WorkSpaceFragment : Fragment() {
 
     @Inject
     lateinit var workSpaceApiHandler: ApiResponseModule<List<WorkSpaceMapper>>
+
+    @Inject
+    lateinit var favouriteApiHandler: ApiResponseModule<String>
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -76,14 +78,16 @@ class WorkSpaceFragment : Fragment() {
             workspaceViewModel.setFilter(type = it.type, id = it.id)
             clearAdapter()
             initWorkSpaceLiveData()
-            initLoadMore()
         }
     }
 
 
     private fun initView() {
-        binding.workSpaceLoadMore.progressView.visibility = View.GONE
+//        binding.workSpaceLoadMore.progressView.visibility = View.GONE
         binding.workSpaceRecycler.adapter = workSpaceAdapter
+        workSpaceAdapter.setFavouriteCallBack {
+            setFavourite(it)
+        }
         listenForScrolling()
         listenForSwipeToRefresh()
     }
@@ -98,37 +102,55 @@ class WorkSpaceFragment : Fragment() {
     }
 
     private fun clearAdapter() {
-        workSpaceAdapter.clearList()
+        workSpaceAdapter.setData(mutableListOf(), false)
     }
 
     private fun listenForScrolling() {
         binding.workSpaceRecycler.loadMore(workspaceViewModel.hasLoadMore()) {
             workspaceViewModel.loadMore()
-            binding.workSpaceLoadMore.progressView.visibility = View.VISIBLE
+//            binding.workSpaceLoadMore.progressView.visibility = View.VISIBLE
         }
     }
 
 
     private fun initWorkSpaceLiveData() {
         workspaceViewModel.getWorkSpaceList().observe(viewLifecycleOwner) { response ->
-            workSpaceApiHandler.handleResponse(
-                response,
-                binding.workSpaceProgress.progressView,
-                binding.workSpaceRefreshLayout
-            ) {
-                workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
-                workSpaceAdapter.init(it.toMutableList())
-
+            if (workSpaceAdapter.itemCount == 0) {
+                workSpaceApiHandler.handleResponse(
+                    response,
+                    binding.workSpaceProgress.progressView,
+                    binding.workSpaceRefreshLayout
+                ) {
+                    workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
+                    workSpaceAdapter.setData(it.toMutableList(), response.remainingPage > 0)
+                    workspaceViewModel.removeSourceFromWorkSpaceApi()
+                }
+            } else {
+                workSpaceApiHandler.handleResponse(response) {
+                    workSpaceAdapter.addMoreDate(
+                        response.data!!.toMutableList(),
+                        response.remainingPage > 0
+                    )
+                    workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
+                    workspaceViewModel.removeSourceFromWorkSpaceApi()
+                }
             }
         }
     }
 
-    private fun initLoadMore() {
-        workspaceViewModel.loadMoreLiveData().observe(viewLifecycleOwner) {
-            if (it is SuccessStatus) {
-                workSpaceAdapter.addList(it.data!!.toMutableList())
-                workspaceViewModel.updateWorkSpaceRemainingPage(it.remainingPage)
-                binding.workSpaceLoadMore.progressView.visibility = View.GONE
+    private fun setFavourite(item: WorkSpaceMapper) {
+        if (item.isFavourite)
+            workspaceViewModel.setDeleteFavourite(item.id)
+        else workspaceViewModel.setAddFavourite(item.id)
+        listenForFavouriteApi(item.isFavourite)
+    }
+
+    private fun listenForFavouriteApi(isFavourite: Boolean) {
+        workspaceViewModel.getFavourite().observe(viewLifecycleOwner) {
+            favouriteApiHandler.handleResponse(it) {
+                if (isFavourite)
+                    workspaceViewModel.removeSourceOfDeleteFavourite()
+                else workspaceViewModel.removeSourceOfAddFavourite()
             }
         }
     }

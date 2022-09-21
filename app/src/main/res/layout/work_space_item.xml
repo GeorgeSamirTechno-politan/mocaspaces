@@ -52,7 +52,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/work_space_image_view">
 
-            <ImageView
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/favourite"
                 android:id="@+id/favourite_status_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +63,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/share_image_button"
+                android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -221,6 +225,7 @@
             tools:text="All Weekdays 9am - 5pm\nSaturday 10am - 5pm" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/work_space_book_btn"
             style="@style/app_button_style.accent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

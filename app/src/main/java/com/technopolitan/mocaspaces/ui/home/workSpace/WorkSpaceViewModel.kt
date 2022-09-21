@@ -6,11 +6,17 @@ import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
+import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote
+import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import javax.inject.Inject
 
-class WorkSpaceViewModel @Inject constructor(private var workSpaceRemote: WorkSpaceRemote) :
+class WorkSpaceViewModel @Inject constructor(
+    private var workSpaceRemote: WorkSpaceRemote,
+    private var addFavouriteWorkSpaceRemote: AddFavouriteWorkSpaceRemote,
+    private var deleteWorkSpaceFavouriteRemote: DeleteWorkSpaceFavouriteRemote
+) :
     BaseViewModel<List<WorkSpaceMapper>>() {
 
     private var pageNumber = 1
@@ -19,8 +25,7 @@ class WorkSpaceViewModel @Inject constructor(private var workSpaceRemote: WorkSp
     private var location: Location? = null
     private var type: Int? = null
     private var id: Int? = null
-    private var loadMoreMediator: MediatorLiveData<ApiStatus<List<WorkSpaceMapper>>> =
-        MediatorLiveData()
+    private var favouriteMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
 
     init {
         pageNumber = 1
@@ -33,16 +38,34 @@ class WorkSpaceViewModel @Inject constructor(private var workSpaceRemote: WorkSp
 
     fun getWorkSpaceList(): LiveData<ApiStatus<List<WorkSpaceMapper>>> = apiMediatorLiveData
 
-    private fun setLoadMore() {
-        loadMoreMediator = workSpaceRemote.getWorkSpace(pageNumber, pageSize, type, id, location)
+    fun setAddFavourite(locationId: Int) {
+        favouriteMediator = addFavouriteWorkSpaceRemote.addFavourite(locationId)
     }
 
-    fun loadMoreLiveData(): LiveData<ApiStatus<List<WorkSpaceMapper>>> = loadMoreMediator
+    fun getFavourite(): LiveData<ApiStatus<String>> = favouriteMediator
+
+    fun removeSourceOfAddFavourite() {
+        favouriteMediator.removeSource(addFavouriteWorkSpaceRemote.getSource())
+    }
+
+    fun setDeleteFavourite(locationId: Int) {
+        favouriteMediator = deleteWorkSpaceFavouriteRemote.deleteFavourite(locationId)
+    }
+
+
+    fun removeSourceOfDeleteFavourite() {
+        favouriteMediator.removeSource(deleteWorkSpaceFavouriteRemote.getSource())
+    }
+
+
+    fun removeSourceFromWorkSpaceApi() {
+        apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
+    }
 
 
     fun loadMore() {
         pageNumber += 1
-        setLoadMore()
+        setWorkSpaceRequest()
     }
 
     fun hasLoadMore(): Boolean = remainingPage > 0
@@ -51,17 +74,18 @@ class WorkSpaceViewModel @Inject constructor(private var workSpaceRemote: WorkSp
     fun setFilter(type: Int?, id: Int?) {
         this.type = type
         this.id = id
-        apiMediatorLiveData.removeSource(apiMediatorLiveData)
+        apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
+        apiMediatorLiveData.postValue(LoadingStatus())
         setWorkSpaceRequest()
     }
 
     fun refresh() {
-        apiMediatorLiveData.removeSource(apiMediatorLiveData)
         remainingPage = 1
         pageNumber = 1
 //        type = null
 //        id = null
-
+        apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
+        apiMediatorLiveData.postValue(LoadingStatus())
         setWorkSpaceRequest()
     }
 

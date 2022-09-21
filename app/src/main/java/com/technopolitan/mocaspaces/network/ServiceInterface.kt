@@ -12,6 +12,7 @@ import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
 import com.technopolitan.mocaspaces.models.ResetPasswordRequest
+import com.technopolitan.mocaspaces.models.location.request.AddFavouriteWorkSpaceRequest
 import com.technopolitan.mocaspaces.models.location.request.LocationRequest
 import com.technopolitan.mocaspaces.models.location.response.SearchHintResponse
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
@@ -116,6 +117,19 @@ interface ServiceInterface {
     fun getAllSearchHint(
         @Path("version") version: Int = Constants.apiVersion
     ): Flowable<HeaderResponse<List<SearchHintResponse>>>
+
+    @POST("v{version}/Location/AddFavouriteLocation")
+    fun addWorkspaceFavourite(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body addFavouriteWorkSpaceRequest: AddFavouriteWorkSpaceRequest
+    )
+            : Flowable<HeaderResponse<String>>
+
+    @DELETE("v{version}/Location/DeleteFavouriteLocation")
+    fun deleteWorkSpaceFavourite(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Query("LocationId") locationId: Int
+    ): Flowable<HeaderResponse<String>>
 
 
 }

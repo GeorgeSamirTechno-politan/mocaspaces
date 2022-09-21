@@ -31,4 +31,5 @@ class HomeViewPagerAdapter @Inject constructor(
         return fragmentList[position]
     }
 
+
 }

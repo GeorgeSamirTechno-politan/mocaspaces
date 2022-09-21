@@ -23,27 +23,33 @@ public final class WorkSpaceFragment_MembersInjector implements MembersInjector<
 
   private final Provider<ApiResponseModule<List<WorkSpaceMapper>>> workSpaceApiHandlerProvider;
 
+  private final Provider<ApiResponseModule<String>> favouriteApiHandlerProvider;
+
   private final Provider<ViewModelFactory> viewModelFactoryProvider;
 
   public WorkSpaceFragment_MembersInjector(Provider<WorkSpaceAdapter> workSpaceAdapterProvider,
       Provider<ApiResponseModule<List<WorkSpaceMapper>>> workSpaceApiHandlerProvider,
+      Provider<ApiResponseModule<String>> favouriteApiHandlerProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider) {
     this.workSpaceAdapterProvider = workSpaceAdapterProvider;
     this.workSpaceApiHandlerProvider = workSpaceApiHandlerProvider;
+    this.favouriteApiHandlerProvider = favouriteApiHandlerProvider;
     this.viewModelFactoryProvider = viewModelFactoryProvider;
   }
 
   public static MembersInjector<WorkSpaceFragment> create(
       Provider<WorkSpaceAdapter> workSpaceAdapterProvider,
       Provider<ApiResponseModule<List<WorkSpaceMapper>>> workSpaceApiHandlerProvider,
+      Provider<ApiResponseModule<String>> favouriteApiHandlerProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider) {
-    return new WorkSpaceFragment_MembersInjector(workSpaceAdapterProvider, workSpaceApiHandlerProvider, viewModelFactoryProvider);
+    return new WorkSpaceFragment_MembersInjector(workSpaceAdapterProvider, workSpaceApiHandlerProvider, favouriteApiHandlerProvider, viewModelFactoryProvider);
   }
 
   @Override
   public void injectMembers(WorkSpaceFragment instance) {
     injectWorkSpaceAdapter(instance, workSpaceAdapterProvider.get());
     injectWorkSpaceApiHandler(instance, workSpaceApiHandlerProvider.get());
+    injectFavouriteApiHandler(instance, favouriteApiHandlerProvider.get());
     injectViewModelFactory(instance, viewModelFactoryProvider.get());
   }
 
@@ -57,6 +63,12 @@ public final class WorkSpaceFragment_MembersInjector implements MembersInjector<
   public static void injectWorkSpaceApiHandler(WorkSpaceFragment instance,
       ApiResponseModule<List<WorkSpaceMapper>> workSpaceApiHandler) {
     instance.workSpaceApiHandler = workSpaceApiHandler;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment.favouriteApiHandler")
+  public static void injectFavouriteApiHandler(WorkSpaceFragment instance,
+      ApiResponseModule<String> favouriteApiHandler) {
+    instance.favouriteApiHandler = favouriteApiHandler;
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment.viewModelFactory")

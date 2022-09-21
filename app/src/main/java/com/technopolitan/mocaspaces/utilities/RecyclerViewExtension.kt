@@ -11,7 +11,7 @@ fun RecyclerView.loadMore(hasMore: Boolean = true, callBack: () -> Unit) {
             if (adapter != null) {
                 if (adapter?.itemCount != null) {
                     if (linearLayoutManager != null &&
-                        linearLayoutManager.findLastCompletelyVisibleItemPosition() == adapter?.itemCount && hasMore
+                        linearLayoutManager.findLastCompletelyVisibleItemPosition() == adapter?.itemCount!! - 1 && hasMore
                     ) callBack()
                 }
             }

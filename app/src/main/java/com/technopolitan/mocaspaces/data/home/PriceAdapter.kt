@@ -2,14 +2,15 @@ package com.technopolitan.mocaspaces.data.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.databinding.PriceItemBinding
 import com.technopolitan.mocaspaces.models.location.mappers.PricePagerMapper
+import com.technopolitan.mocaspaces.modules.RecyclerDiffUtilModule
 import javax.inject.Inject
 
 
-class PriceAdapter @Inject constructor(private var countDownModule: CountDownModule) :
+class PriceAdapter @Inject constructor() :
     RecyclerView.Adapter<PriceAdapter.ViewHolder>() {
 
     private lateinit var binding: PriceItemBinding
@@ -18,11 +19,12 @@ class PriceAdapter @Inject constructor(private var countDownModule: CountDownMod
 
 
     fun init(priceList: MutableList<PricePagerMapper>) {
+        val diffCallback = RecyclerDiffUtilModule(this.priceList, priceList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         if (this.priceList.isNotEmpty())
             this.priceList.clear()
         this.priceList.addAll(priceList)
-        notifyItemRangeInserted(0, itemCount)
-        countDownModule.init()
+        diffResult.dispatchUpdatesTo(this)
     }
 
 

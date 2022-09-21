@@ -1,7 +1,6 @@
 package com.technopolitan.mocaspaces.modules
 
 import androidx.recyclerview.widget.DiffUtil
-import dagger.Module
 
 class RecyclerDiffUtilModule<T>  constructor(private var oldList: MutableList<T>,private var newList: MutableList<T>) : DiffUtil.Callback(){
     override fun getOldListSize(): Int = oldList.size
@@ -17,7 +16,5 @@ class RecyclerDiffUtilModule<T>  constructor(private var oldList: MutableList<T>
 
     }
 
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        return super.getChangePayload(oldItemPosition, newItemPosition)
-    }
+
 }

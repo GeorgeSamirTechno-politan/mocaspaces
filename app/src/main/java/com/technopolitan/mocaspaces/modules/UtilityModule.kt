@@ -10,12 +10,10 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.util.Base64
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.viewpager2.widget.ViewPager2
 import com.technopolitan.mocaspaces.R.color
 import com.technopolitan.mocaspaces.R.string
 import dagger.Module
@@ -182,21 +180,6 @@ class UtilityModule @Inject constructor(
         return Bitmap.createBitmap(
             source, 0, 0, source.width, source.height, matrix, true
         )
-    }
-
-    fun getPageTransformationForViewPager2(): ViewPager2.PageTransformer {
-        val nextItemVisiblePx = context.resources.getDimension(com.intuit.sdp.R.dimen._30sdp)
-        val currentItemHorizontalMarginPx =
-            context.resources.getDimension(com.intuit.sdp.R.dimen._15sdp)
-        val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
-        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
-            page.translationX = -pageTranslationX * position
-            // Next line scales the item's height. You can remove it if you don't want this effect
-//            page.scaleY = 1 - (0.25f * abs(position))
-            // If you want a fading effect uncomment the next line:
-            // page.alpha = 0.25f + (1 - abs(position))
-        }
-        return pageTransformer
     }
 
 

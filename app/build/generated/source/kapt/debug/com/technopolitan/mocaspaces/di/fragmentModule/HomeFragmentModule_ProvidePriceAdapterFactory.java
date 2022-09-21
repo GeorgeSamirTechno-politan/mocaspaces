@@ -2,13 +2,11 @@
 package com.technopolitan.mocaspaces.di.fragmentModule;
 
 import com.technopolitan.mocaspaces.data.home.PriceAdapter;
-import com.technopolitan.mocaspaces.data.shared.CountDownModule;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.Preconditions;
 import dagger.internal.QualifierMetadata;
 import dagger.internal.ScopeMetadata;
-import javax.inject.Provider;
 
 @ScopeMetadata("javax.inject.Singleton")
 @QualifierMetadata
@@ -20,26 +18,20 @@ import javax.inject.Provider;
 public final class HomeFragmentModule_ProvidePriceAdapterFactory implements Factory<PriceAdapter> {
   private final HomeFragmentModule module;
 
-  private final Provider<CountDownModule> countDownModuleProvider;
-
-  public HomeFragmentModule_ProvidePriceAdapterFactory(HomeFragmentModule module,
-      Provider<CountDownModule> countDownModuleProvider) {
+  public HomeFragmentModule_ProvidePriceAdapterFactory(HomeFragmentModule module) {
     this.module = module;
-    this.countDownModuleProvider = countDownModuleProvider;
   }
 
   @Override
   public PriceAdapter get() {
-    return providePriceAdapter(module, countDownModuleProvider.get());
+    return providePriceAdapter(module);
   }
 
-  public static HomeFragmentModule_ProvidePriceAdapterFactory create(HomeFragmentModule module,
-      Provider<CountDownModule> countDownModuleProvider) {
-    return new HomeFragmentModule_ProvidePriceAdapterFactory(module, countDownModuleProvider);
+  public static HomeFragmentModule_ProvidePriceAdapterFactory create(HomeFragmentModule module) {
+    return new HomeFragmentModule_ProvidePriceAdapterFactory(module);
   }
 
-  public static PriceAdapter providePriceAdapter(HomeFragmentModule instance,
-      CountDownModule countDownModule) {
-    return Preconditions.checkNotNullFromProvides(instance.providePriceAdapter(countDownModule));
+  public static PriceAdapter providePriceAdapter(HomeFragmentModule instance) {
+    return Preconditions.checkNotNullFromProvides(instance.providePriceAdapter());
   }
 }

@@ -25,7 +25,7 @@ abstract class BaseRemote<T,E> {
                 }
                 .onErrorReturn { error ->
                     handlerError(error as HttpException)
-                } .subscribeOn(Schedulers.io())
+                }.subscribeOn(Schedulers.io())
         )
         apiMediator.addSource(source) {
             apiMediator.value = it
@@ -34,15 +34,17 @@ abstract class BaseRemote<T,E> {
         return apiMediator
     }
 
-    abstract fun flowable():Flowable<HeaderResponse<E>>
+    fun getSource(): LiveData<ApiStatus<T>> = apiMediator
+
+    abstract fun flowable(): Flowable<HeaderResponse<E>>
 
     abstract fun handleResponse(it: HeaderResponse<E>): ApiStatus<T>
 
     private fun handlerError(it: HttpException): ApiStatus<T> {
-        return if( it.code() == 404)
+        return if (it.code() == 404)
             ErrorStatus("Failed to connect server")
         else {
-           try {
+            try {
                val message = JsonParser().parse(it.response()!!.errorBody()!!.string()).asJsonObject.get("Message").asString
                ErrorStatus(message)
            }catch (e: Exception){

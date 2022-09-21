@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.data.home.*
+import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote
+import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
-import com.technopolitan.mocaspaces.data.shared.CountDownModule
-import com.technopolitan.mocaspaces.modules.DateTimeModule
-import com.technopolitan.mocaspaces.modules.GlideModule
-import com.technopolitan.mocaspaces.modules.NetworkModule
-import com.technopolitan.mocaspaces.modules.SpannableStringModule
+import com.technopolitan.mocaspaces.modules.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
@@ -31,8 +29,18 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
 
     @Singleton
     @Provides
-    fun providePriceAdapter(countDownModule: CountDownModule): PriceAdapter =
-        PriceAdapter(countDownModule)
+    fun provideAddWorkspaceFavouriteRemote(sharedPrefModule: SharedPrefModule): AddFavouriteWorkSpaceRemote =
+        AddFavouriteWorkSpaceRemote(networkModule, sharedPrefModule)
+
+    @Singleton
+    @Provides
+    fun provideDeleteWorkSpaceFavouriteRemote(): DeleteWorkSpaceFavouriteRemote =
+        DeleteWorkSpaceFavouriteRemote(networkModule)
+
+    @Singleton
+    @Provides
+    fun providePriceAdapter(): PriceAdapter =
+        PriceAdapter()
 
     @Singleton
     @Provides

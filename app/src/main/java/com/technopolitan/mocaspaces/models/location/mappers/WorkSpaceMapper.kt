@@ -14,6 +14,7 @@ import com.technopolitan.mocaspaces.network.BaseUrl
 class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
 
     var image: String = ""
+    var id: Int = 0
     var isFavourite: Boolean = false
     var shareLink: String = ""
     var locationName: String = ""
@@ -31,6 +32,7 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
 
 
     fun init(response: WorkSpaceResponse, location: Location?, context: Context): WorkSpaceMapper {
+        this.id = response.id
         isFavourite = response.isFavourite
         if (response.locationImagesResponse != null)
             image =

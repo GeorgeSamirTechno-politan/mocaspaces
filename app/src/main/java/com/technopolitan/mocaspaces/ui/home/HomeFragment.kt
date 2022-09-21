@@ -18,6 +18,8 @@ import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.LocationModule
 import com.technopolitan.mocaspaces.modules.PermissionModule
 import com.technopolitan.mocaspaces.modules.UtilityModule
+import com.technopolitan.mocaspaces.utilities.depthPageTransformer
+import com.technopolitan.mocaspaces.utilities.showHorizontalWithVertical
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -119,17 +121,22 @@ class HomeFragment : Fragment() {
         viewModel.initAllHomeRequest()
         binding.homeFragmentViewPager.adapter = homeViewPagerAdapter
         binding.homeFragmentViewPager.registerOnPageChangeCallback(pageChangeCallBack)
+        binding.homeFragmentViewPager.depthPageTransformer(true)
+        binding.homeFragmentViewPager.offscreenPageLimit = 4
     }
 
 
     private fun initHomeSearchMapperList() {
-        homeSearchAdapter.setList(viewModel.getHomeSearchMapperList())
+        homeSearchAdapter.setList(viewModel.getHomeSearchMapperList().toMutableList())
         binding.homeSearchViewPager.adapter = homeSearchAdapter
         homeSearchAdapter.setSearchCallBack {
             viewModel.setSearchHint(it)
         }
-        binding.homeSearchViewPager.offscreenPageLimit = 1
-        binding.homeSearchViewPager.setPageTransformer(utilityModule.getPageTransformationForViewPager2())
+        binding.homeSearchViewPager.offscreenPageLimit = 4
+        binding.homeSearchViewPager.showHorizontalWithVertical(
+            com.intuit.sdp.R.dimen._15sdp,
+            com.intuit.sdp.R.dimen._30sdp
+        )
         binding.homeSearchViewPager.registerOnPageChangeCallback(searchPageChangeCallBack)
     }
 

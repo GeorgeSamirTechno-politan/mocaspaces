@@ -10,12 +10,15 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
-import android.widget.ListPopupWindow
+import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.HomeSearchItemBinding
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
+import com.technopolitan.mocaspaces.modules.RecyclerDiffUtilModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import javax.inject.Inject
 
@@ -28,12 +31,17 @@ class HomeSearchAdapter @Inject constructor(
 ) : RecyclerView.Adapter<HomeSearchAdapter.ViewHolder>() {
 
     private var itemIndex = 0
-    private lateinit var list: List<HomeSearchMapper>
+    private var list: MutableList<HomeSearchMapper> = mutableListOf()
     private lateinit var searchHintMapperList: List<SearchHintMapper>
     private lateinit var searchCallBack: (searchHintMapper: SearchHintMapper) -> Unit
 
-    fun setList(list: List<HomeSearchMapper>): HomeSearchAdapter {
-        this.list = list
+    fun setList(list: MutableList<HomeSearchMapper>): HomeSearchAdapter {
+        val diffCallback = RecyclerDiffUtilModule<HomeSearchMapper>(this.list, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        if (this.list.isNotEmpty())
+            this.list.clear()
+        this.list.addAll(list)
+        diffResult.dispatchUpdatesTo(this)
         return this
     }
 
@@ -67,9 +75,8 @@ class HomeSearchAdapter @Inject constructor(
 
 
     inner class ViewHolder(private val itemBinding: HomeSearchItemBinding) :
-        RecyclerView.ViewHolder(itemBinding.root), TextWatcher {
+        RecyclerView.ViewHolder(itemBinding.root), TextWatcher, View.OnClickListener {
         private lateinit var item: HomeSearchMapper
-        private lateinit var listPopUpWindow: ListPopupWindow
 
         fun bind(item: HomeSearchMapper) {
             this.item = item
@@ -83,8 +90,23 @@ class HomeSearchAdapter @Inject constructor(
             itemBinding.searchItemAutoCompleteText.addTextChangedListener(this)
             itemBinding.searchLayout.setBackgroundColor(context.getColor(item.color))
             itemBinding.searchLayout.visibility = View.GONE
+            itemBinding.searchTextInput.setEndIconOnClickListener(this)
+            itemBinding.searchItemAutoCompleteText.setOnEditorActionListener(editActionListener)
             initPopUpMenu()
         }
+
+        private val editActionListener: TextView.OnEditorActionListener =
+            TextView.OnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (item.searchHintMapper.id == null && item.searchHintMapper.type == null ||
+                        itemBinding.searchItemAutoCompleteText.text.isNullOrEmpty()
+                    ) {
+                        item.searchHintMapper = SearchHintMapper()
+                    }
+                    searchCallBack(item.searchHintMapper)
+                    return@OnEditorActionListener true
+                } else return@OnEditorActionListener false
+            }
 
 
         private fun getHintText(item: HomeSearchMapper) =
@@ -96,8 +118,6 @@ class HomeSearchAdapter @Inject constructor(
 
         private fun updateDrawable(it: Drawable) {
             it.setColorFilter(context.getColor(item.color), PorterDuff.Mode.SRC_IN)
-//            it.setBounds(100, 100, 100, 100)
-//            it.setHotspotBounds(100, 100, 100, 100)
         }
 
         private fun getColorStateList(): ColorStateList {
@@ -106,8 +126,6 @@ class HomeSearchAdapter @Inject constructor(
 
         private fun initPopUpMenu() {
             itemBinding.searchItemAutoCompleteText.run {
-//                dropDownVerticalOffset = context.resources.getDimension(
-//                    com.intuit.sdp.R.dimen._minus20sdp).toInt()
                 setDropDownBackgroundResource(item.searchBackgroundDrawable)
                 setAdapter(searchHintAdapter)
                 this.onItemClickListener = itemClick
@@ -117,12 +135,15 @@ class HomeSearchAdapter @Inject constructor(
         private val itemClick: AdapterView.OnItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val item = searchHintAdapter.getItem(position)
-                if (item.name == context.getString(R.string.no_result_found))
+                if (item.name == context.getString(R.string.no_result_found)) {
                     itemBinding.searchItemAutoCompleteText.setText("")
-                else
+                    this.item.searchHintMapper = SearchHintMapper()
+                } else {
                     itemBinding.searchItemAutoCompleteText.setText(item.name)
+                    this.item.searchHintMapper = item
+                }
                 itemBinding.searchLayout.visibility = View.GONE
-                searchCallBack(item)
+                searchCallBack(this.item.searchHintMapper)
             }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -139,6 +160,10 @@ class HomeSearchAdapter @Inject constructor(
 
         override fun afterTextChanged(s: Editable?) {
 
+        }
+
+        override fun onClick(v: View?) {
+            searchCallBack(item.searchHintMapper)
         }
 
     }
