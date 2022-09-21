@@ -6,11 +6,6 @@
     android:background="@android:color/transparent"
     android:animateLayoutChanges="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_nav_layout"
             android:layout_width="0dp"
@@ -87,27 +82,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/my_pass_tab"
-        style="@style/circle_shape"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginBottom="@dimen/_15sdp"
-        android:background="@color/accent_color"
-        android:backgroundTint="@color/accent_color"
-        android:clickable="true"
-        android:elevation="@dimen/_1sdp"
-        android:focusable="true"
-        android:padding="@dimen/_3sdp"
-        android:theme="@style/circle_shape.white_border"
-        app:contentPadding="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_my_pass"
-        app:strokeColor="@color/white"
-        app:strokeWidth="@dimen/_5sdp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,9 +74,11 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
                             "- ${it.endWorkString}\n"
                 )
                     .init(R.color.black, com.intuit.sdp.R.dimen._10sdp, R.font.gt_meduim)
-            }else{
-                spannableStringModule.addString("${it.dayFrom} ${context.getString(R.string.to)} " +
-                        "${it.dayTo} ${it.startWorkString} - ${it.endWorkString}")
+            } else {
+                spannableStringModule.addString(
+                    "${it.dayFrom} ${context.getString(R.string.to)} " +
+                            "${it.dayTo} ${it.startWorkString} - ${it.endWorkString}"
+                )
                     .init(R.color.black, com.intuit.sdp.R.dimen._10sdp, R.font.gt_meduim)
             }
         }
@@ -85,30 +87,51 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
 
     fun initPriceList(context: Context) {
         priceList = mutableListOf()
-        priceList.add(PricePagerMapper(
-            startFrom = context.getString(R.string.day_pass),
-            per = "",
-            price = dayPassPrice,
-            currency = currency
-        ))
-        priceList.add(PricePagerMapper(
-            startFrom = context.getString(R.string.hourly_starting),
-            per = "/${context.getString(R.string.hour)}",
-            price = dayPassPrice,
-            currency = currency
-        ))
-        priceList.add(PricePagerMapper(
-            startFrom = context.getString(R.string.tailored_starting),
-            per = "/${context.getString(R.string.hour)}",
-            price = tailoredPrice,
-            currency = currency
-        ))
-        priceList.add(PricePagerMapper(
-            startFrom = context.getString(R.string.bundle_starting),
-            per = "/${context.getString(R.string.hour)}",
-            price = bundlePrice,
-            currency = currency
-        ))
-
+        priceList.add(
+            PricePagerMapper(
+                startFrom = context.getString(R.string.day_pass),
+                per = "",
+                price = dayPassPrice,
+                currency = currency
+            )
+        )
+        priceList.add(
+            PricePagerMapper(
+                startFrom = context.getString(R.string.hourly_starting),
+                per = "/${context.getString(R.string.hour)}",
+                price = dayPassPrice,
+                currency = currency
+            )
+        )
+        priceList.add(
+            PricePagerMapper(
+                startFrom = context.getString(R.string.tailored_starting),
+                per = "/${context.getString(R.string.hour)}",
+                price = tailoredPrice,
+                currency = currency
+            )
+        )
+        priceList.add(
+            PricePagerMapper(
+                startFrom = context.getString(R.string.bundle_starting),
+                per = "/${context.getString(R.string.hour)}",
+                price = bundlePrice,
+                currency = currency
+            )
+        )
     }
+
+    override fun toString(): String {
+        return "WorkSpaceMapper(dateTimeModule=$dateTimeModule, " +
+                "image='$image', isFavourite=$isFavourite, " +
+                "shareLink='$shareLink', locationName='$locationName', " +
+                "address='$address', distance='$distance', " +
+                "hourlyPrice='$hourlyPrice', tailoredPrice='$tailoredPrice', " +
+                "dayPassPrice='$dayPassPrice', bundlePrice='$bundlePrice', " +
+                "locationLatLng=$locationLatLng, amenityList=$amenityList, " +
+                "workTimeMapper=$workTimeMapper, currency='$currency', " +
+                "priceList=$priceList)"
+    }
+
+
 }

@@ -41,9 +41,11 @@ class CustomBottomNavigationModule @Inject constructor(
     private var unSelectedColor: Int = 0
     private lateinit var selectedAnimator: ValueAnimator
     private lateinit var unSelectedAnimator: ValueAnimator
+    private lateinit var myPassTab: ShapeableImageView
 
-    fun init(binding: CustomBottomNavigationLayoutBinding) {
+    fun init(binding: CustomBottomNavigationLayoutBinding, myPassTab: ShapeableImageView) {
         this.binding = binding
+        this.myPassTab = myPassTab
         setUpColorWithAnimator()
         setUpNavController()
         listenForLoggedInPublisher()
@@ -81,6 +83,7 @@ class CustomBottomNavigationModule @Inject constructor(
 
     private fun setStartView() {
         binding.root.visibility = View.GONE
+        myPassTab.visibility = View.GONE
         navController.setGraph(R.navigation.start_nav)
 
     }
@@ -88,6 +91,7 @@ class CustomBottomNavigationModule @Inject constructor(
     private fun setLogInView() {
         navController.setGraph(R.navigation.logged_in_nav)
         binding.bottomNavLayout.visibility = View.VISIBLE
+        myPassTab.visibility = View.VISIBLE
         initHome()
         setUpCustomBottomNav()
         listenForMyProfilePathPublisherSubject()
@@ -153,14 +157,14 @@ class CustomBottomNavigationModule @Inject constructor(
     }
 
     private fun clickOnMyPass() {
-        binding.myPassTab.setOnClickListener {
-            if (binding.myPassTab.id != selectedItemId)
+        myPassTab.setOnClickListener {
+            if (myPassTab.id != selectedItemId)
                 initMyPass()
         }
     }
 
     private fun initMyPass() {
-        disableAllAndEnableSelected(binding.myPassTab.id)
+        disableAllAndEnableSelected(myPassTab.id)
         /// TODO missing click on my pass
     }
 

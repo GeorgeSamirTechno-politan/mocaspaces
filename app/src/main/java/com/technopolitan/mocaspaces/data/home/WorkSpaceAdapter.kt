@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.WorkSpaceItemBinding
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.modules.GlideModule
+import com.technopolitan.mocaspaces.modules.RecyclerDiffUtilModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.utilities.autoScroll
 import javax.inject.Inject
@@ -33,11 +35,18 @@ class WorkSpaceAdapter @Inject constructor(
     }
 
     fun init(list: MutableList<WorkSpaceMapper>) {
-        val startPosition = 0
+        val diffCallback = RecyclerDiffUtilModule(this.list, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         if (this.list.isNotEmpty())
             this.list.clear()
         this.list.addAll(list)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
+
+//        val startPosition = 0
+//        if (this.list.isNotEmpty())
+//            this.list.clear()
+//        this.list.addAll(list)
+//        notifyDataSetChanged()
 //        textAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
     }
 

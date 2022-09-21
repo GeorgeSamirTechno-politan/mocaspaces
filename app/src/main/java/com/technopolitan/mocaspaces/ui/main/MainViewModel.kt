@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.google.android.material.imageview.ShapeableImageView
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule
 import com.technopolitan.mocaspaces.data.remote.MainRemote
@@ -25,8 +26,11 @@ class MainViewModel @Inject constructor(
 
     fun connectionChangeLiveData(): LiveData<Boolean> = networkChangeMediator
 
-    fun initCustomBottomNavigationModule(binding: CustomBottomNavigationLayoutBinding){
-        customBottomNavigationModule.init(binding)
+    fun initCustomBottomNavigationModule(
+        binding: CustomBottomNavigationLayoutBinding,
+        myPassTab: ShapeableImageView
+    ){
+        customBottomNavigationModule.init(binding, myPassTab)
     }
 
 }

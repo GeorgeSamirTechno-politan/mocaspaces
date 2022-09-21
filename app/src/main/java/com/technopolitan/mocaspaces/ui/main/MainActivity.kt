@@ -5,10 +5,12 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.modules.*
 import javax.inject.Inject
 
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var appDefaultModel: AppDefaultModule
 
     @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     lateinit var mainViewModel: MainViewModel
 
     @Inject
@@ -52,11 +56,12 @@ class MainActivity : AppCompatActivity() {
         utilityModule.setStatusBar()
         splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+        mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         requestNetworkStatusPermission()
         onBackPressedCallBack()
-        mainViewModel.initCustomBottomNavigationModule(binding.customBottomNavLayout)
+        mainViewModel.initCustomBottomNavigationModule(binding.customBottomNavLayout, binding.myPassTab)
 //        addPixToActivity(R.id.nav_host_fragment, pixModule.options)
     }
 
