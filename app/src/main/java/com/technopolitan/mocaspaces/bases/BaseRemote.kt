@@ -34,6 +34,15 @@ abstract class BaseRemote<T,E> {
         return apiMediator
     }
 
+    fun getRemaining(pageTotal: Int, pageSize: Int, pageNumber: Int): Int {
+        var remaining: Int = 0
+        val pageTotal = pageTotal
+        if (pageTotal > pageSize) {
+            remaining = pageTotal / pageNumber
+        }
+        return remaining
+    }
+
     fun getSource(): LiveData<ApiStatus<T>> = apiMediator
 
     abstract fun flowable(): Flowable<HeaderResponse<E>>

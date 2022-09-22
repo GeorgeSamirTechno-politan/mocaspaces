@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.bases.BaseRecyclerAdapter
 import com.technopolitan.mocaspaces.databinding.MeetingRoomItemBinding
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import com.technopolitan.mocaspaces.modules.GlideModule
@@ -15,33 +16,20 @@ class MeetingRoomAdapter @Inject constructor(
     private var glideModule: GlideModule,
     private var priceAdapter: PriceAdapter,
     private var context: Context
-) : RecyclerView.Adapter<MeetingRoomAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<MeetingRoomMapper, MeetingRoomItemBinding>() {
 
 
-    private val list: MutableList<MeetingRoomMapper> = mutableListOf()
-
-    fun init(list: List<MeetingRoomMapper>) {
-        val startPosition = this.list.size
-        this.list.addAll(list)
-        notifyItemRangeInserted(startPosition, itemCount)
-    }
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemBinding =
             MeetingRoomItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(itemBinding)
+        return MeetingViewHolder(itemBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+    override fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: MeetingRoomMapper) {
+        (holder as MeetingViewHolder).bind(item)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    inner class ViewHolder(private val itemBinding: MeetingRoomItemBinding) :
+    private inner class MeetingViewHolder(private val itemBinding: MeetingRoomItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(it: MeetingRoomMapper) {
@@ -51,7 +39,7 @@ class MeetingRoomAdapter @Inject constructor(
             itemBinding.meetingRoomName.text = it.venueName
             itemBinding.capacityTextView.text = it.capacity.toString()
             itemBinding.meetingRoomViewPagerAdapter.adapter = priceAdapter
-            priceAdapter.init(it.priceList)
+            priceAdapter.setData(it.priceList.toMutableList(), false)
             glideModule.loadImage(it.image, itemBinding.meetingRoomImageView)
             if (it.workTimeMapper.isOpen()) {
                 setOpen()
@@ -70,4 +58,6 @@ class MeetingRoomAdapter @Inject constructor(
             itemBinding.meetingRoomStatusTextView.text = context.getText(R.string.close)
         }
     }
+
+
 }

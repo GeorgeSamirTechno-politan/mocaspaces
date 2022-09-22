@@ -232,7 +232,8 @@ class PersonalInfoDataModule @Inject constructor(
     fun initMemberTypeAdapter(list: List<DropDownMapper>) {
         binding.memberTypeRecycler.adapter = memberTypeAdapter
         memberTypeItemPublisher.onNext(list[0])
-        memberTypeAdapter.setList(list).setClickCallBack {
+        memberTypeAdapter.setData(list.toMutableList(), false)
+        memberTypeAdapter.setClickCallBack {
             memberTypeItemPublisher.onNext(it)
 
         }

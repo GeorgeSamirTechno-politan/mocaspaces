@@ -83,12 +83,10 @@ class WorkSpaceFragment : Fragment() {
 
 
     private fun initView() {
-//        binding.workSpaceLoadMore.progressView.visibility = View.GONE
         binding.workSpaceRecycler.adapter = workSpaceAdapter
         workSpaceAdapter.setFavouriteCallBack {
             setFavourite(it)
         }
-        listenForScrolling()
         listenForSwipeToRefresh()
     }
 
@@ -108,7 +106,6 @@ class WorkSpaceFragment : Fragment() {
     private fun listenForScrolling() {
         binding.workSpaceRecycler.loadMore(workspaceViewModel.hasLoadMore()) {
             workspaceViewModel.loadMore()
-//            binding.workSpaceLoadMore.progressView.visibility = View.VISIBLE
         }
     }
 
@@ -119,15 +116,15 @@ class WorkSpaceFragment : Fragment() {
                 workSpaceApiHandler.handleResponse(
                     response,
                     binding.workSpaceProgress.progressView,
-                    binding.workSpaceRefreshLayout
                 ) {
                     workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
                     workSpaceAdapter.setData(it.toMutableList(), response.remainingPage > 0)
                     workspaceViewModel.removeSourceFromWorkSpaceApi()
+                    listenForScrolling()
                 }
             } else {
                 workSpaceApiHandler.handleResponse(response) {
-                    workSpaceAdapter.addMoreDate(
+                    workSpaceAdapter.setData(
                         response.data!!.toMutableList(),
                         response.remainingPage > 0
                     )

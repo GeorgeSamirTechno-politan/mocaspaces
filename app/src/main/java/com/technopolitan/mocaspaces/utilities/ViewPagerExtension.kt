@@ -132,3 +132,20 @@ fun ViewPager2.depthPageTransformer(enable: Boolean) {
         }
     }
 }
+
+fun ViewPager2.fadeInOutPageTransform(enable: Boolean) {
+    if (enable) {
+        setPageTransformer { view, position ->
+            view.translationX = view.width * -position
+
+            if (position <= -1.0F || position >= 1.0F) {
+                view.alpha = 0.0F
+            } else if (position == 0.0F) {
+                view.alpha = 1.0F
+            } else {
+                // position is between -1.0F & 0.0F OR 0.0F & 1.0F
+                view.alpha = 1.0F - Math.abs(position)
+            }
+        }
+    }
+}

@@ -2,45 +2,27 @@ package com.technopolitan.mocaspaces.data.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.technopolitan.mocaspaces.bases.BaseRecyclerAdapter
 import com.technopolitan.mocaspaces.databinding.PriceItemBinding
 import com.technopolitan.mocaspaces.models.location.mappers.PricePagerMapper
-import com.technopolitan.mocaspaces.modules.RecyclerDiffUtilModule
 import javax.inject.Inject
 
 
 class PriceAdapter @Inject constructor() :
-    RecyclerView.Adapter<PriceAdapter.ViewHolder>() {
-
-    private lateinit var binding: PriceItemBinding
-
-    private var priceList: MutableList<PricePagerMapper> = mutableListOf()
+    BaseRecyclerAdapter<PricePagerMapper, PriceItemBinding>() {
 
 
-    fun init(priceList: MutableList<PricePagerMapper>) {
-        val diffCallback = RecyclerDiffUtilModule(this.priceList, priceList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        if (this.priceList.isNotEmpty())
-            this.priceList.clear()
-        this.priceList.addAll(priceList)
-        diffResult.dispatchUpdatesTo(this)
+    override fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = PriceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PriceViewHolder(binding)
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceAdapter.ViewHolder {
-        binding = PriceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+    override fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: PricePagerMapper) {
+        (holder as PriceViewHolder).bind(item)
     }
 
-    override fun onBindViewHolder(holder: PriceAdapter.ViewHolder, position: Int) {
-        holder.bind(priceList[position])
-    }
-
-    override fun getItemCount(): Int = priceList.size
-
-
-    inner class ViewHolder(private val itemBinding: PriceItemBinding) :
+    private inner class PriceViewHolder(private val itemBinding: PriceItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(item: PricePagerMapper) {
             itemBinding.priceTextView.text = item.price
@@ -51,5 +33,6 @@ class PriceAdapter @Inject constructor() :
 
 
     }
+
 
 }

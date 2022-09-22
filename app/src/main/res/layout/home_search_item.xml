@@ -61,8 +61,7 @@
             android:layout_height="@dimen/_50sdp"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:paddingHorizontal="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_10sdp"
             android:popupElevation="@dimen/_1sdp"
             android:textSize="@dimen/_13sdp"
             app:simpleItemSelectedRippleColor="@color/grey_color" />

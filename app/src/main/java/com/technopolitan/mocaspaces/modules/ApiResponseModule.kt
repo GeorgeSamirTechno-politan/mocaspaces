@@ -35,6 +35,7 @@ class ApiResponseModule<T> @Inject constructor(
         }
     }
 
+
     fun handleResponse(
         apiStatus: ApiStatus<T>,
         onSuccessCallBack: (entity: T) -> Unit
@@ -44,6 +45,26 @@ class ApiResponseModule<T> @Inject constructor(
                 onSuccessCallBack(apiStatus.data!!)
             }
             is ErrorStatus, is FailedStatus -> {
+                showErrorOrFailedMessage(apiStatus.message)
+            }
+        }
+    }
+
+    fun handleResponse(
+        apiStatus: ApiStatus<T>,
+        loadingView: LottieAnimationView,
+        onSuccessCallBack: (entity: T) -> Unit
+    ) {
+        when (apiStatus) {
+            is SuccessStatus -> {
+                loadingView.visibility = View.GONE
+                onSuccessCallBack(apiStatus.data!!)
+            }
+            is LoadingStatus -> {
+                loadingView.visibility = View.VISIBLE
+            }
+            is ErrorStatus, is FailedStatus -> {
+                loadingView.visibility = View.GONE
                 showErrorOrFailedMessage(apiStatus.message)
             }
         }

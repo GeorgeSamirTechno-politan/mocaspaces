@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentEventSpaceBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -85,23 +84,23 @@ class EventSpaceFragment : Fragment() {
     }
 
     private fun initMeetingLiveData() {
-        viewModel.getEventRoomList().observe(viewLifecycleOwner) { response ->
-            if (eventSpaceAdapter.itemCount == 0)
-                eventSpaceApiHandler.handleResponse(
-                    response,
-                    binding.eventProgress.progressView,
-                    binding.eventRefreshLayout
-                ) {
-                    viewModel.updateEventSpacePage(response.remainingPage)
-                    eventSpaceAdapter.init(it.toMutableList())
-                }
-            else {
-                if(response is SuccessStatus){
-                    eventSpaceAdapter.init(response.data!!.toMutableList())
-                    viewModel.updateEventSpacePage(response.remainingPage)
-                    binding.eventSpaceLoadMore.progressView.visibility = View.GONE
-                }
-            }
-        }
+//        viewModel.getEventRoomList().observe(viewLifecycleOwner) { response ->
+//            if (eventSpaceAdapter.itemCount == 0)
+//                eventSpaceApiHandler.handleResponse(
+//                    response,
+//                    binding.eventProgress.progressView,
+//                    binding.eventRefreshLayout
+//                ) {
+//                    viewModel.updateEventSpacePage(response.remainingPage)
+//                    eventSpaceAdapter.init(it.toMutableList())
+//                }
+//            else {
+//                if(response is SuccessStatus){
+//                    eventSpaceAdapter.init(response.data!!.toMutableList())
+//                    viewModel.updateEventSpacePage(response.remainingPage)
+//                    binding.eventSpaceLoadMore.progressView.visibility = View.GONE
+//                }
+//            }
+//        }
     }
 }

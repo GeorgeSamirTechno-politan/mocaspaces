@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModel
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
-import com.technopolitan.mocaspaces.data.home.HomeSearchMapper
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote
 import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote
 import com.technopolitan.mocaspaces.data.remote.SearchHintRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
+import com.technopolitan.mocaspaces.models.location.mappers.HomeSearchMapper
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import javax.inject.Inject

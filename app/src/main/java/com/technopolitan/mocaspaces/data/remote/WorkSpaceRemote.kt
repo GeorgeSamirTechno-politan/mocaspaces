@@ -38,6 +38,7 @@ class WorkSpaceRemote @Inject constructor(
         this.pageSize = pageSize
         this.id = id
         this.type = type
+        this.location = location
         return handleApi()
     }
 
@@ -61,12 +62,8 @@ class WorkSpaceRemote @Inject constructor(
                     list.add(WorkSpaceMapper(dateTimeModule).init(item, location, context))
                 }
             }
-            var remaining: Int = 0
-            val pageTotal = it.pageTotal!!
-            if (pageTotal > pageSize) {
-                remaining = pageTotal / pageNumber
-            }
-            SuccessStatus(message = "", list, remaining)
+
+            SuccessStatus(message = "", list, getRemaining(it.pageTotal!!, pageSize, pageSize))
         } else FailedStatus(it.message)
     }
 }

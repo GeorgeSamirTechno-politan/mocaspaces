@@ -502,7 +502,7 @@ public final class DaggerApplicationComponent {
     }
 
     private HomeSearchAdapter homeSearchAdapter() {
-      return new HomeSearchAdapter(context, activity, provideSpannableStringModuleProvider.get(), searchHintListAdapter());
+      return new HomeSearchAdapter(context, provideSpannableStringModuleProvider.get(), searchHintListAdapter());
     }
 
     private AmenityAdapter amenityAdapter() {

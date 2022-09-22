@@ -3,21 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/background_color"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent">
-
-    <include
-        android:id="@+id/work_space_progress"
-        layout="@layout/progress_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/work_space_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:clipToPadding="true"
+        android:paddingVertical="@dimen/_10sdp"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/accent_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,13 +21,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/work_space_recycler"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipChildren="true"
-            android:clipToPadding="true"
-            android:paddingVertical="@dimen/_10sdp"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-            tools:itemCount="2"
+            tools:itemCount="1"
             tools:listitem="@layout/work_space_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -44,5 +36,12 @@
     <!--        android:layout_height="0dp"-->
     <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
+    <include
+        android:id="@+id/work_space_progress"
+        layout="@layout/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

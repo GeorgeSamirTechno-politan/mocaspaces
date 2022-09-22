@@ -1,6 +1,5 @@
 package com.technopolitan.mocaspaces.di.fragmentModule
 
-import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.data.home.*
@@ -71,9 +70,8 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
     @Provides
     fun provideHomeSearchAdapter(
         context: Context,
-        activity: Activity,
         spannableStringModule: SpannableStringModule,
         searchHintListAdapter: SearchHintListAdapter,
     ): HomeSearchAdapter =
-        HomeSearchAdapter(context, activity, spannableStringModule, searchHintListAdapter)
+        HomeSearchAdapter(context, spannableStringModule, searchHintListAdapter)
 }

@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
 
     private fun listenForSearchHintListChange() {
         viewModel.getSearchHintListLiveData().observe(viewLifecycleOwner) {
-            homeSearchAdapter.setSearchHintList(it)
+            homeSearchAdapter.setSearchHintList(it.toMutableList())
         }
     }
 
@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
 
 
     private fun initHomeSearchMapperList() {
-        homeSearchAdapter.setList(viewModel.getHomeSearchMapperList().toMutableList())
+        homeSearchAdapter.setData(viewModel.getHomeSearchMapperList().toMutableList(), false)
         binding.homeSearchViewPager.adapter = homeSearchAdapter
         homeSearchAdapter.setSearchCallBack {
             viewModel.setSearchHint(it)

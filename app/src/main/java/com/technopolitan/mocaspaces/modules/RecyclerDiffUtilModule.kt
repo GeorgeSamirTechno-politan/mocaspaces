@@ -8,7 +8,7 @@ class RecyclerDiffUtilModule<T>  constructor(private var oldList: MutableList<T>
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].toString() === newList[newItemPosition].toString()
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

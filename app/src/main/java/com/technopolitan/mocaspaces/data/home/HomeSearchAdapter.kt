@@ -1,6 +1,5 @@
 package com.technopolitan.mocaspaces.data.home
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
@@ -13,68 +12,46 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.bases.BaseRecyclerAdapter
 import com.technopolitan.mocaspaces.databinding.HomeSearchItemBinding
+import com.technopolitan.mocaspaces.models.location.mappers.HomeSearchMapper
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
-import com.technopolitan.mocaspaces.modules.RecyclerDiffUtilModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import javax.inject.Inject
 
 
 class HomeSearchAdapter @Inject constructor(
     private var context: Context,
-    private var activty: Activity,
     private var spannableStringModule: SpannableStringModule,
     private var searchHintAdapter: SearchHintListAdapter
-) : RecyclerView.Adapter<HomeSearchAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<HomeSearchMapper, HomeSearchItemBinding>() {
 
     private var itemIndex = 0
-    private var list: MutableList<HomeSearchMapper> = mutableListOf()
-    private lateinit var searchHintMapperList: List<SearchHintMapper>
     private lateinit var searchCallBack: (searchHintMapper: SearchHintMapper) -> Unit
-
-    fun setList(list: MutableList<HomeSearchMapper>): HomeSearchAdapter {
-        val diffCallback = RecyclerDiffUtilModule<HomeSearchMapper>(this.list, list)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        if (this.list.isNotEmpty())
-            this.list.clear()
-        this.list.addAll(list)
-        diffResult.dispatchUpdatesTo(this)
-        return this
-    }
-
-    fun setSearchHintList(it: List<SearchHintMapper>) {
-        searchHintAdapter.setList(it)
-        this.searchHintMapperList = it
-    }
+    private var searchHintList: MutableList<SearchHintMapper> = mutableListOf()
 
     fun setSearchCallBack(searchCallBack: (searchHintMapper: SearchHintMapper) -> Unit) {
         this.searchCallBack = searchCallBack
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): HomeSearchAdapter.ViewHolder {
+    fun setSearchHintList(searchHintList: MutableList<SearchHintMapper>) {
+        this.searchHintList = searchHintList
+        searchHintAdapter.setList(this.searchHintList)
+    }
+
+    override fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemBinding =
             HomeSearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
 
-    fun getItemPosition(): Int {
-        return itemIndex
+    override fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: HomeSearchMapper) {
+        (holder as ViewHolder).bind(item)
     }
 
-    override fun onBindViewHolder(holder: HomeSearchAdapter.ViewHolder, position: Int) {
-        holder.bind(list[position])
-    }
-
-    override fun getItemCount(): Int = list.size
-
-
-    inner class ViewHolder(private val itemBinding: HomeSearchItemBinding) :
+    private inner class ViewHolder(private val itemBinding: HomeSearchItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root), TextWatcher, View.OnClickListener {
         private lateinit var item: HomeSearchMapper
 
@@ -96,7 +73,7 @@ class HomeSearchAdapter @Inject constructor(
         }
 
         private val editActionListener: TextView.OnEditorActionListener =
-            TextView.OnEditorActionListener { v, actionId, event ->
+            TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (item.searchHintMapper.id == null && item.searchHintMapper.type == null ||
                         itemBinding.searchItemAutoCompleteText.text.isNullOrEmpty()
@@ -133,7 +110,7 @@ class HomeSearchAdapter @Inject constructor(
         }
 
         private val itemClick: AdapterView.OnItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 val item = searchHintAdapter.getItem(position)
                 if (item.name == context.getString(R.string.no_result_found)) {
                     itemBinding.searchItemAutoCompleteText.setText("")

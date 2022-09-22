@@ -10,6 +10,7 @@ import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
 import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.formatPrice
 
 class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
 
@@ -62,7 +63,7 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
                 locationLatLng,
                 LatLng(location.latitude, location.longitude)
             ) / 1000
-            distance = "$distanceInKm${context.getString(R.string.km_away)}"
+            distance = "${formatPrice(distanceInKm)}${context.getString(R.string.km_away)}"
         }
     }
 
@@ -122,18 +123,5 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
             )
         )
     }
-
-    override fun toString(): String {
-        return "WorkSpaceMapper(dateTimeModule=$dateTimeModule, " +
-                "image='$image', isFavourite=$isFavourite, " +
-                "shareLink='$shareLink', locationName='$locationName', " +
-                "address='$address', distance='$distance', " +
-                "hourlyPrice='$hourlyPrice', tailoredPrice='$tailoredPrice', " +
-                "dayPassPrice='$dayPassPrice', bundlePrice='$bundlePrice', " +
-                "locationLatLng=$locationLatLng, amenityList=$amenityList, " +
-                "workTimeMapper=$workTimeMapper, currency='$currency', " +
-                "priceList=$priceList)"
-    }
-
 
 }

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentMeetingRoomBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -85,24 +84,24 @@ class MeetingRoomFragment : Fragment() {
     }
 
     private fun initMeetingLiveData() {
-        viewModel.getMeetingRoomList().observe(viewLifecycleOwner) { response ->
-            if (meetingRoomAdapter.itemCount == 0)
-                workSpaceApiHandler.handleResponse(
-                    response,
-                    binding.meetingProgress.progressView,
-                    binding.meetingRefreshLayout
-                ) {
-                    viewModel.updateMeetingRoomPage(response.remainingPage)
-                    meetingRoomAdapter.init(it.toMutableList())
-                }
-            else {
-                if (response is SuccessStatus) {
-                    meetingRoomAdapter.init(response.data!!.toMutableList())
-                    viewModel.updateMeetingRoomPage(response.remainingPage)
-                    binding.meetingSpaceLoadMore.progressView.visibility = View.GONE
-                }
-            }
-        }
+//        viewModel.getMeetingRoomList().observe(viewLifecycleOwner) { response ->
+//            if (meetingRoomAdapter.itemCount == 0)
+//                workSpaceApiHandler.handleResponse(
+//                    response,
+//                    binding.meetingProgress.progressView,
+//                    binding.meetingRefreshLayout
+//                ) {
+//                    viewModel.updateMeetingRoomPage(response.remainingPage)
+//                    meetingRoomAdapter.init(it.toMutableList())
+//                }
+//            else {
+//                if (response is SuccessStatus) {
+//                    meetingRoomAdapter.init(response.data!!.toMutableList())
+//                    viewModel.updateMeetingRoomPage(response.remainingPage)
+//                    binding.meetingSpaceLoadMore.progressView.visibility = View.GONE
+//                }
+//            }
+//        }
     }
 
 
