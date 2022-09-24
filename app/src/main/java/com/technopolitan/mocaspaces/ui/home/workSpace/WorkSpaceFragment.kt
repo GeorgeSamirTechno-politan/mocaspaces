@@ -100,10 +100,11 @@ class WorkSpaceFragment : Fragment() {
     }
 
     private fun clearAdapter() {
-        workSpaceAdapter.setData(mutableListOf(), false)
+        workSpaceAdapter.clearAdapter()
     }
 
     private fun listenForScrolling() {
+
         binding.workSpaceRecycler.loadMore(workspaceViewModel.hasLoadMore()) {
             workspaceViewModel.loadMore()
         }
@@ -130,6 +131,7 @@ class WorkSpaceFragment : Fragment() {
                     )
                     workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
                     workspaceViewModel.removeSourceFromWorkSpaceApi()
+                    listenForScrolling()
                 }
             }
         }

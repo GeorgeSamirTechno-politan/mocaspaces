@@ -9,7 +9,7 @@ import com.technopolitan.mocaspaces.models.location.mappers.AmenityMapper
 import com.technopolitan.mocaspaces.modules.GlideModule
 import javax.inject.Inject
 
-class AmenityAdapter @Inject constructor(private var glideModule: GlideModule) :
+class AmenityAdapter constructor(private var glideModule: GlideModule) :
     BaseRecyclerAdapter<AmenityMapper, AmenityItemBinding>() {
 
 

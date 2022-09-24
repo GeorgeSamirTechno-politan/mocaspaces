@@ -19,9 +19,7 @@ import javax.inject.Inject
 class WorkSpaceAdapter @Inject constructor(
     private var glideModule: GlideModule,
     private var context: Context,
-    private var amenityAdapter: AmenityAdapter,
     private var spannableStringModule: SpannableStringModule,
-    private var priceAdapter: PriceAdapter
 ) : BaseRecyclerAdapter<WorkSpaceMapper, WorkSpaceItemBinding>() {
 
     private lateinit var favouriteCallbacks: (workspaceMapper: WorkSpaceMapper) -> Unit
@@ -44,11 +42,14 @@ class WorkSpaceAdapter @Inject constructor(
     inner class ItemViewHolder(private val itemBind: WorkSpaceItemBinding) :
         RecyclerView.ViewHolder(itemBind.root), View.OnClickListener {
 
+        private var itemIndex = 0
+
         init {
             itemBind.workSpaceImageView.setOnClickListener(this)
             itemBind.favouriteStatusImageView.setOnClickListener(this)
             itemBind.shareImageButton.setOnClickListener(this)
             itemBind.workSpaceBookBtn.setOnClickListener(this)
+
         }
 
         fun bind(item: WorkSpaceMapper) {
@@ -72,24 +73,31 @@ class WorkSpaceAdapter @Inject constructor(
             }
         }
 
+
         private fun setAmenities(item: WorkSpaceMapper) {
+            val amenityAdapter = AmenityAdapter(glideModule)
             amenityAdapter.setData(item.amenityList.toMutableList(), false)
-            itemBinding.amenityRecycler.adapter = amenityAdapter
+            itemBind.amenityRecycler.adapter =amenityAdapter
         }
 
         private fun setFavouriteAndUnFavourite(item: WorkSpaceMapper) {
-            if (item.isFavourite)
-                setFavourite()
-            else
-                setUnFavourite()
+            if(itemIndex == bindingAdapterPosition){
+                item.isFavourite = item.isFavourite.not()
+            }
+            when(item.isFavourite){
+                true-> setFavourite()
+                false-> setUnFavourite()
+            }
 
         }
 
         private fun setPrice(item: WorkSpaceMapper) {
             item.initPriceList(context)
-            priceAdapter.setData(item.priceList.toMutableList(), false)
+            val priceAdapter = PriceAdapter()
             itemBinding.priceViewPager.adapter = priceAdapter
             itemBinding.priceViewPager.autoScroll(5000)
+            priceAdapter.setData(item.priceList.toMutableList(), false)
+
         }
 
         private fun setOpen() {
@@ -124,10 +132,9 @@ class WorkSpaceAdapter @Inject constructor(
 
         override fun onClick(v: View?) {
             if (v?.id == itemBind.favouriteStatusImageView.id) {
-                val item = getItem(bindingAdapterPosition)
-                favouriteCallbacks(item)
-                item.isFavourite = item.isFavourite.not()
-                updateItem(item, bindingAdapterPosition)
+                itemIndex = bindingAdapterPosition
+                favouriteCallbacks(getItem(itemIndex))
+                notifyItemChanged(itemIndex)
             } else if (v?.id == itemBind.workSpaceImageView.id) {
                 Log.d(javaClass.name, "onClick: ")
             }

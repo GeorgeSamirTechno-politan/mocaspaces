@@ -15,7 +15,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var itemBinding: K
-    private var list: MutableList<T?> = mutableListOf()
+    protected var list: MutableList<T?> = mutableListOf()
 
     companion object {
         const val normal = 1
@@ -27,22 +27,28 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     override fun getItemCount(): Int = list.size
 
     fun setData(newList: MutableList<T?>, hasMoreData: Boolean) {
+        val startPosition = itemCount
         if (newList.isEmpty() && hasMoreData) {
             newList.add(null)
         }
         this.list.addAll(newList)
-        diffList(this.list, newList)
+        notifyItemRangeInserted(startPosition, itemCount)
+//        diffList(this.list, newList)
     }
 
     fun getItem(position: Int): T {
         return list[position]!!
     }
 
+    fun clearAdapter(){
+        if(this.list.isNotEmpty()){
+            this.list.clear()
+            notifyItemRangeRemoved(0, itemCount)
+        }
+    }
+
     fun updateItem(item: T, position: Int) {
-        val newList: MutableList<T?> = mutableListOf()
-        newList.addAll(this.list)
-        newList[position] = item
-        diffList(newList, newList)
+       notifyItemChanged(position)
     }
 
     private fun diffList(oldList: MutableList<T?>, newList: MutableList<T?>) {
@@ -83,6 +89,10 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
 
             }
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return list[position].hashCode().toLong()
     }
 
     abstract fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: T)

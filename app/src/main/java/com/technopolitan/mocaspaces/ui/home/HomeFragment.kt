@@ -51,9 +51,7 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    //    @Inject
     lateinit var viewModel: HomeViewModel
-
 
     private lateinit var binding: HomeFragmentBinding
 

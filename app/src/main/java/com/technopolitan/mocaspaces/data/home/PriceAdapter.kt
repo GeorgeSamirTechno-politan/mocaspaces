@@ -9,7 +9,7 @@ import com.technopolitan.mocaspaces.models.location.mappers.PricePagerMapper
 import javax.inject.Inject
 
 
-class PriceAdapter @Inject constructor() :
+class PriceAdapter constructor() :
     BaseRecyclerAdapter<PricePagerMapper, PriceItemBinding>() {
 
 

@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class MeetingRoomAdapter @Inject constructor(
     private var glideModule: GlideModule,
-    private var priceAdapter: PriceAdapter,
     private var context: Context
 ) : BaseRecyclerAdapter<MeetingRoomMapper, MeetingRoomItemBinding>() {
 
@@ -38,6 +37,7 @@ class MeetingRoomAdapter @Inject constructor(
             itemBinding.meetingLocationAddressTextView.text = it.address
             itemBinding.meetingRoomName.text = it.venueName
             itemBinding.capacityTextView.text = it.capacity.toString()
+            val priceAdapter = PriceAdapter()
             itemBinding.meetingRoomViewPagerAdapter.adapter = priceAdapter
             priceAdapter.setData(it.priceList.toMutableList(), false)
             glideModule.loadImage(it.image, itemBinding.meetingRoomImageView)

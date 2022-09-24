@@ -36,23 +36,17 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
     fun provideDeleteWorkSpaceFavouriteRemote(): DeleteWorkSpaceFavouriteRemote =
         DeleteWorkSpaceFavouriteRemote(networkModule)
 
-    @Singleton
-    @Provides
-    fun providePriceAdapter(): PriceAdapter =
-        PriceAdapter()
 
     @Singleton
     @Provides
     fun provideWorkSpaceAdapter(
         glideModule: GlideModule,
         context: Context,
-        amenityAdapter: AmenityAdapter,
         spannableStringModule: SpannableStringModule,
-        priceAdapter: PriceAdapter
     )
             : WorkSpaceAdapter = WorkSpaceAdapter(
         glideModule,
-        context, amenityAdapter, spannableStringModule, priceAdapter
+        context, spannableStringModule
     )
 
 //    @Singleton
