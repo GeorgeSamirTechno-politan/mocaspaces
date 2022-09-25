@@ -22,38 +22,29 @@ public final class WorkSpaceAdapter_Factory implements Factory<WorkSpaceAdapter>
 
   private final Provider<Context> contextProvider;
 
-  private final Provider<AmenityAdapter> amenityAdapterProvider;
-
   private final Provider<SpannableStringModule> spannableStringModuleProvider;
 
-  private final Provider<PriceAdapter> priceAdapterProvider;
-
   public WorkSpaceAdapter_Factory(Provider<GlideModule> glideModuleProvider,
-      Provider<Context> contextProvider, Provider<AmenityAdapter> amenityAdapterProvider,
-      Provider<SpannableStringModule> spannableStringModuleProvider,
-      Provider<PriceAdapter> priceAdapterProvider) {
+      Provider<Context> contextProvider,
+      Provider<SpannableStringModule> spannableStringModuleProvider) {
     this.glideModuleProvider = glideModuleProvider;
     this.contextProvider = contextProvider;
-    this.amenityAdapterProvider = amenityAdapterProvider;
     this.spannableStringModuleProvider = spannableStringModuleProvider;
-    this.priceAdapterProvider = priceAdapterProvider;
   }
 
   @Override
   public WorkSpaceAdapter get() {
-    return newInstance(glideModuleProvider.get(), contextProvider.get(), amenityAdapterProvider.get(), spannableStringModuleProvider.get(), priceAdapterProvider.get());
+    return newInstance(glideModuleProvider.get(), contextProvider.get(), spannableStringModuleProvider.get());
   }
 
   public static WorkSpaceAdapter_Factory create(Provider<GlideModule> glideModuleProvider,
-      Provider<Context> contextProvider, Provider<AmenityAdapter> amenityAdapterProvider,
-      Provider<SpannableStringModule> spannableStringModuleProvider,
-      Provider<PriceAdapter> priceAdapterProvider) {
-    return new WorkSpaceAdapter_Factory(glideModuleProvider, contextProvider, amenityAdapterProvider, spannableStringModuleProvider, priceAdapterProvider);
+      Provider<Context> contextProvider,
+      Provider<SpannableStringModule> spannableStringModuleProvider) {
+    return new WorkSpaceAdapter_Factory(glideModuleProvider, contextProvider, spannableStringModuleProvider);
   }
 
   public static WorkSpaceAdapter newInstance(GlideModule glideModule, Context context,
-      AmenityAdapter amenityAdapter, SpannableStringModule spannableStringModule,
-      PriceAdapter priceAdapter) {
-    return new WorkSpaceAdapter(glideModule, context, amenityAdapter, spannableStringModule, priceAdapter);
+      SpannableStringModule spannableStringModule) {
+    return new WorkSpaceAdapter(glideModule, context, spannableStringModule);
   }
 }

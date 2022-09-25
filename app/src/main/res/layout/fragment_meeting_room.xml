@@ -5,45 +5,37 @@
     android:background="@color/background_color"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/meeting_progress"
-        layout="@layout/progress_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/meeting_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:clipToPadding="false"
+        android:paddingVertical="@dimen/_10sdp"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/accent_color"
-        app:layout_constraintBottom_toTopOf="@id/meeting_space_load_more"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/meeting_recycler"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipChildren="true"
-            android:clipToPadding="true"
-            android:paddingVertical="@dimen/_10sdp"
+            android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-            tools:itemCount="2"
+            android:orientation="vertical"
+            tools:itemCount="1"
             tools:listitem="@layout/meeting_room_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
     <include
-        android:id="@+id/meeting_space_load_more"
+        android:id="@+id/meeting_progress"
         layout="@layout/progress_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

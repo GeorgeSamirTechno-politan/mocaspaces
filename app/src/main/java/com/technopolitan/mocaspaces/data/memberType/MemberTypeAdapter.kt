@@ -17,7 +17,6 @@ class MemberTypeAdapter @Inject constructor(
     private val context: Context
 ) : BaseRecyclerAdapter<DropDownMapper, MemberTypeItemBinding>() {
 
-    private var itemIndex = 0
     private lateinit var itemClickCallBack: (entity: DropDownMapper) -> Unit
 
     override fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -22,10 +22,11 @@ class WorkSpaceAdapter @Inject constructor(
     private var spannableStringModule: SpannableStringModule,
 ) : BaseRecyclerAdapter<WorkSpaceMapper, WorkSpaceItemBinding>() {
 
-    private lateinit var favouriteCallbacks: (workspaceMapper: WorkSpaceMapper) -> Unit
+
+    private lateinit var favouriteCallbacks: (workspaceMapper: WorkSpaceMapper, position: Int) -> Unit
 
 
-    fun setFavouriteCallBack(favouriteCallbacks: (workspaceMapper: WorkSpaceMapper) -> Unit) {
+    fun setFavouriteCallBack(favouriteCallbacks: (workspaceMapper: WorkSpaceMapper, position: Int) -> Unit) {
         this.favouriteCallbacks = favouriteCallbacks
     }
 
@@ -39,10 +40,13 @@ class WorkSpaceAdapter @Inject constructor(
         (holder as ItemViewHolder).bind(item)
     }
 
+    fun updateFavouriteItem(item: WorkSpaceMapper, position: Int) {
+        notifyItemChanged(position, item.isFavourite)
+    }
+
+
     inner class ItemViewHolder(private val itemBind: WorkSpaceItemBinding) :
         RecyclerView.ViewHolder(itemBind.root), View.OnClickListener {
-
-        private var itemIndex = 0
 
         init {
             itemBind.workSpaceImageView.setOnClickListener(this)
@@ -76,17 +80,14 @@ class WorkSpaceAdapter @Inject constructor(
 
         private fun setAmenities(item: WorkSpaceMapper) {
             val amenityAdapter = AmenityAdapter(glideModule)
-            amenityAdapter.setData(item.amenityList.toMutableList(), false)
-            itemBind.amenityRecycler.adapter =amenityAdapter
+            amenityAdapter.setData(item.amenityList.toMutableList())
+            itemBind.amenityRecycler.adapter = amenityAdapter
         }
 
         private fun setFavouriteAndUnFavourite(item: WorkSpaceMapper) {
-            if(itemIndex == bindingAdapterPosition){
-                item.isFavourite = item.isFavourite.not()
-            }
-            when(item.isFavourite){
-                true-> setFavourite()
-                false-> setUnFavourite()
+            when (item.isFavourite) {
+                true -> setFavourite()
+                false -> setUnFavourite()
             }
 
         }
@@ -96,7 +97,7 @@ class WorkSpaceAdapter @Inject constructor(
             val priceAdapter = PriceAdapter()
             itemBinding.priceViewPager.adapter = priceAdapter
             itemBinding.priceViewPager.autoScroll(5000)
-            priceAdapter.setData(item.priceList.toMutableList(), false)
+            priceAdapter.setData(item.priceList.toMutableList())
 
         }
 
@@ -132,9 +133,7 @@ class WorkSpaceAdapter @Inject constructor(
 
         override fun onClick(v: View?) {
             if (v?.id == itemBind.favouriteStatusImageView.id) {
-                itemIndex = bindingAdapterPosition
-                favouriteCallbacks(getItem(itemIndex))
-                notifyItemChanged(itemIndex)
+                favouriteCallbacks(getItem(bindingAdapterPosition), bindingAdapterPosition)
             } else if (v?.id == itemBind.workSpaceImageView.id) {
                 Log.d(javaClass.name, "onClick: ")
             }

@@ -92,28 +92,34 @@ class CustomBottomNavigationModule @Inject constructor(
         navController.setGraph(R.navigation.logged_in_nav)
         binding.bottomNavLayout.visibility = View.VISIBLE
         myPassTab.visibility = View.VISIBLE
-        initHome()
-        setUpCustomBottomNav()
-        listenForMyProfilePathPublisherSubject()
         updateMyProfileImageView()
+        setUpCustomBottomNav()
+        setMyProfileImage(getProfileUrl())
+        listenForMyProfilePathPublisherSubject()
+        initHome()
     }
 
     fun updateMyProfileImageView() {
-        val imagePath = sharedPrefModule.getStringFromShared(
-            SharedPrefKey.ProfileUrl.name
-        )
         myProfilePathPublisherSubject.onNext(
-            imagePath
+            getProfileUrl()
         )
     }
+
+    private fun getProfileUrl(): String = sharedPrefModule.getStringFromShared(
+        SharedPrefKey.ProfileUrl.name
+    )
 
 
     private fun listenForMyProfilePathPublisherSubject() {
         myProfilePathPublisherSubject.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                glideModule.loadImage(it, binding.myProfileTab, R.drawable.ic_person_grey)
+                setMyProfileImage(it)
             }
+    }
+
+    private fun setMyProfileImage(url: String) {
+        glideModule.loadImage(url, binding.myProfileTab, R.drawable.ic_person_grey)
     }
 
     private fun setUpCustomBottomNav() {

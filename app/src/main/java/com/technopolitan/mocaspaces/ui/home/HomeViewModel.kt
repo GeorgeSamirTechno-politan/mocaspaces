@@ -9,9 +9,7 @@ import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
 import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote
-import com.technopolitan.mocaspaces.data.remote.MeetingRoomRemote
 import com.technopolitan.mocaspaces.data.remote.SearchHintRemote
-import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
 import com.technopolitan.mocaspaces.models.location.mappers.HomeSearchMapper
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
@@ -20,14 +18,12 @@ import javax.inject.Inject
 
 open class HomeViewModel @Inject constructor(
     private var searchHintRemote: SearchHintRemote,
-    private var workSpaceRemote: WorkSpaceRemote,
-    private var meetingRoomRemote: MeetingRoomRemote,
     private var eventSpaceRemote: EventSpaceRemote,
-    private var context: Context
+    private val context: Context
 ) : ViewModel() {
 
     private val workSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
-    private val meetingRoomPageNumberMediator: MediatorLiveData<Int> = MediatorLiveData()
+    private val meetingSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
     private val eventSpacePageNumberMediator: MediatorLiveData<Int> = MediatorLiveData()
     private val bizLoungePageNumberMediator: MediatorLiveData<Int> = MediatorLiveData()
     private val locationMediator: MediatorLiveData<Location?> = MediatorLiveData()
@@ -49,8 +45,8 @@ open class HomeViewModel @Inject constructor(
 
     init {
         workSpaceFilterMediator.value = SearchHintMapper()
+        meetingSpaceFilterMediator.value = SearchHintMapper()
         initSearchMapperList()
-        meetingRoomPageNumberMediator.value = 1
         eventSpacePageNumberMediator.value = 1
         bizLoungePageNumberMediator.value = 1
         searchHintApiMediator.value = LoadingStatus()
@@ -113,12 +109,7 @@ open class HomeViewModel @Inject constructor(
 
     fun getWorkSpaceFilterLiveData(): LiveData<SearchHintMapper> = workSpaceFilterMediator
 
-
-    fun initAllHomeRequest() {
-//        setWorkSpaceRequest()
-        setMeetingRoomRequest()
-        setEventSpaceRequest()
-    }
+    fun getMeetingSpaceFilterLiveData(): LiveData<SearchHintMapper> = meetingSpaceFilterMediator
 
 
     fun getViewType(): Int = viewType
@@ -128,25 +119,6 @@ open class HomeViewModel @Inject constructor(
     }
 
     fun getSearchHintApi(): LiveData<ApiStatus<List<SearchHintMapper>>> = searchHintApiMediator
-
-
-    private fun setMeetingRoomRequest() {
-        meetingRoomMediator = meetingRoomRemote.getMeetingRoom(
-            meetingRoomPageNumberMediator.value!!,
-            pageSize,
-            locationMediator.value
-        )
-    }
-
-    fun getMeetingRoomList(): LiveData<ApiStatus<List<MeetingRoomMapper>>> = meetingRoomMediator
-
-    private fun setEventSpaceRequest() {
-        eventSpaceMediator = eventSpaceRemote.getEventSpace(
-            meetingRoomPageNumberMediator.value!!,
-            pageSize,
-            locationMediator.value
-        )
-    }
 
     fun getEventRoomList(): LiveData<ApiStatus<List<MeetingRoomMapper>>> = eventSpaceMediator
 
@@ -243,6 +215,7 @@ open class HomeViewModel @Inject constructor(
     fun setSearchHint(it: SearchHintMapper) {
         when (viewType) {
             1 -> workSpaceFilterMediator.postValue(it)
+            2 -> meetingSpaceFilterMediator.postValue(it)
         }
     }
 

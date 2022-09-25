@@ -116,7 +116,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleDownList() {
-        viewModel.initAllHomeRequest()
         binding.homeFragmentViewPager.adapter = homeViewPagerAdapter
         binding.homeFragmentViewPager.registerOnPageChangeCallback(pageChangeCallBack)
         binding.homeFragmentViewPager.depthPageTransformer(true)
@@ -125,7 +124,7 @@ class HomeFragment : Fragment() {
 
 
     private fun initHomeSearchMapperList() {
-        homeSearchAdapter.setData(viewModel.getHomeSearchMapperList().toMutableList(), false)
+        homeSearchAdapter.setData(viewModel.getHomeSearchMapperList().toMutableList())
         binding.homeSearchViewPager.adapter = homeSearchAdapter
         homeSearchAdapter.setSearchCallBack {
             viewModel.setSearchHint(it)

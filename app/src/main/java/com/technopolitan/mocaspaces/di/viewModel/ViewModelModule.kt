@@ -3,6 +3,7 @@ package com.technopolitan.mocaspaces.di.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
+import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomViewModel
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel
 import com.technopolitan.mocaspaces.ui.main.MainViewModel
 import dagger.Binds
@@ -29,4 +30,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MeetingRoomViewModel::class)
+    abstract fun bindMeetingRoomViewModel(meetingRoomViewModel: MeetingRoomViewModel): ViewModel
 }

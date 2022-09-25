@@ -28,7 +28,6 @@ class HomeSearchAdapter @Inject constructor(
     private var searchHintAdapter: SearchHintListAdapter
 ) : BaseRecyclerAdapter<HomeSearchMapper, HomeSearchItemBinding>() {
 
-    private var itemIndex = 0
     private lateinit var searchCallBack: (searchHintMapper: SearchHintMapper) -> Unit
     private var searchHintList: MutableList<SearchHintMapper> = mutableListOf()
 
@@ -75,15 +74,21 @@ class HomeSearchAdapter @Inject constructor(
         private val editActionListener: TextView.OnEditorActionListener =
             TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (item.searchHintMapper.id == null && item.searchHintMapper.type == null ||
-                        itemBinding.searchItemAutoCompleteText.text.isNullOrEmpty()
-                    ) {
-                        item.searchHintMapper = SearchHintMapper()
-                    }
-                    searchCallBack(item.searchHintMapper)
+                    doFilter()
                     return@OnEditorActionListener true
-                } else return@OnEditorActionListener false
+                } else {
+                    return@OnEditorActionListener false
+                }
             }
+
+        private fun doFilter() {
+            if (item.searchHintMapper.id == null && item.searchHintMapper.type == null ||
+                itemBinding.searchItemAutoCompleteText.text.isNullOrEmpty()
+            ) {
+                item.searchHintMapper = SearchHintMapper()
+            }
+            searchCallBack(item.searchHintMapper)
+        }
 
 
         private fun getHintText(item: HomeSearchMapper) =
@@ -140,7 +145,7 @@ class HomeSearchAdapter @Inject constructor(
         }
 
         override fun onClick(v: View?) {
-            searchCallBack(item.searchHintMapper)
+            doFilter()
         }
 
     }

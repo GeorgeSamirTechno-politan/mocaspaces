@@ -1,7 +1,6 @@
 package com.technopolitan.mocaspaces.data.remote
 
 import android.content.Context
-import android.location.Location
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseRemote
 import com.technopolitan.mocaspaces.data.ApiStatus
@@ -25,22 +24,28 @@ class MeetingRoomRemote @Inject constructor(
 
     private var pageNumber: Int = 1
     private var pageSize: Int = 10
-    private var location: Location? = null
+    private var type: Int? = null
+    private var id: Int? = null
     fun getMeetingRoom(
         pageNumber: Int = 1,
         pageSize: Int = 10,
-        location: Location? = null
+        type: Int? = null,
+        id: Int? = null
     ): MediatorLiveData<ApiStatus<List<MeetingRoomMapper>>> {
         this.pageNumber = pageNumber
         this.pageSize = pageSize
+        this.type = type
+        this.id = id
         return handleApi()
     }
 
 
     override fun flowable(): Flowable<HeaderResponse<List<MeetingRoomResponse>>> {
-        return networkModule.provideService(BaseUrl.locationApi).getAllMeetingPagination(request = LocationRequest(
-            pageNumber = pageNumber, pageSize = pageSize
-        ))
+        return networkModule.provideService(BaseUrl.locationApi).getAllMeetingPagination(
+            request = LocationRequest(
+                pageNumber = pageNumber, pageSize = pageSize, type = type, id = id
+            )
+        )
     }
 
     override fun handleResponse(it: HeaderResponse<List<MeetingRoomResponse>>): ApiStatus<List<MeetingRoomMapper>> {
@@ -49,8 +54,7 @@ class MeetingRoomRemote @Inject constructor(
             it.data!!.forEach {
                 list.add(MeetingRoomMapper(dateTimeModule).init(it, context))
             }
-            val remaining: Int = it.pageTotal!! - it.pageNumber!!
-            SuccessStatus(message = "", list, remaining)
+            SuccessStatus(message = "", list, getRemaining(it.pageTotal!!, pageSize, pageSize))
         } else FailedStatus(it.message)
     }
 }

@@ -16,6 +16,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
 
     lateinit var itemBinding: K
     protected var list: MutableList<T?> = mutableListOf()
+    protected var itemIndex = -1
 
     companion object {
         const val normal = 1
@@ -26,40 +27,29 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
 
     override fun getItemCount(): Int = list.size
 
-    fun setData(newList: MutableList<T?>, hasMoreData: Boolean) {
-        val startPosition = itemCount
-        if (newList.isEmpty() && hasMoreData) {
-            newList.add(null)
-        }
+    fun setData(newList: MutableList<T?>) {
+        val diffCallback = RecyclerDiffUtilModule(this.list, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        if (this.list.isNotEmpty())
+            this.list.clear()
         this.list.addAll(newList)
-        notifyItemRangeInserted(startPosition, itemCount)
-//        diffList(this.list, newList)
+        diffResult.dispatchUpdatesTo(this)
     }
+
 
     fun getItem(position: Int): T {
         return list[position]!!
     }
 
-    fun clearAdapter(){
-        if(this.list.isNotEmpty()){
+    fun clearAdapter() {
+        if (this.list.isNotEmpty()) {
+            val diffCallback = RecyclerDiffUtilModule(this.list, mutableListOf())
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
             this.list.clear()
-            notifyItemRangeRemoved(0, itemCount)
+            this.itemIndex = -1
+            diffResult.dispatchUpdatesTo(this)
         }
     }
-
-    fun updateItem(item: T, position: Int) {
-       notifyItemChanged(position)
-    }
-
-    private fun diffList(oldList: MutableList<T?>, newList: MutableList<T?>) {
-        val diffCallback = RecyclerDiffUtilModule(oldList, newList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-//    fun clearList() {
-//        differ.submitList(mutableListOf())
-//    }
 
 
     override fun getItemViewType(position: Int): Int {

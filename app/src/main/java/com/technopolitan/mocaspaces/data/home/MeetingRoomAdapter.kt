@@ -39,7 +39,7 @@ class MeetingRoomAdapter @Inject constructor(
             itemBinding.capacityTextView.text = it.capacity.toString()
             val priceAdapter = PriceAdapter()
             itemBinding.meetingRoomViewPagerAdapter.adapter = priceAdapter
-            priceAdapter.setData(it.priceList.toMutableList(), false)
+            priceAdapter.setData(it.priceList.toMutableList())
             glideModule.loadImage(it.image, itemBinding.meetingRoomImageView)
             if (it.workTimeMapper.isOpen()) {
                 setOpen()

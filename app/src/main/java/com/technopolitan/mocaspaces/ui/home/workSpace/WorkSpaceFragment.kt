@@ -65,6 +65,7 @@ class WorkSpaceFragment : Fragment() {
     private fun listenForMediators() {
         listenFormLocation()
         listenForFilter()
+        listForWorkSpaceListMediator()
     }
 
     private fun listenFormLocation() {
@@ -75,17 +76,17 @@ class WorkSpaceFragment : Fragment() {
 
     private fun listenForFilter() {
         homeViewModel.getWorkSpaceFilterLiveData().observe(viewLifecycleOwner) {
-            workspaceViewModel.setFilter(type = it.type, id = it.id)
             clearAdapter()
+            workspaceViewModel.setFilter(type = it.type, id = it.id)
             initWorkSpaceLiveData()
         }
     }
 
 
     private fun initView() {
-        binding.workSpaceRecycler.adapter = workSpaceAdapter
-        workSpaceAdapter.setFavouriteCallBack {
-            setFavourite(it)
+        listenForScrolling()
+        workSpaceAdapter.setFavouriteCallBack { item, position ->
+            setFavourite(item, position)
         }
         listenForSwipeToRefresh()
     }
@@ -104,9 +105,9 @@ class WorkSpaceFragment : Fragment() {
     }
 
     private fun listenForScrolling() {
-
-        binding.workSpaceRecycler.loadMore(workspaceViewModel.hasLoadMore()) {
-            workspaceViewModel.loadMore()
+        binding.workSpaceRecycler.loadMore {
+            if (workspaceViewModel.hasLoadMore() && workSpaceAdapter.itemCount > 0)
+                workspaceViewModel.loadMore()
         }
     }
 
@@ -119,37 +120,43 @@ class WorkSpaceFragment : Fragment() {
                     binding.workSpaceProgress.progressView,
                 ) {
                     workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
-                    workSpaceAdapter.setData(it.toMutableList(), response.remainingPage > 0)
+                    workspaceViewModel.setWorkSpaceListMediator(it.toMutableList())
                     workspaceViewModel.removeSourceFromWorkSpaceApi()
-                    listenForScrolling()
                 }
             } else {
                 workSpaceApiHandler.handleResponse(response) {
-                    workSpaceAdapter.setData(
-                        response.data!!.toMutableList(),
-                        response.remainingPage > 0
-                    )
                     workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
+                    workspaceViewModel.setWorkSpaceListMediator(response.data!!.toMutableList())
                     workspaceViewModel.removeSourceFromWorkSpaceApi()
-                    listenForScrolling()
                 }
             }
         }
     }
 
-    private fun setFavourite(item: WorkSpaceMapper) {
+    private fun listForWorkSpaceListMediator() {
+        workspaceViewModel.getWorkSpaceListLiveData().observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                workSpaceAdapter.setData(it)
+                binding.workSpaceRecycler.adapter = workSpaceAdapter
+                binding.workSpaceRecycler.setHasFixedSize(true)
+            }
+        }
+    }
+
+    private fun setFavourite(item: WorkSpaceMapper, position: Int) {
         if (item.isFavourite)
             workspaceViewModel.setDeleteFavourite(item.id)
         else workspaceViewModel.setAddFavourite(item.id)
-        listenForFavouriteApi(item.isFavourite)
+        listenForFavouriteApi(item, position)
     }
 
-    private fun listenForFavouriteApi(isFavourite: Boolean) {
+    private fun listenForFavouriteApi(item: WorkSpaceMapper, position: Int) {
         workspaceViewModel.getFavourite().observe(viewLifecycleOwner) {
             favouriteApiHandler.handleResponse(it) {
-                if (isFavourite)
-                    workspaceViewModel.removeSourceOfDeleteFavourite()
-                else workspaceViewModel.removeSourceOfAddFavourite()
+//                workspaceViewModel.updateItem(item)
+//                workspaceViewModel.removeSourceOfAddAndDeleteFavourite()
+                item.isFavourite = item.isFavourite.not()
+                workSpaceAdapter.updateFavouriteItem(item, position)
             }
         }
     }

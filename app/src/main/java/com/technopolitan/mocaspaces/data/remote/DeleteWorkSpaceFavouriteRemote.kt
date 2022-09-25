@@ -17,6 +17,7 @@ class DeleteWorkSpaceFavouriteRemote @Inject constructor(private var networkModu
     private var locationId: Int = 0
     fun deleteFavourite(locationId: Int): MediatorLiveData<ApiStatus<String>> {
         this.locationId = locationId
+        apiMediator = MediatorLiveData()
         return handleApi()
     }
 

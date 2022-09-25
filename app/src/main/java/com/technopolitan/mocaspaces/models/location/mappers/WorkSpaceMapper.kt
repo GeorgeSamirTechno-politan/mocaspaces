@@ -124,4 +124,53 @@ class WorkSpaceMapper constructor(private var dateTimeModule: DateTimeModule) {
         )
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as WorkSpaceMapper
+
+        if (dateTimeModule != other.dateTimeModule) return false
+        if (image != other.image) return false
+        if (id != other.id) return false
+        if (isFavourite != other.isFavourite) return false
+        if (shareLink != other.shareLink) return false
+        if (locationName != other.locationName) return false
+        if (address != other.address) return false
+        if (distance != other.distance) return false
+        if (hourlyPrice != other.hourlyPrice) return false
+        if (tailoredPrice != other.tailoredPrice) return false
+        if (dayPassPrice != other.dayPassPrice) return false
+        if (bundlePrice != other.bundlePrice) return false
+        if (locationLatLng != other.locationLatLng) return false
+        if (amenityList != other.amenityList) return false
+        if (workTimeMapper != other.workTimeMapper) return false
+        if (currency != other.currency) return false
+        if (priceList != other.priceList) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = dateTimeModule.hashCode()
+        result = 31 * result + image.hashCode()
+        result = 31 * result + id
+        result = 31 * result + isFavourite.hashCode()
+        result = 31 * result + shareLink.hashCode()
+        result = 31 * result + locationName.hashCode()
+        result = 31 * result + address.hashCode()
+        result = 31 * result + distance.hashCode()
+        result = 31 * result + hourlyPrice.hashCode()
+        result = 31 * result + tailoredPrice.hashCode()
+        result = 31 * result + dayPassPrice.hashCode()
+        result = 31 * result + bundlePrice.hashCode()
+        result = 31 * result + locationLatLng.hashCode()
+        result = 31 * result + amenityList.hashCode()
+        result = 31 * result + workTimeMapper.hashCode()
+        result = 31 * result + currency.hashCode()
+        result = 31 * result + priceList.hashCode()
+        return result
+    }
+
+
 }

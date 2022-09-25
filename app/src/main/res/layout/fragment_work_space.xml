@@ -3,16 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/background_color"
-    android:clickable="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:layout_height="match_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/work_space_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="true"
+        android:clipToPadding="false"
         android:paddingVertical="@dimen/_10sdp"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/accent_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,20 +18,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/work_space_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="1"
+            android:orientation="vertical"
             tools:listitem="@layout/work_space_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-    <!--    <include-->
-    <!--        android:id="@+id/work_space_load_more"-->
-    <!--        layout="@layout/progress_layout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
     <include
         android:id="@+id/work_space_progress"

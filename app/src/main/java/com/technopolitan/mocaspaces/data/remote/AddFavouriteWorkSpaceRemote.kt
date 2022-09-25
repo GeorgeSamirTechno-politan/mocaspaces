@@ -23,6 +23,7 @@ class AddFavouriteWorkSpaceRemote @Inject constructor(
     private var locationId: Int = 0
     fun addFavourite(locationId: Int): MediatorLiveData<ApiStatus<String>> {
         this.locationId = locationId
+        apiMediator = MediatorLiveData()
         return handleApi()
     }
 

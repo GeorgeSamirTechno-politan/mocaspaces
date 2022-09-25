@@ -11,12 +11,30 @@ data class HomeSearchMapper(
 
 
 ) {
-    override fun toString(): String {
-        return "HomeSearchMapper(color=$color," +
-                " hintSearch='$hintSearch'," +
-                " itemIdWithPosition=$itemIdWithPosition," +
-                " textInputLayoutBoxColor=$textInputLayoutBoxColor," +
-                " searchBackgroundDrawable=$searchBackgroundDrawable," +
-                " searchHintMapper=$searchHintMapper)"
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as HomeSearchMapper
+
+        if (color != other.color) return false
+        if (hintSearch != other.hintSearch) return false
+        if (itemIdWithPosition != other.itemIdWithPosition) return false
+        if (textInputLayoutBoxColor != other.textInputLayoutBoxColor) return false
+        if (searchBackgroundDrawable != other.searchBackgroundDrawable) return false
+        if (searchHintMapper != other.searchHintMapper) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = color
+        result = 31 * result + hintSearch.hashCode()
+        result = 31 * result + itemIdWithPosition
+        result = 31 * result + textInputLayoutBoxColor
+        result = 31 * result + searchBackgroundDrawable
+        result = 31 * result + searchHintMapper.hashCode()
+        return result
     }
 }

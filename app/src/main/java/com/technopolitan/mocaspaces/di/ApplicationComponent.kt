@@ -11,7 +11,7 @@ import com.technopolitan.mocaspaces.ui.forgetPasswordMobile.ForgetPasswordMobile
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.*
 import com.technopolitan.mocaspaces.ui.home.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.HomeFragment
-import com.technopolitan.mocaspaces.ui.home.MeetingRoomFragment
+import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity

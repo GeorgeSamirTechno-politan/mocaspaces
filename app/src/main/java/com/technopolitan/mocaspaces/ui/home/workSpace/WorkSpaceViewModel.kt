@@ -1,6 +1,7 @@
 package com.technopolitan.mocaspaces.ui.home.workSpace
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
@@ -26,14 +27,19 @@ class WorkSpaceViewModel @Inject constructor(
     private var type: Int? = null
     private var id: Int? = null
     private var favouriteMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
+    private var workSpaceListMediator: MediatorLiveData<MutableList<WorkSpaceMapper?>> =
+        MediatorLiveData()
 
     init {
         pageNumber = 1
         apiMediatorLiveData.postValue(LoadingStatus())
+        workSpaceListMediator.postValue(mutableListOf())
     }
 
     private fun setWorkSpaceRequest() {
-        apiMediatorLiveData = workSpaceRemote.getWorkSpace(pageNumber, pageSize, type, id, location)
+        if (hasLoadMore())
+            apiMediatorLiveData =
+                workSpaceRemote.getWorkSpace(pageNumber, pageSize, type, id, location)
     }
 
     fun getWorkSpaceList(): LiveData<ApiStatus<List<WorkSpaceMapper>>> = apiMediatorLiveData
@@ -44,19 +50,26 @@ class WorkSpaceViewModel @Inject constructor(
 
     fun getFavourite(): LiveData<ApiStatus<String>> = favouriteMediator
 
-    fun removeSourceOfAddFavourite() {
-        favouriteMediator.removeSource(addFavouriteWorkSpaceRemote.getSource())
-    }
-
     fun setDeleteFavourite(locationId: Int) {
         favouriteMediator = deleteWorkSpaceFavouriteRemote.deleteFavourite(locationId)
     }
 
+    fun getWorkSpaceListLiveData(): LiveData<MutableList<WorkSpaceMapper?>> = workSpaceListMediator
 
-    fun removeSourceOfDeleteFavourite() {
-        favouriteMediator.removeSource(deleteWorkSpaceFavouriteRemote.getSource())
+    fun setWorkSpaceListMediator(newList: MutableList<WorkSpaceMapper?>) {
+        val list: MutableList<WorkSpaceMapper?> = mutableListOf()
+        if (workSpaceListMediator.value != null) {
+            val oldList = workSpaceListMediator.value!!
+            if (oldList.isNotEmpty()) {
+                if (oldList[oldList.lastIndex] == null)
+                    oldList.removeAt(oldList.lastIndex)
+                list.addAll(oldList)
+            }
+        }
+        list.addAll(newList)
+        if (hasLoadMore()) list.add(null)
+        workSpaceListMediator.postValue(list)
     }
-
 
     fun removeSourceFromWorkSpaceApi() {
         apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
@@ -68,15 +81,17 @@ class WorkSpaceViewModel @Inject constructor(
         setWorkSpaceRequest()
     }
 
-    fun hasLoadMore(): Boolean = remainingPage > 0
+    fun hasLoadMore(): Boolean {
+        Log.d(javaClass.name, "hasLoadMore: $remainingPage")
+        return remainingPage > 0
+    }
 
 
     fun setFilter(type: Int?, id: Int?) {
         this.type = type
         this.id = id
-        apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
-        apiMediatorLiveData.postValue(LoadingStatus())
-        setWorkSpaceRequest()
+        refreshAll()
+
     }
 
     fun refresh() {
@@ -84,8 +99,14 @@ class WorkSpaceViewModel @Inject constructor(
         pageNumber = 1
 //        type = null
 //        id = null
-        apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
-        apiMediatorLiveData.postValue(LoadingStatus())
+        refreshAll()
+    }
+
+    private fun refreshAll() {
+        remainingPage = 1
+        pageNumber = 1
+        workSpaceListMediator.postValue(mutableListOf())
+        removeSourceFromWorkSpaceApi()
         setWorkSpaceRequest()
     }
 
@@ -96,6 +117,17 @@ class WorkSpaceViewModel @Inject constructor(
 
     fun updateWorkSpaceRemainingPage(remaining: Int) {
         this.remainingPage = remaining
+    }
+
+    fun updateItem(item: WorkSpaceMapper) {
+        val list = workSpaceListMediator.value!!
+        list.forEach {
+            if (it != null) {
+                if (it.id == item.id)
+                    it.isFavourite = !it.isFavourite
+            }
+        }
+        workSpaceListMediator.postValue(list)
     }
 
 

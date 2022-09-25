@@ -19,29 +19,25 @@ import javax.inject.Provider;
 public final class MeetingRoomAdapter_Factory implements Factory<MeetingRoomAdapter> {
   private final Provider<GlideModule> glideModuleProvider;
 
-  private final Provider<PriceAdapter> priceAdapterProvider;
-
   private final Provider<Context> contextProvider;
 
   public MeetingRoomAdapter_Factory(Provider<GlideModule> glideModuleProvider,
-      Provider<PriceAdapter> priceAdapterProvider, Provider<Context> contextProvider) {
+      Provider<Context> contextProvider) {
     this.glideModuleProvider = glideModuleProvider;
-    this.priceAdapterProvider = priceAdapterProvider;
     this.contextProvider = contextProvider;
   }
 
   @Override
   public MeetingRoomAdapter get() {
-    return newInstance(glideModuleProvider.get(), priceAdapterProvider.get(), contextProvider.get());
+    return newInstance(glideModuleProvider.get(), contextProvider.get());
   }
 
   public static MeetingRoomAdapter_Factory create(Provider<GlideModule> glideModuleProvider,
-      Provider<PriceAdapter> priceAdapterProvider, Provider<Context> contextProvider) {
-    return new MeetingRoomAdapter_Factory(glideModuleProvider, priceAdapterProvider, contextProvider);
+      Provider<Context> contextProvider) {
+    return new MeetingRoomAdapter_Factory(glideModuleProvider, contextProvider);
   }
 
-  public static MeetingRoomAdapter newInstance(GlideModule glideModule, PriceAdapter priceAdapter,
-      Context context) {
-    return new MeetingRoomAdapter(glideModule, priceAdapter, context);
+  public static MeetingRoomAdapter newInstance(GlideModule glideModule, Context context) {
+    return new MeetingRoomAdapter(glideModule, context);
   }
 }
