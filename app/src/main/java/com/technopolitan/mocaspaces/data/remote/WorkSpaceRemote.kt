@@ -20,7 +20,7 @@ import javax.inject.Inject
 class WorkSpaceRemote @Inject constructor(
     private var networkModule: NetworkModule, private var dateTimeModule: DateTimeModule,
     private var context: Context
-) : BaseRemote<List<WorkSpaceMapper>, List<WorkSpaceResponse>>() {
+) : BaseRemote<List<WorkSpaceMapper?>, List<WorkSpaceResponse>>() {
 
     private var pageNumber: Int = 1
     private var pageSize: Int = 10
@@ -33,7 +33,7 @@ class WorkSpaceRemote @Inject constructor(
         type: Int? = null,
         id: Int? = null,
         location: Location? = null
-    ): MediatorLiveData<ApiStatus<List<WorkSpaceMapper>>> {
+    ): MediatorLiveData<ApiStatus<List<WorkSpaceMapper?>>> {
         this.pageNumber = pageNumber
         this.pageSize = pageSize
         this.id = id
@@ -54,14 +54,17 @@ class WorkSpaceRemote @Inject constructor(
         )
     }
 
-    override fun handleResponse(it: HeaderResponse<List<WorkSpaceResponse>>): ApiStatus<List<WorkSpaceMapper>> {
-        val list = mutableListOf<WorkSpaceMapper>()
+    override fun handleResponse(it: HeaderResponse<List<WorkSpaceResponse>>): ApiStatus<List<WorkSpaceMapper?>> {
+        val list = mutableListOf<WorkSpaceMapper?>()
         return if (it.succeeded) {
-            it.data?.let {
-                it.forEach { item ->
-                    list.add(WorkSpaceMapper(dateTimeModule).init(item, location, context))
+            if (it.data == null)
+                list.add(null)
+            else
+                it.data.let {
+                    it.forEach { item ->
+                        list.add(WorkSpaceMapper(dateTimeModule).init(item, location, context))
+                    }
                 }
-            }
 
             SuccessStatus(message = "", list, getRemaining(it.pageTotal!!, pageSize, pageSize))
         } else FailedStatus(it.message)

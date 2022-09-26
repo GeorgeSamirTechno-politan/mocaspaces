@@ -97,8 +97,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun listenForSearchHintListChange() {
-        viewModel.getSearchHintListLiveData().observe(viewLifecycleOwner) {
-            homeSearchAdapter.setSearchHintList(it.toMutableList())
+        viewModel.getViewType().observe(viewLifecycleOwner) { viewType ->
+            viewModel.getSearchHintListLiveData().observe(viewLifecycleOwner) {
+                homeSearchAdapter.setSearchHintList(it.toMutableList(), viewType - 1)
+            }
         }
     }
 

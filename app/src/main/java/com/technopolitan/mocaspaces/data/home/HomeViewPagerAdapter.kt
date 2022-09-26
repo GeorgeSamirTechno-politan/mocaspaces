@@ -4,8 +4,8 @@ package com.technopolitan.mocaspaces.data.home
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.technopolitan.mocaspaces.ui.home.BizLoungeFragment
-import com.technopolitan.mocaspaces.ui.home.EventSpaceFragment
+import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeFragment
+import com.technopolitan.mocaspaces.ui.home.eventSpace.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
 import javax.inject.Inject

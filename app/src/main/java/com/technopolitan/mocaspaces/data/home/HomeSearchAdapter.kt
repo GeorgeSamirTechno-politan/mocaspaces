@@ -35,9 +35,11 @@ class HomeSearchAdapter @Inject constructor(
         this.searchCallBack = searchCallBack
     }
 
-    fun setSearchHintList(searchHintList: MutableList<SearchHintMapper>) {
+    fun setSearchHintList(searchHintList: MutableList<SearchHintMapper>, viewType: Int) {
         this.searchHintList = searchHintList
         searchHintAdapter.setList(this.searchHintList)
+        searchHintAdapter.setViewType(viewType)
+
     }
 
     override fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

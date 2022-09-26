@@ -11,9 +11,11 @@ import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentMeetingRoomBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
+import com.technopolitan.mocaspaces.models.location.mappers.LocationPaxMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
+import com.technopolitan.mocaspaces.utilities.Constants
 import com.technopolitan.mocaspaces.utilities.loadMore
 import javax.inject.Inject
 
@@ -24,7 +26,11 @@ class MeetingRoomFragment : Fragment() {
     lateinit var meetingRoomAdapter: MeetingRoomAdapter
 
     @Inject
-    lateinit var meetingSpaceApiHandler: ApiResponseModule<List<MeetingRoomMapper>>
+    lateinit var meetingSpaceApiHandler: ApiResponseModule<List<MeetingRoomMapper?>>
+
+
+    @Inject
+    lateinit var paxApiHandler: ApiResponseModule<List<LocationPaxMapper>>
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -59,7 +65,8 @@ class MeetingRoomFragment : Fragment() {
 
     private fun listenForMediators() {
         listenForFilter()
-        listForWorkSpaceListMediator()
+        listForAdapterMediator()
+        listenForPaxFilter()
     }
 
 
@@ -67,7 +74,7 @@ class MeetingRoomFragment : Fragment() {
         homeViewModel.getMeetingSpaceFilterLiveData().observe(viewLifecycleOwner) {
             clearAdapter()
             meetingRoomViewModel.setFilter(type = it.type, id = it.id)
-            initWorkSpaceLiveData()
+            initApiLiveData()
         }
     }
 
@@ -98,7 +105,7 @@ class MeetingRoomFragment : Fragment() {
     }
 
 
-    private fun initWorkSpaceLiveData() {
+    private fun initApiLiveData() {
         meetingRoomViewModel.getMeetingSpaceApi().observe(viewLifecycleOwner) { response ->
             if (meetingRoomAdapter.itemCount == 0) {
                 meetingSpaceApiHandler.handleResponse(
@@ -119,13 +126,31 @@ class MeetingRoomFragment : Fragment() {
         }
     }
 
-    private fun listForWorkSpaceListMediator() {
+    private fun listForAdapterMediator() {
         meetingRoomViewModel.getMeetingSpaceListLiveData().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                meetingRoomAdapter.setData(it)
-                binding.meetingRecycler.adapter = meetingRoomAdapter
-                binding.meetingRecycler.setHasFixedSize(true)
+            meetingRoomAdapter.setData(it)
+            binding.meetingRecycler.adapter = meetingRoomAdapter
+            binding.meetingRecycler.setHasFixedSize(true)
+        }
+    }
+
+    private fun listenForPaxFilter() {
+        meetingRoomViewModel.getPaxLiveData().observe(viewLifecycleOwner) {
+            paxApiHandler.handleResponse(
+                it, binding.meetingRoomPaxFilter.paxFilterProgress.progressView,
+                binding.meetingRoomPaxFilter.filterLayout
+            ) { list ->
+                initPaxFilter(list)
             }
+        }
+    }
+
+    private fun initPaxFilter(list: List<LocationPaxMapper>) {
+        meetingRoomViewModel.initPaxFilterDataModule(
+            binding.meetingRoomPaxFilter,
+            Constants.meetingTypeId, list
+        ) {
+            clearAdapter()
         }
     }
 

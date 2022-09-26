@@ -26,7 +26,7 @@ class WorkSpaceFragment : Fragment() {
     lateinit var workSpaceAdapter: WorkSpaceAdapter
 
     @Inject
-    lateinit var workSpaceApiHandler: ApiResponseModule<List<WorkSpaceMapper>>
+    lateinit var workSpaceApiHandler: ApiResponseModule<List<WorkSpaceMapper?>>
 
     @Inject
     lateinit var favouriteApiHandler: ApiResponseModule<String>

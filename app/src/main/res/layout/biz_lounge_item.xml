@@ -23,7 +23,7 @@
             app:layout_constraintGuide_percent="0.40" />
 
         <ImageView
-            android:id="@+id/meeting_room_image_view"
+            android:id="@+id/biz_lounge_room_image_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
@@ -66,22 +66,9 @@
             app:layout_constraintStart_toEndOf="@id/biz_lounge_guide_line"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/biz_lounge_room_name"
-                style="@style/medium"
-                android:layout_width="0dp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:textColor="@color/accent_color"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Palm Hall @" />
 
             <TextView
+                app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/biz_lounge_location_name_text_view"
                 style="@style/medium"
                 android:layout_width="0dp"
@@ -89,9 +76,10 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_17sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/biz_lounge_room_name"
-                app:layout_constraintTop_toBottomOf="@id/biz_lounge_room_name"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:text="Palm Hils Club" />
 
             <TextView

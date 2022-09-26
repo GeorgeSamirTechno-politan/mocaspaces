@@ -5,6 +5,11 @@
     android:background="@color/background_color"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/meeting_room_pax_filter"
+        layout="@layout/filter_pax_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -15,7 +20,7 @@
         android:paddingVertical="@dimen/_10sdp"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/accent_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/meeting_room_pax_filter">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/meeting_recycler"

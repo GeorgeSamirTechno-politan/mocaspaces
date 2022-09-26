@@ -3,6 +3,7 @@ package com.technopolitan.mocaspaces.ui.home.meetingSpace;
 
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter;
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
+import com.technopolitan.mocaspaces.models.location.mappers.LocationPaxMapper;
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
 import dagger.MembersInjector;
@@ -23,28 +24,34 @@ public final class MeetingRoomFragment_MembersInjector implements MembersInjecto
 
   private final Provider<ApiResponseModule<List<MeetingRoomMapper>>> meetingSpaceApiHandlerProvider;
 
+  private final Provider<ApiResponseModule<List<LocationPaxMapper>>> paxApiHandlerProvider;
+
   private final Provider<ViewModelFactory> viewModelFactoryProvider;
 
   public MeetingRoomFragment_MembersInjector(
       Provider<MeetingRoomAdapter> meetingRoomAdapterProvider,
       Provider<ApiResponseModule<List<MeetingRoomMapper>>> meetingSpaceApiHandlerProvider,
+      Provider<ApiResponseModule<List<LocationPaxMapper>>> paxApiHandlerProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider) {
     this.meetingRoomAdapterProvider = meetingRoomAdapterProvider;
     this.meetingSpaceApiHandlerProvider = meetingSpaceApiHandlerProvider;
+    this.paxApiHandlerProvider = paxApiHandlerProvider;
     this.viewModelFactoryProvider = viewModelFactoryProvider;
   }
 
   public static MembersInjector<MeetingRoomFragment> create(
       Provider<MeetingRoomAdapter> meetingRoomAdapterProvider,
       Provider<ApiResponseModule<List<MeetingRoomMapper>>> meetingSpaceApiHandlerProvider,
+      Provider<ApiResponseModule<List<LocationPaxMapper>>> paxApiHandlerProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider) {
-    return new MeetingRoomFragment_MembersInjector(meetingRoomAdapterProvider, meetingSpaceApiHandlerProvider, viewModelFactoryProvider);
+    return new MeetingRoomFragment_MembersInjector(meetingRoomAdapterProvider, meetingSpaceApiHandlerProvider, paxApiHandlerProvider, viewModelFactoryProvider);
   }
 
   @Override
   public void injectMembers(MeetingRoomFragment instance) {
     injectMeetingRoomAdapter(instance, meetingRoomAdapterProvider.get());
     injectMeetingSpaceApiHandler(instance, meetingSpaceApiHandlerProvider.get());
+    injectPaxApiHandler(instance, paxApiHandlerProvider.get());
     injectViewModelFactory(instance, viewModelFactoryProvider.get());
   }
 
@@ -58,6 +65,12 @@ public final class MeetingRoomFragment_MembersInjector implements MembersInjecto
   public static void injectMeetingSpaceApiHandler(MeetingRoomFragment instance,
       ApiResponseModule<List<MeetingRoomMapper>> meetingSpaceApiHandler) {
     instance.meetingSpaceApiHandler = meetingSpaceApiHandler;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment.paxApiHandler")
+  public static void injectPaxApiHandler(MeetingRoomFragment instance,
+      ApiResponseModule<List<LocationPaxMapper>> paxApiHandler) {
+    instance.paxApiHandler = paxApiHandler;
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment.viewModelFactory")

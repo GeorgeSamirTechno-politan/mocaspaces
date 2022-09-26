@@ -12,8 +12,10 @@ import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
 import com.technopolitan.mocaspaces.models.ResetPasswordRequest
+import com.technopolitan.mocaspaces.models.location.bizLounge.BizLoungeResponse
 import com.technopolitan.mocaspaces.models.location.request.AddFavouriteWorkSpaceRequest
 import com.technopolitan.mocaspaces.models.location.request.LocationRequest
+import com.technopolitan.mocaspaces.models.location.response.LocationFilterPaxResponse
 import com.technopolitan.mocaspaces.models.location.response.SearchHintResponse
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomResponse
@@ -72,7 +74,6 @@ interface ServiceInterface {
     ): Flowable<HeaderResponse<List<MemberTypeResponse>>>
 
 
-
     @GET("v{version}/UserRegister/GetAllGenders")
     fun getAllGender(@Path("version") version: Int = Constants.apiVersion)
             : Flowable<HeaderResponse<List<GenderResponse>>>
@@ -113,6 +114,12 @@ interface ServiceInterface {
         @Body request: LocationRequest
     ): Flowable<HeaderResponse<List<MeetingRoomResponse>>>
 
+    @POST("v{version}/Location/GetFilterLocationBizLoungeMobile")
+    fun getAllBizLounge(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body request: LocationRequest
+    ): Flowable<HeaderResponse<List<BizLoungeResponse>>>
+
     @GET("v{version}/Location/GetLocationDistrictMobile")
     fun getAllSearchHint(
         @Path("version") version: Int = Constants.apiVersion
@@ -130,6 +137,12 @@ interface ServiceInterface {
         @Path("version") version: Int = Constants.apiVersion,
         @Query("LocationId") locationId: Int
     ): Flowable<HeaderResponse<String>>
+
+    @GET("v{version}/SpacePax/GetAllSpacePaxWithoutPagination")
+    fun getPaxFilter(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Query("FeatureId") featureId: Int
+    ): Flowable<HeaderResponse<List<LocationFilterPaxResponse>>>
 
 
 }

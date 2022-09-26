@@ -26,7 +26,7 @@ class RecyclerDiffUtilModule<T> constructor(
             is MeetingRoomMapper -> (oldItem as MeetingRoomMapper) == (newItem as MeetingRoomMapper)
             is AmenityMapper -> (oldItem as AmenityMapper) == (newItem as AmenityMapper)
             is PricePagerMapper -> (oldItem as PricePagerMapper) == (newItem as PricePagerMapper)
-            else -> (oldList[oldItemPosition] as WorkSpaceMapper) === newList[newItemPosition]
+            else -> oldList[oldItemPosition] === newList[newItemPosition]
         }
     }
 
@@ -40,7 +40,7 @@ class RecyclerDiffUtilModule<T> constructor(
             is MeetingRoomMapper -> (oldItem as MeetingRoomMapper).hashCode() == (newItem as MeetingRoomMapper).hashCode()
             is AmenityMapper -> (oldItem as AmenityMapper).hashCode() == (newItem as AmenityMapper).hashCode()
             is PricePagerMapper -> (oldItem as PricePagerMapper).hashCode() == (newItem as PricePagerMapper).hashCode()
-            else -> (oldList[oldItemPosition] as WorkSpaceMapper) == newList[newItemPosition]
+            else -> oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
 

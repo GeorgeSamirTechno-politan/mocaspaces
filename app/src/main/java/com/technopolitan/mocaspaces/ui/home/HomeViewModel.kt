@@ -12,7 +12,6 @@ import com.technopolitan.mocaspaces.data.remote.EventSpaceRemote
 import com.technopolitan.mocaspaces.data.remote.SearchHintRemote
 import com.technopolitan.mocaspaces.models.location.mappers.HomeSearchMapper
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
-import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import javax.inject.Inject
 
 
@@ -24,35 +23,27 @@ open class HomeViewModel @Inject constructor(
 
     private val workSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
     private val meetingSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
-    private val eventSpacePageNumberMediator: MediatorLiveData<Int> = MediatorLiveData()
-    private val bizLoungePageNumberMediator: MediatorLiveData<Int> = MediatorLiveData()
+    private val eventSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
+    private val bizLoungeFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
+
     private val locationMediator: MediatorLiveData<Location?> = MediatorLiveData()
 
-    private var meetingRoomMediator: MediatorLiveData<ApiStatus<List<MeetingRoomMapper>>> =
-        MediatorLiveData()
-    private var eventSpaceMediator: MediatorLiveData<ApiStatus<List<MeetingRoomMapper>>> =
-        MediatorLiveData()
     private var searchHintApiMediator: MediatorLiveData<ApiStatus<List<SearchHintMapper>>> =
         MediatorLiveData()
     private var searchHintListMediator: MediatorLiveData<List<SearchHintMapper>> =
         MediatorLiveData()
-    private var viewType = 1
-    private val pageSize: Int = 10
+    private var viewTypeMediatorLiveData: MediatorLiveData<Int> = MediatorLiveData()
     private val homeSearchMapperList: MutableList<HomeSearchMapper> = mutableListOf()
-    private var meetingRemainingPage = 1
-    private var eventRemainingPage = 1
 
 
     init {
         workSpaceFilterMediator.value = SearchHintMapper()
         meetingSpaceFilterMediator.value = SearchHintMapper()
+        eventSpaceFilterMediator.value = SearchHintMapper()
+        bizLoungeFilterMediator.value = SearchHintMapper()
         initSearchMapperList()
-        eventSpacePageNumberMediator.value = 1
-        bizLoungePageNumberMediator.value = 1
+        viewTypeMediatorLiveData.postValue(1)
         searchHintApiMediator.value = LoadingStatus()
-
-        meetingRoomMediator.value = LoadingStatus()
-        eventSpaceMediator.value = LoadingStatus()
         searchHintListMediator.value = mutableListOf()
         setSearchHintRequest()
     }
@@ -111,8 +102,12 @@ open class HomeViewModel @Inject constructor(
 
     fun getMeetingSpaceFilterLiveData(): LiveData<SearchHintMapper> = meetingSpaceFilterMediator
 
+    fun getEventSpaceFilterLiveData(): LiveData<SearchHintMapper> = eventSpaceFilterMediator
 
-    fun getViewType(): Int = viewType
+    fun getBizLoungeFilterLiveData(): LiveData<SearchHintMapper> = bizLoungeFilterMediator
+
+
+    fun getViewType(): LiveData<Int> = viewTypeMediatorLiveData
 
     private fun setSearchHintRequest() {
         searchHintApiMediator = searchHintRemote.getAllSearchHint()
@@ -120,61 +115,6 @@ open class HomeViewModel @Inject constructor(
 
     fun getSearchHintApi(): LiveData<ApiStatus<List<SearchHintMapper>>> = searchHintApiMediator
 
-    fun getEventRoomList(): LiveData<ApiStatus<List<MeetingRoomMapper>>> = eventSpaceMediator
-
-
-    fun updateMeetingRoomPage(remaining: Int) {
-        this.meetingRemainingPage = remaining
-    }
-
-    fun updateEventSpacePage(remaining: Int) {
-        this.eventRemainingPage = remaining
-    }
-
-    fun resetWorkSpace() {
-//        workSpaceMediator.value = LoadingStatus()
-//        workSpaceRemainingPage = 1
-//        setWorkSpaceRequest()
-    }
-
-    fun resetEventSpace() {
-//        eventSpaceMediator.value = LoadingStatus()
-//        eventRemainingPage = 1
-//        setEventSpaceRequest()
-    }
-
-    fun resetMeeting() {
-//        meetingRoomMediator.value = LoadingStatus()
-//        meetingRemainingPage = 1
-//        setMeetingRoomRequest()
-    }
-
-    fun updatePageNumber() {
-
-//        when (viewType) {
-//            1 -> {
-////                if (workSpaceRemainingPage > 0) {
-////                    meetingRoomPageNumberMediator.value = meetingRoomPageNumberMediator.value!! + 1
-////                    setWorkSpaceRequest()
-////                }
-//            }
-//            2 -> {
-//                if (meetingRemainingPage > 0) {
-//                    meetingRoomPageNumberMediator.value = meetingRoomPageNumberMediator.value!! + 1
-//                }
-//            }
-//            3 -> {
-//                if (eventRemainingPage > 0) {
-//                    meetingRoomPageNumberMediator.value = meetingRoomPageNumberMediator.value!! + 1
-//                }
-//
-//            }
-//            4 -> {
-//
-//            }
-//        }
-//        updateSearchHintList()
-    }
 
     fun setLocation(location: Location?) {
         locationMediator.postValue(location)
@@ -183,7 +123,7 @@ open class HomeViewModel @Inject constructor(
     fun getLocationLiveData(): LiveData<Location?> = locationMediator
 
     fun setViewType(i: Int) {
-        viewType = i
+        viewTypeMediatorLiveData.postValue(i)
     }
 
 
@@ -192,7 +132,7 @@ open class HomeViewModel @Inject constructor(
         searchHintApiMediator.value?.let { status ->
             status.data?.let { list ->
                 list.forEach { item ->
-                    when (viewType) {
+                    when (viewTypeMediatorLiveData.value) {
                         1 -> if (item.spaceTypeMapper.hasWorkSpace)
                             updatedList.add(item)
                         2 -> if (item.spaceTypeMapper.hasMeeting)
@@ -213,9 +153,11 @@ open class HomeViewModel @Inject constructor(
 
 
     fun setSearchHint(it: SearchHintMapper) {
-        when (viewType) {
+        when (viewTypeMediatorLiveData.value) {
             1 -> workSpaceFilterMediator.postValue(it)
             2 -> meetingSpaceFilterMediator.postValue(it)
+            3 -> eventSpaceFilterMediator.postValue(it)
+            4 -> bizLoungeFilterMediator.postValue(it)
         }
     }
 

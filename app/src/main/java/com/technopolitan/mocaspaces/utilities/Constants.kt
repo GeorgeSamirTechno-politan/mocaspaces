@@ -4,6 +4,8 @@ import com.technopolitan.mocaspaces.data.register.RegisterRequestMapper
 
 class Constants {
     companion object {
+        const val meetingTypeId: Int = 2
+        const val eventTypeId: Int = 3
         const val mocaImagesPath: String = "Pictures/moca"
         val DeviceType: String = "Android"
         const val IsAppLive: Boolean = false

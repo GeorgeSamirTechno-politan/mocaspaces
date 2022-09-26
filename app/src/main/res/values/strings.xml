@@ -184,6 +184,8 @@
     <string name="km_away">km away</string>
     <string name="favourite">Favourite</string>
     <string name="no_data_found">No Data Found!</string>
+    <string name="pax_filter">%1$s pax</string>
+    <string name="check_space">Check Space</string>
 
 
 </resources>

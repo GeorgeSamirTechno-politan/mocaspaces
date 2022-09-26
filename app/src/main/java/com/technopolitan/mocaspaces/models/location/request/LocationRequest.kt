@@ -16,5 +16,11 @@ data class LocationRequest(
     val pageSize: Int,
     @SerializedName("type")
     @Expose
-    val type: Int? = null
+    val type: Int? = null,
+    @SerializedName("fromPax")
+    @Expose
+    val fromPax: Int? = null,
+    @SerializedName("toPax")
+    @Expose
+    val toPax: Int? = null
 )

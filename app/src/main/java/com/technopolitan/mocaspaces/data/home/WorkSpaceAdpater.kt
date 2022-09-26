@@ -36,6 +36,13 @@ class WorkSpaceAdapter @Inject constructor(
         return ItemViewHolder(itemBinding)
     }
 
+    override fun getItemId(position: Int): Long {
+        list[position]?.let {
+            return it.id.toLong()
+        }
+        return super.getItemId(position)
+    }
+
     override fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: WorkSpaceMapper) {
         (holder as ItemViewHolder).bind(item)
     }

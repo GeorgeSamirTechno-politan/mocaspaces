@@ -37,8 +37,8 @@
             android:id="@+id/expand_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_marginStart="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_expand"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,8 +47,8 @@
             android:id="@+id/meeting_room_status_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginBottom="@dimen/_9sdp"
+            android:layout_marginStart="@dimen/_9sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/green_shape"
             android:paddingHorizontal="@dimen/_15sdp"
             android:paddingVertical="@dimen/_2sdp"
@@ -151,6 +151,7 @@
                     android:src="@drawable/ic_persons" />
 
                 <TextView
+                    android:layout_marginStart="@dimen/_2sdp"
                     style="@style/regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,7 +180,7 @@
                 style="@style/regular"
                 android:textAlignment="center"
                 android:textColor="@color/accent_color"
-                android:textSize="@dimen/_9sdp"
+                android:textSize="@dimen/_8sdp"
                 android:text="@string/pax"
                 app:layout_constraintEnd_toStartOf="@id/price_capacity_guide_line"
                 app:layout_constraintStart_toStartOf="parent"
@@ -201,6 +202,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/meeting_room_view_pager_adapter"
                 android:layout_width="0dp"
+                android:foregroundGravity="center"
                 app:layout_constraintBottom_toTopOf="@id/meeting_divider_bottom"
                 app:layout_constraintTop_toBottomOf="@id/meeting_info_top_divider"
                 android:layout_height="0dp"
@@ -213,12 +215,12 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/meeting_divider_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/check_price"
+                android:text="@string/check_space"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 style="@style/app_button_style.accent"/>

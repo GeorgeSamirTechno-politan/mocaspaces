@@ -25,6 +25,7 @@ class SearchHintListAdapter @Inject constructor(
     private lateinit var itemBinding: HomeSearchItemHintBinding
     private var typedText: String = ""
     private val mFilter = ItemFilter()
+    private var viewType: Int = 1
 
 
     fun setList(list: List<SearchHintMapper>) {
@@ -34,11 +35,15 @@ class SearchHintListAdapter @Inject constructor(
         notifyDataSetChanged()
     }
 
-    fun clearAll() {
+    private fun clearAll() {
         if (this.list.isNotEmpty())
             this.list.clear()
         if (this.filteredList.isEmpty())
             this.filteredList.clear()
+    }
+
+    fun setViewType(viewType: Int) {
+        this.viewType = viewType
     }
 
 
@@ -56,6 +61,13 @@ class SearchHintListAdapter @Inject constructor(
         itemBinding = HomeSearchItemHintBinding.inflate(inflater, parent, false)
         if (filteredList[position].id == null && count == 1) {
             itemBinding.homeSearchNoResultTextView.visibility = View.VISIBLE
+            when (viewType) {
+                3 -> itemBinding.homeSearchNoResultTextView.setTextColor(context.getColor(R.color.white))
+                2 -> itemBinding.homeSearchNoResultTextView.setTextColor(context.getColor(R.color.light_black_color))
+                1 -> itemBinding.homeSearchNoResultTextView.setTextColor(context.getColor(R.color.accent_color))
+                0 -> itemBinding.homeSearchNoResultTextView.setTextColor(context.getColor(R.color.accent_color))
+                else -> itemBinding.homeSearchNoResultTextView.setTextColor(context.getColor(R.color.accent_color))
+            }
         } else {
             itemBinding.homeSearchNoResultTextView.visibility = View.GONE
             itemBinding.searchItem.text = getTypedAndUnTypedText(item)
@@ -79,10 +91,41 @@ class SearchHintListAdapter @Inject constructor(
 //            }
 //        }
         if (typedWord[0].isEmpty() && typedWord[1].isEmpty() && otherWord[0].isEmpty() && otherWord[1].isEmpty()) {
-            spannableStringModule.addString(hintMapper.name).init(R.color.accent_color)
+            when (viewType) {
+                3 -> spannableStringModule.addString(hintMapper.name).init(R.color.white)
+                2 -> spannableStringModule.addString(hintMapper.name)
+                    .init(R.color.light_black_color)
+                1 -> spannableStringModule.addString(hintMapper.name).init(R.color.accent_color)
+                0 -> spannableStringModule.addString(hintMapper.name).init(R.color.accent_color)
+            }
         } else {
-            spannableStringModule.addString(typedWord[0]).init(R.color.accent_color_60)
-            spannableStringModule.addString(otherWord[1]).init(R.color.accent_color)
+            when (viewType) {
+                3 -> {
+                    itemBinding.searchItem.setTextColor(context.getColor(R.color.white))
+                    spannableStringModule.addString(typedWord[0]).init(R.color.white)
+                    spannableStringModule.addString(otherWord[1]).init(R.color.white_60)
+                }
+                2 -> {
+                    itemBinding.searchItem.setTextColor(context.getColor(R.color.light_black_color))
+                    spannableStringModule.addString(typedWord[0]).init(R.color.light_black_color)
+                    spannableStringModule.addString(otherWord[1]).init(R.color.light_black_color_60)
+                }
+                1 -> {
+                    itemBinding.searchItem.setTextColor(context.getColor(R.color.accent_color))
+                    spannableStringModule.addString(typedWord[0]).init(R.color.accent_color)
+                    spannableStringModule.addString(otherWord[1]).init(R.color.accent_color_60)
+                }
+                0 -> {
+                    itemBinding.searchItem.setTextColor(context.getColor(R.color.accent_color))
+                    spannableStringModule.addString(typedWord[0]).init(R.color.accent_color)
+                    spannableStringModule.addString(otherWord[1]).init(R.color.accent_color_60)
+                }
+                else -> {
+                    itemBinding.searchItem.setTextColor(context.getColor(R.color.accent_color))
+                    spannableStringModule.addString(typedWord[0]).init(R.color.accent_color)
+                    spannableStringModule.addString(otherWord[1]).init(R.color.accent_color_60)
+                }
+            }
         }
         return spannableStringModule.getSpannableString()
     }

@@ -24,6 +24,10 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
         const val noDataFound = 2
     }
 
+    init {
+        setHasStableIds(true)
+    }
+
 
     override fun getItemCount(): Int = list.size
 
@@ -53,7 +57,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (list.isEmpty()) noDataFound else if (list[position] == null) loading else normal
+        return if (list.first() == null) noDataFound else if (list[position] == null) loading else normal
     }
 
     private fun getLoadingBindingInit(parent: ViewGroup): ProgressLayoutBinding =
@@ -63,6 +67,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
         NoDataFoundBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
     abstract fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -81,13 +86,10 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
         }
     }
 
-    override fun getItemId(position: Int): Long {
-        return list[position].hashCode().toLong()
-    }
-
     abstract fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: T)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
             normal -> itemBinding(parent, viewType)
             noDataFound -> NoDataFoundViewHolder(getNoDataFoundBindingInit(parent))

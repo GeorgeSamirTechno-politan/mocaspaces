@@ -18,7 +18,7 @@ class WorkSpaceViewModel @Inject constructor(
     private var addFavouriteWorkSpaceRemote: AddFavouriteWorkSpaceRemote,
     private var deleteWorkSpaceFavouriteRemote: DeleteWorkSpaceFavouriteRemote
 ) :
-    BaseViewModel<List<WorkSpaceMapper>>() {
+    BaseViewModel<List<WorkSpaceMapper?>>() {
 
     private var pageNumber = 1
     private val pageSize: Int = 10
@@ -42,7 +42,7 @@ class WorkSpaceViewModel @Inject constructor(
                 workSpaceRemote.getWorkSpace(pageNumber, pageSize, type, id, location)
     }
 
-    fun getWorkSpaceList(): LiveData<ApiStatus<List<WorkSpaceMapper>>> = apiMediatorLiveData
+    fun getWorkSpaceList(): LiveData<ApiStatus<List<WorkSpaceMapper?>>> = apiMediatorLiveData
 
     fun setAddFavourite(locationId: Int) {
         favouriteMediator = addFavouriteWorkSpaceRemote.addFavourite(locationId)

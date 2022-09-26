@@ -20,22 +20,29 @@ class MeetingRoomRemote @Inject constructor(
     private var networkModule: NetworkModule,
     private var context: Context,
     private var dateTimeModule: DateTimeModule
-) : BaseRemote<List<MeetingRoomMapper>, List<MeetingRoomResponse>>() {
+) : BaseRemote<List<MeetingRoomMapper?>, List<MeetingRoomResponse>>() {
 
     private var pageNumber: Int = 1
     private var pageSize: Int = 10
     private var type: Int? = null
     private var id: Int? = null
+    private var fromPax: Int? = null
+    private var toPax: Int? = null
+
     fun getMeetingRoom(
         pageNumber: Int = 1,
         pageSize: Int = 10,
         type: Int? = null,
-        id: Int? = null
-    ): MediatorLiveData<ApiStatus<List<MeetingRoomMapper>>> {
+        id: Int? = null,
+        fromPax: Int?,
+        toPax: Int?
+    ): MediatorLiveData<ApiStatus<List<MeetingRoomMapper?>>> {
         this.pageNumber = pageNumber
         this.pageSize = pageSize
         this.type = type
         this.id = id
+        this.fromPax = fromPax
+        this.toPax = toPax
         return handleApi()
     }
 
@@ -43,17 +50,28 @@ class MeetingRoomRemote @Inject constructor(
     override fun flowable(): Flowable<HeaderResponse<List<MeetingRoomResponse>>> {
         return networkModule.provideService(BaseUrl.locationApi).getAllMeetingPagination(
             request = LocationRequest(
-                pageNumber = pageNumber, pageSize = pageSize, type = type, id = id
+                pageNumber = pageNumber,
+                pageSize = pageSize,
+                type = type,
+                id = id,
+                fromPax = fromPax,
+                toPax = toPax
+
             )
         )
     }
 
-    override fun handleResponse(it: HeaderResponse<List<MeetingRoomResponse>>): ApiStatus<List<MeetingRoomMapper>> {
-        val list = mutableListOf<MeetingRoomMapper>()
+    override fun handleResponse(it: HeaderResponse<List<MeetingRoomResponse>>): ApiStatus<List<MeetingRoomMapper?>> {
+        val list = mutableListOf<MeetingRoomMapper?>()
         return if (it.succeeded) {
-            it.data!!.forEach {
-                list.add(MeetingRoomMapper(dateTimeModule).init(it, context))
-            }
+            if (it.data == null)
+                list.add(null)
+            else
+                it.data.let {
+                    it.forEach { item ->
+                        list.add(MeetingRoomMapper(dateTimeModule).init(item, context))
+                    }
+                }
             SuccessStatus(message = "", list, getRemaining(it.pageTotal!!, pageSize, pageSize))
         } else FailedStatus(it.message)
     }
