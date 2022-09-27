@@ -4,8 +4,4 @@ data class AmenityMapper(
     var image: String = ""
 
 
-) {
-    override fun toString(): String {
-        return "AmenityMapper(image='$image')"
-    }
-}
+)

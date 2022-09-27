@@ -2,9 +2,9 @@ package com.technopolitan.mocaspaces.models.meeting
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.technopolitan.mocaspaces.models.location.response.LocationImagesResponse
-import com.technopolitan.mocaspaces.models.location.response.LocationWorkingHourResponse
+import com.technopolitan.mocaspaces.models.shared.ImagesResponse
 import com.technopolitan.mocaspaces.models.shared.NameResponse
+import com.technopolitan.mocaspaces.models.shared.WorkingHourResponse
 
 data class MeetingRoomResponse(
     @SerializedName("Id")
@@ -49,9 +49,9 @@ data class MeetingRoomResponse(
 
     @SerializedName("LocationImages")
     @Expose
-    val images: LocationImagesResponse?,
+    val images: ImagesResponse?,
 
     @SerializedName("LocationWorkingHours")
     @Expose
-    val locationWorkingHourResponses: List<LocationWorkingHourResponse>,
+    val workingHourRespons: List<WorkingHourResponse>,
 )

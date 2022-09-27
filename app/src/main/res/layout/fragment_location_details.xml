@@ -7,284 +7,467 @@
     android:background="@color/white"
     tools:context=".ui.locationDetails.LocationDetailsFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/details_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/accent_color"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:navigationIconTint="@color/workspace_color">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/title_text_view"
-                        style="@style/location_details_app_bar_title_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/back_to_search"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <ImageButton
-                        android:id="@+id/favourite_status_image_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_30sdp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_favourite"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/workspace_color" />
-
-                    <ImageButton
-                        android:id="@+id/share_image_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_share"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/favourite_status_image_btn"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/workspace_color" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.appbar.MaterialToolbar>
-
-
-            <ImageView
-                android:id="@+id/location_image_view"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_160sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/text_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tool_bar" />
-
-            <ImageView
-                android:id="@+id/expand_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:layout_marginBottom="@dimen/_35sdp"
-                android:src="@drawable/ic_expand"
-                app:layout_constraintBottom_toBottomOf="@id/location_image_view"
-                app:layout_constraintEnd_toEndOf="@id/location_image_view" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/green_shape"
-                android:drawableStart="@drawable/ic_food"
-                android:drawablePadding="@dimen/_3sdp"
-                android:paddingHorizontal="@dimen/_6sdp"
-                android:paddingVertical="@dimen/_2sdp"
-                android:text="@string/food_menu"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/expand_image_view"
-                app:layout_constraintEnd_toStartOf="@id/expand_image_view"
-                app:layout_constraintTop_toTopOf="@id/expand_image_view" />
+            android:layout_height="wrap_content"
+            android:background="@color/accent_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/workspace_color">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_minus20sdp"
-                android:background="@drawable/location_detail_top_rounded_corner"
-                app:layout_constraintTop_toBottomOf="@id/location_image_view">
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
 
                 <TextView
-                    android:id="@+id/venue_name_text_view"
-                    style="@style/medium"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_35sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_7sdp"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/accent_color"
-                    app:layout_constraintEnd_toStartOf="@id/price_guide_line"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Palm Hall M01" />
-
-                <TextView
-                    android:id="@+id/location_name_text_view"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_1sdp"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_18sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/venue_name_text_view"
-                    app:layout_constraintStart_toStartOf="@id/venue_name_text_view"
-                    app:layout_constraintTop_toBottomOf="@id/venue_name_text_view"
-                    tools:text="Palm Hils Club" />
-
-                <TextView
-                    android:id="@+id/location_direction_text_view"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/venue_name_text_view"
-                    app:layout_constraintStart_toStartOf="@id/venue_name_text_view"
-                    app:layout_constraintTop_toBottomOf="@id/location_name_text_view"
-                    tools:text="Building 2B, 5th Floor" />
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/location_info_divider"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:orientation="horizontal"
-                    app:dividerColor="@color/blue_grey_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/location_direction_text_view" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/price_guide_line"
+                    android:id="@+id/title_text_view"
+                    style="@style/location_details_app_bar_title_style"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.65" />
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/location_info_price_divider"
-                    android:layout_width="@dimen/_1sdp"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    app:dividerColor="@color/blue_grey_color"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back_to_search"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/location_info_divider"
-                    app:layout_constraintEnd_toEndOf="@id/price_guide_line"
-                    app:layout_constraintStart_toStartOf="@id/price_guide_line"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/price_view_pager"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
+                <ImageButton
+                    android:id="@+id/favourite_status_image_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_favourite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/workspace_color" />
+
+                <ImageButton
+                    android:id="@+id/share_image_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_15sdp"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/location_info_divider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/price_guide_line"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/open_hour_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/location_info_divider">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_clock"
-                        android:drawablePadding="@dimen/_7sdp"
-                        android:text="@string/opening_hours"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_8sdp" />
-
-                    <TextView
-                        android:id="@+id/working_hour_text_view"
-                        style="@style/medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginStart="@dimen/_7sdp"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:lineSpacingExtra="@dimen/_5sdp"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp"
-                        tools:text="All Weekdays 9am - 5pm\nSaturday 10am - 5pm" />
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/amenity_recycler"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/open_hour_layout"
-                    tools:itemCount="20"
-                    tools:listitem="@layout/amenity_item" />
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/amenity_divider"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:orientation="vertical"
-                    app:dividerColor="@color/blue_grey_color"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_share"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/amenity_recycler" />
+                    app:layout_constraintEnd_toStartOf="@id/favourite_status_image_btn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/workspace_color" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar">
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:paddingBottom="@dimen/_80sdp">
 
-    </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/details_btn"
-        style="@style/app_button_style.accent"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="@dimen/_80sdp"
-        android:layout_marginEnd="@dimen/_80sdp"
-        android:text="@string/choose_a_plan"
-        app:layout_constraintBottom_toBottomOf="parent" />
+                <ImageView
+                    android:id="@+id/location_image_view"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_160sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/text_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/expand_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_35sdp"
+                    android:src="@drawable/ic_expand"
+                    app:layout_constraintBottom_toBottomOf="@id/location_image_view"
+                    app:layout_constraintEnd_toEndOf="@id/location_image_view" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@drawable/green_shape"
+                    android:drawableStart="@drawable/ic_food"
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:paddingVertical="@dimen/_2sdp"
+                    android:text="@string/food_menu"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/expand_image_view"
+                    app:layout_constraintEnd_toStartOf="@id/expand_image_view"
+                    app:layout_constraintTop_toTopOf="@id/expand_image_view" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_minus20sdp"
+                    android:background="@drawable/location_detail_top_rounded_corner"
+                    app:layout_constraintTop_toBottomOf="@id/location_image_view">
+
+                    <TextView
+                        android:id="@+id/venue_name_text_view"
+                        style="@style/medium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_35sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_7sdp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/accent_color"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toStartOf="@id/price_guide_line"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Palm Hall M01" />
+
+                    <TextView
+                        android:id="@+id/location_name_text_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_18sdp"
+                        app:layout_constraintEnd_toEndOf="@+id/venue_name_text_view"
+                        app:layout_constraintStart_toStartOf="@id/venue_name_text_view"
+                        app:layout_constraintTop_toBottomOf="@id/venue_name_text_view"
+                        tools:text="Palm Hils Club" />
+
+                    <TextView
+                        android:id="@+id/location_direction_text_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="@+id/venue_name_text_view"
+                        app:layout_constraintStart_toStartOf="@id/venue_name_text_view"
+                        app:layout_constraintTop_toBottomOf="@id/location_name_text_view"
+                        tools:text="Building 2B, 5th Floor" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/location_info_divider"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="horizontal"
+                        app:dividerColor="@color/blue_grey_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/location_direction_text_view" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/price_guide_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.65" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/location_info_price_divider"
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        app:dividerColor="@color/blue_grey_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/location_info_divider"
+                        app:layout_constraintEnd_toEndOf="@id/price_guide_line"
+                        app:layout_constraintStart_toStartOf="@id/price_guide_line"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/price_view_pager"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toTopOf="@id/location_info_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/price_guide_line"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/open_hour_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/location_info_divider">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_clock"
+                            android:drawablePadding="@dimen/_7sdp"
+                            android:text="@string/opening_hours"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:id="@+id/working_hour_text_view"
+                            style="@style/medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:lineSpacingExtra="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            tools:text="All Weekdays 9am - 5pm\nSaturday 10am - 5pm" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/amenity_recycler"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/open_hour_layout"
+                        tools:itemCount="20"
+                        tools:listitem="@layout/amenity_item" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/amenity_divider"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:orientation="vertical"
+                        app:dividerColor="@color/blue_grey_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/amenity_recycler" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/about_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/amenity_divider">
+
+                        <TextView
+                            android:id="@+id/about_text_view"
+                            style="@style/medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <WebView
+                            android:id="@+id/about_web_vew"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:background="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/about_text_view" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/about_divider"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="vertical"
+                        app:dividerColor="@color/blue_grey_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/about_layout" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/address_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:animateLayoutChanges="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/about_divider">
+
+                        <TextView
+                            android:id="@+id/address_text_view"
+                            style="@style/medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_50sdp"
+                            android:text="@string/address"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/address_info_text_view"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_50sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/address_text_view"
+                            app:layout_constraintTop_toBottomOf="@id/address_text_view"
+                            tools:text="Palmhills Compound, Zayed City, 6th of OctoberGiza, Egypt" />
+
+                        <include
+                            android:id="@+id/map_include"
+                            layout="@layout/google_map_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_150sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/address_info_text_view" />
+
+                        <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/map_divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:orientation="horizontal"
+                            app:dividerColor="@color/black_25"
+                            app:layout_constraintTop_toBottomOf="@id/map_include" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/take_a_closer_look_text_view"
+                        style="@style/medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:text="@string/take_a_closer_look"
+                        android:textAlignment="center"
+                        android:textColor="@color/accent_color"
+                        android:textSize="@dimen/_13sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/address_layout" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/marketing_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/take_a_closer_look_text_view"
+                        tools:listitem="@layout/marketing_item" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/marketing_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        app:dividerColor="@color/blue_grey_color"
+                        app:layout_constraintTop_toBottomOf="@id/marketing_recycler" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/terms_of_use_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:animateLayoutChanges="true"
+                        app:layout_constraintTop_toBottomOf="@id/marketing_divider">
+
+                        <TextView
+                            android:id="@+id/terms_of_use_text_view"
+                            style="@style/medium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:text="@string/terms_of_use"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <WebView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            app:layout_constraintEnd_toEndOf="@id/terms_of_use_text_view"
+                            app:layout_constraintStart_toStartOf="@id/terms_of_use_text_view"
+                            app:layout_constraintTop_toBottomOf="@id/terms_of_use_text_view" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/details_btn"
+            style="@style/app_button_style.accent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_70sdp"
+            android:layout_marginEnd="@dimen/_70sdp"
+            android:text="@string/choose_a_plan"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <include-->
+    <!--        android:id="@+id/details_progress"-->
+    <!--        layout="@layout/progress_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,13 +13,15 @@ import com.technopolitan.mocaspaces.models.location.request.LocationRequest
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
 import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NetworkModule
+import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.Flowable
 import javax.inject.Inject
 
 class WorkSpaceRemote @Inject constructor(
     private var networkModule: NetworkModule, private var dateTimeModule: DateTimeModule,
-    private var context: Context
+    private var context: Context,
+    private var spannableStringModule: SpannableStringModule
 ) : BaseRemote<List<WorkSpaceMapper?>, List<WorkSpaceResponse>>() {
 
     private var pageNumber: Int = 1
@@ -62,7 +64,13 @@ class WorkSpaceRemote @Inject constructor(
             else
                 it.data.let {
                     it.forEach { item ->
-                        list.add(WorkSpaceMapper(dateTimeModule).init(item, location, context))
+                        list.add(
+                            WorkSpaceMapper(
+                                dateTimeModule,
+                                context,
+                                spannableStringModule
+                            ).init(item, location, context)
+                        )
                     }
                 }
 

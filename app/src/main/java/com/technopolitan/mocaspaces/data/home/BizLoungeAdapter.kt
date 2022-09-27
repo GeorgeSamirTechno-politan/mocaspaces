@@ -49,7 +49,7 @@ class BizLoungeAdapter @Inject constructor(
             glideModule.loadImage(item.image, itemBinding.bizLoungeRoomImageView)
             setOpenClose(item)
             itemBinding.workingHourTextView.text =
-                item.getOpenHourText(context, spannableStringModule)
+                item.workTimeMapper.getOpenHourText()
             itemBind.bizLoungeLocationNameTextView.text = item.locationName
             itemBind.bizLoungeLocationAddressTextView.text = item.address
         }

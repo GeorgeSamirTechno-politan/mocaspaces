@@ -14,6 +14,7 @@ import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeFragment
 import com.technopolitan.mocaspaces.ui.home.eventSpace.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
+import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
@@ -74,4 +75,5 @@ interface ApplicationComponent {
     fun inject(resetPasswordFragment: ResetPasswordFragment)
     fun inject(passwordSavedFragment: PasswordSavedFragment)
     fun inject(bizLoungeFragment: BizLoungeFragment)
+    fun inject(locationDetailsFragment: LocationDetailsFragment)
 }

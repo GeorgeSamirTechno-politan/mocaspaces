@@ -72,7 +72,7 @@ class WorkSpaceAdapter @Inject constructor(
             itemBinding.locationDistanceTextView.text = item.distance
             setAmenities(item)
             itemBinding.workingHourTextView.text =
-                item.getOpenHourText(context, spannableStringModule)
+                item.workTimeMapper.getOpenHourText()
             setOpenClose(item)
         }
 
@@ -100,7 +100,6 @@ class WorkSpaceAdapter @Inject constructor(
         }
 
         private fun setPrice(item: WorkSpaceMapper) {
-            item.initPriceList(context)
             val priceAdapter = PriceAdapter()
             itemBinding.priceViewPager.adapter = priceAdapter
             itemBinding.priceViewPager.autoScroll(5000)

@@ -1,6 +1,6 @@
 package com.technopolitan.mocaspaces.models.location.mappers
 
-import com.technopolitan.mocaspaces.models.location.response.LocationWorkingHourResponse
+import com.technopolitan.mocaspaces.models.shared.WorkingHourResponse
 import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.utilities.DateTimeConstants
 import java.util.*
@@ -14,7 +14,7 @@ class LocationWorkTimeMapper constructor(private var dateTimeModule: DateTimeMod
     var startWorkString: String = ""
     var endWorkString: String = ""
 
-    fun init(workTimeResponse: LocationWorkingHourResponse): LocationWorkTimeMapper {
+    fun init(workTimeResponse: WorkingHourResponse): LocationWorkTimeMapper {
         val currentDateTime = Calendar.getInstance().time
         dayFrom = workTimeResponse.dayFrom
         dayTo = workTimeResponse.dayTo

@@ -7,6 +7,7 @@ import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeViewModel
 import com.technopolitan.mocaspaces.ui.home.eventSpace.EventSpaceViewModel
 import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomViewModel
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel
+import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsViewModel
 import com.technopolitan.mocaspaces.ui.main.MainViewModel
 import dagger.Binds
 import dagger.Module
@@ -47,4 +48,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BizLoungeViewModel::class)
     abstract fun bindBizLoungeViewModel(bizLoungeViewModel: BizLoungeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LocationDetailsViewModel::class)
+    abstract fun bindLocationDetailsViewModel(locationDetailsViewModel: LocationDetailsViewModel): ViewModel
 }

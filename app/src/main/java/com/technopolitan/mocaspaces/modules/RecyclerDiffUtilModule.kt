@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.technopolitan.mocaspaces.data.DropDownMapper
 import com.technopolitan.mocaspaces.models.location.mappers.AmenityMapper
 import com.technopolitan.mocaspaces.models.location.mappers.HomeSearchMapper
-import com.technopolitan.mocaspaces.models.location.mappers.PricePagerMapper
+import com.technopolitan.mocaspaces.models.location.mappers.PriceMapper
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 
@@ -25,7 +25,7 @@ class RecyclerDiffUtilModule<T> constructor(
             is HomeSearchMapper -> (oldItem as HomeSearchMapper) == (newItem as HomeSearchMapper)
             is MeetingRoomMapper -> (oldItem as MeetingRoomMapper) == (newItem as MeetingRoomMapper)
             is AmenityMapper -> (oldItem as AmenityMapper) == (newItem as AmenityMapper)
-            is PricePagerMapper -> (oldItem as PricePagerMapper) == (newItem as PricePagerMapper)
+            is PriceMapper -> (oldItem as PriceMapper) == (newItem as PriceMapper)
             else -> oldList[oldItemPosition] === newList[newItemPosition]
         }
     }
@@ -39,7 +39,7 @@ class RecyclerDiffUtilModule<T> constructor(
             is HomeSearchMapper -> (oldItem as HomeSearchMapper).hashCode() == (newItem as HomeSearchMapper).hashCode()
             is MeetingRoomMapper -> (oldItem as MeetingRoomMapper).hashCode() == (newItem as MeetingRoomMapper).hashCode()
             is AmenityMapper -> (oldItem as AmenityMapper).hashCode() == (newItem as AmenityMapper).hashCode()
-            is PricePagerMapper -> (oldItem as PricePagerMapper).hashCode() == (newItem as PricePagerMapper).hashCode()
+            is PriceMapper -> (oldItem as PriceMapper).hashCode() == (newItem as PriceMapper).hashCode()
             else -> oldList[oldItemPosition] == newList[newItemPosition]
         }
     }

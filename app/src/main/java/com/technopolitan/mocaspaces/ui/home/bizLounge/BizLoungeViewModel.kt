@@ -1,6 +1,5 @@
 package com.technopolitan.mocaspaces.ui.home.bizLounge
 
-import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -19,7 +18,6 @@ class BizLoungeViewModel @Inject constructor(
     private var pageNumber = 1
     private val pageSize: Int = 10
     private var remainingPage: Int = 1
-    private var location: Location? = null
     private var type: Int? = null
     private var id: Int? = null
     private var bizLoungeListMediator: MediatorLiveData<MutableList<BizLoungeMapper?>> =
@@ -34,7 +32,7 @@ class BizLoungeViewModel @Inject constructor(
     private fun setApiRequest() {
         if (hasLoadMore())
             apiMediatorLiveData =
-                bizLoungeRemote.getBizLounge(pageNumber, pageSize, type, id, location)
+                bizLoungeRemote.getBizLounge(pageNumber, pageSize, type, id)
     }
 
     fun getApiList(): LiveData<ApiStatus<List<BizLoungeMapper?>>> = apiMediatorLiveData

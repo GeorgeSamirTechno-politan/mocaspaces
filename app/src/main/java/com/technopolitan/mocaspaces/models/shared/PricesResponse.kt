@@ -7,14 +7,17 @@ import com.google.gson.annotations.SerializedName
 data class PricesResponse(
     @SerializedName("Bundle")
     @Expose
-    val bundle: Double,
+    val bundle: Double? = 0.0,
     @SerializedName("Day")
     @Expose
-    val day: Double,
+    val day: Double? = 0.0,
     @SerializedName("Hourly")
     @Expose
-    val hourly: Double,
+    val hourly: Double? = 0.0,
     @SerializedName("Tailored")
     @Expose
-    val tailored: Double
+    val tailored: Double? = 0.0,
+    @SerializedName("PrivateOffice")
+    @Expose
+    val privateOfficePrice: Double? = 0.0
 )

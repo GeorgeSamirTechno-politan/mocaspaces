@@ -12,6 +12,7 @@ import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomResponse
 import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NetworkModule
+import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
 import io.reactivex.Flowable
 import javax.inject.Inject
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class MeetingRoomRemote @Inject constructor(
     private var networkModule: NetworkModule,
     private var context: Context,
-    private var dateTimeModule: DateTimeModule
+    private var dateTimeModule: DateTimeModule,
+    private var spannableStringModule: SpannableStringModule,
 ) : BaseRemote<List<MeetingRoomMapper?>, List<MeetingRoomResponse>>() {
 
     private var pageNumber: Int = 1
@@ -69,7 +71,13 @@ class MeetingRoomRemote @Inject constructor(
             else
                 it.data.let {
                     it.forEach { item ->
-                        list.add(MeetingRoomMapper(dateTimeModule).init(item, context))
+                        list.add(
+                            MeetingRoomMapper(
+                                dateTimeModule,
+                                context,
+                                spannableStringModule
+                            ).init(item, context)
+                        )
                     }
                 }
             SuccessStatus(message = "", list, getRemaining(it.pageTotal!!, pageSize, pageSize))

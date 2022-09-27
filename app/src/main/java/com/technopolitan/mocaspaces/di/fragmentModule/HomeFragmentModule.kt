@@ -2,7 +2,10 @@ package com.technopolitan.mocaspaces.di.fragmentModule
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.data.home.*
+import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter
+import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter
+import com.technopolitan.mocaspaces.data.home.SearchHintListAdapter
+import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote
 import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
@@ -23,8 +26,12 @@ class HomeFragmentModule @Inject constructor(private var networkModule: NetworkM
 
     @Singleton
     @Provides
-    fun provideWorkSpaceRemote(dateTimeModule: DateTimeModule, context: Context): WorkSpaceRemote =
-        WorkSpaceRemote(networkModule, dateTimeModule, context)
+    fun provideWorkSpaceRemote(
+        dateTimeModule: DateTimeModule,
+        context: Context,
+        spannableStringModule: SpannableStringModule
+    ): WorkSpaceRemote =
+        WorkSpaceRemote(networkModule, dateTimeModule, context, spannableStringModule)
 
     @Singleton
     @Provides
