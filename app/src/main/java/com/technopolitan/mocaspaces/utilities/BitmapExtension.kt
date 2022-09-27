@@ -1,6 +1,11 @@
 package com.technopolitan.mocaspaces.utilities
 
+import android.content.Context
 import android.graphics.*
+import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+
 
 object BitmapExtension {
 
@@ -69,4 +74,6 @@ object BitmapExtension {
             true
         )
     }
+
+
 }
