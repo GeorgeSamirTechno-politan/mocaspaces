@@ -43,10 +43,6 @@
         <action
             android:id="@+id/action_splash_to_start"
             app:destination="@id/start_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
 
@@ -61,20 +57,12 @@
         <action
             android:id="@+id/action_start_to_login"
             app:destination="@id/login_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_start_to_register"
             app:destination="@id/register_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
 
@@ -89,10 +77,6 @@
         <action
             android:id="@+id/action_register_to_login"
             app:destination="@id/login_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
 
@@ -108,20 +92,12 @@
         <action
             android:id="@+id/action_login_to_register"
             app:destination="@id/register_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_login_to_forget_password"
             app:destination="@id/forget_password_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/login_fragment"
             app:popUpToInclusive="true" />
 
@@ -138,10 +114,6 @@
         <action
             android:id="@+id/action_forget_password_to_otp_forgot_password"
             app:destination="@id/otp_forgot_password_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/login_fragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -155,10 +127,6 @@
         <action
             android:id="@+id/action_reset_password_fragment_to_password_change_successfully_fragment"
             app:destination="@id/password_change_successfully_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/login_fragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -172,10 +140,6 @@
         <action
             android:id="@+id/action_otp_forgot_password_to_reset_password"
             app:destination="@id/reset_password_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/login_fragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -191,11 +155,7 @@
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true"
             android:id="@+id/action_password_change_successfully_fragment_to_login_fragment"
-            app:destination="@id/login_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:destination="@id/login_fragment" />
     </fragment>
 
 

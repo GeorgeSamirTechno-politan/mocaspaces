@@ -2,9 +2,8 @@ package com.technopolitan.mocaspaces.di.fragmentModule
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.technopolitan.mocaspaces.modules.GoogleMapModule
-import com.technopolitan.mocaspaces.modules.NetworkModule
-import com.technopolitan.mocaspaces.modules.UtilityModule
+import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote
+import com.technopolitan.mocaspaces.modules.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
@@ -18,9 +17,21 @@ class LocationDetailsFragmentModule @Inject constructor(private var networkModul
     fun provideGoogleMapModule(
         context: Context,
         utilityModule: UtilityModule,
-        fragment: Fragment?
+        fragment: Fragment?,
+        permissionModule: PermissionModule
     ): GoogleMapModule = GoogleMapModule(
         context,
-        utilityModule, fragment
+        utilityModule, fragment,
+        permissionModule
     )
+
+    @Singleton
+    @Provides
+    fun provideWorkSpaceDetailsRemote(
+        context: Context,
+        spannableStringModule: SpannableStringModule,
+        dateTimeModule: DateTimeModule
+    ): WorkSpaceDetailsRemote =
+        WorkSpaceDetailsRemote(networkModule, context, spannableStringModule, dateTimeModule)
+
 }

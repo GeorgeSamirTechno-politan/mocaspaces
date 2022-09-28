@@ -1,5 +1,7 @@
 package com.technopolitan.mocaspaces.bases
 
+import android.app.Activity
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     lateinit var itemBinding: K
     protected var list: MutableList<T?> = mutableListOf()
     protected var itemIndex = -1
+    protected var defaultMaxItemCount: Int = 0
 
     companion object {
         const val normal = 1
@@ -29,7 +32,8 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     }
 
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int =
+        if (list.size > defaultMaxItemCount && defaultMaxItemCount > 0) defaultMaxItemCount else list.size
 
     fun setData(newList: MutableList<T?>) {
         val diffCallback = RecyclerDiffUtilModule(this.list, newList)
@@ -38,6 +42,15 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
             this.list.clear()
         this.list.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    protected fun getItemMinWidthWithMaxItemCount(): Int? {
+        if (defaultMaxItemCount > 0) {
+            val dm = DisplayMetrics()
+            (itemBinding.root.context as Activity).windowManager.defaultDisplay.getMetrics(dm)
+            return dm.widthPixels / defaultMaxItemCount + 1
+        }
+        return null
     }
 
 

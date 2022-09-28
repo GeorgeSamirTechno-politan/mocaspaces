@@ -5,16 +5,15 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.view.View
+import androidx.activity.addCallback
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.SharedPrefKey
 import com.technopolitan.mocaspaces.databinding.CustomBottomNavigationLayoutBinding
-import com.technopolitan.mocaspaces.modules.GlideModule
-import com.technopolitan.mocaspaces.modules.NavigationModule
-import com.technopolitan.mocaspaces.modules.SharedPrefModule
-import com.technopolitan.mocaspaces.modules.UtilityModule
+import com.technopolitan.mocaspaces.modules.*
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import dagger.Module
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -29,7 +28,8 @@ class CustomBottomNavigationModule @Inject constructor(
     private var sharedPrefModule: SharedPrefModule,
     private var navigationModule: NavigationModule,
     private var glideModule: GlideModule,
-    private var utilityModule: UtilityModule
+    private var utilityModule: UtilityModule,
+    private var dialogModule: DialogModule
 ) {
 
     private lateinit var binding: CustomBottomNavigationLayoutBinding
@@ -42,13 +42,20 @@ class CustomBottomNavigationModule @Inject constructor(
     private lateinit var selectedAnimator: ValueAnimator
     private lateinit var unSelectedAnimator: ValueAnimator
     private lateinit var myPassTab: ShapeableImageView
+    private lateinit var viewLifecycleOwner: LifecycleOwner
 
-    fun init(binding: CustomBottomNavigationLayoutBinding, myPassTab: ShapeableImageView) {
+    fun init(
+        binding: CustomBottomNavigationLayoutBinding,
+        myPassTab: ShapeableImageView,
+        viewLifecycleOwner: LifecycleOwner
+    ) {
         this.binding = binding
         this.myPassTab = myPassTab
+        this.viewLifecycleOwner = viewLifecycleOwner
         setUpColorWithAnimator()
         setUpNavController()
         listenForLoggedInPublisher()
+        onBackPressedCallBack()
     }
 
     private fun setUpColorWithAnimator() {
@@ -66,6 +73,7 @@ class CustomBottomNavigationModule @Inject constructor(
             (activity as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         navController.addOnDestinationChangedListener(listener)
+
     }
 
 
@@ -159,7 +167,10 @@ class CustomBottomNavigationModule @Inject constructor(
     }
 
     private fun navigateToMyBooking() {
-        navigationModule.navigateTo(R.id.my_bookings_fragment, R.id.nav_host_fragment)
+        navigationModule.navigateTo(
+            R.id.action_home_fragment_to_my_bookings_fragment,
+            R.id.nav_host_fragment
+        )
     }
 
     private fun clickOnMyPass() {
@@ -245,12 +256,41 @@ class CustomBottomNavigationModule @Inject constructor(
         NavController.OnDestinationChangedListener { _, destination, _ ->
             run {
                 when (destination.id) {
-                    R.id.register_fragment -> utilityModule.setStatusBar(R.color.white)
-                    R.id.login_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                    R.id.start_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                    R.id.no_internet_fragment -> utilityModule.setStatusBar(R.color.accent_color)
-                    R.id.splash_fragment -> utilityModule.setStatusBar(R.color.accent_color)
+                    R.id.register_fragment -> updateStatUsBarColor(R.color.white)
+                    R.id.login_fragment -> updateStatUsBarColor(hideNavigation = true)
+                    R.id.start_fragment -> updateStatUsBarColor(hideNavigation = true)
+                    R.id.no_internet_fragment -> updateStatUsBarColor(hideNavigation = true)
+                    R.id.splash_fragment -> updateStatUsBarColor(hideNavigation = true)
+                    R.id.location_details -> updateStatUsBarColor(hideNavigation = true)
+                    R.id.home_fragment -> updateStatUsBarColor(hideNavigation = false)
                 }
             }
         }
+
+    private fun updateStatUsBarColor(
+        color: Int = R.color.accent_color,
+        hideNavigation: Boolean = false
+    ) {
+        utilityModule.setStatusBar(color)
+        if (hideNavigation) {
+            binding.root.visibility = View.GONE
+            myPassTab.visibility = View.GONE
+        } else {
+            binding.root.visibility = View.VISIBLE
+            myPassTab.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onBackPressedCallBack() {
+        val mainActivity = (activity as MainActivity)
+        mainActivity.onBackPressedDispatcher.addCallback(viewLifecycleOwner, true) {
+            try {
+                if (navigationModule.hasBackStack(R.id.nav_host_fragment))
+                    navigationModule.popBack(navHostId = R.id.nav_host_fragment)
+                else dialogModule.showCloseAppDialog()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

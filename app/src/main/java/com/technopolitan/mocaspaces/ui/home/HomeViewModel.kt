@@ -32,6 +32,7 @@ open class HomeViewModel @Inject constructor(
         MediatorLiveData()
     private var viewTypeMediatorLiveData: MediatorLiveData<Int> = MediatorLiveData()
     private val homeSearchMapperList: MutableList<HomeSearchMapper> = mutableListOf()
+    private var selectedLocationId: Int = 0
 
 
     init {
@@ -157,6 +158,14 @@ open class HomeViewModel @Inject constructor(
             3 -> eventSpaceFilterMediator.postValue(it)
             4 -> bizLoungeFilterMediator.postValue(it)
         }
+    }
+
+    fun setSelectedLocationId(id: Int) {
+        this.selectedLocationId = id
+    }
+
+    fun getSelectedLocationId(): Int {
+        return this.selectedLocationId
     }
 
 

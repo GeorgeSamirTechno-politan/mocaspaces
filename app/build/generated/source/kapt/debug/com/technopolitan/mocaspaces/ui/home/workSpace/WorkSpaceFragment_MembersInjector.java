@@ -5,6 +5,7 @@ import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
+import com.technopolitan.mocaspaces.modules.NavigationModule;
 import dagger.MembersInjector;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.InjectedFieldSignature;
@@ -27,22 +28,27 @@ public final class WorkSpaceFragment_MembersInjector implements MembersInjector<
 
   private final Provider<ViewModelFactory> viewModelFactoryProvider;
 
+  private final Provider<NavigationModule> navigationModuleProvider;
+
   public WorkSpaceFragment_MembersInjector(Provider<WorkSpaceAdapter> workSpaceAdapterProvider,
       Provider<ApiResponseModule<List<WorkSpaceMapper>>> workSpaceApiHandlerProvider,
       Provider<ApiResponseModule<String>> favouriteApiHandlerProvider,
-      Provider<ViewModelFactory> viewModelFactoryProvider) {
+      Provider<ViewModelFactory> viewModelFactoryProvider,
+      Provider<NavigationModule> navigationModuleProvider) {
     this.workSpaceAdapterProvider = workSpaceAdapterProvider;
     this.workSpaceApiHandlerProvider = workSpaceApiHandlerProvider;
     this.favouriteApiHandlerProvider = favouriteApiHandlerProvider;
     this.viewModelFactoryProvider = viewModelFactoryProvider;
+    this.navigationModuleProvider = navigationModuleProvider;
   }
 
   public static MembersInjector<WorkSpaceFragment> create(
       Provider<WorkSpaceAdapter> workSpaceAdapterProvider,
       Provider<ApiResponseModule<List<WorkSpaceMapper>>> workSpaceApiHandlerProvider,
       Provider<ApiResponseModule<String>> favouriteApiHandlerProvider,
-      Provider<ViewModelFactory> viewModelFactoryProvider) {
-    return new WorkSpaceFragment_MembersInjector(workSpaceAdapterProvider, workSpaceApiHandlerProvider, favouriteApiHandlerProvider, viewModelFactoryProvider);
+      Provider<ViewModelFactory> viewModelFactoryProvider,
+      Provider<NavigationModule> navigationModuleProvider) {
+    return new WorkSpaceFragment_MembersInjector(workSpaceAdapterProvider, workSpaceApiHandlerProvider, favouriteApiHandlerProvider, viewModelFactoryProvider, navigationModuleProvider);
   }
 
   @Override
@@ -51,6 +57,7 @@ public final class WorkSpaceFragment_MembersInjector implements MembersInjector<
     injectWorkSpaceApiHandler(instance, workSpaceApiHandlerProvider.get());
     injectFavouriteApiHandler(instance, favouriteApiHandlerProvider.get());
     injectViewModelFactory(instance, viewModelFactoryProvider.get());
+    injectNavigationModule(instance, navigationModuleProvider.get());
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment.workSpaceAdapter")
@@ -75,5 +82,11 @@ public final class WorkSpaceFragment_MembersInjector implements MembersInjector<
   public static void injectViewModelFactory(WorkSpaceFragment instance,
       ViewModelFactory viewModelFactory) {
     instance.viewModelFactory = viewModelFactory;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment.navigationModule")
+  public static void injectNavigationModule(WorkSpaceFragment instance,
+      NavigationModule navigationModule) {
+    instance.navigationModule = navigationModule;
   }
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.technopolitan.mocaspaces.models.shared.ImagesResponse
 import com.technopolitan.mocaspaces.models.shared.NameResponse
-import com.technopolitan.mocaspaces.models.shared.PriceResponse
+import com.technopolitan.mocaspaces.models.shared.PricesResponse
 import com.technopolitan.mocaspaces.models.shared.WorkingHourResponse
 
 data class LocationDetailsResponse(
@@ -58,11 +58,11 @@ data class LocationDetailsResponse(
 
     @SerializedName("LocationImage")
     @Expose
-    val image: ImagesResponse,
+    val image: ImagesResponse?,
 
     @SerializedName("TakeACloserLook")
     @Expose
-    val marketingList: List<TakeACloserLookResponse>,
+    val marketingList: List<MarketingResponse>?,
 
     @SerializedName("LocationWorkingHours")
     @Expose
@@ -70,11 +70,11 @@ data class LocationDetailsResponse(
 
     @SerializedName("LocationAmenities")
     @Expose
-    val amenityList: List<AmenityResponse>,
+    val amenityList: List<AmenityResponse>?,
 
     @SerializedName("Prices")
     @Expose
-    val price: PriceResponse,
+    val price: PricesResponse,
 
     @SerializedName("IsFavourite")
     @Expose

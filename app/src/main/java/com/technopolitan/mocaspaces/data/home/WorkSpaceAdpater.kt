@@ -24,10 +24,15 @@ class WorkSpaceAdapter @Inject constructor(
 
 
     private lateinit var favouriteCallbacks: (workspaceMapper: WorkSpaceMapper, position: Int) -> Unit
+    private lateinit var itemCallBack: (workspaceMapper: WorkSpaceMapper) -> Unit
 
 
     fun setFavouriteCallBack(favouriteCallbacks: (workspaceMapper: WorkSpaceMapper, position: Int) -> Unit) {
         this.favouriteCallbacks = favouriteCallbacks
+    }
+
+    fun setBookCallBack(itemCallBack: (workspaceMapper: WorkSpaceMapper) -> Unit) {
+        this.itemCallBack = itemCallBack
     }
 
     override fun itemBinding(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -87,6 +92,7 @@ class WorkSpaceAdapter @Inject constructor(
 
         private fun setAmenities(item: WorkSpaceMapper) {
             val amenityAdapter = AmenityAdapter(glideModule)
+            amenityAdapter.defaultMaxItemCount(6)
             amenityAdapter.setData(item.amenityList.toMutableList())
             itemBind.amenityRecycler.adapter = amenityAdapter
         }
@@ -142,7 +148,8 @@ class WorkSpaceAdapter @Inject constructor(
                 favouriteCallbacks(getItem(bindingAdapterPosition), bindingAdapterPosition)
             } else if (v?.id == itemBind.workSpaceImageView.id) {
                 Log.d(javaClass.name, "onClick: ")
-            }
+            } else if (v?.id == itemBind.workSpaceBookBtn.id)
+                itemCallBack(getItem(bindingAdapterPosition))
         }
 
     }

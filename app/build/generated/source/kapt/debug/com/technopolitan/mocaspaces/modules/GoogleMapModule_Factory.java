@@ -23,25 +23,30 @@ public final class GoogleMapModule_Factory implements Factory<GoogleMapModule> {
 
   private final Provider<Fragment> fragmentProvider;
 
+  private final Provider<PermissionModule> permissionModelProvider;
+
   public GoogleMapModule_Factory(Provider<Context> contextProvider,
-      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider) {
+      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider,
+      Provider<PermissionModule> permissionModelProvider) {
     this.contextProvider = contextProvider;
     this.utilityModuleProvider = utilityModuleProvider;
     this.fragmentProvider = fragmentProvider;
+    this.permissionModelProvider = permissionModelProvider;
   }
 
   @Override
   public GoogleMapModule get() {
-    return newInstance(contextProvider.get(), utilityModuleProvider.get(), fragmentProvider.get());
+    return newInstance(contextProvider.get(), utilityModuleProvider.get(), fragmentProvider.get(), permissionModelProvider.get());
   }
 
   public static GoogleMapModule_Factory create(Provider<Context> contextProvider,
-      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider) {
-    return new GoogleMapModule_Factory(contextProvider, utilityModuleProvider, fragmentProvider);
+      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider,
+      Provider<PermissionModule> permissionModelProvider) {
+    return new GoogleMapModule_Factory(contextProvider, utilityModuleProvider, fragmentProvider, permissionModelProvider);
   }
 
   public static GoogleMapModule newInstance(Context context, UtilityModule utilityModule,
-      Fragment fragment) {
-    return new GoogleMapModule(context, utilityModule, fragment);
+      Fragment fragment, PermissionModule permissionModel) {
+    return new GoogleMapModule(context, utilityModule, fragment, permissionModel);
   }
 }

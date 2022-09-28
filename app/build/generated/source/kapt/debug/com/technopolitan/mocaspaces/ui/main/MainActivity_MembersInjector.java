@@ -3,7 +3,6 @@ package com.technopolitan.mocaspaces.ui.main;
 
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
 import com.technopolitan.mocaspaces.modules.AppDefaultModule;
-import com.technopolitan.mocaspaces.modules.DialogModule;
 import com.technopolitan.mocaspaces.modules.GlideModule;
 import com.technopolitan.mocaspaces.modules.NavigationModule;
 import com.technopolitan.mocaspaces.modules.PermissionModule;
@@ -27,8 +26,6 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
 
   private final Provider<ViewModelFactory> viewModelFactoryProvider;
 
-  private final Provider<DialogModule> dialogModuleProvider;
-
   private final Provider<NavigationModule> navigationModuleProvider;
 
   private final Provider<PixModule> pixModuleProvider;
@@ -43,7 +40,6 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
 
   public MainActivity_MembersInjector(Provider<AppDefaultModule> appDefaultModelProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider,
-      Provider<DialogModule> dialogModuleProvider,
       Provider<NavigationModule> navigationModuleProvider, Provider<PixModule> pixModuleProvider,
       Provider<PermissionModule> permissionModuleProvider,
       Provider<GlideModule> glideModuleProvider,
@@ -51,7 +47,6 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
       Provider<UtilityModule> utilityModuleProvider) {
     this.appDefaultModelProvider = appDefaultModelProvider;
     this.viewModelFactoryProvider = viewModelFactoryProvider;
-    this.dialogModuleProvider = dialogModuleProvider;
     this.navigationModuleProvider = navigationModuleProvider;
     this.pixModuleProvider = pixModuleProvider;
     this.permissionModuleProvider = permissionModuleProvider;
@@ -63,20 +58,18 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
   public static MembersInjector<MainActivity> create(
       Provider<AppDefaultModule> appDefaultModelProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider,
-      Provider<DialogModule> dialogModuleProvider,
       Provider<NavigationModule> navigationModuleProvider, Provider<PixModule> pixModuleProvider,
       Provider<PermissionModule> permissionModuleProvider,
       Provider<GlideModule> glideModuleProvider,
       Provider<SharedPrefModule> sharedPrefModuleProvider,
       Provider<UtilityModule> utilityModuleProvider) {
-    return new MainActivity_MembersInjector(appDefaultModelProvider, viewModelFactoryProvider, dialogModuleProvider, navigationModuleProvider, pixModuleProvider, permissionModuleProvider, glideModuleProvider, sharedPrefModuleProvider, utilityModuleProvider);
+    return new MainActivity_MembersInjector(appDefaultModelProvider, viewModelFactoryProvider, navigationModuleProvider, pixModuleProvider, permissionModuleProvider, glideModuleProvider, sharedPrefModuleProvider, utilityModuleProvider);
   }
 
   @Override
   public void injectMembers(MainActivity instance) {
     injectAppDefaultModel(instance, appDefaultModelProvider.get());
     injectViewModelFactory(instance, viewModelFactoryProvider.get());
-    injectDialogModule(instance, dialogModuleProvider.get());
     injectNavigationModule(instance, navigationModuleProvider.get());
     injectPixModule(instance, pixModuleProvider.get());
     injectPermissionModule(instance, permissionModuleProvider.get());
@@ -95,11 +88,6 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
   public static void injectViewModelFactory(MainActivity instance,
       ViewModelFactory viewModelFactory) {
     instance.viewModelFactory = viewModelFactory;
-  }
-
-  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.main.MainActivity.dialogModule")
-  public static void injectDialogModule(MainActivity instance, DialogModule dialogModule) {
-    instance.dialogModule = dialogModule;
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.main.MainActivity.navigationModule")

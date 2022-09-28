@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    wheel picker default dimens-->
     <dimen name="WheelItemTextSize">24sp</dimen>
     <dimen name="WheelItemSpace">12dp</dimen>
     <dimen name="WheelIndicatorSize">2dp</dimen>
     <dimen name="WheelMargins">8dp</dimen>
+    <!--    end of wheel picker default dimens-->
+
+    <!--    pay tabs default dimens-->
+    <dimen name="payment_sdk_primary_font_size">17sp</dimen>
+    <dimen name="payment_sdk_secondary_font_size">15sp</dimen>
+    <dimen name="payment_sdk_separator_thickness">1dp</dimen>
+    <dimen name="payment_sdk_stroke_thickness">1dp</dimen>
+    <dimen name="payment_sdk_input_corner_radius">50dp</dimen>
+    <dimen name="payment_sdk_button_corner_radius">50dp</dimen>
 </resources>

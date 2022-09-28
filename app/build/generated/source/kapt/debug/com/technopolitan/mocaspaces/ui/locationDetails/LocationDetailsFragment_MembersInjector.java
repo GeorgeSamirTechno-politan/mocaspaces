@@ -2,7 +2,11 @@
 package com.technopolitan.mocaspaces.ui.locationDetails;
 
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
+import com.technopolitan.mocaspaces.models.location.mappers.LocationDetailsMapper;
+import com.technopolitan.mocaspaces.modules.ApiResponseModule;
+import com.technopolitan.mocaspaces.modules.GlideModule;
 import com.technopolitan.mocaspaces.modules.GoogleMapModule;
+import com.technopolitan.mocaspaces.modules.NavigationModule;
 import dagger.MembersInjector;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.InjectedFieldSignature;
@@ -18,24 +22,42 @@ import javax.inject.Provider;
 public final class LocationDetailsFragment_MembersInjector implements MembersInjector<LocationDetailsFragment> {
   private final Provider<GoogleMapModule> googleMapModuleProvider;
 
+  private final Provider<ApiResponseModule<LocationDetailsMapper>> detailsApiHandlerProvider;
+
+  private final Provider<GlideModule> glideModuleProvider;
+
   private final Provider<ViewModelFactory> viewModelFactoryProvider;
 
+  private final Provider<NavigationModule> navigationModuleProvider;
+
   public LocationDetailsFragment_MembersInjector(Provider<GoogleMapModule> googleMapModuleProvider,
-      Provider<ViewModelFactory> viewModelFactoryProvider) {
+      Provider<ApiResponseModule<LocationDetailsMapper>> detailsApiHandlerProvider,
+      Provider<GlideModule> glideModuleProvider,
+      Provider<ViewModelFactory> viewModelFactoryProvider,
+      Provider<NavigationModule> navigationModuleProvider) {
     this.googleMapModuleProvider = googleMapModuleProvider;
+    this.detailsApiHandlerProvider = detailsApiHandlerProvider;
+    this.glideModuleProvider = glideModuleProvider;
     this.viewModelFactoryProvider = viewModelFactoryProvider;
+    this.navigationModuleProvider = navigationModuleProvider;
   }
 
   public static MembersInjector<LocationDetailsFragment> create(
       Provider<GoogleMapModule> googleMapModuleProvider,
-      Provider<ViewModelFactory> viewModelFactoryProvider) {
-    return new LocationDetailsFragment_MembersInjector(googleMapModuleProvider, viewModelFactoryProvider);
+      Provider<ApiResponseModule<LocationDetailsMapper>> detailsApiHandlerProvider,
+      Provider<GlideModule> glideModuleProvider,
+      Provider<ViewModelFactory> viewModelFactoryProvider,
+      Provider<NavigationModule> navigationModuleProvider) {
+    return new LocationDetailsFragment_MembersInjector(googleMapModuleProvider, detailsApiHandlerProvider, glideModuleProvider, viewModelFactoryProvider, navigationModuleProvider);
   }
 
   @Override
   public void injectMembers(LocationDetailsFragment instance) {
     injectGoogleMapModule(instance, googleMapModuleProvider.get());
+    injectDetailsApiHandler(instance, detailsApiHandlerProvider.get());
+    injectGlideModule(instance, glideModuleProvider.get());
     injectViewModelFactory(instance, viewModelFactoryProvider.get());
+    injectNavigationModule(instance, navigationModuleProvider.get());
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.googleMapModule")
@@ -44,9 +66,26 @@ public final class LocationDetailsFragment_MembersInjector implements MembersInj
     instance.googleMapModule = googleMapModule;
   }
 
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.detailsApiHandler")
+  public static void injectDetailsApiHandler(LocationDetailsFragment instance,
+      ApiResponseModule<LocationDetailsMapper> detailsApiHandler) {
+    instance.detailsApiHandler = detailsApiHandler;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.glideModule")
+  public static void injectGlideModule(LocationDetailsFragment instance, GlideModule glideModule) {
+    instance.glideModule = glideModule;
+  }
+
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.viewModelFactory")
   public static void injectViewModelFactory(LocationDetailsFragment instance,
       ViewModelFactory viewModelFactory) {
     instance.viewModelFactory = viewModelFactory;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.navigationModule")
+  public static void injectNavigationModule(LocationDetailsFragment instance,
+      NavigationModule navigationModule) {
+    instance.navigationModule = navigationModule;
   }
 }

@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentWorkSpaceBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
 import com.technopolitan.mocaspaces.utilities.loadMore
 import javax.inject.Inject
@@ -33,6 +35,9 @@ class WorkSpaceFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var navigationModule: NavigationModule
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var workspaceViewModel: WorkSpaceViewModel
@@ -87,6 +92,11 @@ class WorkSpaceFragment : Fragment() {
         listenForScrolling()
         workSpaceAdapter.setFavouriteCallBack { item, position ->
             setFavourite(item, position)
+        }
+        workSpaceAdapter.setBookCallBack {
+            homeViewModel.setSelectedLocationId(it.id)
+            navigationModule.navigateTo(R.id.action_home_to_location_details)
+
         }
         listenForSwipeToRefresh()
     }

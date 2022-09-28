@@ -34,7 +34,6 @@ class GlideModule @Inject constructor(private var context: Context) {
                 Glide.with(context).load(url)
                     .placeholder(getCircularProgressDrawable(context))
                     .error(AppCompatResources.getDrawable(context, errorImage))
-                    .optionalFitCenter()
                     .into(imageView)
             }
         } catch (e: Exception) {

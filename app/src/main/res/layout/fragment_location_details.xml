@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                android:paddingBottom="@dimen/_80sdp">
+                android:paddingBottom="@dimen/_100sdp">
 
 
                 <ImageView
@@ -103,6 +103,7 @@
                     app:layout_constraintEnd_toEndOf="@id/location_image_view" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/food_menu_text_view"
                     style="@style/medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -259,6 +260,9 @@
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:orientation="horizontal"
+                        android:clipToPadding="false"
+                        android:paddingVertical="@dimen/_15sdp"
+                        android:paddingBottom="@dimen/_15sdp"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -299,8 +303,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <WebView
-                            android:id="@+id/about_web_vew"
+                        <TextView
+                            android:id="@+id/about_info_text_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_7sdp"
@@ -431,7 +435,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <WebView
+                        <TextView
+                            android:id="@+id/terms_of_use_info_text_view"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_7sdp"
@@ -461,13 +466,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    <include-->
-    <!--        android:id="@+id/details_progress"-->
-    <!--        layout="@layout/progress_layout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <include
+        android:id="@+id/details_progress"
+        layout="@layout/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

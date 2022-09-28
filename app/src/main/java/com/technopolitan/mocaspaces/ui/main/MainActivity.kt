@@ -1,12 +1,10 @@
 package com.technopolitan.mocaspaces.ui.main
 
 import android.os.Bundle
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -24,8 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mainViewModel: MainViewModel
 
-    @Inject
-    lateinit var dialogModule: DialogModule
 
     @Inject
     lateinit var navigationModule: NavigationModule
@@ -43,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPrefModule: SharedPrefModule
     private lateinit var splashScreen: SplashScreen
 
-    private lateinit var navController: NavController
 
     //
     @Inject
@@ -60,8 +55,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         requestNetworkStatusPermission()
-        onBackPressedCallBack()
-        mainViewModel.initCustomBottomNavigationModule(binding.customBottomNavLayout, binding.myPassTab)
+        mainViewModel.initCustomBottomNavigationModule(
+            binding.customBottomNavLayout,
+            binding.myPassTab,
+            this
+        )
 //        addPixToActivity(R.id.nav_host_fragment, pixModule.options)
     }
 
@@ -74,20 +72,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun onBackPressedCallBack() {
-        onBackPressedDispatcher.addCallback(this, true) {
-            try {
-                if (supportFragmentManager.backStackEntryCount > 0) {
-                    supportFragmentManager.popBackStack()
-                } else if (navigationModule.hasBackStack(R.id.nav_host_fragment))
-                    navigationModule.popBack(navHostId = R.id.nav_host_fragment)
-                else dialogModule.showCloseAppDialog()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
 
     private fun showNoInternetConnection() {
         mainViewModel.updateNetworkChangeMediator()

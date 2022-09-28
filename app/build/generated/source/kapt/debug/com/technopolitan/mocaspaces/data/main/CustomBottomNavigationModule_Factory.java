@@ -3,6 +3,7 @@ package com.technopolitan.mocaspaces.data.main;
 
 import android.app.Activity;
 import android.content.Context;
+import com.technopolitan.mocaspaces.modules.DialogModule;
 import com.technopolitan.mocaspaces.modules.GlideModule;
 import com.technopolitan.mocaspaces.modules.NavigationModule;
 import com.technopolitan.mocaspaces.modules.SharedPrefModule;
@@ -33,33 +34,38 @@ public final class CustomBottomNavigationModule_Factory implements Factory<Custo
 
   private final Provider<UtilityModule> utilityModuleProvider;
 
+  private final Provider<DialogModule> dialogModuleProvider;
+
   public CustomBottomNavigationModule_Factory(Provider<Context> contextProvider,
       Provider<Activity> activityProvider, Provider<SharedPrefModule> sharedPrefModuleProvider,
       Provider<NavigationModule> navigationModuleProvider,
-      Provider<GlideModule> glideModuleProvider, Provider<UtilityModule> utilityModuleProvider) {
+      Provider<GlideModule> glideModuleProvider, Provider<UtilityModule> utilityModuleProvider,
+      Provider<DialogModule> dialogModuleProvider) {
     this.contextProvider = contextProvider;
     this.activityProvider = activityProvider;
     this.sharedPrefModuleProvider = sharedPrefModuleProvider;
     this.navigationModuleProvider = navigationModuleProvider;
     this.glideModuleProvider = glideModuleProvider;
     this.utilityModuleProvider = utilityModuleProvider;
+    this.dialogModuleProvider = dialogModuleProvider;
   }
 
   @Override
   public CustomBottomNavigationModule get() {
-    return newInstance(contextProvider.get(), activityProvider.get(), sharedPrefModuleProvider.get(), navigationModuleProvider.get(), glideModuleProvider.get(), utilityModuleProvider.get());
+    return newInstance(contextProvider.get(), activityProvider.get(), sharedPrefModuleProvider.get(), navigationModuleProvider.get(), glideModuleProvider.get(), utilityModuleProvider.get(), dialogModuleProvider.get());
   }
 
   public static CustomBottomNavigationModule_Factory create(Provider<Context> contextProvider,
       Provider<Activity> activityProvider, Provider<SharedPrefModule> sharedPrefModuleProvider,
       Provider<NavigationModule> navigationModuleProvider,
-      Provider<GlideModule> glideModuleProvider, Provider<UtilityModule> utilityModuleProvider) {
-    return new CustomBottomNavigationModule_Factory(contextProvider, activityProvider, sharedPrefModuleProvider, navigationModuleProvider, glideModuleProvider, utilityModuleProvider);
+      Provider<GlideModule> glideModuleProvider, Provider<UtilityModule> utilityModuleProvider,
+      Provider<DialogModule> dialogModuleProvider) {
+    return new CustomBottomNavigationModule_Factory(contextProvider, activityProvider, sharedPrefModuleProvider, navigationModuleProvider, glideModuleProvider, utilityModuleProvider, dialogModuleProvider);
   }
 
   public static CustomBottomNavigationModule newInstance(Context context, Activity activity,
       SharedPrefModule sharedPrefModule, NavigationModule navigationModule, GlideModule glideModule,
-      UtilityModule utilityModule) {
-    return new CustomBottomNavigationModule(context, activity, sharedPrefModule, navigationModule, glideModule, utilityModule);
+      UtilityModule utilityModule, DialogModule dialogModule) {
+    return new CustomBottomNavigationModule(context, activity, sharedPrefModule, navigationModule, glideModule, utilityModule, dialogModule);
   }
 }

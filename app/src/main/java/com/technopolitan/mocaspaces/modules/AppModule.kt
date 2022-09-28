@@ -23,7 +23,11 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideNetworkModel(context: Context, okHttpClient: OkHttpClient, sharedPrefModule: SharedPrefModule): NetworkModule =
+    fun provideNetworkModel(
+        context: Context,
+        okHttpClient: OkHttpClient,
+        sharedPrefModule: SharedPrefModule
+    ): NetworkModule =
         NetworkModule(okHttpClient, context, sharedPrefModule)
 
     @Singleton
@@ -149,6 +153,17 @@ class AppModule {
 //    @Singleton
 //    @Provides
 //    fun provideBitmapModule(): BitmapModule = BitmapModule()
+
+    @Singleton
+    @Provides
+    fun providePayTabModule(
+        context: Context,
+        sharedPrefModule: SharedPrefModule,
+        alertModule: CustomAlertModule,
+        activity: Activity
+    ): PayTabModule = PayTabModule(
+        context, sharedPrefModule, alertModule, activity
+    )
 
 
 }

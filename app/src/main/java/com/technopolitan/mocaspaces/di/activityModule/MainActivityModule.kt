@@ -26,7 +26,8 @@ class MainActivityModule @Inject constructor(private val networkModule: NetworkM
         sharedPrefModule: SharedPrefModule,
         navigationModule: NavigationModule,
         glideModule: GlideModule,
-        utilityModule: UtilityModule
+        utilityModule: UtilityModule,
+        dialogModule: DialogModule
     ):
             CustomBottomNavigationModule =
         CustomBottomNavigationModule(
@@ -35,7 +36,8 @@ class MainActivityModule @Inject constructor(private val networkModule: NetworkM
             sharedPrefModule,
             navigationModule,
             glideModule,
-            utilityModule
+            utilityModule,
+            dialogModule
         )
 
     @Singleton

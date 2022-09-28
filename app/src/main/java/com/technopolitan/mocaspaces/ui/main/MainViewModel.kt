@@ -1,5 +1,6 @@
 package com.technopolitan.mocaspaces.ui.main
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.android.material.imageview.ShapeableImageView
@@ -28,9 +29,10 @@ class MainViewModel @Inject constructor(
 
     fun initCustomBottomNavigationModule(
         binding: CustomBottomNavigationLayoutBinding,
-        myPassTab: ShapeableImageView
+        myPassTab: ShapeableImageView,
+        viewLifecycleOwner: LifecycleOwner
     ){
-        customBottomNavigationModule.init(binding, myPassTab)
+        customBottomNavigationModule.init(binding, myPassTab, viewLifecycleOwner)
     }
 
 }

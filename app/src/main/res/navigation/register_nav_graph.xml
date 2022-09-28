@@ -36,10 +36,7 @@
         <action
             android:id="@+id/action_verify_to_mobile_otp"
             app:destination="@id/mobile_otp_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+             />
 
 
     </fragment>
@@ -52,11 +49,7 @@
 
         <action
             android:id="@+id/action_mobile_otp_personal_info"
-            app:destination="@id/personal_info_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/personal_info_fragment" />
 
 
     </fragment>
@@ -69,18 +62,10 @@
 
         <action
             android:id="@+id/action_personal_info_to_student_verify"
-            app:destination="@id/student_verification_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/student_verification_fragment" />
         <action
             android:id="@+id/action_personal_info_to_check_email"
-            app:destination="@id/check_email_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/check_email_fragment" />
 
     </fragment>
 
@@ -98,11 +83,7 @@
         <!--            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>-->
         <action
             android:id="@+id/action_student_verification_to_check_email"
-            app:destination="@id/check_email_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/check_email_fragment" />
     </fragment>
 
     <dialog
@@ -120,11 +101,7 @@
 
         <action
             android:id="@+id/action_check_email_to_password"
-            app:destination="@id/fragment_password"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/fragment_password" />
     </fragment>
 
     <fragment
@@ -135,11 +112,7 @@
 
         <action
             android:id="@+id/action_fragment_password_to_success_register_dialog"
-            app:destination="@id/success_register_dialog_fragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/success_register_dialog_fragment" />
     </fragment>
 
     <dialog

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -21,18 +22,29 @@ class NavigationModule @Inject constructor(
     private var activity: Activity
 ) {
 
-    private fun activityNavController(navHostId: Int?) =
-        Navigation.findNavController(activity, navHostId!!)
-
+    val builder = NavOptions.Builder()
+    private var options: NavOptions
     private val fragmentNavController: NavController? =
         fragment?.let { NavHostFragment.findNavController(it) }
+
+    init {
+        builder.setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+        options = builder.build()
+
+    }
+
+    private fun activityNavController(navHostId: Int?) =
+        Navigation.findNavController(activity, navHostId!!)
 
 
     fun navigateTo(destination: Int, navHostId: Int? = null, bundle: Bundle? = null) {
         try {
             if (navHostId != null)
-                activityNavController(navHostId).navigate(destination, bundle)
-            else fragment?.let { fragmentNavController?.navigate(destination, bundle) }
+                activityNavController(navHostId).navigate(destination, bundle, options)
+            else fragment?.let { fragmentNavController?.navigate(destination, bundle, options) }
         } catch (e: Exception) {
             e.printStackTrace()
         }

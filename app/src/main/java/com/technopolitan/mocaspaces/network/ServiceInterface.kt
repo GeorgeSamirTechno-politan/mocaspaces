@@ -15,6 +15,7 @@ import com.technopolitan.mocaspaces.models.ResetPasswordRequest
 import com.technopolitan.mocaspaces.models.location.bizLounge.BizLoungeResponse
 import com.technopolitan.mocaspaces.models.location.request.AddFavouriteWorkSpaceRequest
 import com.technopolitan.mocaspaces.models.location.request.LocationRequest
+import com.technopolitan.mocaspaces.models.location.response.LocationDetailsResponse
 import com.technopolitan.mocaspaces.models.location.response.LocationFilterPaxResponse
 import com.technopolitan.mocaspaces.models.location.response.SearchHintResponse
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
@@ -143,6 +144,12 @@ interface ServiceInterface {
         @Path("version") version: Int = Constants.apiVersion,
         @Query("FeatureId") featureId: Int
     ): Flowable<HeaderResponse<List<LocationFilterPaxResponse>>>
+
+    @GET("v{version}/Workspace/GetCoWorkingWorkspaceByIdMobile")
+    fun getWorkSpaceDetails(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Query("LocationId") locationId: Int
+    ): Flowable<HeaderResponse<LocationDetailsResponse>>
 
 
 }

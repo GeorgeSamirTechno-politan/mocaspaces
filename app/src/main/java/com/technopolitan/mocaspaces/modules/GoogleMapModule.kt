@@ -2,17 +2,13 @@ package com.technopolitan.mocaspaces.modules
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
@@ -25,19 +21,23 @@ import javax.inject.Inject
 class GoogleMapModule @Inject constructor(
     private var context: Context,
     private var utilityModule: UtilityModule,
-    private var fragment: Fragment?
+    private var fragment: Fragment?,
+    private var permissionModel: PermissionModule
 ) : OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private var addMarkerOnly = false
     private lateinit var markerLatLong: LatLng
     private var markerTitle = ""
-    private lateinit var nestedScrollView: NestedScrollView
+    private var hasScrollWithIt: Boolean = false
+    private val mapFragment = SupportMapFragment.newInstance()
 
-    fun init(mapId: Int): GoogleMapModule {
-        val mapFragment = SupportMapFragment.newInstance()
-        fragment!!.childFragmentManager.findFragmentById(mapId)
-        mapFragment.getMapAsync(this)
-        return this
+    fun build(mapId: Int) {
+        try {
+            mapFragment.childFragmentManager.findFragmentById(mapId)
+            mapFragment.getMapAsync(this)
+        } catch (e: Exception) {
+            Log.e(javaClass.name, "build: ", e)
+        }
     }
 
 //    fun withScrollOutSide(nestedScrollView: NestedScrollView): GoogleMapModule {
@@ -45,16 +45,39 @@ class GoogleMapModule @Inject constructor(
 //        return this
 //    }
 
-    fun addMarker(latLng: LatLng, title: String) : GoogleMapModule{
+    fun addMarker(latLng: LatLng, title: String): GoogleMapModule {
         this.markerLatLong = latLng
         this.markerTitle = title
         addMarkerOnly = true
         return this
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(p0: GoogleMap) {
         this.googleMap = p0
+        initGoogleMap()
         initView()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initGoogleMap() {
+        if (hasScrollWithIt) {
+            this.googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            this.googleMap.uiSettings.isZoomControlsEnabled = true
+            this.googleMap.uiSettings.isZoomGesturesEnabled = true
+            this.googleMap.uiSettings.isCompassEnabled = false
+            this.googleMap.uiSettings.isScrollGesturesEnabled = false
+            this.googleMap.uiSettings.isScrollGesturesEnabledDuringRotateOrZoom = false
+            permissionModel.init(android.Manifest.permission.ACCESS_FINE_LOCATION, false) {
+                this.googleMap.isMyLocationEnabled = it
+            }
+        }
+    }
+
+
+    fun disableMapScroll(hasScrollWithIt: Boolean): GoogleMapModule {
+        this.hasScrollWithIt = hasScrollWithIt
+        return this
     }
 
     private fun initView() {

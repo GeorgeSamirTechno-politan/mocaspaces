@@ -4,6 +4,7 @@ package com.technopolitan.mocaspaces.di.fragmentModule;
 import android.content.Context;
 import androidx.fragment.app.Fragment;
 import com.technopolitan.mocaspaces.modules.GoogleMapModule;
+import com.technopolitan.mocaspaces.modules.PermissionModule;
 import com.technopolitan.mocaspaces.modules.UtilityModule;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -28,28 +29,34 @@ public final class LocationDetailsFragmentModule_ProvideGoogleMapModuleFactory i
 
   private final Provider<Fragment> fragmentProvider;
 
+  private final Provider<PermissionModule> permissionModuleProvider;
+
   public LocationDetailsFragmentModule_ProvideGoogleMapModuleFactory(
       LocationDetailsFragmentModule module, Provider<Context> contextProvider,
-      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider) {
+      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider,
+      Provider<PermissionModule> permissionModuleProvider) {
     this.module = module;
     this.contextProvider = contextProvider;
     this.utilityModuleProvider = utilityModuleProvider;
     this.fragmentProvider = fragmentProvider;
+    this.permissionModuleProvider = permissionModuleProvider;
   }
 
   @Override
   public GoogleMapModule get() {
-    return provideGoogleMapModule(module, contextProvider.get(), utilityModuleProvider.get(), fragmentProvider.get());
+    return provideGoogleMapModule(module, contextProvider.get(), utilityModuleProvider.get(), fragmentProvider.get(), permissionModuleProvider.get());
   }
 
   public static LocationDetailsFragmentModule_ProvideGoogleMapModuleFactory create(
       LocationDetailsFragmentModule module, Provider<Context> contextProvider,
-      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider) {
-    return new LocationDetailsFragmentModule_ProvideGoogleMapModuleFactory(module, contextProvider, utilityModuleProvider, fragmentProvider);
+      Provider<UtilityModule> utilityModuleProvider, Provider<Fragment> fragmentProvider,
+      Provider<PermissionModule> permissionModuleProvider) {
+    return new LocationDetailsFragmentModule_ProvideGoogleMapModuleFactory(module, contextProvider, utilityModuleProvider, fragmentProvider, permissionModuleProvider);
   }
 
   public static GoogleMapModule provideGoogleMapModule(LocationDetailsFragmentModule instance,
-      Context context, UtilityModule utilityModule, Fragment fragment) {
-    return Preconditions.checkNotNullFromProvides(instance.provideGoogleMapModule(context, utilityModule, fragment));
+      Context context, UtilityModule utilityModule, Fragment fragment,
+      PermissionModule permissionModule) {
+    return Preconditions.checkNotNullFromProvides(instance.provideGoogleMapModule(context, utilityModule, fragment, permissionModule));
   }
 }
