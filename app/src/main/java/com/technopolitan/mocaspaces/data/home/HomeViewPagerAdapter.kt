@@ -8,9 +8,8 @@ import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeFragment
 import com.technopolitan.mocaspaces.ui.home.eventSpace.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
-import javax.inject.Inject
 
-class HomeViewPagerAdapter @Inject constructor(
+class HomeViewPagerAdapter constructor(
     private var context: Context,
     private var fragment: Fragment?
 ) : FragmentStateAdapter(fragment!!) {

@@ -2,7 +2,6 @@ package com.technopolitan.mocaspaces.ui.home.eventSpace
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
@@ -138,5 +137,10 @@ class EventSpaceViewModel @Inject constructor(
 
     fun updateEventSpaceRemainingPage(remaining: Int) {
         this.remainingPage = remaining
+    }
+
+    fun updateDataAgainToView() {
+        eventSpaceListMediator.postValue(eventSpaceListMediator.value)
+        paxFilterMediator.postValue(paxFilterMediator.value)
     }
 }

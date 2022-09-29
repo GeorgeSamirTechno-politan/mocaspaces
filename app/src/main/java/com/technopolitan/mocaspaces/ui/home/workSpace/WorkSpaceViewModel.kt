@@ -127,5 +127,10 @@ class WorkSpaceViewModel @Inject constructor(
         workSpaceListMediator.postValue(list)
     }
 
+    fun updateDataAgainToView() {
+        val list = workSpaceListMediator.value!!
+        workSpaceListMediator.postValue(list)
+    }
+
 
 }

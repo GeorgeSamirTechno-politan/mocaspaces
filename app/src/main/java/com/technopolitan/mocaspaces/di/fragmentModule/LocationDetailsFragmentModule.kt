@@ -1,7 +1,9 @@
 package com.technopolitan.mocaspaces.di.fragmentModule
 
+import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.technopolitan.mocaspaces.data.locationDetails.MarketingAdapter
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote
 import com.technopolitan.mocaspaces.modules.*
 import dagger.Module
@@ -18,11 +20,13 @@ class LocationDetailsFragmentModule @Inject constructor(private var networkModul
         context: Context,
         utilityModule: UtilityModule,
         fragment: Fragment?,
-        permissionModule: PermissionModule
+        permissionModule: PermissionModule,
+        activity: Activity
     ): GoogleMapModule = GoogleMapModule(
         context,
         utilityModule, fragment,
-        permissionModule
+        permissionModule,
+        activity
     )
 
     @Singleton
@@ -33,5 +37,10 @@ class LocationDetailsFragmentModule @Inject constructor(private var networkModul
         dateTimeModule: DateTimeModule
     ): WorkSpaceDetailsRemote =
         WorkSpaceDetailsRemote(networkModule, context, spannableStringModule, dateTimeModule)
+
+    @Singleton
+    @Provides
+    fun provideMarketingAdapter(glideModule: GlideModule): MarketingAdapter =
+        MarketingAdapter(glideModule)
 
 }

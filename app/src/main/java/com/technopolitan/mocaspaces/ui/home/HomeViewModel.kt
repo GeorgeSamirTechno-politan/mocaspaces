@@ -3,7 +3,7 @@ package com.technopolitan.mocaspaces.ui.home
 import android.content.Context
 import android.location.Location
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.ApiStatus
@@ -31,9 +31,10 @@ open class HomeViewModel @Inject constructor(
         SingleLiveEvent()
     private var searchHintListMediator: SingleLiveEvent<List<SearchHintMapper>> =
         SingleLiveEvent()
-    private var viewTypeSingleLiveEvent: SingleLiveEvent<Int> = SingleLiveEvent()
+    private var viewTypeMutable: MutableLiveData<Int> = MutableLiveData()
     private val homeSearchMapperList: MutableList<HomeSearchMapper> = mutableListOf()
     private var selectedLocationId: Int = 0
+    private val backFromDetailsLiveEvent: MutableLiveData<Boolean> = MutableLiveData()
 
 
     init {
@@ -42,7 +43,7 @@ open class HomeViewModel @Inject constructor(
         eventSpaceFilterMediator.value = SearchHintMapper()
         bizLoungeFilterMediator.value = SearchHintMapper()
         initSearchMapperList()
-        viewTypeSingleLiveEvent.postValue(1)
+        viewTypeMutable.postValue(1)
         searchHintApiMediator.value = LoadingStatus()
         searchHintListMediator.value = mutableListOf()
         setSearchHintRequest()
@@ -106,8 +107,12 @@ open class HomeViewModel @Inject constructor(
 
     fun getBizLoungeFilterLiveData(): LiveData<SearchHintMapper> = bizLoungeFilterMediator
 
+    fun getBackFromDetailsLiveData(): LiveData<Boolean> = backFromDetailsLiveEvent
 
-    fun getViewType(): LiveData<Int> = viewTypeSingleLiveEvent
+    fun setBackFromDetailsLiveData(value: Boolean) = backFromDetailsLiveEvent.postValue(value)
+
+
+    fun getViewType(): LiveData<Int> = viewTypeMutable
 
     private fun setSearchHintRequest() {
         searchHintApiMediator = searchHintRemote.getAllSearchHint()
@@ -123,7 +128,7 @@ open class HomeViewModel @Inject constructor(
     fun getLocationLiveData(): LiveData<Location?> = locationMediator
 
     fun setViewType(i: Int) {
-        viewTypeSingleLiveEvent.postValue(i)
+        viewTypeMutable.postValue(i)
     }
 
 
@@ -132,7 +137,7 @@ open class HomeViewModel @Inject constructor(
         searchHintApiMediator.value?.let { status ->
             status.data?.let { list ->
                 list.forEach { item ->
-                    when (viewTypeSingleLiveEvent.value) {
+                    when (viewTypeMutable.value) {
                         1 -> if (item.spaceTypeMapper.hasWorkSpace)
                             updatedList.add(item)
                         2 -> if (item.spaceTypeMapper.hasMeeting)
@@ -153,7 +158,7 @@ open class HomeViewModel @Inject constructor(
 
 
     fun setSearchHint(it: SearchHintMapper) {
-        when (viewTypeSingleLiveEvent.value) {
+        when (viewTypeMutable.value) {
             1 -> workSpaceFilterMediator.postValue(it)
             2 -> meetingSpaceFilterMediator.postValue(it)
             3 -> eventSpaceFilterMediator.postValue(it)
@@ -169,5 +174,9 @@ open class HomeViewModel @Inject constructor(
         return this.selectedLocationId
     }
 
+    fun updateDataAgainToView() {
+        setViewType(1)
+        updateSearchHintList()
+    }
 
 }

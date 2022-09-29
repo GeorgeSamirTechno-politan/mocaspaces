@@ -33,8 +33,8 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var permissionModule: PermissionModule
 
-    @Inject
-    lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
+//    @Inject
+private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
 
     @Inject
     lateinit var locationModule: LocationModule
@@ -68,6 +68,7 @@ class HomeFragment : Fragment() {
         viewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
         requestLocationPermission()
+        listenForBackFromDetails()
     }
 
     private fun requestLocationPermission() {
@@ -84,8 +85,6 @@ class HomeFragment : Fragment() {
                 viewModel.setLocation(null)
                 handleHomeFragment()
             }
-
-
         }
     }
 
@@ -118,6 +117,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleDownList() {
+        homeViewPagerAdapter = HomeViewPagerAdapter(requireContext(), this)
         binding.homeFragmentViewPager.adapter = homeViewPagerAdapter
         binding.homeFragmentViewPager.registerOnPageChangeCallback(pageChangeCallBack)
         binding.homeFragmentViewPager.depthPageTransformer(true)
@@ -160,6 +160,18 @@ class HomeFragment : Fragment() {
         binding.homeFragmentViewPager.setCurrentItem(position, true)
         binding.homeSearchViewPager.setCurrentItem(position, true)
         viewModel.updateSearchHintList()
+    }
+
+    private fun listenForBackFromDetails() {
+        viewModel.getBackFromDetailsLiveData().observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.updateDataAgainToView()
+                handleSearchHintApi()
+                initHomeSearchMapperList()
+                listenForSearchHintListChange()
+                handleDownList()
+            }
+        }
     }
 
 }

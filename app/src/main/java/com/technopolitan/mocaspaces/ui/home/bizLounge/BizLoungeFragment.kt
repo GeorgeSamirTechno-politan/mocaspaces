@@ -60,6 +60,7 @@ class BizLoungeFragment : Fragment() {
     private fun listenForMediators() {
         listenForFilter()
         listForAdapterMediator()
+        listenForBackFromDetails()
     }
 
 
@@ -127,6 +128,15 @@ class BizLoungeFragment : Fragment() {
                 bizLoungeAdapter.setData(it)
                 binding.bizLoungeRecycler.adapter = bizLoungeAdapter
                 binding.bizLoungeRecycler.setHasFixedSize(true)
+            }
+        }
+    }
+
+    private fun listenForBackFromDetails() {
+        homeViewModel.getBackFromDetailsLiveData().observe(viewLifecycleOwner) {
+            if (it) {
+                bizLoungeViewMode.updateDataAgainToView()
+                binding.bizLoungeProgress.progressView.visibility = View.GONE
             }
         }
     }

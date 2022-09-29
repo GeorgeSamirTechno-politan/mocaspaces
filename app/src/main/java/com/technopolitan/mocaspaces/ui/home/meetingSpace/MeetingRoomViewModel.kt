@@ -2,7 +2,6 @@ package com.technopolitan.mocaspaces.ui.home.meetingSpace
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
@@ -138,5 +137,10 @@ class MeetingRoomViewModel @Inject constructor(
 
     fun updateMeetingSpaceRemainingPage(remaining: Int) {
         this.remainingPage = remaining
+    }
+
+    fun updateDataAgainToView() {
+        meetingSpaceListMediator.postValue(meetingSpaceListMediator.value)
+        paxFilterMediator.postValue(paxFilterMediator.value)
     }
 }

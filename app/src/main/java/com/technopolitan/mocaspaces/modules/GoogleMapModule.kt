@@ -1,6 +1,7 @@
 package com.technopolitan.mocaspaces.modules
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -13,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.ui.main.MainActivity
 import dagger.Module
 import javax.inject.Inject
 
@@ -22,19 +24,20 @@ class GoogleMapModule @Inject constructor(
     private var context: Context,
     private var utilityModule: UtilityModule,
     private var fragment: Fragment?,
-    private var permissionModel: PermissionModule
+    private var permissionModel: PermissionModule,
+    private var activity: Activity,
 ) : OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private var addMarkerOnly = false
     private lateinit var markerLatLong: LatLng
     private var markerTitle = ""
     private var hasScrollWithIt: Boolean = false
-    private val mapFragment = SupportMapFragment.newInstance()
 
     fun build(mapId: Int) {
         try {
-            mapFragment.childFragmentManager.findFragmentById(mapId)
-            mapFragment.getMapAsync(this)
+            val mapFragment = (activity as MainActivity).supportFragmentManager
+                .findFragmentById(R.id.map_fragment) as? SupportMapFragment
+            mapFragment?.getMapAsync(this)
         } catch (e: Exception) {
             Log.e(javaClass.name, "build: ", e)
         }

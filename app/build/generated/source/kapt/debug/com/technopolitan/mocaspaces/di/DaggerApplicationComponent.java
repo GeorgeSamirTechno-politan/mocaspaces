@@ -14,12 +14,12 @@ import com.technopolitan.mocaspaces.data.customPowerMenu.CustomIconMenuAdapter;
 import com.technopolitan.mocaspaces.data.gender.GenderMapper;
 import com.technopolitan.mocaspaces.data.home.BizLoungeAdapter;
 import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter;
-import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter;
 import com.technopolitan.mocaspaces.data.home.MeetingRoomAdapter;
 import com.technopolitan.mocaspaces.data.home.PaxFilterDataModule;
 import com.technopolitan.mocaspaces.data.home.PaxFilterDataModule_Factory;
 import com.technopolitan.mocaspaces.data.home.SearchHintListAdapter;
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter;
+import com.technopolitan.mocaspaces.data.locationDetails.MarketingAdapter;
 import com.technopolitan.mocaspaces.data.login.LoginDataModule;
 import com.technopolitan.mocaspaces.data.login.LoginMapper;
 import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule;
@@ -528,10 +528,6 @@ public final class DaggerApplicationComponent {
       return new ForgetPasswordMobileViewModel(checkMobileDataModule(), sendOtpForgotPasswordMobile());
     }
 
-    private HomeViewPagerAdapter homeViewPagerAdapter() {
-      return new HomeViewPagerAdapter(context, fragment);
-    }
-
     private LocationModule locationModule() {
       return new LocationModule(context, activity);
     }
@@ -595,11 +591,15 @@ public final class DaggerApplicationComponent {
     }
 
     private GoogleMapModule googleMapModule() {
-      return new GoogleMapModule(context, provideUtilityModuleProvider.get(), fragment, providePermissionModuleProvider.get());
+      return new GoogleMapModule(context, provideUtilityModuleProvider.get(), fragment, providePermissionModuleProvider.get(), activity);
     }
 
     private ApiResponseModule<LocationDetailsMapper> apiResponseModuleOfLocationDetailsMapper() {
       return new ApiResponseModule<LocationDetailsMapper>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
+    }
+
+    private MarketingAdapter marketingAdapter() {
+      return new MarketingAdapter(provideGlideModuleProvider.get());
     }
 
     @SuppressWarnings("unchecked")
@@ -971,7 +971,6 @@ public final class DaggerApplicationComponent {
     @CanIgnoreReturnValue
     private HomeFragment injectHomeFragment(HomeFragment instance) {
       HomeFragment_MembersInjector.injectPermissionModule(instance, providePermissionModuleProvider.get());
-      HomeFragment_MembersInjector.injectHomeViewPagerAdapter(instance, homeViewPagerAdapter());
       HomeFragment_MembersInjector.injectLocationModule(instance, locationModule());
       HomeFragment_MembersInjector.injectSearchHintApiHandler(instance, apiResponseModuleOfListOfSearchHintMapper());
       HomeFragment_MembersInjector.injectHomeSearchAdapter(instance, homeSearchAdapter());
@@ -1049,6 +1048,7 @@ public final class DaggerApplicationComponent {
       LocationDetailsFragment_MembersInjector.injectGlideModule(instance, provideGlideModuleProvider.get());
       LocationDetailsFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       LocationDetailsFragment_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
+      LocationDetailsFragment_MembersInjector.injectMarketingAdapter(instance, marketingAdapter());
       return instance;
     }
   }

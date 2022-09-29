@@ -2,7 +2,6 @@
 package com.technopolitan.mocaspaces.ui.home;
 
 import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter;
-import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter;
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
@@ -25,8 +24,6 @@ import javax.inject.Provider;
 public final class HomeFragment_MembersInjector implements MembersInjector<HomeFragment> {
   private final Provider<PermissionModule> permissionModuleProvider;
 
-  private final Provider<HomeViewPagerAdapter> homeViewPagerAdapterProvider;
-
   private final Provider<LocationModule> locationModuleProvider;
 
   private final Provider<ApiResponseModule<List<SearchHintMapper>>> searchHintApiHandlerProvider;
@@ -38,14 +35,12 @@ public final class HomeFragment_MembersInjector implements MembersInjector<HomeF
   private final Provider<ViewModelFactory> viewModelFactoryProvider;
 
   public HomeFragment_MembersInjector(Provider<PermissionModule> permissionModuleProvider,
-      Provider<HomeViewPagerAdapter> homeViewPagerAdapterProvider,
       Provider<LocationModule> locationModuleProvider,
       Provider<ApiResponseModule<List<SearchHintMapper>>> searchHintApiHandlerProvider,
       Provider<HomeSearchAdapter> homeSearchAdapterProvider,
       Provider<UtilityModule> utilityModuleProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider) {
     this.permissionModuleProvider = permissionModuleProvider;
-    this.homeViewPagerAdapterProvider = homeViewPagerAdapterProvider;
     this.locationModuleProvider = locationModuleProvider;
     this.searchHintApiHandlerProvider = searchHintApiHandlerProvider;
     this.homeSearchAdapterProvider = homeSearchAdapterProvider;
@@ -55,19 +50,17 @@ public final class HomeFragment_MembersInjector implements MembersInjector<HomeF
 
   public static MembersInjector<HomeFragment> create(
       Provider<PermissionModule> permissionModuleProvider,
-      Provider<HomeViewPagerAdapter> homeViewPagerAdapterProvider,
       Provider<LocationModule> locationModuleProvider,
       Provider<ApiResponseModule<List<SearchHintMapper>>> searchHintApiHandlerProvider,
       Provider<HomeSearchAdapter> homeSearchAdapterProvider,
       Provider<UtilityModule> utilityModuleProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider) {
-    return new HomeFragment_MembersInjector(permissionModuleProvider, homeViewPagerAdapterProvider, locationModuleProvider, searchHintApiHandlerProvider, homeSearchAdapterProvider, utilityModuleProvider, viewModelFactoryProvider);
+    return new HomeFragment_MembersInjector(permissionModuleProvider, locationModuleProvider, searchHintApiHandlerProvider, homeSearchAdapterProvider, utilityModuleProvider, viewModelFactoryProvider);
   }
 
   @Override
   public void injectMembers(HomeFragment instance) {
     injectPermissionModule(instance, permissionModuleProvider.get());
-    injectHomeViewPagerAdapter(instance, homeViewPagerAdapterProvider.get());
     injectLocationModule(instance, locationModuleProvider.get());
     injectSearchHintApiHandler(instance, searchHintApiHandlerProvider.get());
     injectHomeSearchAdapter(instance, homeSearchAdapterProvider.get());
@@ -79,12 +72,6 @@ public final class HomeFragment_MembersInjector implements MembersInjector<HomeF
   public static void injectPermissionModule(HomeFragment instance,
       PermissionModule permissionModule) {
     instance.permissionModule = permissionModule;
-  }
-
-  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.HomeFragment.homeViewPagerAdapter")
-  public static void injectHomeViewPagerAdapter(HomeFragment instance,
-      HomeViewPagerAdapter homeViewPagerAdapter) {
-    instance.homeViewPagerAdapter = homeViewPagerAdapter;
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.home.HomeFragment.locationModule")

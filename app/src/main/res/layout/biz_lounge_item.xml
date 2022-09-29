@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/_20sdp"
-    android:layout_marginEnd="@dimen/_20sdp"
     android:layout_marginBottom="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_20sdp"
+    android:layout_marginStart="@dimen/_17sdp"
+    android:layout_marginEnd="@dimen/_17sdp"
+    app:cardCornerRadius="@dimen/_15sdp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

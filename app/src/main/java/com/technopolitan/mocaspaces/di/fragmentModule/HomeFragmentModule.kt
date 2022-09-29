@@ -1,9 +1,7 @@
 package com.technopolitan.mocaspaces.di.fragmentModule
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.data.home.HomeSearchAdapter
-import com.technopolitan.mocaspaces.data.home.HomeViewPagerAdapter
 import com.technopolitan.mocaspaces.data.home.SearchHintListAdapter
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote
@@ -18,10 +16,10 @@ import javax.inject.Singleton
 @Module
 class HomeFragmentModule @Inject constructor(private var networkModule: NetworkModule) {
 
-    @Singleton
-    @Provides
-    fun provideHomeViewPagerAdapter(context: Context, fragment: Fragment?): HomeViewPagerAdapter =
-        HomeViewPagerAdapter(context, fragment)
+//    @Singleton
+//    @Provides
+//    fun provideHomeViewPagerAdapter(context: Context, fragment: Fragment?): HomeViewPagerAdapter =
+//        HomeViewPagerAdapter(context, fragment)
 
 
     @Singleton

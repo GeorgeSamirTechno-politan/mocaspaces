@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/_20sdp"
-    android:layout_marginEnd="@dimen/_20sdp"
-    app:cardCornerRadius="@dimen/_20sdp"
+    android:layout_marginStart="@dimen/_17sdp"
+    android:layout_marginEnd="@dimen/_17sdp"
+    app:cardCornerRadius="@dimen/_15sdp"
     android:layout_marginBottom="@dimen/_10sdp"
     app:cardElevation="0dp">
 
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/work_space_image_view"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_180sdp"
+            android:layout_height="@dimen/_150sdp"
             android:scaleType="fitXY"
             android:src="@drawable/text_image"
             app:layout_constraintTop_toTopOf="parent" />

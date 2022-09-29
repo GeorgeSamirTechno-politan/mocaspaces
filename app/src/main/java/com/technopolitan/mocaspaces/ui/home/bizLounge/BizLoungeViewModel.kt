@@ -2,7 +2,6 @@ package com.technopolitan.mocaspaces.ui.home.bizLounge
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
@@ -98,6 +97,10 @@ class BizLoungeViewModel @Inject constructor(
 
     fun updateWorkSpaceRemainingPage(remaining: Int) {
         this.remainingPage = remaining
+    }
+
+    fun updateDataAgainToView() {
+        bizLoungeListMediator.postValue(bizLoungeListMediator.value)
     }
 }
 

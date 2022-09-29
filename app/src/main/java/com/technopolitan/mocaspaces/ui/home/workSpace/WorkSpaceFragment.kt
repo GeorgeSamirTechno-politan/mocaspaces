@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentWorkSpaceBinding
@@ -68,13 +66,13 @@ class WorkSpaceFragment : Fragment() {
             ViewModelProvider(requireActivity(), viewModelFactory)[WorkSpaceViewModel::class.java]
         listenForMediators()
         initView()
-
     }
 
     private fun listenForMediators() {
         listenFormLocation()
         listenForFilter()
         listForWorkSpaceListMediator()
+        listenForBackFromDetails()
     }
 
     private fun listenFormLocation() {
@@ -176,6 +174,15 @@ class WorkSpaceFragment : Fragment() {
                 item.isFavourite = item.isFavourite.not()
 //                workSpaceAdapter.updateFavouriteItem(item, position)
                 workspaceViewModel.updateItem(item, position)
+            }
+        }
+    }
+
+    private fun listenForBackFromDetails() {
+        homeViewModel.getBackFromDetailsLiveData().observe(viewLifecycleOwner) {
+            if (it) {
+                workspaceViewModel.updateDataAgainToView()
+                binding.workSpaceProgress.progressView.visibility = View.GONE
             }
         }
     }

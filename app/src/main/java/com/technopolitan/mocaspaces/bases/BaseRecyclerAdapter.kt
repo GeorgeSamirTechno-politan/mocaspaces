@@ -48,7 +48,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
         if (defaultMaxItemCount > 0) {
             val dm = DisplayMetrics()
             (itemBinding.root.context as Activity).windowManager.defaultDisplay.getMetrics(dm)
-            return dm.widthPixels / defaultMaxItemCount + 1
+            return dm.widthPixels / defaultMaxItemCount + 4
         }
         return null
     }

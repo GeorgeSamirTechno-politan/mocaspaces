@@ -59,13 +59,13 @@ class EventSpaceFragment : Fragment() {
             ViewModelProvider(requireActivity(), viewModelFactory)[EventSpaceViewModel::class.java]
         listenForMediators()
         initView()
-
     }
 
     private fun listenForMediators() {
         listenForFilter()
         listForAdapterMediator()
         listenForPaxFilter()
+        listenForBackFromDetails()
     }
 
 
@@ -150,6 +150,15 @@ class EventSpaceFragment : Fragment() {
             Constants.eventTypeId, list
         ) {
             clearAdapter()
+        }
+    }
+
+    private fun listenForBackFromDetails() {
+        homeViewModel.getBackFromDetailsLiveData().observe(viewLifecycleOwner) {
+            if (it) {
+                eventSpaceViewModel.updateDataAgainToView()
+                binding.eventProgress.progressView.visibility = View.GONE
+            }
         }
     }
 }

@@ -13,11 +13,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.home.AmenityAdapter
 import com.technopolitan.mocaspaces.data.home.PriceAdapter
+import com.technopolitan.mocaspaces.data.locationDetails.MarketingAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentLocationDetailsBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.models.location.mappers.AmenityMapper
 import com.technopolitan.mocaspaces.models.location.mappers.LocationDetailsMapper
+import com.technopolitan.mocaspaces.models.location.mappers.MarketingMapper
 import com.technopolitan.mocaspaces.models.location.mappers.PriceMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.GlideModule
@@ -49,6 +51,8 @@ class LocationDetailsFragment : Fragment() {
     @Inject
     lateinit var navigationModule: NavigationModule
 
+    @Inject
+    lateinit var marketingAdapter: MarketingAdapter
 
     private lateinit var amenityAdapter: AmenityAdapter
 
@@ -133,6 +137,7 @@ class LocationDetailsFragment : Fragment() {
                 setPriceAdapter(detailsMapper.priceList)
                 setAmenityAdapter(detailsMapper.amenityList)
                 setGoogleMap(detailsMapper.locationLatLong, detailsMapper.locationName)
+                setMarketingAdapter(detailsMapper.marketingList)
                 setOthersDetails(detailsMapper)
             }
         }
@@ -183,6 +188,12 @@ class LocationDetailsFragment : Fragment() {
             .build(binding.mapInclude.root.id)
     }
 
+    private fun setMarketingAdapter(list: MutableList<MarketingMapper>) {
+        binding.marketingRecycler.layoutManager = GridLayoutManager(context, 2)
+        binding.marketingRecycler.adapter = marketingAdapter
+        marketingAdapter.setData(list.toMutableList())
+    }
+
     private fun setOthersDetails(detailsMapper: LocationDetailsMapper) {
         binding.venueNameTextView.text = detailsMapper.venueName
         binding.locationNameTextView.text = detailsMapper.locationName
@@ -191,6 +202,11 @@ class LocationDetailsFragment : Fragment() {
         binding.workingHourTextView.text = detailsMapper.workTimeMapper.getOpenHourText()
         binding.aboutInfoTextView.loadHtml(detailsMapper.about)
         binding.termsOfUseInfoTextView.loadHtml(detailsMapper.termsOfUse)
+    }
+
+    override fun onDestroyView() {
+        homeViewModel.setBackFromDetailsLiveData(true)
+        super.onDestroyView()
     }
 
 
