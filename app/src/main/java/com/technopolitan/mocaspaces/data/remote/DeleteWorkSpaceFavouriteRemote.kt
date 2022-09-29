@@ -8,6 +8,7 @@ import com.technopolitan.mocaspaces.data.HeaderResponse
 import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -15,9 +16,8 @@ class DeleteWorkSpaceFavouriteRemote @Inject constructor(private var networkModu
     BaseRemote<String, String>() {
 
     private var locationId: Int = 0
-    fun deleteFavourite(locationId: Int): MediatorLiveData<ApiStatus<String>> {
+    fun deleteFavourite(locationId: Int): SingleLiveEvent<ApiStatus<String>> {
         this.locationId = locationId
-        apiMediator = MediatorLiveData()
         return handleApi()
     }
 

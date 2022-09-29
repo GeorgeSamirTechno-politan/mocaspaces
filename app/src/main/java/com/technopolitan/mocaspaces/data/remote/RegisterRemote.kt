@@ -13,6 +13,7 @@ import com.technopolitan.mocaspaces.data.register.UserDocumentsDtoRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.UtilityModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import java.io.File
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class RegisterRemote @Inject constructor(
     private lateinit var registerRequest: RegisterRequest
     private lateinit var registerRequestMapper: RegisterRequestMapper
 
-    fun register(requestMapper: RegisterRequestMapper): MediatorLiveData<ApiStatus<String>> {
+    fun register(requestMapper: RegisterRequestMapper): SingleLiveEvent<ApiStatus<String>> {
         this.registerRequestMapper = requestMapper
         handleRegisterRequest()
         return handleApi()

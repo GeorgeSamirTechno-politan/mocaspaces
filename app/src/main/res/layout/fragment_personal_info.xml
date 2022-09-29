@@ -315,7 +315,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.technopolitan.mocaspaces.transitionButton.TransitionButton
+    <com.technopolitan.mocaspaces.utilities.transitionButton.TransitionButton
         android:id="@+id/create_account_button"
         style="@style/progress_button_style.accent"
         android:layout_width="match_parent"

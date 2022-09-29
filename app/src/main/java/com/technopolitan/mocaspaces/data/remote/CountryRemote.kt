@@ -10,13 +10,14 @@ import com.technopolitan.mocaspaces.data.country.CountryMapper
 import com.technopolitan.mocaspaces.data.country.CountryResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
 class CountryRemote @Inject constructor(private var networkModule: NetworkModule) : BaseRemote<List<CountryMapper>, List<CountryResponse>>(){
 
 
-    fun getCountry(): MediatorLiveData<ApiStatus<List<CountryMapper>>> {
+    fun getCountry(): SingleLiveEvent<ApiStatus<List<CountryMapper>>> {
        return handleApi()
     }
 

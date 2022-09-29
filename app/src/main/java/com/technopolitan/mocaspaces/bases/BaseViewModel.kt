@@ -1,12 +1,12 @@
 package com.technopolitan.mocaspaces.bases
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 
 abstract class BaseViewModel<T> : ViewModel() {
 
-    internal var apiMediatorLiveData: MediatorLiveData<ApiStatus<T>> = MediatorLiveData()
+    internal var apiMediatorLiveData: SingleLiveEvent<ApiStatus<T>> = SingleLiveEvent()
 
 
 }

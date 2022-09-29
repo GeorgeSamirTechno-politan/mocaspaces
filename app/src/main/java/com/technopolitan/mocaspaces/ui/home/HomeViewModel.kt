@@ -11,6 +11,7 @@ import com.technopolitan.mocaspaces.data.LoadingStatus
 import com.technopolitan.mocaspaces.data.remote.SearchHintRemote
 import com.technopolitan.mocaspaces.models.location.mappers.HomeSearchMapper
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import javax.inject.Inject
 
 
@@ -19,18 +20,18 @@ open class HomeViewModel @Inject constructor(
     private val context: Context
 ) : ViewModel() {
 
-    private val workSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
-    private val meetingSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
-    private val eventSpaceFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
-    private val bizLoungeFilterMediator: MediatorLiveData<SearchHintMapper> = MediatorLiveData()
+    private val workSpaceFilterMediator: SingleLiveEvent<SearchHintMapper> = SingleLiveEvent()
+    private val meetingSpaceFilterMediator: SingleLiveEvent<SearchHintMapper> = SingleLiveEvent()
+    private val eventSpaceFilterMediator: SingleLiveEvent<SearchHintMapper> = SingleLiveEvent()
+    private val bizLoungeFilterMediator: SingleLiveEvent<SearchHintMapper> = SingleLiveEvent()
 
-    private val locationMediator: MediatorLiveData<Location?> = MediatorLiveData()
+    private val locationMediator: SingleLiveEvent<Location?> = SingleLiveEvent()
 
-    private var searchHintApiMediator: MediatorLiveData<ApiStatus<List<SearchHintMapper>>> =
-        MediatorLiveData()
-    private var searchHintListMediator: MediatorLiveData<List<SearchHintMapper>> =
-        MediatorLiveData()
-    private var viewTypeMediatorLiveData: MediatorLiveData<Int> = MediatorLiveData()
+    private var searchHintApiMediator: SingleLiveEvent<ApiStatus<List<SearchHintMapper>>> =
+        SingleLiveEvent()
+    private var searchHintListMediator: SingleLiveEvent<List<SearchHintMapper>> =
+        SingleLiveEvent()
+    private var viewTypeSingleLiveEvent: SingleLiveEvent<Int> = SingleLiveEvent()
     private val homeSearchMapperList: MutableList<HomeSearchMapper> = mutableListOf()
     private var selectedLocationId: Int = 0
 
@@ -41,7 +42,7 @@ open class HomeViewModel @Inject constructor(
         eventSpaceFilterMediator.value = SearchHintMapper()
         bizLoungeFilterMediator.value = SearchHintMapper()
         initSearchMapperList()
-        viewTypeMediatorLiveData.postValue(1)
+        viewTypeSingleLiveEvent.postValue(1)
         searchHintApiMediator.value = LoadingStatus()
         searchHintListMediator.value = mutableListOf()
         setSearchHintRequest()
@@ -106,7 +107,7 @@ open class HomeViewModel @Inject constructor(
     fun getBizLoungeFilterLiveData(): LiveData<SearchHintMapper> = bizLoungeFilterMediator
 
 
-    fun getViewType(): LiveData<Int> = viewTypeMediatorLiveData
+    fun getViewType(): LiveData<Int> = viewTypeSingleLiveEvent
 
     private fun setSearchHintRequest() {
         searchHintApiMediator = searchHintRemote.getAllSearchHint()
@@ -122,7 +123,7 @@ open class HomeViewModel @Inject constructor(
     fun getLocationLiveData(): LiveData<Location?> = locationMediator
 
     fun setViewType(i: Int) {
-        viewTypeMediatorLiveData.postValue(i)
+        viewTypeSingleLiveEvent.postValue(i)
     }
 
 
@@ -131,7 +132,7 @@ open class HomeViewModel @Inject constructor(
         searchHintApiMediator.value?.let { status ->
             status.data?.let { list ->
                 list.forEach { item ->
-                    when (viewTypeMediatorLiveData.value) {
+                    when (viewTypeSingleLiveEvent.value) {
                         1 -> if (item.spaceTypeMapper.hasWorkSpace)
                             updatedList.add(item)
                         2 -> if (item.spaceTypeMapper.hasMeeting)
@@ -152,7 +153,7 @@ open class HomeViewModel @Inject constructor(
 
 
     fun setSearchHint(it: SearchHintMapper) {
-        when (viewTypeMediatorLiveData.value) {
+        when (viewTypeSingleLiveEvent.value) {
             1 -> workSpaceFilterMediator.postValue(it)
             2 -> meetingSpaceFilterMediator.postValue(it)
             3 -> eventSpaceFilterMediator.postValue(it)

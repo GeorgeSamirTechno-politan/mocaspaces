@@ -9,6 +9,7 @@ import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class CheckMobileRemote @Inject constructor(
 
     private lateinit var mobile: String
 
-    fun verifyMobile(mobile: String): MediatorLiveData<ApiStatus<String>> {
+    fun verifyMobile(mobile: String): SingleLiveEvent<ApiStatus<String>> {
         this.mobile = mobile
         return handleApi()
     }

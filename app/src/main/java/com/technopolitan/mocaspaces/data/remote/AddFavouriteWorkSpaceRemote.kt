@@ -11,6 +11,7 @@ import com.technopolitan.mocaspaces.models.location.request.AddFavouriteWorkSpac
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -21,9 +22,8 @@ class AddFavouriteWorkSpaceRemote @Inject constructor(
 
 
     private var locationId: Int = 0
-    fun addFavourite(locationId: Int): MediatorLiveData<ApiStatus<String>> {
+    fun addFavourite(locationId: Int): SingleLiveEvent<ApiStatus<String>> {
         this.locationId = locationId
-        apiMediator = MediatorLiveData()
         return handleApi()
     }
 

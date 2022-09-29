@@ -9,7 +9,7 @@ import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.login.LoginDataModule
 import com.technopolitan.mocaspaces.data.login.LoginMapper
 import com.technopolitan.mocaspaces.data.remote.LoginRemote
-import com.technopolitan.mocaspaces.transitionButton.TransitionButton
+import com.technopolitan.mocaspaces.utilities.transitionButton.TransitionButton
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(

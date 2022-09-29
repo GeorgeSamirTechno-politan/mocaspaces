@@ -10,7 +10,7 @@ import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.checkMobile.CheckMobileDataModule
 import com.technopolitan.mocaspaces.data.country.CountryMapper
 import com.technopolitan.mocaspaces.data.remote.SendOtpForgotPasswordMobile
-import com.technopolitan.mocaspaces.transitionButton.TransitionButton
+import com.technopolitan.mocaspaces.utilities.transitionButton.TransitionButton
 import javax.inject.Inject
 
 class ForgetPasswordMobileViewModel @Inject constructor(

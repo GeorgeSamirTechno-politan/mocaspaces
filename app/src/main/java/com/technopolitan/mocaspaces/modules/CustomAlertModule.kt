@@ -3,7 +3,7 @@ package com.technopolitan.mocaspaces.modules
 import android.content.Context
 import android.view.ViewGroup
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.customSnakeBar.CustomSnakeBar
+import com.technopolitan.mocaspaces.utilities.customSnakeBar.CustomSnakeBar
 import dagger.Module
 import javax.inject.Inject
 

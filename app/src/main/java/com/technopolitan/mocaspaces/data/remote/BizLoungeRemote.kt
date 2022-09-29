@@ -14,6 +14,7 @@ import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -33,7 +34,7 @@ class BizLoungeRemote @Inject constructor(
         pageSize: Int = 10,
         type: Int? = null,
         id: Int? = null,
-    ): MediatorLiveData<ApiStatus<List<BizLoungeMapper?>>> {
+    ): SingleLiveEvent<ApiStatus<List<BizLoungeMapper?>>> {
         this.pageNumber = pageNumber
         this.pageSize = pageSize
         this.id = id

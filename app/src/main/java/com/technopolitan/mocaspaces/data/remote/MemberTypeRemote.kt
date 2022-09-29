@@ -6,16 +6,16 @@ import com.technopolitan.mocaspaces.data.*
 import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
 class MemberTypeRemote @Inject constructor(private var networkModule: NetworkModule) :
     BaseRemote<List<DropDownMapper>, List<MemberTypeResponse>>() {
 
-    private val apiMediatorLiveData: MediatorLiveData<ApiStatus<List<DropDownMapper>>> =
-        MediatorLiveData()
 
-    fun getMemberType(): MediatorLiveData<ApiStatus<List<DropDownMapper>>> = handleApi()
+
+    fun getMemberType(): SingleLiveEvent<ApiStatus<List<DropDownMapper>>> = handleApi()
 
     override fun handleResponse(it: HeaderResponse<List<MemberTypeResponse>>): ApiStatus<List<DropDownMapper>> {
         return if (it.succeeded) {

@@ -151,7 +151,7 @@ class CustomBottomNavigationModule @Inject constructor(
     }
 
     private fun navigateHome() {
-        navigationModule.navigateTo(R.id.home_fragment, R.id.nav_host_fragment)
+        navController.graph.setStartDestination(R.id.home_fragment)
     }
 
     private fun clickOnMyBookings() {
@@ -167,10 +167,7 @@ class CustomBottomNavigationModule @Inject constructor(
     }
 
     private fun navigateToMyBooking() {
-        navigationModule.navigateTo(
-            R.id.action_home_fragment_to_my_bookings_fragment,
-            R.id.nav_host_fragment
-        )
+        navController.graph.setStartDestination(R.id.my_bookings_fragment)
     }
 
     private fun clickOnMyPass() {

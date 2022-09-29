@@ -1,3 +1,0 @@
-package com.technopolitan.mocaspaces.lottieSwipeToRefresh
-
-object LottiePullToRefreshes

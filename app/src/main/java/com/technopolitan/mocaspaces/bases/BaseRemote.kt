@@ -9,15 +9,16 @@ import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.ErrorStatus
 import com.technopolitan.mocaspaces.data.HeaderResponse
 import com.technopolitan.mocaspaces.data.LoadingStatus
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 abstract class BaseRemote<T, E> {
 
-    protected var apiMediator: MediatorLiveData<ApiStatus<T>> = MediatorLiveData()
+    protected var apiMediator: SingleLiveEvent<ApiStatus<T>> = SingleLiveEvent()
 
-    fun handleApi(): MediatorLiveData<ApiStatus<T>> {
+    fun handleApi(): SingleLiveEvent<ApiStatus<T>> {
         apiMediator.value = LoadingStatus()
         val source: LiveData<ApiStatus<T>> = LiveDataReactiveStreams.fromPublisher(
             flowable().map { handleResponse(it) }

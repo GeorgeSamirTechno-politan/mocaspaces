@@ -14,6 +14,7 @@ import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -38,7 +39,7 @@ class EventSpaceRemote @Inject constructor(
         id: Int? = null,
         fromPax: Int?,
         toPax: Int?
-    ): MediatorLiveData<ApiStatus<List<MeetingRoomMapper?>>> {
+    ): SingleLiveEvent<ApiStatus<List<MeetingRoomMapper?>>> {
         this.pageNumber = pageNumber
         this.pageSize = pageSize
         this.type = type

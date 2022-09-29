@@ -15,6 +15,7 @@ import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -35,7 +36,7 @@ class WorkSpaceRemote @Inject constructor(
         type: Int? = null,
         id: Int? = null,
         location: Location? = null
-    ): MediatorLiveData<ApiStatus<List<WorkSpaceMapper?>>> {
+    ): SingleLiveEvent<ApiStatus<List<WorkSpaceMapper?>>> {
         this.pageNumber = pageNumber
         this.pageSize = pageSize
         this.id = id

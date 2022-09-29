@@ -10,13 +10,14 @@ import com.technopolitan.mocaspaces.data.gender.GenderMapper
 import com.technopolitan.mocaspaces.data.gender.GenderResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
 class GenderRemote @Inject constructor(private var networkModule: NetworkModule) :
     BaseRemote<List<GenderMapper>, List<GenderResponse>>() {
 
-    fun getAllGender(): MediatorLiveData<ApiStatus<List<GenderMapper>>> = handleApi()
+    fun getAllGender(): SingleLiveEvent<ApiStatus<List<GenderMapper>>> = handleApi()
 
     override fun handleResponse(it: HeaderResponse<List<GenderResponse>>): ApiStatus<List<GenderMapper>> {
         return if (it.succeeded) {

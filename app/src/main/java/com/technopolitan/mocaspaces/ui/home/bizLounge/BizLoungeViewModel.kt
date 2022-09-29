@@ -8,6 +8,7 @@ import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
 import com.technopolitan.mocaspaces.data.remote.BizLoungeRemote
 import com.technopolitan.mocaspaces.models.location.bizLounge.BizLoungeMapper
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import javax.inject.Inject
 
 class BizLoungeViewModel @Inject constructor(
@@ -20,8 +21,8 @@ class BizLoungeViewModel @Inject constructor(
     private var remainingPage: Int = 1
     private var type: Int? = null
     private var id: Int? = null
-    private var bizLoungeListMediator: MediatorLiveData<MutableList<BizLoungeMapper?>> =
-        MediatorLiveData()
+    private var bizLoungeListMediator: SingleLiveEvent<MutableList<BizLoungeMapper?>> =
+        SingleLiveEvent()
 
     init {
         pageNumber = 1

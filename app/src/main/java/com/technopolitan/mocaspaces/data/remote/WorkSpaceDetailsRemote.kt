@@ -13,6 +13,7 @@ import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class WorkSpaceDetailsRemote @Inject constructor(
 
     private var locationId: Int = 0
 
-    fun getWorkSpaceDetails(locationId: Int): MediatorLiveData<ApiStatus<LocationDetailsMapper>> {
+    fun getWorkSpaceDetails(locationId: Int): SingleLiveEvent<ApiStatus<LocationDetailsMapper>> {
         this.locationId = locationId
         return handleApi()
     }

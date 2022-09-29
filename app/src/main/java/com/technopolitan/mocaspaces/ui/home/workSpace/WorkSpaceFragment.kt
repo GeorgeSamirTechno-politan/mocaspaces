@@ -2,11 +2,15 @@ package com.technopolitan.mocaspaces.ui.home.workSpace
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.home.WorkSpaceAdapter
 import com.technopolitan.mocaspaces.databinding.FragmentWorkSpaceBinding
@@ -131,13 +135,13 @@ class WorkSpaceFragment : Fragment() {
                 ) {
                     workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
                     workspaceViewModel.setWorkSpaceListMediator(it.toMutableList())
-                    workspaceViewModel.removeSourceFromWorkSpaceApi()
+//                    workspaceViewModel.removeSourceFromWorkSpaceApi()
                 }
             } else {
                 workSpaceApiHandler.handleResponse(response) {
                     workspaceViewModel.updateWorkSpaceRemainingPage(response.remainingPage)
                     workspaceViewModel.setWorkSpaceListMediator(response.data!!.toMutableList())
-                    workspaceViewModel.removeSourceFromWorkSpaceApi()
+//                    workspaceViewModel.removeSourceFromWorkSpaceApi()
                 }
             }
         }
@@ -148,10 +152,14 @@ class WorkSpaceFragment : Fragment() {
             if (it.isNotEmpty()) {
                 workSpaceAdapter.setData(it)
                 binding.workSpaceRecycler.adapter = workSpaceAdapter
-                binding.workSpaceRecycler.setHasFixedSize(true)
+                if(workspaceViewModel.scrolledPosition > 0)
+                   Handler(Looper.getMainLooper()).postDelayed({
+                       binding.workSpaceRecycler.smoothScrollToPosition(workspaceViewModel.scrolledPosition)
+                   }, 500)
             }
         }
     }
+
 
     private fun setFavourite(item: WorkSpaceMapper, position: Int) {
         if (item.isFavourite)
@@ -166,7 +174,8 @@ class WorkSpaceFragment : Fragment() {
 //                workspaceViewModel.updateItem(item)
 //                workspaceViewModel.removeSourceOfAddAndDeleteFavourite()
                 item.isFavourite = item.isFavourite.not()
-                workSpaceAdapter.updateFavouriteItem(item, position)
+//                workSpaceAdapter.updateFavouriteItem(item, position)
+                workspaceViewModel.updateItem(item, position)
             }
         }
     }

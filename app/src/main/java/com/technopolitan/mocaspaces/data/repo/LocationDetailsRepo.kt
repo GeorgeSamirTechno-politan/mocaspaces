@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote
 import com.technopolitan.mocaspaces.models.location.mappers.LocationDetailsMapper
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import javax.inject.Inject
 
 enum class DetailsType {
@@ -18,7 +19,7 @@ class LocationDetailsRepo @Inject constructor(private var workSpaceDetailsRemote
     fun getDetails(
         locationId: Int,
         detailsType: DetailsType
-    ): MediatorLiveData<ApiStatus<LocationDetailsMapper>> {
+    ): SingleLiveEvent<ApiStatus<LocationDetailsMapper>> {
         return when (detailsType) {
             DetailsType.WorkSpace -> workSpaceDetailsRemote.getWorkSpaceDetails(locationId)
             DetailsType.MeetingSpace -> workSpaceDetailsRemote.getWorkSpaceDetails(locationId)

@@ -13,6 +13,7 @@ import com.technopolitan.mocaspaces.databinding.FilterPaxLayoutBinding
 import com.technopolitan.mocaspaces.models.location.mappers.LocationPaxMapper
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper
 import com.technopolitan.mocaspaces.utilities.Constants
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import javax.inject.Inject
 
 class MeetingRoomViewModel @Inject constructor(
@@ -29,10 +30,10 @@ class MeetingRoomViewModel @Inject constructor(
     private var id: Int? = null
     private var fromPax: Int? = null
     private var toPax: Int? = null
-    private var meetingSpaceListMediator: MediatorLiveData<MutableList<MeetingRoomMapper?>> =
-        MediatorLiveData()
-    private var paxFilterMediator: MediatorLiveData<ApiStatus<List<LocationPaxMapper>>> =
-        MediatorLiveData()
+    private var meetingSpaceListMediator: SingleLiveEvent<MutableList<MeetingRoomMapper?>> =
+        SingleLiveEvent()
+    private var paxFilterMediator: SingleLiveEvent<ApiStatus<List<LocationPaxMapper>>> =
+        SingleLiveEvent()
 
     init {
         pageNumber = 1

@@ -3,7 +3,6 @@ package com.technopolitan.mocaspaces.ui.home.workSpace
 import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
@@ -11,6 +10,7 @@ import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote
 import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import javax.inject.Inject
 
 class WorkSpaceViewModel @Inject constructor(
@@ -26,9 +26,10 @@ class WorkSpaceViewModel @Inject constructor(
     private var location: Location? = null
     private var type: Int? = null
     private var id: Int? = null
-    private var favouriteMediator: MediatorLiveData<ApiStatus<String>> = MediatorLiveData()
-    private var workSpaceListMediator: MediatorLiveData<MutableList<WorkSpaceMapper?>> =
-        MediatorLiveData()
+    private var favouriteMediator: SingleLiveEvent<ApiStatus<String>> = SingleLiveEvent()
+    private var workSpaceListMediator: SingleLiveEvent<MutableList<WorkSpaceMapper?>> =
+        SingleLiveEvent()
+    var scrolledPosition = 0
 
     init {
         pageNumber = 1
@@ -119,14 +120,10 @@ class WorkSpaceViewModel @Inject constructor(
         this.remainingPage = remaining
     }
 
-    fun updateItem(item: WorkSpaceMapper) {
+    fun updateItem(item: WorkSpaceMapper, position: Int) {
         val list = workSpaceListMediator.value!!
-        list.forEach {
-            if (it != null) {
-                if (it.id == item.id)
-                    it.isFavourite = !it.isFavourite
-            }
-        }
+        list[position] = item
+        scrolledPosition = position
         workSpaceListMediator.postValue(list)
     }
 

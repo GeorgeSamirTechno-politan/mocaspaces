@@ -13,6 +13,7 @@ import com.technopolitan.mocaspaces.data.login.LoginResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class LoginRemote @Inject constructor(
     private lateinit var email: String
     private lateinit var password: String
 
-    fun login(email: String, password: String): MediatorLiveData<ApiStatus<LoginMapper>> {
+    fun login(email: String, password: String): SingleLiveEvent<ApiStatus<LoginMapper>> {
         this.email = email
         this.password = password
         return handleApi()

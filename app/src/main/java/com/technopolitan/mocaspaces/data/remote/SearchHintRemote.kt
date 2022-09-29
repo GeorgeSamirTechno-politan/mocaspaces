@@ -10,13 +10,14 @@ import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper
 import com.technopolitan.mocaspaces.models.location.response.SearchHintResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
 class SearchHintRemote @Inject constructor(private var networkModule: NetworkModule) :
     BaseRemote<List<SearchHintMapper>, List<SearchHintResponse>>() {
 
-    fun getAllSearchHint(): MediatorLiveData<ApiStatus<List<SearchHintMapper>>> = handleApi()
+    fun getAllSearchHint(): SingleLiveEvent<ApiStatus<List<SearchHintMapper>>> = handleApi()
 
     override fun flowable(): Flowable<HeaderResponse<List<SearchHintResponse>>> {
         return networkModule.provideService(BaseUrl.locationApi).getAllSearchHint()

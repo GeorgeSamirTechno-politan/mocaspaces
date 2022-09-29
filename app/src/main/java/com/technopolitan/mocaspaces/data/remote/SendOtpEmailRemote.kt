@@ -9,6 +9,7 @@ import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.data.checkEmail.CheckEmailRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class SendOtpEmailRemote @Inject constructor(private var networkModule: NetworkM
 
     private lateinit var email: String
 
-    fun otpEmail(email: String): MediatorLiveData<ApiStatus<String>> {
+    fun otpEmail(email: String): SingleLiveEvent<ApiStatus<String>> {
         this.email = email
         return handleApi()
     }

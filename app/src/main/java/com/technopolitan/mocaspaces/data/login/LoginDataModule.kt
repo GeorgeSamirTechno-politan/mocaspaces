@@ -16,7 +16,7 @@ import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.modules.RXModule
 import com.technopolitan.mocaspaces.modules.SharedPrefModule
 import com.technopolitan.mocaspaces.modules.ValidationModule
-import com.technopolitan.mocaspaces.transitionButton.TransitionButton
+import com.technopolitan.mocaspaces.utilities.transitionButton.TransitionButton
 import dagger.Module
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable

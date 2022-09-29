@@ -8,7 +8,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.modules.RXModule
 import com.technopolitan.mocaspaces.modules.ValidationModule
-import com.technopolitan.mocaspaces.transitionButton.TransitionButton
+import com.technopolitan.mocaspaces.utilities.transitionButton.TransitionButton
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

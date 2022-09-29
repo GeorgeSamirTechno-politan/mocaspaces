@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.airbnb.lottie.LottieAnimationView
 import com.technopolitan.mocaspaces.data.*
-import com.technopolitan.mocaspaces.transitionButton.TransitionButton
+import com.technopolitan.mocaspaces.utilities.transitionButton.TransitionButton
 import javax.inject.Inject
 
 class ApiResponseModule<T> @Inject constructor(

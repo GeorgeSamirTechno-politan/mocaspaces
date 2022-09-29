@@ -9,6 +9,7 @@ import com.technopolitan.mocaspaces.data.SuccessStatus
 import com.technopolitan.mocaspaces.models.ResetPasswordRequest
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class ResetPasswordRemote @Inject constructor(private var networkModule: Network
     private lateinit var mobile:String
     private lateinit var newPassword: String
 
-    fun getResetPassword(mobile:String, newPassword: String): MediatorLiveData<ApiStatus<String>> {
+    fun getResetPassword(mobile:String, newPassword: String): SingleLiveEvent<ApiStatus<String>> {
         this.mobile = mobile
         this.newPassword = newPassword
         return handleApi()
@@ -27,9 +28,8 @@ class ResetPasswordRemote @Inject constructor(private var networkModule: Network
     }
 
     override fun handleResponse(it: HeaderResponse<String>): ApiStatus<String> {
-        if(it.succeeded){
-            return SuccessStatus(it.message, it.data)
-
-        }else return FailedStatus(it.message)
+        return if(it.succeeded){
+            SuccessStatus(it.message, it.data)
+        }else FailedStatus(it.message)
     }
 }

@@ -10,6 +10,7 @@ import com.technopolitan.mocaspaces.models.location.mappers.LocationPaxMapper
 import com.technopolitan.mocaspaces.models.location.response.LocationFilterPaxResponse
 import com.technopolitan.mocaspaces.modules.NetworkModule
 import com.technopolitan.mocaspaces.network.BaseUrl
+import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class PaxFilterRemote @Inject constructor(private var networkModule: NetworkModu
 
     private var featureId: Int = 2
 
-    fun getPaxFilter(featureId: Int): MediatorLiveData<ApiStatus<List<LocationPaxMapper>>> {
+    fun getPaxFilter(featureId: Int): SingleLiveEvent<ApiStatus<List<LocationPaxMapper>>> {
         this.featureId = featureId
         return handleApi()
     }
