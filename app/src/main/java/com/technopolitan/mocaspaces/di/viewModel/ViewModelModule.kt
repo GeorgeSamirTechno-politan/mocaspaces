@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.di.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.technopolitan.mocaspaces.ui.home.FavouriteViewModel
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
 import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeViewModel
 import com.technopolitan.mocaspaces.ui.home.eventSpace.EventSpaceViewModel
@@ -53,4 +54,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LocationDetailsViewModel::class)
     abstract fun bindLocationDetailsViewModel(locationDetailsViewModel: LocationDetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavouriteViewModel::class)
+    abstract fun bindFavouriteViewModel(favouriteViewModel: FavouriteViewModel): ViewModel
 }

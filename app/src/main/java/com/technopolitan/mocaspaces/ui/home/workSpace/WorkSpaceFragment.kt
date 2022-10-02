@@ -17,6 +17,7 @@ import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.ui.home.FavouriteViewModel
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
 import com.technopolitan.mocaspaces.utilities.loadMore
 import javax.inject.Inject
@@ -43,6 +44,7 @@ class WorkSpaceFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var workspaceViewModel: WorkSpaceViewModel
+    private lateinit var favouriteViewModel: FavouriteViewModel
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
@@ -64,6 +66,8 @@ class WorkSpaceFragment : Fragment() {
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
         workspaceViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[WorkSpaceViewModel::class.java]
+        favouriteViewModel =
+            ViewModelProvider(this, viewModelFactory)[FavouriteViewModel::class.java]
         listenForMediators()
         initView()
     }
@@ -150,33 +154,27 @@ class WorkSpaceFragment : Fragment() {
             if (it.isNotEmpty()) {
                 workSpaceAdapter.setData(it)
                 binding.workSpaceRecycler.adapter = workSpaceAdapter
-                if(workspaceViewModel.scrolledPosition > 0)
-                   Handler(Looper.getMainLooper()).postDelayed({
-                       binding.workSpaceRecycler.smoothScrollToPosition(workspaceViewModel.scrolledPosition)
-                   }, 500)
+                if (workspaceViewModel.scrolledPosition > 0)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.workSpaceRecycler.smoothScrollToPosition(workspaceViewModel.scrolledPosition)
+                    }, 500)
             }
         }
     }
 
 
     private fun setFavourite(item: WorkSpaceMapper, position: Int) {
-        if (item.isFavourite)
-            workspaceViewModel.setDeleteFavourite(item.id)
-        else workspaceViewModel.setAddFavourite(item.id)
-        listenForFavouriteApi(item, position)
-    }
-
-    private fun listenForFavouriteApi(item: WorkSpaceMapper, position: Int) {
-        workspaceViewModel.getFavourite().observe(viewLifecycleOwner) {
-            favouriteApiHandler.handleResponse(it) {
-//                workspaceViewModel.updateItem(item)
-//                workspaceViewModel.removeSourceOfAddAndDeleteFavourite()
-                item.isFavourite = item.isFavourite.not()
-//                workSpaceAdapter.updateFavouriteItem(item, position)
-                workspaceViewModel.updateItem(item, position)
+        if (position > 0) {
+            favouriteViewModel.setFavourite(
+                item.id,
+                item.isFavourite,
+                viewLifecycleOwner
+            ) { locationId, updatedFavourite ->
+                workspaceViewModel.updateItem(locationId, updatedFavourite)
             }
         }
     }
+
 
     private fun listenForBackFromDetails() {
         homeViewModel.getBackFromDetailsLiveData().observe(viewLifecycleOwner) {

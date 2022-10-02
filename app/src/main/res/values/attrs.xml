@@ -63,13 +63,17 @@
     </declare-styleable>
 
     <declare-styleable name="BottomNavigationCircles">
-        <attr name="circleColor" format="color"/>
-        <attr name="darkIcon" format="boolean"/>
-        <attr name="default_rounded_position" format="integer"/>
+        <attr name="circleColor" format="color" />
+        <attr name="darkIcon" format="boolean" />
+        <attr name="default_rounded_position" format="integer" />
         <attr name="backgroundShape" format="enum">
-            <enum name="circle" value="0"/>
-            <enum name="roundedRectangle" value="1"/>
+            <enum name="circle" value="0" />
+            <enum name="roundedRectangle" value="1" />
         </attr>
-        <attr name="customBackgroundShape" format="reference"/>
+        <attr name="customBackgroundShape" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
     </declare-styleable>
 </resources>

@@ -5,6 +5,39 @@
     android:id="@+id/logged_in_nav"
     app:startDestination="@id/home_fragment">
 
+    <dialog
+        android:id="@+id/progress_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.ProgressDialogFragment"
+        android:label="progress dialog"
+        tools:layout="@layout/progress_layout" />
+
+    <fragment
+        android:id="@+id/no_internet_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment"
+        tools:layout="@layout/fragment_no_internet" />
+
+    <dialog
+        android:id="@+id/scanning_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.ScanningFragment"
+        android:label="@string/scanning"
+        tools:layout="@layout/fragment_scanning" />
+
+    <dialog
+        android:id="@+id/single_button_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.SingleButtonDialogFragment"
+        tools:layout="@layout/fragment_two_choose_dialog" />
+
+
+    <dialog
+        android:id="@+id/date_picker_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.DatePickerFragment"
+        tools:layout="@layout/fragment_date_picker" />
+
+    <dialog
+        android:id="@+id/two_choose_dialog"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment"
+        tools:layout="@layout/fragment_two_choose_dialog" />
+
     <fragment
         android:id="@+id/home_fragment"
         android:name="com.technopolitan.mocaspaces.ui.home.HomeFragment"

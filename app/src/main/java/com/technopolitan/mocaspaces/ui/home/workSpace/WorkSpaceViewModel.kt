@@ -6,17 +6,13 @@ import androidx.lifecycle.LiveData
 import com.technopolitan.mocaspaces.bases.BaseViewModel
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.LoadingStatus
-import com.technopolitan.mocaspaces.data.remote.AddFavouriteWorkSpaceRemote
-import com.technopolitan.mocaspaces.data.remote.DeleteWorkSpaceFavouriteRemote
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper
 import com.technopolitan.mocaspaces.utilities.SingleLiveEvent
 import javax.inject.Inject
 
 class WorkSpaceViewModel @Inject constructor(
-    private var workSpaceRemote: WorkSpaceRemote,
-    private var addFavouriteWorkSpaceRemote: AddFavouriteWorkSpaceRemote,
-    private var deleteWorkSpaceFavouriteRemote: DeleteWorkSpaceFavouriteRemote
+    private var workSpaceRemote: WorkSpaceRemote
 ) :
     BaseViewModel<List<WorkSpaceMapper?>>() {
 
@@ -26,7 +22,6 @@ class WorkSpaceViewModel @Inject constructor(
     private var location: Location? = null
     private var type: Int? = null
     private var id: Int? = null
-    private var favouriteMediator: SingleLiveEvent<ApiStatus<String>> = SingleLiveEvent()
     private var workSpaceListMediator: SingleLiveEvent<MutableList<WorkSpaceMapper?>> =
         SingleLiveEvent()
     var scrolledPosition = 0
@@ -45,15 +40,6 @@ class WorkSpaceViewModel @Inject constructor(
 
     fun getWorkSpaceList(): LiveData<ApiStatus<List<WorkSpaceMapper?>>> = apiMediatorLiveData
 
-    fun setAddFavourite(locationId: Int) {
-        favouriteMediator = addFavouriteWorkSpaceRemote.addFavourite(locationId)
-    }
-
-    fun getFavourite(): LiveData<ApiStatus<String>> = favouriteMediator
-
-    fun setDeleteFavourite(locationId: Int) {
-        favouriteMediator = deleteWorkSpaceFavouriteRemote.deleteFavourite(locationId)
-    }
 
     fun getWorkSpaceListLiveData(): LiveData<MutableList<WorkSpaceMapper?>> = workSpaceListMediator
 
@@ -70,10 +56,6 @@ class WorkSpaceViewModel @Inject constructor(
         list.addAll(newList)
         if (hasLoadMore()) list.add(null)
         workSpaceListMediator.postValue(list)
-    }
-
-    fun removeSourceFromWorkSpaceApi() {
-        apiMediatorLiveData.removeSource(workSpaceRemote.getSource())
     }
 
 
@@ -107,7 +89,7 @@ class WorkSpaceViewModel @Inject constructor(
         remainingPage = 1
         pageNumber = 1
         workSpaceListMediator.postValue(mutableListOf())
-        removeSourceFromWorkSpaceApi()
+        scrolledPosition = 0
         setWorkSpaceRequest()
     }
 
@@ -125,6 +107,19 @@ class WorkSpaceViewModel @Inject constructor(
         list[position] = item
         scrolledPosition = position
         workSpaceListMediator.postValue(list)
+    }
+
+    fun updateItem(locationId: Int, updatedFavourite: Boolean) {
+        try {
+            val list = workSpaceListMediator.value!!
+            val item = list.find { it?.id == locationId }
+            val position = list.indexOf(item)
+            list[position]?.isFavourite = updatedFavourite
+            scrolledPosition = position
+            workSpaceListMediator.postValue(list)
+        } catch (e: Exception) {
+            Log.e(javaClass.name, "updateItem: ", e)
+        }
     }
 
     fun updateDataAgainToView() {

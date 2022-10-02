@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.ui.locationDetails
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.appbar.AppBarLayout
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.data.home.AmenityAdapter
 import com.technopolitan.mocaspaces.data.home.PriceAdapter
@@ -21,20 +24,14 @@ import com.technopolitan.mocaspaces.models.location.mappers.AmenityMapper
 import com.technopolitan.mocaspaces.models.location.mappers.LocationDetailsMapper
 import com.technopolitan.mocaspaces.models.location.mappers.MarketingMapper
 import com.technopolitan.mocaspaces.models.location.mappers.PriceMapper
-import com.technopolitan.mocaspaces.modules.ApiResponseModule
-import com.technopolitan.mocaspaces.modules.GlideModule
-import com.technopolitan.mocaspaces.modules.GoogleMapModule
-import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.modules.*
+import com.technopolitan.mocaspaces.ui.home.FavouriteViewModel
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
-import com.technopolitan.mocaspaces.utilities.autoScroll
-import com.technopolitan.mocaspaces.utilities.loadHtml
+import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel
+import com.technopolitan.mocaspaces.utilities.*
 import javax.inject.Inject
 
 class LocationDetailsFragment : Fragment() {
-
-    private lateinit var binding: FragmentLocationDetailsBinding
-    private lateinit var viewModel: LocationDetailsViewModel
-    private lateinit var homeViewModel: HomeViewModel
 
     @Inject
     lateinit var googleMapModule: GoogleMapModule
@@ -54,10 +51,16 @@ class LocationDetailsFragment : Fragment() {
     @Inject
     lateinit var marketingAdapter: MarketingAdapter
 
+    @Inject
+    lateinit var utilityModule: UtilityModule
+
     private lateinit var amenityAdapter: AmenityAdapter
-
-
     private lateinit var priceAdapter: PriceAdapter
+    private lateinit var binding: FragmentLocationDetailsBinding
+    private lateinit var viewModel: LocationDetailsViewModel
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var favouriteViewModel: FavouriteViewModel
+    private lateinit var workSpaceViewModel: WorkSpaceViewModel
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
@@ -77,7 +80,7 @@ class LocationDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModels()
         listenForViewType()
-
+        updateFavourite()
     }
 
     private fun initViewModels() {
@@ -85,6 +88,10 @@ class LocationDetailsFragment : Fragment() {
             ViewModelProvider(this, viewModelFactory)[LocationDetailsViewModel::class.java]
         homeViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
+        favouriteViewModel =
+            ViewModelProvider(this, viewModelFactory)[FavouriteViewModel::class.java]
+        workSpaceViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[WorkSpaceViewModel::class.java]
     }
 
     private fun listenForViewType() {
@@ -107,6 +114,7 @@ class LocationDetailsFragment : Fragment() {
                 }
             }
             viewModel.setDetailsRequest(homeViewModel.getSelectedLocationId(), it)
+            listenForFavourite()
             listenForDetailsApi()
         }
     }
@@ -122,7 +130,13 @@ class LocationDetailsFragment : Fragment() {
         binding.toolBar.setNavigationOnClickListener {
             navigationModule.popBack()
         }
+        updateCollapsing()
     }
+
+    private fun updateCollapsing() {
+        binding.appBar.addOnOffsetChangedListener(appBarChangeListener)
+    }
+
 
     private fun listenForDetailsApi() {
         viewModel.getDetailsLiveData().observe(viewLifecycleOwner) {
@@ -132,6 +146,8 @@ class LocationDetailsFragment : Fragment() {
                 binding.detailsLayout
             ) { detailsMapper ->
                 setFavourite(detailsMapper.isFavourite)
+                viewModel.setLocationId(detailsMapper.id)
+                setShareClicking(detailsMapper.shareLink)
                 loadImage(detailsMapper.mainImage)
                 setHasFoodMenu(detailsMapper.hasFoodMenu)
                 setPriceAdapter(detailsMapper.priceList)
@@ -143,20 +159,48 @@ class LocationDetailsFragment : Fragment() {
         }
     }
 
-    private fun setFavourite(isFavourite: Boolean) {
-        if (isFavourite)
-            binding.favouriteStatusImageBtn.setImageDrawable(
+    private fun listenForFavourite() {
+        viewModel.getFavouriteLiveData().observe(viewLifecycleOwner) {
+            if (it)
+                binding.favouriteStatusImageBtn.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_favourite
+                    )
+                )
+            else binding.favouriteStatusImageBtn.setImageDrawable(
                 AppCompatResources.getDrawable(
                     requireContext(),
-                    R.drawable.ic_favourite
+                    R.drawable.ic_un_favourite
                 )
             )
-        else binding.favouriteStatusImageBtn.setImageDrawable(
-            AppCompatResources.getDrawable(
-                requireContext(),
-                R.drawable.ic_un_favourite
-            )
-        )
+        }
+
+    }
+
+    private fun setFavourite(isFavourite: Boolean) {
+        viewModel.setFavourite(isFavourite)
+    }
+
+    private fun updateFavourite() {
+        binding.favouriteStatusImageBtn.setOnClickListener {
+            viewModel.getFavourite()?.let {
+                favouriteViewModel.setFavourite(
+                    viewModel.getLocationId(),
+                    it,
+                    viewLifecycleOwner
+                ) { locationId, updatedFavourite ->
+                    setFavourite(updatedFavourite)
+                    workSpaceViewModel.updateItem(locationId, updatedFavourite)
+                }
+            }
+        }
+    }
+
+    private fun setShareClicking(shareLink: String) {
+        binding.shareImageBtn.setOnClickListener {
+            utilityModule.shareLink(shareLink)
+        }
     }
 
     private fun loadImage(mainImage: String) {
@@ -184,8 +228,14 @@ class LocationDetailsFragment : Fragment() {
     }
 
     private fun setGoogleMap(latLng: LatLng, title: String) {
-        googleMapModule.addMarker(latLng, title).disableMapScroll(true)
-            .build(binding.mapInclude.root.id)
+        try {
+            val supportMapFragment =
+                childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+            googleMapModule.addMarker(latLng, title).disableMapScroll(true)
+                .build(supportMapFragment)
+        } catch (e: Exception) {
+            Log.e(javaClass.name, "setGoogleMap: ", e)
+        }
     }
 
     private fun setMarketingAdapter(list: MutableList<MarketingMapper>) {
@@ -202,6 +252,37 @@ class LocationDetailsFragment : Fragment() {
         binding.workingHourTextView.text = detailsMapper.workTimeMapper.getOpenHourText()
         binding.aboutInfoTextView.loadHtml(detailsMapper.about)
         binding.termsOfUseInfoTextView.loadHtml(detailsMapper.termsOfUse)
+    }
+
+    private val appBarChangeListener: AppBarStateChangeListener =
+        object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout?, appBarState: AppBarState?) {
+                when (appBarState) {
+                    AppBarState.EXPANDED -> {
+                        setAppBarWithExpandedOrIdle()
+                    }
+                    AppBarState.COLLAPSED -> {
+                        setAppBarWithCollapsed()
+                    }
+                    AppBarState.IDLE -> {
+                        setAppBarWithExpandedOrIdle()
+                    }
+                    null -> {
+                        setAppBarWithExpandedOrIdle()
+                    }
+                }
+            }
+
+        }
+
+    private fun setAppBarWithExpandedOrIdle() {
+        binding.scrollView.setBackgroundResource(R.drawable.location_detail_top_rounded_corner)
+        binding.scrollView.setMargin(top = resources.getDimensionPixelOffset(com.intuit.sdp.R.dimen._minus20sdp))
+    }
+
+    private fun setAppBarWithCollapsed() {
+        binding.scrollView.setBackgroundColor(requireContext().getColor(R.color.white))
+        binding.scrollView.setMargin()
     }
 
     override fun onDestroyView() {

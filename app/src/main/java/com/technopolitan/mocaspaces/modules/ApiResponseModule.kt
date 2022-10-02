@@ -35,20 +35,29 @@ class ApiResponseModule<T> @Inject constructor(
         }
     }
 
-
     fun handleResponse(
         apiStatus: ApiStatus<T>,
+        useProgressDialog: Boolean = false,
         onSuccessCallBack: (entity: T) -> Unit
     ) {
         when (apiStatus) {
+            is LoadingStatus -> {
+                if (useProgressDialog)
+                    dialogModule.showProgressDialog()
+            }
             is SuccessStatus -> {
+                if (useProgressDialog)
+                    dialogModule.hideProgressDialog()
                 onSuccessCallBack(apiStatus.data!!)
             }
             is ErrorStatus, is FailedStatus -> {
+                if (useProgressDialog)
+                    dialogModule.hideProgressDialog()
                 showErrorOrFailedMessage(apiStatus.message)
             }
         }
     }
+
 
     fun handleResponse(
         apiStatus: ApiStatus<T>,

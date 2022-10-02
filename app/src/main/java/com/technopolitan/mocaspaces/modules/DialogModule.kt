@@ -196,4 +196,12 @@ class DialogModule @Inject constructor(
                 }
         }
     }
+
+    fun showProgressDialog() {
+        navigationModule.navigateTo(R.id.progress_dialog)
+    }
+
+    fun hideProgressDialog() {
+        navigationModule.popBack()
+    }
 }

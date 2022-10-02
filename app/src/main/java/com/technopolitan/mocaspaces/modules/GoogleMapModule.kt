@@ -6,6 +6,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,7 +16,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.ui.main.MainActivity
 import dagger.Module
 import javax.inject.Inject
 
@@ -26,18 +27,19 @@ class GoogleMapModule @Inject constructor(
     private var fragment: Fragment?,
     private var permissionModel: PermissionModule,
     private var activity: Activity,
-) : OnMapReadyCallback {
+) : OnMapReadyCallback, View.OnTouchListener {
     private lateinit var googleMap: GoogleMap
     private var addMarkerOnly = false
     private lateinit var markerLatLong: LatLng
     private var markerTitle = ""
     private var hasScrollWithIt: Boolean = false
 
-    fun build(mapId: Int) {
+    fun build(supportMapFragment: SupportMapFragment) {
         try {
-            val mapFragment = (activity as MainActivity).supportFragmentManager
-                .findFragmentById(R.id.map_fragment) as? SupportMapFragment
-            mapFragment?.getMapAsync(this)
+            supportMapFragment.view?.let {
+                it.setOnTouchListener(this)
+            }
+            supportMapFragment.getMapAsync(this)
         } catch (e: Exception) {
             Log.e(javaClass.name, "build: ", e)
         }
@@ -94,20 +96,22 @@ class GoogleMapModule @Inject constructor(
 
     @SuppressLint("PotentialBehaviorOverride")
     private fun addMarker() {
-        googleMap.setOnMarkerClickListener(markerClickListener)
+
         googleMap.addMarker(MarkerOptions().apply {
             position(markerLatLong)
             title(title)
             draggable(false)
             visible(true)
+
             icon(bitmapFromVector(context, R.drawable.ic_location_icon))
         })
+        googleMap.setOnMarkerClickListener(markerClickListener)
 
     }
 
     private fun moveCamera() {
         val cameraPosition = CameraPosition.builder().apply {
-            zoom(13.0f)
+            zoom(9.0f)
             target(markerLatLong)
             tilt(0.0f)
             bearing(0.0f)
@@ -137,12 +141,9 @@ class GoogleMapModule @Inject constructor(
     private val markerClickListener = GoogleMap.OnMarkerClickListener {
         if (it.title == this.markerTitle) {
             openMap()
+            return@OnMarkerClickListener true
         }
-        return@OnMarkerClickListener true
-    }
-
-    private val onMapTouchListener = GoogleMap.OnMapClickListener {
-
+        return@OnMarkerClickListener false
     }
 
     private fun openMap() {
@@ -152,5 +153,11 @@ class GoogleMapModule @Inject constructor(
         )
     }
 
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
+    }
+
 
 }
+
+

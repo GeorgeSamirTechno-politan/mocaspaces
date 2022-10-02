@@ -77,6 +77,7 @@ import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper;
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
+import com.technopolitan.mocaspaces.modules.ApiResponseModule_Factory;
 import com.technopolitan.mocaspaces.modules.AppDefaultModule;
 import com.technopolitan.mocaspaces.modules.AppModule;
 import com.technopolitan.mocaspaces.modules.AppModule_ProvideAppDefaultModuleFactory;
@@ -145,6 +146,8 @@ import com.technopolitan.mocaspaces.ui.fragmentUtilities.SuccessRegisterFragment
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.SuccessRegisterFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment;
 import com.technopolitan.mocaspaces.ui.fragmentUtilities.TwoChooseDialogFragment_MembersInjector;
+import com.technopolitan.mocaspaces.ui.home.FavouriteViewModel;
+import com.technopolitan.mocaspaces.ui.home.FavouriteViewModel_Factory;
 import com.technopolitan.mocaspaces.ui.home.HomeFragment;
 import com.technopolitan.mocaspaces.ui.home.HomeFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel;
@@ -265,10 +268,6 @@ public final class DaggerApplicationComponent {
 
     private Provider<WorkSpaceRemote> workSpaceRemoteProvider;
 
-    private Provider<AddFavouriteWorkSpaceRemote> addFavouriteWorkSpaceRemoteProvider;
-
-    private Provider<DeleteWorkSpaceFavouriteRemote> deleteWorkSpaceFavouriteRemoteProvider;
-
     private Provider<WorkSpaceViewModel> workSpaceViewModelProvider;
 
     private Provider<MainRemote> mainRemoteProvider;
@@ -313,11 +312,19 @@ public final class DaggerApplicationComponent {
 
     private Provider<LocationDetailsViewModel> locationDetailsViewModelProvider;
 
+    private Provider<AddFavouriteWorkSpaceRemote> addFavouriteWorkSpaceRemoteProvider;
+
+    private Provider<DeleteWorkSpaceFavouriteRemote> deleteWorkSpaceFavouriteRemoteProvider;
+
+    private Provider<CustomAlertModule> provideCustomAlertModuleProvider;
+
+    private Provider<ApiResponseModule<String>> apiResponseModuleProvider;
+
+    private Provider<FavouriteViewModel> favouriteViewModelProvider;
+
     private Provider<Map<Class<? extends ViewModel>, Provider<ViewModel>>> mapOfClassOfAndProviderOfViewModelProvider;
 
     private Provider<ViewModelFactory> viewModelFactoryProvider;
-
-    private Provider<CustomAlertModule> provideCustomAlertModuleProvider;
 
     private Provider<PermissionModule> providePermissionModuleProvider;
 
@@ -615,9 +622,7 @@ public final class DaggerApplicationComponent {
       this.provideDateTimeModuleProvider = DoubleCheck.provider(AppModule_ProvideDateTimeModuleFactory.create(appModuleParam));
       this.provideSpannableStringModuleProvider = DoubleCheck.provider(AppModule_ProvideSpannableStringModuleFactory.create(appModuleParam, contextProvider));
       this.workSpaceRemoteProvider = WorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideDateTimeModuleProvider, contextProvider, provideSpannableStringModuleProvider);
-      this.addFavouriteWorkSpaceRemoteProvider = AddFavouriteWorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideSharedPrefModuleProvider);
-      this.deleteWorkSpaceFavouriteRemoteProvider = DeleteWorkSpaceFavouriteRemote_Factory.create(provideNetworkModelProvider);
-      this.workSpaceViewModelProvider = WorkSpaceViewModel_Factory.create(workSpaceRemoteProvider, addFavouriteWorkSpaceRemoteProvider, deleteWorkSpaceFavouriteRemoteProvider);
+      this.workSpaceViewModelProvider = WorkSpaceViewModel_Factory.create(workSpaceRemoteProvider);
       this.mainRemoteProvider = MainRemote_Factory.create(provideNetworkModelProvider);
       this.provideConnectionStateLiveDataModuleProvider = DoubleCheck.provider(AppModule_ProvideConnectionStateLiveDataModuleFactory.create(appModuleParam, contextProvider, provideNetworkModelProvider));
       this.activityProvider = InstanceFactory.create(activityParam);
@@ -639,9 +644,13 @@ public final class DaggerApplicationComponent {
       this.workSpaceDetailsRemoteProvider = WorkSpaceDetailsRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideSpannableStringModuleProvider, provideDateTimeModuleProvider);
       this.locationDetailsRepoProvider = LocationDetailsRepo_Factory.create(workSpaceDetailsRemoteProvider);
       this.locationDetailsViewModelProvider = LocationDetailsViewModel_Factory.create(locationDetailsRepoProvider);
-      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(7).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).put(MeetingRoomViewModel.class, ((Provider) meetingRoomViewModelProvider)).put(EventSpaceViewModel.class, ((Provider) eventSpaceViewModelProvider)).put(BizLoungeViewModel.class, ((Provider) bizLoungeViewModelProvider)).put(LocationDetailsViewModel.class, ((Provider) locationDetailsViewModelProvider)).build();
-      this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
+      this.addFavouriteWorkSpaceRemoteProvider = AddFavouriteWorkSpaceRemote_Factory.create(provideNetworkModelProvider, provideSharedPrefModuleProvider);
+      this.deleteWorkSpaceFavouriteRemoteProvider = DeleteWorkSpaceFavouriteRemote_Factory.create(provideNetworkModelProvider);
       this.provideCustomAlertModuleProvider = DoubleCheck.provider(AppModule_ProvideCustomAlertModuleFactory.create(appModuleParam, contextProvider, provideDialogModuleProvider));
+      this.apiResponseModuleProvider = ApiResponseModule_Factory.create(provideDialogModuleProvider, contextProvider, provideCustomAlertModuleProvider, activityProvider);
+      this.favouriteViewModelProvider = FavouriteViewModel_Factory.create(addFavouriteWorkSpaceRemoteProvider, deleteWorkSpaceFavouriteRemoteProvider, apiResponseModuleProvider);
+      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(8).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).put(MeetingRoomViewModel.class, ((Provider) meetingRoomViewModelProvider)).put(EventSpaceViewModel.class, ((Provider) eventSpaceViewModelProvider)).put(BizLoungeViewModel.class, ((Provider) bizLoungeViewModelProvider)).put(LocationDetailsViewModel.class, ((Provider) locationDetailsViewModelProvider)).put(FavouriteViewModel.class, ((Provider) favouriteViewModelProvider)).build();
+      this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
       this.providePermissionModuleProvider = DoubleCheck.provider(AppModule_ProvidePermissionModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider, provideCustomAlertModuleProvider, provideDialogModuleProvider, provideSharedPrefModuleProvider));
       this.providePikItModuleProvider = DoubleCheck.provider(AppModule_ProvidePikItModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider));
       this.provideCountDownModuleProvider = DoubleCheck.provider(AppModule_ProvideCountDownModuleFactory.create(appModuleParam, contextProvider));
@@ -1049,6 +1058,7 @@ public final class DaggerApplicationComponent {
       LocationDetailsFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       LocationDetailsFragment_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
       LocationDetailsFragment_MembersInjector.injectMarketingAdapter(instance, marketingAdapter());
+      LocationDetailsFragment_MembersInjector.injectUtilityModule(instance, provideUtilityModuleProvider.get());
       return instance;
     }
   }

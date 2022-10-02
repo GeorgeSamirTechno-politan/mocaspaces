@@ -13,7 +13,7 @@ class LocationDetailsMapper constructor(
     private var spannableStringModule: SpannableStringModule,
     private var dateTimeModule: DateTimeModule
 ) {
-
+    var id: Int = 0
     var shareLink: String = ""
     var isFavourite: Boolean = false
     var mainImage: String = ""
@@ -31,6 +31,7 @@ class LocationDetailsMapper constructor(
     var termsOfUse: String = ""
 
     init {
+        id = respnse.id
         shareLink = ""
         isFavourite = respnse.isFavourite
         if (respnse.image != null)

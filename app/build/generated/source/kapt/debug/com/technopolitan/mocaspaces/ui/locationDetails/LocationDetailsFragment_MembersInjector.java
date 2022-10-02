@@ -8,6 +8,7 @@ import com.technopolitan.mocaspaces.modules.ApiResponseModule;
 import com.technopolitan.mocaspaces.modules.GlideModule;
 import com.technopolitan.mocaspaces.modules.GoogleMapModule;
 import com.technopolitan.mocaspaces.modules.NavigationModule;
+import com.technopolitan.mocaspaces.modules.UtilityModule;
 import dagger.MembersInjector;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.InjectedFieldSignature;
@@ -33,18 +34,22 @@ public final class LocationDetailsFragment_MembersInjector implements MembersInj
 
   private final Provider<MarketingAdapter> marketingAdapterProvider;
 
+  private final Provider<UtilityModule> utilityModuleProvider;
+
   public LocationDetailsFragment_MembersInjector(Provider<GoogleMapModule> googleMapModuleProvider,
       Provider<ApiResponseModule<LocationDetailsMapper>> detailsApiHandlerProvider,
       Provider<GlideModule> glideModuleProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider,
       Provider<NavigationModule> navigationModuleProvider,
-      Provider<MarketingAdapter> marketingAdapterProvider) {
+      Provider<MarketingAdapter> marketingAdapterProvider,
+      Provider<UtilityModule> utilityModuleProvider) {
     this.googleMapModuleProvider = googleMapModuleProvider;
     this.detailsApiHandlerProvider = detailsApiHandlerProvider;
     this.glideModuleProvider = glideModuleProvider;
     this.viewModelFactoryProvider = viewModelFactoryProvider;
     this.navigationModuleProvider = navigationModuleProvider;
     this.marketingAdapterProvider = marketingAdapterProvider;
+    this.utilityModuleProvider = utilityModuleProvider;
   }
 
   public static MembersInjector<LocationDetailsFragment> create(
@@ -53,8 +58,9 @@ public final class LocationDetailsFragment_MembersInjector implements MembersInj
       Provider<GlideModule> glideModuleProvider,
       Provider<ViewModelFactory> viewModelFactoryProvider,
       Provider<NavigationModule> navigationModuleProvider,
-      Provider<MarketingAdapter> marketingAdapterProvider) {
-    return new LocationDetailsFragment_MembersInjector(googleMapModuleProvider, detailsApiHandlerProvider, glideModuleProvider, viewModelFactoryProvider, navigationModuleProvider, marketingAdapterProvider);
+      Provider<MarketingAdapter> marketingAdapterProvider,
+      Provider<UtilityModule> utilityModuleProvider) {
+    return new LocationDetailsFragment_MembersInjector(googleMapModuleProvider, detailsApiHandlerProvider, glideModuleProvider, viewModelFactoryProvider, navigationModuleProvider, marketingAdapterProvider, utilityModuleProvider);
   }
 
   @Override
@@ -65,6 +71,7 @@ public final class LocationDetailsFragment_MembersInjector implements MembersInj
     injectViewModelFactory(instance, viewModelFactoryProvider.get());
     injectNavigationModule(instance, navigationModuleProvider.get());
     injectMarketingAdapter(instance, marketingAdapterProvider.get());
+    injectUtilityModule(instance, utilityModuleProvider.get());
   }
 
   @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.googleMapModule")
@@ -100,5 +107,11 @@ public final class LocationDetailsFragment_MembersInjector implements MembersInj
   public static void injectMarketingAdapter(LocationDetailsFragment instance,
       MarketingAdapter marketingAdapter) {
     instance.marketingAdapter = marketingAdapter;
+  }
+
+  @InjectedFieldSignature("com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment.utilityModule")
+  public static void injectUtilityModule(LocationDetailsFragment instance,
+      UtilityModule utilityModule) {
+    instance.utilityModule = utilityModule;
   }
 }

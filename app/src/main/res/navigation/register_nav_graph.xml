@@ -5,6 +5,11 @@
     android:id="@+id/register_nav_graph"
     app:startDestination="@id/verify_mobile_fragment">
 
+    <fragment
+        android:id="@+id/no_internet_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.NoInternetFragment"
+        tools:layout="@layout/fragment_no_internet" />
+
     <dialog
         android:id="@+id/scanning_dialog"
         android:name="com.technopolitan.mocaspaces.ui.fragmentUtilities.ScanningFragment"
