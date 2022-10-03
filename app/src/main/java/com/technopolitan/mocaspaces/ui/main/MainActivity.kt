@@ -1,5 +1,6 @@
 package com.technopolitan.mocaspaces.ui.main
 
+import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
@@ -64,9 +65,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestNetworkStatusPermission() {
+        val permissionList: MutableList<String> = mutableListOf()
+        permissionList.add(Manifest.permission.ACCESS_NETWORK_STATE)
+        /// TODO update max sdk to 23 and allow permission
+//        permissionList.add(Manifest.permission.POST_NOTIFICATIONS)
         permissionModule.init(
 //            activityResultLauncher,
-            android.Manifest.permission.ACCESS_NETWORK_STATE,
+            permissionList
+
         ) {
             showNoInternetConnection()
         }

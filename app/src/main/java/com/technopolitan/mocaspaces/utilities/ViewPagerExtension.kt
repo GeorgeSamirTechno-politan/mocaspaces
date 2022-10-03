@@ -149,3 +149,36 @@ fun ViewPager2.fadeInOutPageTransform(enable: Boolean) {
         }
     }
 }
+
+fun ViewPager2.stackPagerVertical(enable: Boolean) {
+    if (enable)
+        setPageTransformer { view, position ->
+            if (position >= 0) {
+                view.run {
+                    scaleX = 0.7f - 0.05f * position
+                    scaleY = 0.7f
+                    translationX = -width * position
+                    translationY = 30 * position
+                }
+            }
+        }
+}
+
+fun ViewPager2.stackPagerHorizontal(enable: Boolean) {
+    if (enable)
+        setPageTransformer { page, position ->
+            if (position >= 0) {
+                page.scaleX = 0.9f - 0.05f * position
+                page.scaleY = 0.9f
+                page.alpha = 1f - 0.3f * position
+                page.translationX = -page.width * position
+                page.translationY = -30 * position
+            } else {
+                page.alpha = 1 + 0.3f * position
+                page.scaleX = 0.9f + 0.05f * position
+                page.scaleY = 0.9f
+                page.translationX = page.width * position
+                page.translationY = 30 * position
+            }
+        }
+}

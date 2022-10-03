@@ -33,8 +33,8 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var permissionModule: PermissionModule
 
-//    @Inject
-private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
+    //    @Inject
+    private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
 
     @Inject
     lateinit var locationModule: LocationModule

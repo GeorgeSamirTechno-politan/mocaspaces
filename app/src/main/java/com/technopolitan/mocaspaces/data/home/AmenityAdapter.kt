@@ -8,6 +8,7 @@ import com.technopolitan.mocaspaces.bases.BaseRecyclerAdapter
 import com.technopolitan.mocaspaces.databinding.AmenityItemBinding
 import com.technopolitan.mocaspaces.models.location.mappers.AmenityMapper
 import com.technopolitan.mocaspaces.modules.GlideModule
+import com.technopolitan.mocaspaces.utilities.setMargin
 
 class AmenityAdapter constructor(private var glideModule: GlideModule) :
     BaseRecyclerAdapter<AmenityMapper, AmenityItemBinding>() {
@@ -40,6 +41,11 @@ class AmenityAdapter constructor(private var glideModule: GlideModule) :
             else {
                 itemBinding.amenityTextView.visibility = View.VISIBLE
                 itemBinding.amenityTextView.text = item.name
+                itemBinding.amenityTextView.setMargin(
+                    bottom = itemBinding.amenityTextView.context.resources.getDimensionPixelOffset(
+                        com.intuit.sdp.R.dimen._20sdp
+                    )
+                )
             }
         }
     }

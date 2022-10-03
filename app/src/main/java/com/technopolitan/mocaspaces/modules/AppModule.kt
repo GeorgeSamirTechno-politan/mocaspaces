@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
+import com.technopolitan.mocaspaces.services.FCMService
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -56,8 +57,12 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideUtilityModule(context: Context, activity: Activity): UtilityModule =
-        UtilityModule(context, activity)
+    fun provideUtilityModule(
+        context: Context,
+        activity: Activity,
+        sharedPrefModule: SharedPrefModule
+    ): UtilityModule =
+        UtilityModule(context, activity, sharedPrefModule)
 
     @Singleton
     @Provides
@@ -164,6 +169,11 @@ class AppModule {
     ): PayTabModule = PayTabModule(
         context, sharedPrefModule, alertModule, activity
     )
+
+    @Singleton
+    @Provides
+    fun provideFCMService(notificationModule: NotificationModule): FCMService =
+        FCMService(notificationModule)
 
 
 }

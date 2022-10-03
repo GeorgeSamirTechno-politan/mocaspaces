@@ -25,9 +25,9 @@ import javax.inject.Inject
 @Module
 class UtilityModule @Inject constructor(
     private var context: Context,
-    private var activity: Activity
+    private var activity: Activity,
+    private var sharedPrefModule: SharedPrefModule
 ) {
-
 
 
     fun shareLink(link: String?) {
@@ -127,7 +127,12 @@ class UtilityModule @Inject constructor(
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = context.getColor(android.R.color.transparent)
             window.navigationBarColor = context.getColor(android.R.color.transparent)
-            window.setBackgroundDrawable(AppCompatResources.getDrawable(context,backGroundDrawable))
+            window.setBackgroundDrawable(
+                AppCompatResources.getDrawable(
+                    context,
+                    backGroundDrawable
+                )
+            )
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = context.getColor(statusAndNavigationColor)
@@ -141,9 +146,9 @@ class UtilityModule @Inject constructor(
 //                )
 //
 //            }else{
-                clearLightStatusBar()
+            clearLightStatusBar()
 //            }
-        }else{
+        } else {
             // dark status and navigation bar here
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 //                window.decorView.windowInsetsController?.setSystemBarsAppearance(
@@ -151,7 +156,7 @@ class UtilityModule @Inject constructor(
 //                    darkStatusBar
 //                )
 //            }else{
-              setLightStatusBar()
+            setLightStatusBar()
 //            }
         }
     }
@@ -169,6 +174,7 @@ class UtilityModule @Inject constructor(
 //            flags xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 //        activity.window.decorView.systemUiVisibility = flags
     }
+
 
     fun getBitmap(filePath: String): Bitmap {
         return BitmapFactory.decodeFile(filePath)

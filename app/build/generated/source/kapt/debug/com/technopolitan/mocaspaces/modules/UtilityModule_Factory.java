@@ -21,23 +21,27 @@ public final class UtilityModule_Factory implements Factory<UtilityModule> {
 
   private final Provider<Activity> activityProvider;
 
+  private final Provider<SharedPrefModule> sharedPrefModuleProvider;
+
   public UtilityModule_Factory(Provider<Context> contextProvider,
-      Provider<Activity> activityProvider) {
+      Provider<Activity> activityProvider, Provider<SharedPrefModule> sharedPrefModuleProvider) {
     this.contextProvider = contextProvider;
     this.activityProvider = activityProvider;
+    this.sharedPrefModuleProvider = sharedPrefModuleProvider;
   }
 
   @Override
   public UtilityModule get() {
-    return newInstance(contextProvider.get(), activityProvider.get());
+    return newInstance(contextProvider.get(), activityProvider.get(), sharedPrefModuleProvider.get());
   }
 
   public static UtilityModule_Factory create(Provider<Context> contextProvider,
-      Provider<Activity> activityProvider) {
-    return new UtilityModule_Factory(contextProvider, activityProvider);
+      Provider<Activity> activityProvider, Provider<SharedPrefModule> sharedPrefModuleProvider) {
+    return new UtilityModule_Factory(contextProvider, activityProvider, sharedPrefModuleProvider);
   }
 
-  public static UtilityModule newInstance(Context context, Activity activity) {
-    return new UtilityModule(context, activity);
+  public static UtilityModule newInstance(Context context, Activity activity,
+      SharedPrefModule sharedPrefModule) {
+    return new UtilityModule(context, activity, sharedPrefModule);
   }
 }
