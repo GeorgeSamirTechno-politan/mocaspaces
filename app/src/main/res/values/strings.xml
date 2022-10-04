@@ -196,6 +196,10 @@
     <string name="payment_cancelled">Payment cancelled</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="hourly">Hourly</string>
+    <string name="starts_from">Starts from</string>
+    <string name="rooted_device_message">Your seems that you have been rooted your device.\n Moca spaces can\'t run on rooted device</string>
+    <string name="select_plan">Select Plan</string>
 
 
 </resources>

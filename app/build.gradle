@@ -5,12 +5,14 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def parentDirPath = rootProject.projectDir
+println "parent project path: $parentDirPath" + "\\app\\technoPolitanKey.jks"
 android {
-    compileSdk 32
+    compileSdk 33
     defaultConfig {
         applicationId "com.technopolitan.mocaspaces"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -20,12 +22,24 @@ android {
         }
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            keyAlias 'Copolitan'
+            keyPassword 'Techn0@P0l1t@n'
+            storeFile file("$parentDirPath" + "\\app\\technoPolitanKey.jks")
+            storePassword 'Techn0@P0l1t@n'
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,6 +55,8 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+
 }
 
 dependencies {
@@ -150,7 +166,7 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
     implementation 'com.paytabs:payment-sdk:6.2.2'
-
+    implementation 'com.scottyab:rootbeer-lib:0.1.0'
 
 }
 

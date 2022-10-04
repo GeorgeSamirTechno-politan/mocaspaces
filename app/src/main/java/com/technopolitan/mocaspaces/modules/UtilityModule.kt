@@ -12,6 +12,7 @@ import android.net.Uri
 import android.util.Base64
 import android.view.Window
 import android.view.WindowManager
+import android.view.WindowManager.LayoutParams.FLAG_SECURE
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabsIntent
 import com.technopolitan.mocaspaces.R.color
@@ -125,6 +126,7 @@ class UtilityModule @Inject constructor(
         val window: Window = activity.window
         if (backGroundDrawable != null) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.addFlags(FLAG_SECURE)
             window.statusBarColor = context.getColor(android.R.color.transparent)
             window.navigationBarColor = context.getColor(android.R.color.transparent)
             window.setBackgroundDrawable(
@@ -135,6 +137,7 @@ class UtilityModule @Inject constructor(
             )
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.addFlags(FLAG_SECURE)
             window.statusBarColor = context.getColor(statusAndNavigationColor)
             window.navigationBarColor = context.getColor(statusAndNavigationColor)
         }

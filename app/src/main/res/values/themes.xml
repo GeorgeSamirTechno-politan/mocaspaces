@@ -73,6 +73,14 @@
         <item name="fontFamily">@font/gt_ultra_bold</item>
     </style>
 
+    <style name="sf_pro_regular">
+        <item name="fontFamily">@font/sf_pro_regular</item>
+    </style>
+
+    <style name="sf_pro_medium">
+        <item name="fontFamily">@font/sf_pro_medium</item>
+    </style>
+
     <style name="progress_text_Style" parent="medium">
         <item name="android:textSize">@dimen/_16sdp</item>
         <item name="android:textColor">@color/accent_color</item>

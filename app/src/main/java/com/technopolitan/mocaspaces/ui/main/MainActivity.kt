@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
+import com.scottyab.rootbeer.RootBeer
 import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPrefModule: SharedPrefModule
+
+    @Inject
+    lateinit var dialogModule: DialogModule
+
     private lateinit var splashScreen: SplashScreen
 
 
@@ -49,19 +54,47 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerApplicationComponent.factory()
             .buildDi(applicationContext, activity = this, fragment = null).inject(this)
-        utilityModule.setStatusBar()
-        splashScreen = installSplashScreen()
+        setStatusBar()
+        initSplashScreen()
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestNetworkStatusPermission()
+        handleApp()
+
+//        addPixToActivity(R.id.nav_host_fragment, pixModule.options)
+    }
+
+    private fun setStatusBar() {
+        utilityModule.setStatusBar()
+    }
+
+    private fun initSplashScreen() {
+        splashScreen = installSplashScreen()
+    }
+
+    private fun handleApp() {
+        if (isRootedRooted()) {
+            dialogModule.showMessageDialog(getString(R.string.rooted_device_message), callBack = {
+                finishAffinity()
+            })
+        } else {
+            requestNetworkStatusPermission()
+            initBottomNavigation()
+        }
+    }
+
+    private fun isRootedRooted(): Boolean {
+        val rootBeer = RootBeer(this)
+        return rootBeer.isRooted || rootBeer.isRootedWithBusyBoxCheck || rootBeer.checkSuExists() || rootBeer.checkForMagiskBinary()
+    }
+
+    private fun initBottomNavigation() {
         mainViewModel.initCustomBottomNavigationModule(
             binding.customBottomNavLayout,
             binding.myPassTab,
             this
         )
-//        addPixToActivity(R.id.nav_host_fragment, pixModule.options)
     }
 
     private fun requestNetworkStatusPermission() {
