@@ -27,18 +27,21 @@ class MeetingRoomMapper constructor(
     fun init(meetingRoomResponse: MeetingRoomResponse, context: Context): MeetingRoomMapper {
         id = meetingRoomResponse.id
         venueName = "@${meetingRoomResponse.venueName}"
-        address =
-            "${meetingRoomResponse.districtResponse.name}, ${meetingRoomResponse.nameResponse.name}"
-        locationName = meetingRoomResponse.location.name
+        if (meetingRoomResponse.districtResponse != null && meetingRoomResponse.cityResponse != null)
+            address =
+                "${meetingRoomResponse.districtResponse.name}, ${meetingRoomResponse.cityResponse.name}"
+        if (meetingRoomResponse.location != null)
+            locationName = meetingRoomResponse.location.name
         capacity = meetingRoomResponse.capacity
-        priceList.add(
-            PriceMapper().initPriceMapper(
-                context.getString(R.string.starting_at),
-                meetingRoomResponse.nonMemberPricePerHour.toInt().toString(),
-                "/${context.getString(R.string.hour)}",
-                meetingRoomResponse.currencyResponse.name
+        if (meetingRoomResponse.currencyResponse != null)
+            priceList.add(
+                PriceMapper().initPriceMapper(
+                    context.getString(R.string.starting_at),
+                    meetingRoomResponse.nonMemberPricePerHour.toInt().toString(),
+                    "/${context.getString(R.string.hour)}",
+                    meetingRoomResponse.currencyResponse.name
+                )
             )
-        )
         workTimeMapper.init(meetingRoomResponse.workingHourRespons)
         if (meetingRoomResponse.images != null)
             image =

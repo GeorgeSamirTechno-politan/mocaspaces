@@ -19,9 +19,12 @@ fun ViewPager2.autoScroll(interval: Long) {
              * adapter pages count and current
              * value of scrollPosition.
              */
-            val count = adapter?.itemCount ?: 0
-            setCurrentItem(scrollPosition++ % count, true)
-            handler.postDelayed(this, interval)
+            if (adapter != null)
+                if (adapter?.itemCount != null) {
+                    val count = adapter?.itemCount ?: 0
+                    setCurrentItem(scrollPosition++ % count, true)
+                    handler.postDelayed(this, interval)
+                }
         }
     }
 

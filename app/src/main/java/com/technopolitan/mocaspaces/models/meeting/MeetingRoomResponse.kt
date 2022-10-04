@@ -9,7 +9,7 @@ import com.technopolitan.mocaspaces.models.shared.WorkingHourResponse
 data class MeetingRoomResponse(
     @SerializedName("Id")
     @Expose
-    val id : Int = 0,
+    val id: Int = 0,
 
     @SerializedName("VenueName")
     @Expose
@@ -17,7 +17,7 @@ data class MeetingRoomResponse(
 
     @SerializedName("Location")
     @Expose
-    val location: NameResponse,
+    val location: NameResponse?,
 
     @SerializedName("Capacity")
     @Expose
@@ -25,7 +25,7 @@ data class MeetingRoomResponse(
 
     @SerializedName("MbrPerHour")
     @Expose
-    val memberPricePerHour: Double= 0.0,
+    val memberPricePerHour: Double = 0.0,
 
     @SerializedName("NonMbrPerHour")
     @Expose
@@ -33,19 +33,19 @@ data class MeetingRoomResponse(
 
     @SerializedName("City")
     @Expose
-    val nameResponse: NameResponse,
+    val cityResponse: NameResponse?,
 
     @SerializedName("Country")
     @Expose
-    val country: NameResponse,
+    val country: NameResponse?,
 
     @SerializedName("Currency")
     @Expose
-    val currencyResponse: NameResponse,
+    val currencyResponse: NameResponse?,
 
     @SerializedName("District")
     @Expose
-    val districtResponse: NameResponse,
+    val districtResponse: NameResponse?,
 
     @SerializedName("LocationImages")
     @Expose

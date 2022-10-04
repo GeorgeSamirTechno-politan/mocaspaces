@@ -21,8 +21,9 @@ class BizLoungeMapper constructor(
 
     fun init(bizLoungeResponse: BizLoungeResponse): BizLoungeMapper {
         id = bizLoungeResponse.id
-        address =
-            "${bizLoungeResponse.locationDistrict.name}, ${bizLoungeResponse.locationCity.name}"
+        if (bizLoungeResponse.locationDistrict != null && bizLoungeResponse.locationCity != null)
+            address =
+                "${bizLoungeResponse.locationDistrict.name}, ${bizLoungeResponse.locationCity.name}"
         locationName = bizLoungeResponse.name
         workTimeMapper.init(bizLoungeResponse.workingHourResponse)
         if (bizLoungeResponse.imagesResponse != null)

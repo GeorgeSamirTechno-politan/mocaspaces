@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "980656461075",
-    "project_id": "copolitan-7630e",
-    "storage_bucket": "copolitan-7630e.appspot.com"
+    "project_number": "129587373945",
+    "project_id": "moca-native",
+    "storage_bucket": "moca-native.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:980656461075:android:c5e95cf672b2df0112f6e6",
+        "mobilesdk_app_id": "1:129587373945:android:3f2ddac6b8868571e031a8",
         "android_client_info": {
           "package_name": "com.technopolitan.mocaspaces"
         }
       },
       "oauth_client": [
         {
-          "client_id": "980656461075-82nn1mbavk9ufghq935btldgdgslqi9v.apps.googleusercontent.com",
+          "client_id": "129587373945-fhb2o50t2kgo7j86c0onecv0nsfma6p2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDF0bXf8CDgZCneB7176hPtWsXhlgOq41A"
+          "current_key": "AIzaSyDbEkj1-jS_R90VKPWWsKc2uTRJ_RIGsQw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "980656461075-82nn1mbavk9ufghq935btldgdgslqi9v.apps.googleusercontent.com",
+              "client_id": "129587373945-fhb2o50t2kgo7j86c0onecv0nsfma6p2.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "980656461075-erdpece8e5jntltq4ab0o3sm3or38cmn.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.technopolitan.coffice"
-              }
             }
           ]
         }

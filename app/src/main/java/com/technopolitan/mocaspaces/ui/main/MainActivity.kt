@@ -1,13 +1,10 @@
 package com.technopolitan.mocaspaces.ui.main
 
-import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import com.scottyab.rootbeer.RootBeer
-import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
@@ -23,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
 
     lateinit var mainViewModel: MainViewModel
-
 
     @Inject
     lateinit var navigationModule: NavigationModule
@@ -45,8 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var splashScreen: SplashScreen
 
-
-    //
     @Inject
     lateinit var utilityModule: UtilityModule
     private lateinit var binding: ActivityMainBinding
@@ -60,9 +54,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        handleApp()
-
-//        addPixToActivity(R.id.nav_host_fragment, pixModule.options)
+        initBottomNavigation()
     }
 
     private fun setStatusBar() {
@@ -71,23 +63,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initSplashScreen() {
         splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { false }
     }
 
-    private fun handleApp() {
-        if (isRootedRooted()) {
-            dialogModule.showMessageDialog(getString(R.string.rooted_device_message), callBack = {
-                finishAffinity()
-            })
-        } else {
-            requestNetworkStatusPermission()
-            initBottomNavigation()
-        }
-    }
-
-    private fun isRootedRooted(): Boolean {
-        val rootBeer = RootBeer(this)
-        return rootBeer.isRooted || rootBeer.isRootedWithBusyBoxCheck || rootBeer.checkSuExists() || rootBeer.checkForMagiskBinary()
-    }
 
     private fun initBottomNavigation() {
         mainViewModel.initCustomBottomNavigationModule(
@@ -96,45 +74,6 @@ class MainActivity : AppCompatActivity() {
             this
         )
     }
-
-    private fun requestNetworkStatusPermission() {
-        val permissionList: MutableList<String> = mutableListOf()
-        permissionList.add(Manifest.permission.ACCESS_NETWORK_STATE)
-        /// TODO update max sdk to 23 and allow permission
-//        permissionList.add(Manifest.permission.POST_NOTIFICATIONS)
-        permissionModule.init(
-//            activityResultLauncher,
-            permissionList
-
-        ) {
-            showNoInternetConnection()
-        }
-    }
-
-
-    private fun showNoInternetConnection() {
-        mainViewModel.updateNetworkChangeMediator()
-        listenForConnectionChange()
-    }
-
-    private fun listenForConnectionChange() {
-        mainViewModel.connectionChangeLiveData().observe(this) {
-            if (it == false) {
-                navigationModule.navigateTo(
-                    R.id.no_internet_fragment,
-                    navHostId = R.id.nav_host_fragment
-                )
-            }
-        }
-    }
-
-
-
-
-
-
-
-
 
 
 //    private val bottomNavListener: NavigationBarView.OnItemSelectedListener =
@@ -187,7 +126,6 @@ class MainActivity : AppCompatActivity() {
 //                PorterDuffColorFilter(getColor(color), PorterDuff.Mode.SRC_OUT)
 //        }
 //    }
-
 
 
     private fun roundedCornersForBottomAppBar() {

@@ -14,16 +14,16 @@ data class WorkSpaceResponse(
     val address: String,
     @SerializedName("City")
     @Expose
-    val nameResponse: NameResponse,
+    val cityResponse: NameResponse?,
     @SerializedName("Country")
     @Expose
-    val country: NameResponse,
+    val country: NameResponse?,
     @SerializedName("Currency")
     @Expose
-    val currencyResponse: NameResponse,
+    val currencyResponse: NameResponse?,
     @SerializedName("District")
     @Expose
-    val districtResponse: NameResponse,
+    val districtResponse: NameResponse?,
     @SerializedName("Id")
     @Expose
     val id: Int,

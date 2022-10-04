@@ -7,6 +7,7 @@ object BaseUrl {
     const val sso: String = "sso"
     const val emptyApi: String = ""
 
+//    https://moca-location-api.azurewebsites.net/swagger/index.html
 
     fun baseUrl(serviceName: String): String{
         return if(appLive){

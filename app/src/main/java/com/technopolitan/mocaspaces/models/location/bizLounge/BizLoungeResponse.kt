@@ -17,15 +17,15 @@ data class BizLoungeResponse(
 
     @SerializedName("District")
     @Expose
-    val locationDistrict: NameResponse,
+    val locationDistrict: NameResponse?,
 
     @SerializedName("City")
     @Expose
-    val locationCity: NameResponse,
+    val locationCity: NameResponse?,
 
     @SerializedName("Country")
     @Expose
-    val locationCountry: NameResponse,
+    val locationCountry: NameResponse?,
 
     @SerializedName("LocationImages")
     @Expose

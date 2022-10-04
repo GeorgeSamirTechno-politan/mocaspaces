@@ -118,36 +118,33 @@ class HomeFragment : Fragment() {
 
     private fun handleDownList() {
         homeViewPagerAdapter = HomeViewPagerAdapter(requireContext(), this)
-        binding.homeFragmentViewPager.adapter = homeViewPagerAdapter
-        binding.homeFragmentViewPager.registerOnPageChangeCallback(pageChangeCallBack)
-        binding.homeFragmentViewPager.depthPageTransformer(true)
-        binding.homeFragmentViewPager.offscreenPageLimit = 4
+        binding.homeFragmentViewPager.apply {
+            adapter = homeViewPagerAdapter
+            depthPageTransformer(true)
+            offscreenPageLimit = 4
+            registerOnPageChangeCallback(pageChangeCallBack)
+        }
     }
 
 
     private fun initHomeSearchMapperList() {
         homeSearchAdapter.setData(viewModel.getHomeSearchMapperList().toMutableList())
-        binding.homeSearchViewPager.adapter = homeSearchAdapter
         homeSearchAdapter.setSearchCallBack {
             viewModel.setSearchHint(it)
         }
-        binding.homeSearchViewPager.offscreenPageLimit = 4
-        binding.homeSearchViewPager.showHorizontalWithVertical(
-            com.intuit.sdp.R.dimen._15sdp,
-            com.intuit.sdp.R.dimen._30sdp
-        )
-        binding.homeSearchViewPager.registerOnPageChangeCallback(searchPageChangeCallBack)
+        binding.homeSearchViewPager.apply {
+            adapter = homeSearchAdapter
+            offscreenPageLimit = 4
+            showHorizontalWithVertical(
+                com.intuit.sdp.R.dimen._15sdp,
+                com.intuit.sdp.R.dimen._30sdp
+            )
+            registerOnPageChangeCallback(pageChangeCallBack)
+        }
+
     }
 
     private val pageChangeCallBack: ViewPager2.OnPageChangeCallback = object :
-        ViewPager2.OnPageChangeCallback() {
-        override fun onPageSelected(position: Int) {
-            super.onPageSelected(position)
-            updateViewType(position)
-        }
-    }
-
-    private val searchPageChangeCallBack: ViewPager2.OnPageChangeCallback = object :
         ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)

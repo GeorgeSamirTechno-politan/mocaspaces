@@ -40,7 +40,8 @@ class WorkSpaceMapper constructor(
                 BaseUrl.baseForImage(BaseUrl.locationApi) + response.imagesResponse.locationImageFilePath
         initDistance(location)
         locationName = response.name
-        address = "${response.districtResponse.name}, ${response.nameResponse.name}"
+        if (response.districtResponse != null && response.cityResponse != null)
+            address = "${response.districtResponse.name}, ${response.cityResponse.name}"
         val list = mutableListOf<AmenityMapper>()
         response.locationAmenities.forEach { item ->
             list.add(AmenityMapper(BaseUrl.baseForImage(BaseUrl.locationApi) + item.icon))
@@ -48,11 +49,12 @@ class WorkSpaceMapper constructor(
         amenityList = mutableListOf()
         amenityList = list
         workTimeMapper.init(response.workingHourRespons)
-        priceList = PriceMapper().intPriceList(
-            response.pricesResponse,
-            context,
-            response.currencyResponse.name
-        )
+        if (response.currencyResponse != null)
+            priceList = PriceMapper().intPriceList(
+                response.pricesResponse,
+                context,
+                response.currencyResponse.name
+            )
         return this
     }
 

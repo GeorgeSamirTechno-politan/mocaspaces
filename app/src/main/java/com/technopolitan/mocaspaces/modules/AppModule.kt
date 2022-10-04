@@ -172,6 +172,13 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideNotificationModule(
+        context: Context,
+        sharedPrefModule: SharedPrefModule
+    ): NotificationModule = NotificationModule(context, sharedPrefModule)
+
+    @Singleton
+    @Provides
     fun provideFCMService(notificationModule: NotificationModule): FCMService =
         FCMService(notificationModule)
 

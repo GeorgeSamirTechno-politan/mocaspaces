@@ -8,11 +8,11 @@ plugins {
 def parentDirPath = rootProject.projectDir
 println "parent project path: $parentDirPath" + "\\app\\technoPolitanKey.jks"
 android {
-    compileSdk 33
+    compileSdk 32
     defaultConfig {
         applicationId "com.technopolitan.mocaspaces"
         minSdk 23
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -26,17 +26,24 @@ android {
         release {
             keyAlias 'Copolitan'
             keyPassword 'Techn0@P0l1t@n'
-            storeFile file("$parentDirPath" + "\\app\\technoPolitanKey.jks")
             storePassword 'Techn0@P0l1t@n'
+            storeFile file("$parentDirPath" + "\\app\\technoPolitanKey.jks")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
-        buildTypes {
-            release {
-                minifyEnabled true
-                shrinkResources true
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.release
-            }
+        debug {
+            minifyEnabled true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
