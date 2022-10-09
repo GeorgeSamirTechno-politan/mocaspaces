@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:titleCentered="true"
+            app:titleCentered="false"
+
             app:titleTextAppearance="@style/app_bar_title_style"
             app:titleTextColor="@color/black"
             app:navigationIcon="@drawable/ic_arrow_back">

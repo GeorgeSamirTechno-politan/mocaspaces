@@ -10,6 +10,7 @@ import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomViewModel
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsViewModel
 import com.technopolitan.mocaspaces.ui.main.MainViewModel
+import com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -59,5 +60,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FavouriteViewModel::class)
     abstract fun bindFavouriteViewModel(favouriteViewModel: FavouriteViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WorkSpacePlansViewModel::class)
+    abstract fun bindWorkSpacePlansViewModel(workSpacePlansViewModel: WorkSpacePlansViewModel): ViewModel
 
 }

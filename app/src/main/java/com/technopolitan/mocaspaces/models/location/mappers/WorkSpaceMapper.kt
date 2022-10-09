@@ -51,7 +51,7 @@ class WorkSpaceMapper constructor(
         workTimeMapper.init(response.workingHourRespons)
         if (response.currencyResponse != null)
             priceList = PriceMapper().intPriceList(
-                response.pricesResponse,
+                response.priceResponse,
                 context,
                 response.currencyResponse.name
             )

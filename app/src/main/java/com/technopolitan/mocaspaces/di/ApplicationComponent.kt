@@ -17,6 +17,7 @@ import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
+import com.technopolitan.mocaspaces.ui.main.SplashFragment
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment
 import com.technopolitan.mocaspaces.ui.passwordSaved.PasswordSavedFragment
 import com.technopolitan.mocaspaces.ui.personalInfo.PersonalInfoFragment
@@ -24,9 +25,9 @@ import com.technopolitan.mocaspaces.ui.register.RegisterFragment
 import com.technopolitan.mocaspaces.ui.registerPassword.RegisterPasswordFragment
 import com.technopolitan.mocaspaces.ui.resetPassword.ResetPasswordFragment
 import com.technopolitan.mocaspaces.ui.resetPasswordOtp.ResetPasswordOtpFragment
-import com.technopolitan.mocaspaces.ui.main.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment
+import com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -76,4 +77,5 @@ interface ApplicationComponent {
     fun inject(passwordSavedFragment: PasswordSavedFragment)
     fun inject(bizLoungeFragment: BizLoungeFragment)
     fun inject(locationDetailsFragment: LocationDetailsFragment)
+    fun inject(workSpacePlansFragment: WorkSpacePlansFragment)
 }

@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.technopolitan.mocaspaces.models.shared.ImagesResponse
 import com.technopolitan.mocaspaces.models.shared.NameResponse
-import com.technopolitan.mocaspaces.models.shared.PricesResponse
+import com.technopolitan.mocaspaces.models.shared.PriceResponse
 import com.technopolitan.mocaspaces.models.shared.WorkingHourResponse
 
 data class WorkSpaceResponse(
@@ -53,5 +53,5 @@ data class WorkSpaceResponse(
     val name: String,
     @SerializedName("Prices")
     @Expose
-    val pricesResponse: PricesResponse
+    val priceResponse: PriceResponse
 )

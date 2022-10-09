@@ -200,6 +200,10 @@
     <string name="starts_from">Starts from</string>
     <string name="rooted_device_message">You seems that you have been rooted your device.\n Moca spaces can\'t run on rooted device</string>
     <string name="select_plan">Select Plan</string>
+    <string name="bundle">Bundle</string>
+    <string name="private_office_with_new_line">Private\nOffice</string>
+    <string name="find_your_perfect_plan">Find your perfect plan</string>
+    <string name="day">Day</string>
 
 
 </resources>

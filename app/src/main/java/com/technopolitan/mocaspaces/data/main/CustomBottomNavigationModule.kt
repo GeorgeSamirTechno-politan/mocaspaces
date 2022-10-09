@@ -11,8 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.databinding.CustomBottomNavigationLayoutBinding
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.modules.*
 import com.technopolitan.mocaspaces.ui.main.MainActivity
 import dagger.Module
@@ -260,6 +260,7 @@ class CustomBottomNavigationModule @Inject constructor(
                     R.id.splash_fragment -> updateStatUsBarColor(hideNavigation = true)
                     R.id.location_details -> updateStatUsBarColor(hideNavigation = true)
                     R.id.home_fragment -> updateStatUsBarColor(hideNavigation = false)
+                    R.id.work_space_plans_fragment -> updateStatUsBarColor(hideNavigation = true)
                 }
             }
         }

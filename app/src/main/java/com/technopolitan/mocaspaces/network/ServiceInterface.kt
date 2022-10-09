@@ -21,6 +21,7 @@ import com.technopolitan.mocaspaces.models.location.response.LocationFilterPaxRe
 import com.technopolitan.mocaspaces.models.location.response.SearchHintResponse
 import com.technopolitan.mocaspaces.models.location.response.WorkSpaceResponse
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomResponse
+import com.technopolitan.mocaspaces.models.workSpace.PlanTypeResponse
 import com.technopolitan.mocaspaces.utilities.Constants
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -156,6 +157,12 @@ interface ServiceInterface {
         @Path("version") version: Int = Constants.apiVersion,
         @Query("LocationId") locationId: Int
     ): Flowable<HeaderResponse<LocationDetailsResponse>>
+
+    @GET("v{version}/PlanTypes/GetAllPlanTypesWithRelatedData/{lobSpaceTypeId }")
+    fun getPlanTypesWithRelatedData(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Path("lobSpaceTypeId ") lopSpaceType: Int = 1
+    ): Flowable<HeaderResponse<List<PlanTypeResponse>>>
 
 
 }

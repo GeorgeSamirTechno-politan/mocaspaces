@@ -71,6 +71,17 @@
         tools:layout="@layout/fragment_location_details">
 
 
+        <action
+            android:id="@+id/action_location_details_to_work_space_plans_fragment"
+            app:destination="@id/work_space_plans_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/work_space_plans_fragment"
+        android:name="com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansFragment"
+        tools:layout="@layout/fragment_work_space_plans">
+
+
     </fragment>
 
 </navigation>

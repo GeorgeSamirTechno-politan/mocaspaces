@@ -58,6 +58,8 @@ import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpForgotPasswordRem
 import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote_Factory;
+import com.technopolitan.mocaspaces.data.remote.WorkSpacePlanRemote;
+import com.technopolitan.mocaspaces.data.remote.WorkSpacePlanRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote_Factory;
 import com.technopolitan.mocaspaces.data.repo.LocationDetailsRepo;
@@ -76,6 +78,7 @@ import com.technopolitan.mocaspaces.models.location.mappers.LocationPaxMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.SearchHintMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.WorkSpaceMapper;
 import com.technopolitan.mocaspaces.models.meeting.MeetingRoomMapper;
+import com.technopolitan.mocaspaces.models.workSpace.WorkSpacePlanMapper;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule;
 import com.technopolitan.mocaspaces.modules.ApiResponseModule_Factory;
 import com.technopolitan.mocaspaces.modules.AppDefaultModule;
@@ -207,6 +210,10 @@ import com.technopolitan.mocaspaces.ui.start.StartFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment;
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyViewModel;
+import com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansFragment;
+import com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansFragment_MembersInjector;
+import com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansViewModel;
+import com.technopolitan.mocaspaces.ui.workspacePlans.WorkSpacePlansViewModel_Factory;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.DoubleCheck;
 import dagger.internal.InstanceFactory;
@@ -320,6 +327,10 @@ public final class DaggerApplicationComponent {
     private Provider<ApiResponseModule<String>> apiResponseModuleProvider;
 
     private Provider<FavouriteViewModel> favouriteViewModelProvider;
+
+    private Provider<WorkSpacePlanRemote> workSpacePlanRemoteProvider;
+
+    private Provider<WorkSpacePlansViewModel> workSpacePlansViewModelProvider;
 
     private Provider<Map<Class<? extends ViewModel>, Provider<ViewModel>>> mapOfClassOfAndProviderOfViewModelProvider;
 
@@ -600,6 +611,11 @@ public final class DaggerApplicationComponent {
       return new MarketingAdapter(provideGlideModuleProvider.get());
     }
 
+    private ApiResponseModule<List<WorkSpacePlanMapper>> apiResponseModuleOfListOfWorkSpacePlanMapper(
+        ) {
+      return new ApiResponseModule<List<WorkSpacePlanMapper>>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
+    }
+
     @SuppressWarnings("unchecked")
     private void initialize(final AppModule appModuleParam, final Context contextParam,
         final Activity activityParam, final Fragment fragmentParam) {
@@ -640,7 +656,9 @@ public final class DaggerApplicationComponent {
       this.provideCustomAlertModuleProvider = DoubleCheck.provider(AppModule_ProvideCustomAlertModuleFactory.create(appModuleParam, contextProvider, provideDialogModuleProvider));
       this.apiResponseModuleProvider = ApiResponseModule_Factory.create(provideDialogModuleProvider, contextProvider, provideCustomAlertModuleProvider, activityProvider);
       this.favouriteViewModelProvider = FavouriteViewModel_Factory.create(addFavouriteWorkSpaceRemoteProvider, deleteWorkSpaceFavouriteRemoteProvider, apiResponseModuleProvider);
-      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(8).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).put(MeetingRoomViewModel.class, ((Provider) meetingRoomViewModelProvider)).put(EventSpaceViewModel.class, ((Provider) eventSpaceViewModelProvider)).put(BizLoungeViewModel.class, ((Provider) bizLoungeViewModelProvider)).put(LocationDetailsViewModel.class, ((Provider) locationDetailsViewModelProvider)).put(FavouriteViewModel.class, ((Provider) favouriteViewModelProvider)).build();
+      this.workSpacePlanRemoteProvider = WorkSpacePlanRemote_Factory.create(provideNetworkModelProvider, contextProvider);
+      this.workSpacePlansViewModelProvider = WorkSpacePlansViewModel_Factory.create(workSpacePlanRemoteProvider);
+      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(9).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).put(MeetingRoomViewModel.class, ((Provider) meetingRoomViewModelProvider)).put(EventSpaceViewModel.class, ((Provider) eventSpaceViewModelProvider)).put(BizLoungeViewModel.class, ((Provider) bizLoungeViewModelProvider)).put(LocationDetailsViewModel.class, ((Provider) locationDetailsViewModelProvider)).put(FavouriteViewModel.class, ((Provider) favouriteViewModelProvider)).put(WorkSpacePlansViewModel.class, ((Provider) workSpacePlansViewModelProvider)).build();
       this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
       this.providePermissionModuleProvider = DoubleCheck.provider(AppModule_ProvidePermissionModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider, provideCustomAlertModuleProvider, provideDialogModuleProvider, provideSharedPrefModuleProvider));
       this.providePikItModuleProvider = DoubleCheck.provider(AppModule_ProvidePikItModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider));
@@ -788,6 +806,11 @@ public final class DaggerApplicationComponent {
     @Override
     public void inject(LocationDetailsFragment locationDetailsFragment) {
       injectLocationDetailsFragment(locationDetailsFragment);
+    }
+
+    @Override
+    public void inject(WorkSpacePlansFragment workSpacePlansFragment) {
+      injectWorkSpacePlansFragment(workSpacePlansFragment);
     }
 
     @CanIgnoreReturnValue
@@ -1054,6 +1077,13 @@ public final class DaggerApplicationComponent {
       LocationDetailsFragment_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
       LocationDetailsFragment_MembersInjector.injectMarketingAdapter(instance, marketingAdapter());
       LocationDetailsFragment_MembersInjector.injectUtilityModule(instance, provideUtilityModuleProvider.get());
+      return instance;
+    }
+
+    @CanIgnoreReturnValue
+    private WorkSpacePlansFragment injectWorkSpacePlansFragment(WorkSpacePlansFragment instance) {
+      WorkSpacePlansFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
+      WorkSpacePlansFragment_MembersInjector.injectApiHandler(instance, apiResponseModuleOfListOfWorkSpacePlanMapper());
       return instance;
     }
   }

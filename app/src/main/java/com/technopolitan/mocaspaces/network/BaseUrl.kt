@@ -6,6 +6,7 @@ object BaseUrl {
     private const val api: String = "api"
     const val sso: String = "sso"
     const val emptyApi: String = ""
+    const val setting: String = "mocasetting"
 
 //    https://moca-location-api.azurewebsites.net/swagger/index.html
 

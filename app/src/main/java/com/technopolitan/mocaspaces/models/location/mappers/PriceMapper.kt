@@ -2,7 +2,7 @@ package com.technopolitan.mocaspaces.models.location.mappers
 
 import android.content.Context
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.models.shared.PricesResponse
+import com.technopolitan.mocaspaces.models.shared.PriceResponse
 
 class PriceMapper {
 
@@ -25,12 +25,12 @@ class PriceMapper {
     }
 
     fun intPriceList(
-        response: PricesResponse,
+        response: PriceResponse,
         context: Context,
         currency: String
     ): MutableList<PriceMapper> {
         val priceList = mutableListOf<PriceMapper>()
-        if (response.day != null) {
+        if (response.day > 0) {
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.day_pass),
@@ -40,7 +40,7 @@ class PriceMapper {
                 )
             )
         }
-        if (response.hourly != null)
+        if (response.hourly > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.hourly_starting),
@@ -49,7 +49,7 @@ class PriceMapper {
                     currency = currency
                 )
             )
-        if (response.tailored != null)
+        if (response.tailored > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.tailored_starting),
@@ -58,7 +58,7 @@ class PriceMapper {
                     currency = currency
                 )
             )
-        if (response.bundle != null)
+        if (response.bundle > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.bundle_starting),
@@ -67,7 +67,7 @@ class PriceMapper {
                     currency = currency
                 )
             )
-        if (response.privateOfficePrice != null)
+        if (response.privateOffice > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.bundle_starting),

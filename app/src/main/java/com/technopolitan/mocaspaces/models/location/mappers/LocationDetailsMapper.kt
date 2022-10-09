@@ -3,6 +3,7 @@ package com.technopolitan.mocaspaces.models.location.mappers
 import android.content.Context
 import com.google.android.gms.maps.model.LatLng
 import com.technopolitan.mocaspaces.models.location.response.LocationDetailsResponse
+import com.technopolitan.mocaspaces.models.shared.PriceResponse
 import com.technopolitan.mocaspaces.modules.DateTimeModule
 import com.technopolitan.mocaspaces.modules.SpannableStringModule
 import com.technopolitan.mocaspaces.network.BaseUrl
@@ -29,6 +30,8 @@ class LocationDetailsMapper constructor(
     var locationLatLong: LatLng = LatLng(0.0, 0.0)
     var marketingList: MutableList<MarketingMapper> = mutableListOf()
     var termsOfUse: String = ""
+    lateinit var priceResponse: PriceResponse
+    var currency: String = ""
 
     init {
         id = respnse.id
@@ -36,7 +39,7 @@ class LocationDetailsMapper constructor(
         isFavourite = respnse.isFavourite
         if (respnse.image != null)
             mainImage =
-                BaseUrl.baseForImage(BaseUrl.locationApi) + respnse.image?.locationImageFilePath
+                BaseUrl.baseForImage(BaseUrl.locationApi) + respnse.image.locationImageFilePath
         venueName = ""
         hasFoodMenu = false
         workTimeMapper.init(respnse.workingHourList)
@@ -50,11 +53,24 @@ class LocationDetailsMapper constructor(
                 )
             }
         }
+
+        respnse.price.let { price ->
+            respnse.currency.let { currency ->
+                this.priceResponse = price
+                priceList = PriceMapper().intPriceList(price, context, currency.name)
+                this.currency = currency.name
+            }
+        }
         about = respnse.about
         locationName = respnse.locationName
-        shortAddress = respnse.district.name + ", " + respnse.city.name
-        priceList = PriceMapper().intPriceList(respnse.price, context, respnse.currency.name)
-        longAddress = respnse.district.name + ", " + respnse.city.name + ", " + respnse.country.name
+        respnse.district.let { district ->
+            respnse.city.let { city ->
+                respnse.country.let { country ->
+                    shortAddress = district.name + ", " + city.name
+                    longAddress = district.name + ", " + city.name + ", " + country.name
+                }
+            }
+        }
         locationLatLong = LatLng(respnse.latitude.toDouble(), respnse.longitude.toDouble())
         termsOfUse = respnse.termsOfUse
         if (respnse.marketingList != null)

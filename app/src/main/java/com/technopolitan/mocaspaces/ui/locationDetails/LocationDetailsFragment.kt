@@ -61,6 +61,7 @@ class LocationDetailsFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var favouriteViewModel: FavouriteViewModel
     private lateinit var workSpaceViewModel: WorkSpaceViewModel
+    private var bookingType: Int = 1
 
     override fun onAttach(context: Context) {
         DaggerApplicationComponent.factory().buildDi(context, requireActivity(), this).inject(this)
@@ -85,7 +86,10 @@ class LocationDetailsFragment : Fragment() {
 
     private fun initViewModels() {
         viewModel =
-            ViewModelProvider(this, viewModelFactory)[LocationDetailsViewModel::class.java]
+            ViewModelProvider(
+                requireActivity(),
+                viewModelFactory
+            )[LocationDetailsViewModel::class.java]
         homeViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
         favouriteViewModel =
@@ -101,16 +105,19 @@ class LocationDetailsFragment : Fragment() {
                     updateToolBarColor(R.color.accent_color)
                     updateToolBarItemColor(R.color.workspace_color)
                     binding.venueNameTextView.visibility = View.INVISIBLE
+                    bookingType = 1
                 }
                 2 -> {
                     updateToolBarColor(R.color.meeting_space_color)
                     updateToolBarItemColor(R.color.meeting_space_color)
                     binding.venueNameTextView.visibility = View.VISIBLE
+                    bookingType = 2
                 }
                 3 -> {
                     updateToolBarColor(R.color.event_space_color)
                     updateToolBarItemColor(R.color.event_space_color)
                     binding.venueNameTextView.visibility = View.VISIBLE
+                    bookingType = 3
                 }
             }
             viewModel.setDetailsRequest(homeViewModel.getSelectedLocationId(), it)
@@ -155,6 +162,10 @@ class LocationDetailsFragment : Fragment() {
                 setGoogleMap(detailsMapper.locationLatLong, detailsMapper.locationName)
                 setMarketingAdapter(detailsMapper.marketingList)
                 setOthersDetails(detailsMapper)
+                viewModel.setDetails(detailsMapper)
+                binding.detailsBtn.setOnClickListener {
+                    handleClickOnBook()
+                }
             }
         }
     }
@@ -288,6 +299,25 @@ class LocationDetailsFragment : Fragment() {
     override fun onDestroyView() {
         homeViewModel.setBackFromDetailsLiveData(true)
         super.onDestroyView()
+    }
+
+    /**
+     *
+     * @see bookingType
+     * it used for different navigation
+     * 1 for workspace
+     * 2 for meeting
+     * 3 for event space
+     *
+     * */
+    private fun handleClickOnBook() {
+        when (bookingType) {
+            1 -> {
+                navigationModule.navigateTo(R.id.action_location_details_to_work_space_plans_fragment)
+            }
+            2 -> {}
+            3 -> {}
+        }
     }
 
 

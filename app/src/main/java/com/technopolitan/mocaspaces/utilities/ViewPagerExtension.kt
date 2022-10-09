@@ -1,5 +1,6 @@
 package com.technopolitan.mocaspaces.utilities
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -11,7 +12,7 @@ fun ViewPager2.autoScroll(interval: Long) {
     val handler = Handler(Looper.getMainLooper())
     var scrollPosition = 0
     val runnable = object : Runnable {
-
+        @SuppressLint("SuspiciousIndentation")
         override fun run() {
 
             /**
@@ -22,7 +23,8 @@ fun ViewPager2.autoScroll(interval: Long) {
             if (adapter != null)
                 if (adapter?.itemCount != null) {
                     val count = adapter?.itemCount ?: 0
-                    setCurrentItem(scrollPosition++ % count, true)
+                    if (count > 0)
+                        setCurrentItem(scrollPosition++ % count, true)
                     handler.postDelayed(this, interval)
                 }
         }
