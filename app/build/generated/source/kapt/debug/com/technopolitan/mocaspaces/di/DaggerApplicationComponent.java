@@ -46,6 +46,8 @@ import com.technopolitan.mocaspaces.data.remote.MemberTypeRemote;
 import com.technopolitan.mocaspaces.data.remote.PaxFilterRemote;
 import com.technopolitan.mocaspaces.data.remote.PaxFilterRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.PersonalInfoRemote;
+import com.technopolitan.mocaspaces.data.remote.RefreshFCMTokenRemote;
+import com.technopolitan.mocaspaces.data.remote.RefreshFCMTokenRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.RegisterRemote;
 import com.technopolitan.mocaspaces.data.remote.ResetPasswordRemote;
 import com.technopolitan.mocaspaces.data.remote.SearchHintRemote;
@@ -177,6 +179,8 @@ import com.technopolitan.mocaspaces.ui.main.MainActivity;
 import com.technopolitan.mocaspaces.ui.main.MainActivity_MembersInjector;
 import com.technopolitan.mocaspaces.ui.main.MainViewModel;
 import com.technopolitan.mocaspaces.ui.main.MainViewModel_Factory;
+import com.technopolitan.mocaspaces.ui.main.SplashFragment;
+import com.technopolitan.mocaspaces.ui.main.SplashFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment;
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.mobileOTP.MobileOTPViewModel;
@@ -198,8 +202,6 @@ import com.technopolitan.mocaspaces.ui.resetPasswordOtp.ResetPasswordOtpFragment
 import com.technopolitan.mocaspaces.ui.resetPasswordOtp.ResetPasswordOtpFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.resetPasswordOtp.ResetPasswordOtpViewModel;
 import com.technopolitan.mocaspaces.ui.sharedViewModel.CountryViewModel;
-import com.technopolitan.mocaspaces.ui.splash.SplashFragment;
-import com.technopolitan.mocaspaces.ui.splash.SplashFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.start.StartFragment;
 import com.technopolitan.mocaspaces.ui.start.StartFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment;
@@ -283,6 +285,8 @@ public final class DaggerApplicationComponent {
 
     private Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider;
 
+    private Provider<RefreshFCMTokenRemote> refreshFCMTokenRemoteProvider;
+
     private Provider<MainViewModel> mainViewModelProvider;
 
     private Provider<MeetingRoomRemote> meetingRoomRemoteProvider;
@@ -346,6 +350,10 @@ public final class DaggerApplicationComponent {
       return new PixModule(providePermissionModuleProvider.get(), provideNavigationModuleProvider.get(), activity, fragment, providePikItModuleProvider.get());
     }
 
+    private ApiResponseModule<String> apiResponseModuleOfString() {
+      return new ApiResponseModule<String>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
+    }
+
     private LoginRemote loginRemote() {
       return new LoginRemote(provideNetworkModelProvider.get(), provideSharedPrefModuleProvider.get());
     }
@@ -384,10 +392,6 @@ public final class DaggerApplicationComponent {
 
     private ApiResponseModule<List<CountryMapper>> apiResponseModuleOfListOfCountryMapper() {
       return new ApiResponseModule<List<CountryMapper>>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
-    }
-
-    private ApiResponseModule<String> apiResponseModuleOfString() {
-      return new ApiResponseModule<String>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
     }
 
     private CheckMobileRemote checkMobileRemote() {
@@ -618,7 +622,8 @@ public final class DaggerApplicationComponent {
       this.provideUtilityModuleProvider = DoubleCheck.provider(AppModule_ProvideUtilityModuleFactory.create(appModuleParam, contextProvider, activityProvider, provideSharedPrefModuleProvider));
       this.provideDialogModuleProvider = DoubleCheck.provider(AppModule_ProvideDialogModuleFactory.create(appModuleParam, contextProvider, activityProvider, provideNavigationModuleProvider));
       this.customBottomNavigationModuleProvider = CustomBottomNavigationModule_Factory.create(contextProvider, activityProvider, provideSharedPrefModuleProvider, provideNavigationModuleProvider, provideGlideModuleProvider, provideUtilityModuleProvider, provideDialogModuleProvider);
-      this.mainViewModelProvider = MainViewModel_Factory.create(provideConnectionStateLiveDataModuleProvider, customBottomNavigationModuleProvider);
+      this.refreshFCMTokenRemoteProvider = RefreshFCMTokenRemote_Factory.create(provideNetworkModelProvider);
+      this.mainViewModelProvider = MainViewModel_Factory.create(provideConnectionStateLiveDataModuleProvider, customBottomNavigationModuleProvider, refreshFCMTokenRemoteProvider);
       this.meetingRoomRemoteProvider = MeetingRoomRemote_Factory.create(provideNetworkModelProvider, contextProvider, provideDateTimeModuleProvider, provideSpannableStringModuleProvider);
       this.paxFilterRemoteProvider = PaxFilterRemote_Factory.create(provideNetworkModelProvider);
       this.paxFilterDataModuleProvider = PaxFilterDataModule_Factory.create(contextProvider);
@@ -813,7 +818,7 @@ public final class DaggerApplicationComponent {
       SplashFragment_MembersInjector.injectDialogModule(instance, provideDialogModuleProvider.get());
       SplashFragment_MembersInjector.injectAppDefaultModel(instance, provideAppDefaultModuleProvider.get());
       SplashFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
-      SplashFragment_MembersInjector.injectPermissionModule(instance, providePermissionModuleProvider.get());
+      SplashFragment_MembersInjector.injectRefreshFCMApiHandler(instance, apiResponseModuleOfString());
       return instance;
     }
 

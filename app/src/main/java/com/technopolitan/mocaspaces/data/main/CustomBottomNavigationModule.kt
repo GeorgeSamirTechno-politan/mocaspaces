@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.databinding.CustomBottomNavigationLayoutBinding
 import com.technopolitan.mocaspaces.modules.*
 import com.technopolitan.mocaspaces.ui.main.MainActivity

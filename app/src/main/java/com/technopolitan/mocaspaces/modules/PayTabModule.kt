@@ -10,7 +10,7 @@ import com.payment.paymentsdk.PaymentSdkConfigBuilder
 import com.payment.paymentsdk.integrationmodels.*
 import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import javax.inject.Inject

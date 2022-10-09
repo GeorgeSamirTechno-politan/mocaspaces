@@ -4,7 +4,7 @@ package com.technopolitan.mocaspaces.modules
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.network.BaseUrl
 import com.technopolitan.mocaspaces.network.ServiceInterface
 import dagger.Module

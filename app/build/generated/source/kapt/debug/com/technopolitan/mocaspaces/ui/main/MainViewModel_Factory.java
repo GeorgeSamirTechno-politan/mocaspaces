@@ -2,6 +2,7 @@
 package com.technopolitan.mocaspaces.ui.main;
 
 import com.technopolitan.mocaspaces.data.main.CustomBottomNavigationModule;
+import com.technopolitan.mocaspaces.data.remote.RefreshFCMTokenRemote;
 import com.technopolitan.mocaspaces.modules.ConnectionLiveDataModule;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -21,25 +22,31 @@ public final class MainViewModel_Factory implements Factory<MainViewModel> {
 
   private final Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider;
 
+  private final Provider<RefreshFCMTokenRemote> refreshTokenRemoteProvider;
+
   public MainViewModel_Factory(Provider<ConnectionLiveDataModule> connectionLiveDataModuleProvider,
-      Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider) {
+      Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider,
+      Provider<RefreshFCMTokenRemote> refreshTokenRemoteProvider) {
     this.connectionLiveDataModuleProvider = connectionLiveDataModuleProvider;
     this.customBottomNavigationModuleProvider = customBottomNavigationModuleProvider;
+    this.refreshTokenRemoteProvider = refreshTokenRemoteProvider;
   }
 
   @Override
   public MainViewModel get() {
-    return newInstance(connectionLiveDataModuleProvider.get(), customBottomNavigationModuleProvider.get());
+    return newInstance(connectionLiveDataModuleProvider.get(), customBottomNavigationModuleProvider.get(), refreshTokenRemoteProvider.get());
   }
 
   public static MainViewModel_Factory create(
       Provider<ConnectionLiveDataModule> connectionLiveDataModuleProvider,
-      Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider) {
-    return new MainViewModel_Factory(connectionLiveDataModuleProvider, customBottomNavigationModuleProvider);
+      Provider<CustomBottomNavigationModule> customBottomNavigationModuleProvider,
+      Provider<RefreshFCMTokenRemote> refreshTokenRemoteProvider) {
+    return new MainViewModel_Factory(connectionLiveDataModuleProvider, customBottomNavigationModuleProvider, refreshTokenRemoteProvider);
   }
 
   public static MainViewModel newInstance(ConnectionLiveDataModule connectionLiveDataModule,
-      CustomBottomNavigationModule customBottomNavigationModule) {
-    return new MainViewModel(connectionLiveDataModule, customBottomNavigationModule);
+      CustomBottomNavigationModule customBottomNavigationModule,
+      RefreshFCMTokenRemote refreshTokenRemote) {
+    return new MainViewModel(connectionLiveDataModule, customBottomNavigationModule, refreshTokenRemote);
   }
 }

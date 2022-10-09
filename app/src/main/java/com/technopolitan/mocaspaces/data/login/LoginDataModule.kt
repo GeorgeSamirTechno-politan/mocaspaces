@@ -9,7 +9,7 @@ import androidx.biometric.BiometricManager
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.data.CryptographyManager
 import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
 import com.technopolitan.mocaspaces.modules.NavigationModule

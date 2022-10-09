@@ -2,7 +2,7 @@ package com.technopolitan.mocaspaces.modules
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.utilities.Constants
 import dagger.Module
 import dagger.Provides
