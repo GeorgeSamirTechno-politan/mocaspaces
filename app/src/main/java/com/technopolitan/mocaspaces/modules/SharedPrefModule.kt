@@ -2,7 +2,7 @@ package com.technopolitan.mocaspaces.modules
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import dagger.Module
 import javax.inject.Inject
 

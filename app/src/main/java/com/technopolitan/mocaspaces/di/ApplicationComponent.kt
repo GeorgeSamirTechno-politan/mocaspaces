@@ -24,7 +24,7 @@ import com.technopolitan.mocaspaces.ui.register.RegisterFragment
 import com.technopolitan.mocaspaces.ui.registerPassword.RegisterPasswordFragment
 import com.technopolitan.mocaspaces.ui.resetPassword.ResetPasswordFragment
 import com.technopolitan.mocaspaces.ui.resetPasswordOtp.ResetPasswordOtpFragment
-import com.technopolitan.mocaspaces.ui.splash.SplashFragment
+import com.technopolitan.mocaspaces.ui.main.SplashFragment
 import com.technopolitan.mocaspaces.ui.start.StartFragment
 import com.technopolitan.mocaspaces.ui.studentVerify.StudentVerifyFragment
 import dagger.BindsInstance

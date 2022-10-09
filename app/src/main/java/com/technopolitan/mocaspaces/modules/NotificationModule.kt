@@ -8,7 +8,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.technopolitan.mocaspaces.R
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 
 class NotificationModule constructor(
     private var context: Context,

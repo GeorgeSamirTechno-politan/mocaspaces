@@ -3,8 +3,10 @@ package com.technopolitan.mocaspaces.modules
 import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
+import androidx.work.WorkerFactory
 import com.technopolitan.mocaspaces.data.shared.CountDownModule
 import com.technopolitan.mocaspaces.data.shared.OtpBlockUserModule
+//import com.technopolitan.mocaspaces.di.DaggerWorkerFactory
 import com.technopolitan.mocaspaces.services.FCMService
 import dagger.Module
 import dagger.Provides
@@ -177,10 +179,16 @@ class AppModule {
         sharedPrefModule: SharedPrefModule
     ): NotificationModule = NotificationModule(context, sharedPrefModule)
 
-    @Singleton
-    @Provides
-    fun provideFCMService(notificationModule: NotificationModule): FCMService =
-        FCMService(notificationModule)
+//    @Singleton
+//    @Provides
+//    fun provideFCMService(notificationModule: NotificationModule): FCMService =
+//        FCMService(notificationModule)
+
+//    @Provides
+//    @Singleton
+//    fun provideDaggerWorkerFactory(networkModule: NetworkModule): WorkerFactory {
+//        return DaggerWorkerFactory(networkModule)
+//    }
 
 
 }

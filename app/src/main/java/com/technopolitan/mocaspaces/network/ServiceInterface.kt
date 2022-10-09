@@ -11,6 +11,7 @@ import com.technopolitan.mocaspaces.data.memberType.MemberTypeResponse
 import com.technopolitan.mocaspaces.data.mobileOTP.OtpMobileRequest
 import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
+import com.technopolitan.mocaspaces.models.RefreshTokenRequest
 import com.technopolitan.mocaspaces.models.ResetPasswordRequest
 import com.technopolitan.mocaspaces.models.location.bizLounge.BizLoungeResponse
 import com.technopolitan.mocaspaces.models.location.request.AddFavouriteWorkSpaceRequest
@@ -32,6 +33,11 @@ interface ServiceInterface {
         @Body loginRequest: LoginRequest
     ): Flowable<HeaderResponse<LoginResponse>>
 
+    @POST("v{version}/Notification/RefreshNotificationToken")
+    fun refreshFCMToken(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Body refreshTokenRequest: RefreshTokenRequest
+    ): Flowable<HeaderResponse<String>>
 
     @GET("v{version}/Country/GetAllCountriesWithoutPagination")
     fun countries(

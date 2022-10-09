@@ -1,7 +1,6 @@
 package com.technopolitan.mocaspaces.data.remote
 
-import androidx.lifecycle.MediatorLiveData
-import com.technopolitan.mocaspaces.SharedPrefKey
+import com.technopolitan.mocaspaces.enums.SharedPrefKey
 import com.technopolitan.mocaspaces.bases.BaseRemote
 import com.technopolitan.mocaspaces.data.ApiStatus
 import com.technopolitan.mocaspaces.data.FailedStatus

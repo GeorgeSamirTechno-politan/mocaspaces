@@ -1,10 +1,12 @@
 package com.technopolitan.mocaspaces.ui.main
 
+import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
+import com.technopolitan.mocaspaces.R
 import com.technopolitan.mocaspaces.databinding.ActivityMainBinding
 import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBottomNavigation()
+        requestNetworkStatusPermission()
     }
 
     private fun setStatusBar() {
@@ -73,6 +76,39 @@ class MainActivity : AppCompatActivity() {
             binding.myPassTab,
             this
         )
+    }
+
+    private fun requestNetworkStatusPermission() {
+        val permissionList: MutableList<String> = mutableListOf()
+        permissionList.add(Manifest.permission.ACCESS_NETWORK_STATE)
+        /// TODO update max sdk to 23 and allow permission
+//        permissionList.add(Manifest.permission.POST_NOTIFICATIONS)
+        permissionModule.init(
+            permissionList
+
+        ) {
+            showNoInternetConnection()
+        }
+    }
+
+    private fun showNoInternetConnection() {
+        mainViewModel.updateNetworkChangeMediator()
+        listenForConnectionChange()
+    }
+
+    private fun listenForConnectionChange() {
+        mainViewModel.connectionChangeLiveData().observe(this) {
+            if (it == false) {
+                navigationModule.navigateTo(
+                    R.id.no_internet_fragment,
+                    navHostId = R.id.nav_host_fragment
+                )
+            } else {
+//                /// TODO
+////                refreshFCMToken()
+//                handleNavigation()
+            }
+        }
     }
 
 
