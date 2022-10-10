@@ -30,7 +30,7 @@ class PriceMapper {
         currency: String
     ): MutableList<PriceMapper> {
         val priceList = mutableListOf<PriceMapper>()
-        if (response.day > 0) {
+        if (response.day != null && response.day > 0) {
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.day_pass),
@@ -40,7 +40,7 @@ class PriceMapper {
                 )
             )
         }
-        if (response.hourly > 0)
+        if (response.hourly != null && response.hourly > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.hourly_starting),
@@ -49,7 +49,7 @@ class PriceMapper {
                     currency = currency
                 )
             )
-        if (response.tailored > 0)
+        if (response.tailored != null && response.tailored > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.tailored_starting),
@@ -58,7 +58,7 @@ class PriceMapper {
                     currency = currency
                 )
             )
-        if (response.bundle > 0)
+        if (response.bundle != null && response.bundle > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.bundle_starting),
@@ -67,7 +67,7 @@ class PriceMapper {
                     currency = currency
                 )
             )
-        if (response.privateOffice > 0)
+        if (response.privateOffice != null && response.privateOffice > 0)
             priceList.add(
                 PriceMapper().initPriceMapper(
                     startFrom = context.getString(R.string.bundle_starting),

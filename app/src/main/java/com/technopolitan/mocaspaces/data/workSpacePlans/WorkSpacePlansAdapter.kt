@@ -16,6 +16,10 @@ class WorkSpacePlansAdapter(
     private val callBack: (item: WorkSpacePlanMapper) -> Unit
 ) : BaseRecyclerAdapter<WorkSpacePlanMapper, WorkSpaceBookingItemBinding>() {
 
+    init {
+        infiniteScrolling = true
+    }
+
     override fun itemBinding(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         itemBinding =
             WorkSpaceBookingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -36,7 +40,7 @@ class WorkSpacePlansAdapter(
 
         fun bind(item: WorkSpacePlanMapper) {
             binding.cardItem.setCardBackgroundColor(context.getColor(item.backGroundColorResId))
-            binding.mocaMImageView.setBackgroundColor(context.getColor(item.mocaMColorResId))
+            binding.mocaMImageView.setColorFilter(context.getColor(item.mocaMColorResId))
             if (item.planId == BookingType.dayPassTypeId) {
                 setBottomIcon(item)
             } else {
@@ -59,13 +63,13 @@ class WorkSpacePlansAdapter(
         private fun setEndIcon(item: WorkSpacePlanMapper) {
             binding.bottomLottieView.visibility = View.GONE
             binding.endLottieView.visibility = View.VISIBLE
-            binding.endLottieView.setAnimation(context.resources.getResourceName(item.animatedRawResId))
+            binding.endLottieView.setAnimation(item.animatedRawResId)
         }
 
         private fun setBottomIcon(item: WorkSpacePlanMapper) {
             binding.bottomLottieView.visibility = View.VISIBLE
             binding.endLottieView.visibility = View.GONE
-            binding.bottomLottieView.setAnimation(context.resources.getResourceName(item.animatedRawResId))
+            binding.bottomLottieView.setAnimation(item.animatedRawResId)
         }
 
         override fun onClick(v: View?) {

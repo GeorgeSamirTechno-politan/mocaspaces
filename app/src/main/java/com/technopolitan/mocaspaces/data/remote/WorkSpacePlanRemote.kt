@@ -44,9 +44,9 @@ class WorkSpacePlanRemote @Inject constructor(
             val list = mutableListOf<WorkSpacePlanMapper>()
             it.data?.let {
                 it.forEach { item ->
-                    when (item.name.lowercase()) {
+                    when (item.name) {
                         "Hourly" -> {
-                            priceResponse.hourly.let { price ->
+                            priceResponse.hourly?.let { price ->
                                 list.add(
                                     handleWorkSpaceTypeMapper(
                                         price,
@@ -58,7 +58,7 @@ class WorkSpacePlanRemote @Inject constructor(
 
                         }
                         "Day" -> {
-                            priceResponse.day.let { price ->
+                            priceResponse.day?.let { price ->
                                 list.add(
                                     handleWorkSpaceTypeMapper(
                                         price,
@@ -70,7 +70,7 @@ class WorkSpacePlanRemote @Inject constructor(
 
                         }
                         "Tailored" -> {
-                            priceResponse.tailored.let { price ->
+                            priceResponse.tailored?.let { price ->
                                 list.add(
                                     handleWorkSpaceTypeMapper(
                                         price,
@@ -82,7 +82,7 @@ class WorkSpacePlanRemote @Inject constructor(
 
                         }
                         "Bundle" -> {
-                            priceResponse.bundle.let { price ->
+                            priceResponse.bundle?.let { price ->
                                 list.add(
                                     handleWorkSpaceTypeMapper(
                                         price,
@@ -94,7 +94,7 @@ class WorkSpacePlanRemote @Inject constructor(
 
                         }
                         "PrivateOffice" -> {
-                            priceResponse.privateOffice.let { price ->
+                            priceResponse.privateOffice?.let { price ->
                                 list.add(
                                     handleWorkSpaceTypeMapper(
                                         price,
@@ -129,105 +129,130 @@ class WorkSpacePlanRemote @Inject constructor(
     ): WorkSpacePlanMapper {
         return when (planTypeId) {
             BookingType.hourlyTypeId -> {
-                WorkSpacePlanMapper(
-                    planId = BookingType.hourlyTypeId,
-                    mocaMColorResId = R.color.accent_color,
-                    backGroundColorResId = R.color.workspace_color,
-                    planTypeText = context.getString(R.string.hourly),
-                    planTypeTextColorResId = R.color.white,
-                    animatedRawResId = R.raw.hourly_glass,
-                    useDownAnimated = false,
-                    planDescText = planResponse.description,
-                    planDescColorResId = R.color.light_black_color,
-                    priceText = formatPrice(price),
-                    priceTextColorResId = R.color.light_black_color,
-                    planBtnColorResId = R.color.accent_color,
-                    planBtnTextColorResId = R.color.white,
-                    planTermsOfUseHtml = planResponse.termsOfUse,
-                    currency = currency,
-                    pricePerText = "/${context.getString(R.string.hour)}"
-                )
+                getHourlyPlan(planResponse, price)
             }
             BookingType.dayPassTypeId -> {
-                WorkSpacePlanMapper(
-                    planId = BookingType.dayPassTypeId,
-                    mocaMColorResId = R.color.workspace_color,
-                    backGroundColorResId = R.color.dark_green_color,
-                    planTypeText = context.getString(R.string.day_pass),
-                    planTypeTextColorResId = R.color.white,
-                    animatedRawResId = R.raw.day_pass,
-                    useDownAnimated = true,
-                    planDescText = planResponse.description,
-                    planDescColorResId = R.color.white,
-                    priceText = formatPrice(price),
-                    priceTextColorResId = R.color.white,
-                    planBtnColorResId = R.color.white,
-                    planBtnTextColorResId = R.color.accent_color,
-                    planTermsOfUseHtml = planResponse.termsOfUse,
-                    currency = currency,
-                    pricePerText = "/${context.getString(R.string.day)}"
-                )
+                getDayPassPlan(planResponse, price)
             }
             BookingType.tailoredTypeId -> {
-                WorkSpacePlanMapper(
-                    planId = BookingType.tailoredTypeId,
-                    mocaMColorResId = R.color.accent_color,
-                    backGroundColorResId = R.color.tailored_plan_color,
-                    planTypeText = context.getString(R.string.tailored),
-                    planTypeTextColorResId = R.color.white,
-                    animatedRawResId = R.raw.tailored,
-                    useDownAnimated = false,
-                    planDescText = planResponse.description,
-                    planDescColorResId = R.color.light_black_color,
-                    priceText = formatPrice(price),
-                    priceTextColorResId = R.color.light_black_color,
-                    planBtnColorResId = R.color.accent_color,
-                    planBtnTextColorResId = R.color.white,
-                    planTermsOfUseHtml = planResponse.termsOfUse,
-                    currency = currency,
-                    pricePerText = "/${context.getString(R.string.hour)}"
-                )
+                getTailoredPlan(planResponse, price)
             }
             BookingType.bundleTypeId -> {
-                WorkSpacePlanMapper(
-                    planId = BookingType.bundleTypeId,
-                    mocaMColorResId = R.color.accent_color,
-                    backGroundColorResId = R.color.bundle_plan_color,
-                    planTypeText = context.getString(R.string.bundle),
-                    planTypeTextColorResId = R.color.white,
-                    animatedRawResId = R.raw.tailored,
-                    useDownAnimated = false,
-                    planDescText = planResponse.description,
-                    planDescColorResId = R.color.light_black_color,
-                    priceText = formatPrice(price),
-                    priceTextColorResId = R.color.light_black_color,
-                    planBtnColorResId = R.color.accent_color,
-                    planBtnTextColorResId = R.color.white,
-                    planTermsOfUseHtml = planResponse.termsOfUse,
-                    currency = currency,
-                    pricePerText = "/${context.getString(R.string.hour)}"
-                )
+                getBundlePlan(planResponse, price)
             }
             else -> {
-                WorkSpacePlanMapper(
-                    planId = BookingType.privateOfficeTypeId,
-                    mocaMColorResId = R.color.workspace_color,
-                    backGroundColorResId = R.color.accent_color,
-                    planTypeText = context.getString(R.string.private_office_with_new_line),
-                    planTypeTextColorResId = R.color.white,
-                    animatedRawResId = R.raw.hourly_glass,
-                    useDownAnimated = false,
-                    planDescText = planResponse.description,
-                    planDescColorResId = R.color.white,
-                    priceText = formatPrice(price),
-                    priceTextColorResId = R.color.white,
-                    planBtnColorResId = R.color.white,
-                    planBtnTextColorResId = R.color.accent_color,
-                    planTermsOfUseHtml = planResponse.termsOfUse,
-                    currency = currency,
-                    pricePerText = "/${context.getString(R.string.hour)}"
-                )
+                getPrivateOfficePlan(planResponse, price)
             }
         }
     }
+
+    private fun getPrivateOfficePlan(
+        planResponse: PlanResponse,
+        price: Double
+    ) = WorkSpacePlanMapper(
+        planId = BookingType.privateOfficeTypeId,
+        mocaMColorResId = R.color.workspace_color,
+        backGroundColorResId = R.color.accent_color,
+        planTypeText = context.getString(R.string.private_office_with_new_line),
+        planTypeTextColorResId = R.color.white,
+        animatedRawResId = R.raw.hourly_glass,
+        useDownAnimated = false,
+        planDescText = planResponse.description,
+        planDescColorResId = R.color.white,
+        priceText = formatPrice(price),
+        priceTextColorResId = R.color.white,
+        planBtnColorResId = R.color.white,
+        planBtnTextColorResId = R.color.accent_color,
+        planTermsOfUseHtml = planResponse.termsOfUse,
+        currency = currency,
+        pricePerText = "/${context.getString(R.string.hour)}"
+    )
+
+    private fun getBundlePlan(
+        planResponse: PlanResponse,
+        price: Double
+    ) = WorkSpacePlanMapper(
+        planId = BookingType.bundleTypeId,
+        mocaMColorResId = R.color.accent_color,
+        backGroundColorResId = R.color.bundle_plan_color,
+        planTypeText = context.getString(R.string.bundle),
+        planTypeTextColorResId = R.color.white,
+        animatedRawResId = R.raw.tailored,
+        useDownAnimated = false,
+        planDescText = planResponse.description,
+        planDescColorResId = R.color.light_black_color,
+        priceText = formatPrice(price),
+        priceTextColorResId = R.color.light_black_color,
+        planBtnColorResId = R.color.accent_color,
+        planBtnTextColorResId = R.color.white,
+        planTermsOfUseHtml = planResponse.termsOfUse,
+        currency = currency,
+        pricePerText = "/${context.getString(R.string.hour)}"
+    )
+
+    private fun getTailoredPlan(
+        planResponse: PlanResponse,
+        price: Double
+    ) = WorkSpacePlanMapper(
+        planId = BookingType.tailoredTypeId,
+        mocaMColorResId = R.color.accent_color,
+        backGroundColorResId = R.color.tailored_plan_color,
+        planTypeText = context.getString(R.string.tailored),
+        planTypeTextColorResId = R.color.white,
+        animatedRawResId = R.raw.tailored,
+        useDownAnimated = false,
+        planDescText = planResponse.description,
+        planDescColorResId = R.color.light_black_color,
+        priceText = formatPrice(price),
+        priceTextColorResId = R.color.light_black_color,
+        planBtnColorResId = R.color.accent_color,
+        planBtnTextColorResId = R.color.white,
+        planTermsOfUseHtml = planResponse.termsOfUse,
+        currency = currency,
+        pricePerText = "/${context.getString(R.string.hour)}"
+    )
+
+    private fun getDayPassPlan(
+        planResponse: PlanResponse,
+        price: Double
+    ) = WorkSpacePlanMapper(
+        planId = BookingType.dayPassTypeId,
+        mocaMColorResId = R.color.workspace_color,
+        backGroundColorResId = R.color.dark_green_color,
+        planTypeText = context.getString(R.string.day_pass),
+        planTypeTextColorResId = R.color.white,
+        animatedRawResId = R.raw.day_pass,
+        useDownAnimated = true,
+        planDescText = planResponse.description,
+        planDescColorResId = R.color.white,
+        priceText = formatPrice(price),
+        priceTextColorResId = R.color.white,
+        planBtnColorResId = R.color.white,
+        planBtnTextColorResId = R.color.accent_color,
+        planTermsOfUseHtml = planResponse.termsOfUse,
+        currency = currency,
+        pricePerText = "/${context.getString(R.string.day)}"
+    )
+
+    private fun getHourlyPlan(
+        planResponse: PlanResponse,
+        price: Double
+    ) = WorkSpacePlanMapper(
+        planId = BookingType.hourlyTypeId,
+        mocaMColorResId = R.color.accent_color,
+        backGroundColorResId = R.color.workspace_color,
+        planTypeText = context.getString(R.string.hourly),
+        planTypeTextColorResId = R.color.white,
+        animatedRawResId = R.raw.hourly_glass,
+        useDownAnimated = false,
+        planDescText = planResponse.description,
+        planDescColorResId = R.color.light_black_color,
+        priceText = formatPrice(price),
+        priceTextColorResId = R.color.light_black_color,
+        planBtnColorResId = R.color.accent_color,
+        planBtnTextColorResId = R.color.white,
+        planTermsOfUseHtml = planResponse.termsOfUse,
+        currency = currency,
+        pricePerText = "/${context.getString(R.string.hour)}"
+    )
 }

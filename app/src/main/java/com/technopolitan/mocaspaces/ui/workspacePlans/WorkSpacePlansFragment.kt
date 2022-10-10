@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.technopolitan.mocaspaces.R
@@ -14,7 +17,10 @@ import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
 import com.technopolitan.mocaspaces.models.workSpace.WorkSpacePlanMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
+import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsViewModel
+import com.technopolitan.mocaspaces.utilities.Constants
+import com.technopolitan.mocaspaces.utilities.cardStackRecycleView.*
 import javax.inject.Inject
 
 class WorkSpacePlansFragment : Fragment() {
@@ -25,11 +31,15 @@ class WorkSpacePlansFragment : Fragment() {
     @Inject
     lateinit var apiHandler: ApiResponseModule<List<WorkSpacePlanMapper>>
 
+    @Inject
+    lateinit var navigationModule: NavigationModule
+
     private lateinit var workSpacePlansAdapter: WorkSpacePlansAdapter
 
     private lateinit var locationDetailsViewModel: LocationDetailsViewModel
     private lateinit var viewModel: WorkSpacePlansViewModel
     private lateinit var binding: FragmentWorkSpacePlansBinding
+    private lateinit var cardStackLayoutManager: CardStackLayoutManager
 
 
     override fun onAttach(context: Context) {
@@ -56,13 +66,17 @@ class WorkSpacePlansFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[WorkSpacePlansViewModel::class.java]
         initView()
         callApi()
+        listenForApi()
     }
 
     private fun initView() {
         binding.planAppBar.appToolBar.setNavigationIconTint(requireContext().getColor(R.color.workspace_color))
-        binding.planAppBar.appBarLayout.setBackgroundColor(requireContext().getColor(R.color.accent_color))
+        binding.planAppBar.appToolBar.setBackgroundColor(requireContext().getColor(R.color.accent_color))
         binding.planAppBar.appToolBar.subtitle = requireContext().getString(R.string.back)
         binding.planAppBar.appToolBar.setSubtitleTextColor(requireContext().getColor(R.color.workspace_color))
+        binding.planAppBar.appToolBar.setNavigationOnClickListener {
+            navigationModule.popBack()
+        }
     }
 
     private fun callApi() {
@@ -70,6 +84,9 @@ class WorkSpacePlansFragment : Fragment() {
             locationDetailsViewModel.getPriceResponse(),
             locationDetailsViewModel.getCurrency()
         )
+    }
+
+    private fun listenForApi() {
         viewModel.getWorkSpacePlan().observe(viewLifecycleOwner) {
             apiHandler.handleResponse(
                 it,
@@ -86,7 +103,63 @@ class WorkSpacePlansFragment : Fragment() {
             /// TODO missing call back
         }
         workSpacePlansAdapter.setData(list.toMutableList())
+        binding.workSpacePlanRecycler.layoutManager = getDefaultLayoutManager()
         binding.workSpacePlanRecycler.adapter = workSpacePlansAdapter
+        binding.workSpacePlanRecycler.addItemDecoration(
+            CardStackCirclePagerIndicatorDecoration(
+                R.color.black,
+                R.color.plan_inactive_indicator_color,
+                com.intuit.sdp.R.dimen._25sdp,
+                requireContext(),
+                list.size,
+                true
+            )
+        )
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            binding.workSpacePlanRecycler.swipe()
+//        }, 1000)
     }
+
+    private fun getDefaultLayoutManager(): CardStackLayoutManager {
+        cardStackLayoutManager = CardStackLayoutManager(requireContext()).apply {
+            setOverlayInterpolator(LinearInterpolator())
+            if (Constants.appLanguage == "en")
+                setStackFrom(StackFrom.Right)
+            else setStackFrom(StackFrom.Left)
+            setVisibleCount(4)
+//            setDirections(Direction.HORIZONTAL)
+            setTranslationInterval(12.0f)
+            setScaleInterval(0.95f)
+            setMaxDegree(-180.0f)
+            setSwipeThreshold(0.1f)
+            setCanScrollHorizontal(true)
+            setCanScrollVertical(false)
+            setSwipeAnimationSetting(getSwipeAnimationSetting())
+            setRewindAnimationSetting(getRewindAnimationSetting())
+            setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
+        }
+        return cardStackLayoutManager
+    }
+
+    private fun getSwipeAnimationSetting(): SwipeAnimationSetting =
+        SwipeAnimationSetting.Builder()
+            .setDirection(rewindDirection())
+            .setDuration(Duration.Slow.duration)
+            .setInterpolator(AccelerateInterpolator())
+            .build()
+
+
+    private fun getRewindAnimationSetting(): RewindAnimationSetting =
+        RewindAnimationSetting.Builder()
+            .setDirection(swipeDirection())
+            .setDuration(Duration.Slow.duration)
+            .setInterpolator(DecelerateInterpolator())
+            .build()
+
+    private fun swipeDirection() =
+        if (Constants.appLanguage == "en") Direction.Bottom else Direction.Left
+
+    private fun rewindDirection() =
+        if (Constants.appLanguage == "en") Direction.Top else Direction.Right
 
 }

@@ -37,9 +37,10 @@ class LocationDetailsMapper constructor(
         id = respnse.id
         shareLink = ""
         isFavourite = respnse.isFavourite
-        if (respnse.image != null)
+        respnse.image?.let {
             mainImage =
-                BaseUrl.baseForImage(BaseUrl.locationApi) + respnse.image.locationImageFilePath
+                BaseUrl.baseForImage(BaseUrl.locationApi) + it.locationImageFilePath
+        }
         venueName = ""
         hasFoodMenu = false
         workTimeMapper.init(respnse.workingHourList)
@@ -54,8 +55,8 @@ class LocationDetailsMapper constructor(
             }
         }
 
-        respnse.price.let { price ->
-            respnse.currency.let { currency ->
+        respnse.price?.let { price ->
+            respnse.currency?.let { currency ->
                 this.priceResponse = price
                 priceList = PriceMapper().intPriceList(price, context, currency.name)
                 this.currency = currency.name
@@ -63,9 +64,9 @@ class LocationDetailsMapper constructor(
         }
         about = respnse.about
         locationName = respnse.locationName
-        respnse.district.let { district ->
-            respnse.city.let { city ->
-                respnse.country.let { country ->
+        respnse.district?.let { district ->
+            respnse.city?.let { city ->
+                respnse.country?.let { country ->
                     shortAddress = district.name + ", " + city.name
                     longAddress = district.name + ", " + city.name + ", " + country.name
                 }

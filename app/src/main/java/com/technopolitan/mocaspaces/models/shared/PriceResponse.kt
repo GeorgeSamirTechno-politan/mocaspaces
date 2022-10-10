@@ -1,23 +1,23 @@
 package com.technopolitan.mocaspaces.models.shared
 
-
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+
 data class PriceResponse(
-    @SerializedName("Bundle")
-    @Expose
-    val bundle: Double,
-    @SerializedName("Day")
-    @Expose
-    val day: Double,
     @SerializedName("Hourly")
     @Expose
-    val hourly: Double,
-    @SerializedName("PrivateOffice")
+    val hourly: Double? = 0.0,
+    @SerializedName("Day")
     @Expose
-    val privateOffice: Double,
+    val day: Double? = 0.0,
     @SerializedName("Tailored")
     @Expose
-    val tailored: Double
+    val tailored: Double? = 0.0,
+    @SerializedName("Bundle")
+    @Expose
+    val bundle: Double? = 0.0,
+    @SerializedName("PrivateOffice")
+    @Expose
+    val privateOffice: Double? = 0.0
 )

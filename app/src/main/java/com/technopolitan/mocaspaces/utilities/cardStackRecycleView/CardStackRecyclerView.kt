@@ -3,8 +3,11 @@ package com.technopolitan.mocaspaces.utilities.cardStackRecycleView
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.RecyclerView
+import com.technopolitan.mocaspaces.utilities.Constants
 import com.technopolitan.mocaspaces.utilities.cardStackRecycleView.internal.CardStackDataObserver
 import com.technopolitan.mocaspaces.utilities.cardStackRecycleView.internal.CardStackSnapHelper
 
@@ -16,15 +19,11 @@ class CardStackRecyclerView @JvmOverloads constructor(
 
     init {
         contentDescription = javaClass.name
+        initialize()
     }
 
     override fun setLayoutManager(layout: LayoutManager?) {
-        if (layout == null) {
-            super.setLayoutManager(getDefaultLayoutManager())
-        } else if (layout is CardStackLayoutManager) {
-            super.setLayoutManager(layout)
-        }
-        if (layout is CardStackLayoutManager) {
+        if (layout != null) {
             super.setLayoutManager(layout)
         } else {
             super.setLayoutManager(getDefaultLayoutManager())
@@ -34,18 +33,39 @@ class CardStackRecyclerView @JvmOverloads constructor(
     private fun getDefaultLayoutManager(): CardStackLayoutManager {
         return CardStackLayoutManager(context).apply {
             setOverlayInterpolator(LinearInterpolator())
-            setStackFrom(StackFrom.Right)
+            if (Constants.appLanguage == "en")
+                setStackFrom(StackFrom.Right)
+            else setStackFrom(StackFrom.Left)
             setVisibleCount(4)
-            setTranslationInterval(context.resources.getDimension(com.intuit.sdp.R.dimen._10sdp))
-            setScaleInterval(0.90f)
-            setMaxDegree(90.0f)
             setDirections(Direction.FREEDOM)
-            setSwipeThreshold(0.20f)
-            setCanScrollHorizontal(true)
+            setTranslationInterval(12.0f)
+            setScaleInterval(0.95f)
+            setMaxDegree(-180.0f)
+            setSwipeThreshold(0.1f)
+            setCanScrollHorizontal(false)
             setCanScrollVertical(true)
-            setSwipeableMethod(SwipeableMethod.Manual)
+            setSwipeAnimationSetting(getSwipeAnimationSetting())
+            setRewindAnimationSetting(getRewindAnimationSetting())
+            setSwipeableMethod(SwipeableMethod.None)
         }
     }
+
+    private fun getSwipeAnimationSetting(): SwipeAnimationSetting =
+        SwipeAnimationSetting.Builder()
+            .setDirection(direction())
+            .setDuration(Duration.Slow.duration)
+            .setInterpolator(AccelerateInterpolator())
+            .build()
+
+
+    private fun getRewindAnimationSetting(): RewindAnimationSetting =
+        RewindAnimationSetting.Builder()
+            .setDirection(direction())
+            .setDuration(Duration.Slow.duration)
+            .setInterpolator(DecelerateInterpolator())
+            .build()
+
+    private fun direction() = if (Constants.appLanguage == "en") Direction.Right else Direction.Left
 
 
     override fun setAdapter(adapter: Adapter<*>?) {

@@ -48,7 +48,7 @@ class WorkSpaceMapper constructor(
         }
         amenityList = mutableListOf()
         amenityList = list
-        workTimeMapper.init(response.workingHourRespons)
+        workTimeMapper.init(response.workingHourResponse)
         if (response.currencyResponse != null)
             priceList = PriceMapper().intPriceList(
                 response.priceResponse,

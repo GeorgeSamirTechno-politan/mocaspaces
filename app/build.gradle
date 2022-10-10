@@ -33,14 +33,14 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
 
         debug {
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -179,6 +179,7 @@ dependencies {
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
     implementation 'com.paytabs:payment-sdk:6.2.2'
     implementation 'com.scottyab:rootbeer-lib:0.1.0'
+    implementation("com.tbuonomo:dotsindicator:4.3")
 
 
 }

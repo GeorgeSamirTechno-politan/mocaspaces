@@ -12,7 +12,7 @@ import com.technopolitan.mocaspaces.R
 import java.util.*
 
 
-class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
+class DotPageIndicator(context: Context, attrs: AttributeSet?) :
     LinearLayout(context, attrs) {
     private var indicatorCount = 0
     private var indicatorSize = 0
@@ -20,19 +20,33 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
     private var lastSelected = 0
     private var recyclerView: RecyclerView? = null
     private lateinit var recyclerDataObserver: DotRecyclerDataObserver
+    private var maxIndicators = 9
+    private var indicatorSizeDp = 12
+    private var indicatorMarginSizeDp = 7
+
+    // State Indicator for scale factor
+    private val stateGone = 0f
+    private val stateSmallest = 0.2f
+    private val stateSmall = 0.4f
+    private val stateNormal = 0.6f
+    private val stateSelected = 1.0f
 
     init {
         initValues()
+        maxIndicators = 4
+        indicatorSizeDp = context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._7sdp)
+        indicatorMarginSizeDp =
+            context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._7sdp)
     }
 
     private fun initValues() {
         val dm = resources.displayMetrics
         indicatorSize =
-            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, INDICATOR_SIZE_DIP.toFloat(), dm)
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, indicatorSizeDp.toFloat(), dm)
                 .toInt()
         indicatorMargin = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            INDICATOR_MARGIN_DIP.toFloat(),
+            indicatorMarginSizeDp.toFloat(),
             dm
         ).toInt()
         recyclerDataObserver = DotRecyclerDataObserver(this)
@@ -56,13 +70,13 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
         removeAllViews()
         if (indicatorCount <= 1) return
         for (i in 0 until indicatorCount) {
-            addIndicator(indicatorCount > MAX_INDICATORS, indicatorSize, margin)
+            addIndicator(indicatorCount > maxIndicators, indicatorSize, margin)
         }
     }
 
     fun onPageSelected(position: Int) {
         if (position == indicatorCount) return
-        if (indicatorCount > MAX_INDICATORS) {
+        if (indicatorCount > maxIndicators) {
             updateOverflowState(position)
         } else {
             updateSimpleState(position)
@@ -73,9 +87,9 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
         val view = View(context)
         view.setBackgroundResource(R.drawable.dot_indicator)
         if (isOverflowState) {
-            animateViewScale(view, STATE_NORMAL)
+            animateViewScale(view, stateNormal)
         } else {
-            animateViewScale(view, STATE_NORMAL)
+            animateViewScale(view, stateNormal)
         }
         val params = MarginLayoutParams(indicatorSize, indicatorSize)
         params.leftMargin = margin
@@ -88,8 +102,8 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
     }
 
     private fun updateSimpleState(position: Int) {
-        if (lastSelected != -1) animateViewScale(getChildAt(lastSelected), STATE_NORMAL)
-        animateViewScale(getChildAt(position), STATE_SELECTED)
+        if (lastSelected != -1) animateViewScale(getChildAt(lastSelected), stateNormal)
+        animateViewScale(getChildAt(position), stateSelected)
         lastSelected = position
     }
 
@@ -101,31 +115,31 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
             .addTransition(Fade())
         TransitionManager.beginDelayedTransition(this, transition)
         val positionStates = FloatArray(indicatorCount + 1)
-        Arrays.fill(positionStates, STATE_GONE)
-        val start = position - MAX_INDICATORS + 4
+        Arrays.fill(positionStates, stateGone)
+        val start = position - maxIndicators + 4
         var realStart = 0.coerceAtLeast(start)
-        if (realStart + MAX_INDICATORS > indicatorCount) {
-            realStart = indicatorCount - MAX_INDICATORS
-            positionStates[indicatorCount - 1] = STATE_NORMAL
-            positionStates[indicatorCount - 2] = STATE_NORMAL
+        if (realStart + maxIndicators > indicatorCount) {
+            realStart = indicatorCount - maxIndicators
+            positionStates[indicatorCount - 1] = stateNormal
+            positionStates[indicatorCount - 2] = stateNormal
         } else {
-            if (realStart + MAX_INDICATORS - 2 < indicatorCount) {
-                positionStates[realStart + MAX_INDICATORS - 2] = STATE_SMALL
+            if (realStart + maxIndicators - 2 < indicatorCount) {
+                positionStates[realStart + maxIndicators - 2] = stateSmall
             }
-            if (realStart + MAX_INDICATORS - 1 < indicatorCount) {
-                positionStates[realStart + MAX_INDICATORS - 1] = STATE_SMALLEST
+            if (realStart + maxIndicators - 1 < indicatorCount) {
+                positionStates[realStart + maxIndicators - 1] = stateSmallest
             }
         }
-        for (i in realStart until realStart + MAX_INDICATORS - 2) {
-            positionStates[i] = STATE_NORMAL
+        for (i in realStart until realStart + maxIndicators - 2) {
+            positionStates[i] = stateNormal
         }
         if (position > 5) {
-            positionStates[realStart] = STATE_SMALLEST
-            positionStates[realStart + 1] = STATE_SMALL
+            positionStates[realStart] = stateSmallest
+            positionStates[realStart + 1] = stateSmall
         } else if (position == 5) {
-            positionStates[realStart] = STATE_SMALL
+            positionStates[realStart] = stateSmall
         }
-        positionStates[position] = STATE_SELECTED
+        positionStates[position] = stateSelected
         updateIndicators(positionStates)
         lastSelected = position
     }
@@ -134,7 +148,7 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
         for (i in 0 until indicatorCount) {
             val v: View = getChildAt(i)
             val state = positionStates[i]
-            if (state == STATE_GONE) {
+            if (state == stateGone) {
                 v.visibility = GONE
             } else {
                 v.visibility = VISIBLE
@@ -158,16 +172,5 @@ class DotPageIndicator(context: Context?, attrs: AttributeSet?) :
         super.onDetachedFromWindow()
     }
 
-    companion object {
-        private const val MAX_INDICATORS = 9
-        private const val INDICATOR_SIZE_DIP = 12
-        private const val INDICATOR_MARGIN_DIP = 7
-
-        // State Indicator for scale factor
-        private const val STATE_GONE = 0f
-        private const val STATE_SMALLEST = 0.2f
-        private const val STATE_SMALL = 0.4f
-        private const val STATE_NORMAL = 0.6f
-        private const val STATE_SELECTED = 1.0f
-    }
+    companion object
 }

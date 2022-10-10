@@ -1084,6 +1084,7 @@ public final class DaggerApplicationComponent {
     private WorkSpacePlansFragment injectWorkSpacePlansFragment(WorkSpacePlansFragment instance) {
       WorkSpacePlansFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       WorkSpacePlansFragment_MembersInjector.injectApiHandler(instance, apiResponseModuleOfListOfWorkSpacePlanMapper());
+      WorkSpacePlansFragment_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
       return instance;
     }
   }

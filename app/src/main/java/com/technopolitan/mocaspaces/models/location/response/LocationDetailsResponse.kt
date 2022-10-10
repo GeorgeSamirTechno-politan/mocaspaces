@@ -18,15 +18,15 @@ data class LocationDetailsResponse(
 
     @SerializedName("District")
     @Expose
-    val district: NameResponse,
+    val district: NameResponse?,
 
     @SerializedName("City")
     @Expose
-    val city: NameResponse,
+    val city: NameResponse?,
 
     @SerializedName("Country")
     @Expose
-    val country: NameResponse,
+    val country: NameResponse?,
 
     @SerializedName("About")
     @Expose
@@ -54,11 +54,11 @@ data class LocationDetailsResponse(
 
     @SerializedName("Currency")
     @Expose
-    val currency: NameResponse,
+    val currency: NameResponse?,
 
     @SerializedName("LocationImage")
     @Expose
-    val image: ImagesResponse,
+    val image: ImagesResponse?,
 
     @SerializedName("TakeACloserLook")
     @Expose
@@ -74,7 +74,7 @@ data class LocationDetailsResponse(
 
     @SerializedName("Prices")
     @Expose
-    val price: PriceResponse,
+    val price: PriceResponse?,
 
     @SerializedName("IsFavourite")
     @Expose

@@ -27,6 +27,8 @@ class CardStackLayoutManager @JvmOverloads constructor(
     var cardStackListener = CardStackListener.DEFAULT
     val cardStackSetting = CardStackSetting()
     val cardStackState = CardStackState()
+    private lateinit var previewsCallBack: () -> Unit
+    private lateinit var nextCallBack: () -> Unit
 
     init {
         cardStackListener = listener
@@ -131,25 +133,26 @@ class CardStackLayoutManager @JvmOverloads constructor(
 
     override fun onScrollStateChanged(s: Int) {
         when (s) {
-            RecyclerView.SCROLL_STATE_IDLE -> if (cardStackState.targetPosition == RecyclerView.NO_POSITION) {
-                // Swipeが完了した場合の処理
-                cardStackState.next(CardStackState.Status.Idle)
-                cardStackState.targetPosition = RecyclerView.NO_POSITION
-            } else if (cardStackState.topPosition == cardStackState.targetPosition) {
-                // Rewindが完了した場合の処理
-                cardStackState.next(CardStackState.Status.Idle)
-                cardStackState.targetPosition = RecyclerView.NO_POSITION
-            } else {
-                // 2枚以上のカードを同時にスワイプする場合の処理
-                if (cardStackState.topPosition < cardStackState.targetPosition) {
-                    // 1枚目のカードをスワイプすると一旦SCROLL_STATE_IDLEが流れる
-                    // そのタイミングで次のアニメーションを走らせることで連続でスワイプしているように見せる
-                    smoothScrollToNext(cardStackState.targetPosition)
+            RecyclerView.SCROLL_STATE_IDLE ->
+                if (::previewsCallBack.isInitialized && ::nextCallBack.isInitialized) {
+
+
+                } else if (cardStackState.targetPosition == RecyclerView.NO_POSITION) {
+                    // Swipe
+                    cardStackState.next(CardStackState.Status.Idle)
+                    cardStackState.targetPosition = RecyclerView.NO_POSITION
+                } else if (cardStackState.topPosition == cardStackState.targetPosition) {
+                    // Rewind
+                    cardStackState.next(CardStackState.Status.Idle)
+                    cardStackState.targetPosition = RecyclerView.NO_POSITION
                 } else {
-                    // Nextの場合と同様に、1枚目の処理が完了したタイミングで次のアニメーションを走らせる
-                    smoothScrollToPrevious(cardStackState.targetPosition)
+                    if (cardStackState.topPosition < cardStackState.targetPosition) {
+                        smoothScrollToNext(cardStackState.targetPosition)
+                    } else {
+                        // Next
+                        smoothScrollToPrevious(cardStackState.targetPosition)
+                    }
                 }
-            }
             RecyclerView.SCROLL_STATE_DRAGGING -> if (cardStackSetting.swipeableMethod.canSwipeManually()) {
                 cardStackState.next(CardStackState.Status.Dragging)
             }
@@ -477,5 +480,10 @@ class CardStackLayoutManager @JvmOverloads constructor(
 
     fun setOverlayInterpolator(overlayInterpolator: Interpolator) {
         cardStackSetting.overlayInterpolator = overlayInterpolator
+    }
+
+    fun updateScrollManual(previewsCallBack: () -> Unit, nextCallBack: () -> Unit) {
+        this.nextCallBack = nextCallBack
+        this.previewsCallBack = previewsCallBack
     }
 }

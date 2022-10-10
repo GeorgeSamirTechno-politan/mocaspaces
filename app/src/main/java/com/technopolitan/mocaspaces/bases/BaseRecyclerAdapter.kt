@@ -20,6 +20,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     protected var list: MutableList<T?> = mutableListOf()
     protected var itemIndex = -1
     protected var defaultMaxItemCount: Int = 0
+    protected var infiniteScrolling: Boolean = false
 
     companion object {
         const val normal = 1
@@ -32,8 +33,14 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     }
 
 
-    override fun getItemCount(): Int =
-        if (list.size > defaultMaxItemCount && defaultMaxItemCount > 0) defaultMaxItemCount else list.size
+    override fun getItemCount(): Int {
+        return if (!infiniteScrolling) {
+            if (list.size > defaultMaxItemCount && defaultMaxItemCount > 0) defaultMaxItemCount else list.size
+        } else {
+            Integer.MAX_VALUE
+        }
+    }
+
 
     fun setData(newList: MutableList<T?>) {
         val diffCallback = RecyclerDiffUtilModule(this.list, newList)
@@ -55,7 +62,9 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
 
 
     fun getItem(position: Int): T {
-        return list[position]!!
+        return if (infiniteScrolling) {
+            list[position % list.size]!!
+        } else list[position]!!
     }
 
     fun clearAdapter() {
@@ -70,7 +79,11 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (list.first() == null) noDataFound else if (list[position] == null) loading else normal
+        return if (infiniteScrolling) {
+            normal
+        } else {
+            if (list.first() == null) noDataFound else if (list[position] == null) loading else normal
+        }
     }
 
     private fun getLoadingBindingInit(parent: ViewGroup): ProgressLayoutBinding =
@@ -91,6 +104,11 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
                 holder.bindLoading()
             }
             else -> {
+                if (infiniteScrolling) {
+                    list[position % list.size]?.let {
+                        initItemWithBinding(holder, it)
+                    }
+                }
                 list[position]?.let {
                     initItemWithBinding(holder, it)
                 }
@@ -102,7 +120,6 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     abstract fun initItemWithBinding(holder: RecyclerView.ViewHolder, item: T)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         return when (viewType) {
             normal -> itemBinding(parent, viewType)
             noDataFound -> NoDataFoundViewHolder(getNoDataFoundBindingInit(parent))

@@ -11,7 +11,7 @@ import javax.inject.Inject
 class WorkSpacePlansViewModel @Inject constructor(private var workSpacePlanRemote: WorkSpacePlanRemote) :
     BaseViewModel<List<WorkSpacePlanMapper>>() {
     fun setPlanRequest(priceResponse: PriceResponse, currency: String) {
-        workSpacePlanRemote.getWorkSpacePlans(priceResponse, currency)
+        apiMediatorLiveData = workSpacePlanRemote.getWorkSpacePlans(priceResponse, currency)
     }
 
     fun getWorkSpacePlan(): LiveData<ApiStatus<List<WorkSpacePlanMapper>>> = apiMediatorLiveData

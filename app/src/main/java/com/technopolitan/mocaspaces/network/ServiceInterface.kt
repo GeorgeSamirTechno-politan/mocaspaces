@@ -158,10 +158,10 @@ interface ServiceInterface {
         @Query("LocationId") locationId: Int
     ): Flowable<HeaderResponse<LocationDetailsResponse>>
 
-    @GET("v{version}/PlanTypes/GetAllPlanTypesWithRelatedData/{lobSpaceTypeId }")
+    @GET("v{version}/PlanTypes/GetAllPlanTypesWithRelatedData/{lobSpaceTypeId}")
     fun getPlanTypesWithRelatedData(
         @Path("version") version: Int = Constants.apiVersion,
-        @Path("lobSpaceTypeId ") lopSpaceType: Int = 1
+        @Path("lobSpaceTypeId") lopSpaceType: Int = 1
     ): Flowable<HeaderResponse<List<PlanTypeResponse>>>
 
 

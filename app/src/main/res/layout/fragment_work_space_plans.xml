@@ -18,29 +18,29 @@
         style="@style/medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/find_your_perfect_plan"
         android:textColor="@color/black"
-        android:textSize="@dimen/_21sdp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/plan_app_bar" />
 
     <com.technopolitan.mocaspaces.utilities.cardStackRecycleView.CardStackRecyclerView
         android:id="@+id/work_space_plan_recycler"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/_30sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/find_your_perfect_plan_text_view"
-        tools:itemCount="5"
+        tools:itemCount="4"
         tools:listitem="@layout/work_space_booking_item" />
 
-    <!--    <com.technopolitan.mocaspaces.utilities.customDotPageIndicator.DotPageIndicator-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:id="@+id/plans_dots"-->
-    <!--        app:layout_constraintTop_toBottomOf="car"/>-->
 
     <include
         android:id="@+id/work_space_plan_progress"
