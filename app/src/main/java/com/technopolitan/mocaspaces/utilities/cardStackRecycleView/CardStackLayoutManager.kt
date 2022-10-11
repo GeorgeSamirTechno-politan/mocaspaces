@@ -27,8 +27,8 @@ class CardStackLayoutManager @JvmOverloads constructor(
     var cardStackListener = CardStackListener.DEFAULT
     val cardStackSetting = CardStackSetting()
     val cardStackState = CardStackState()
-    private lateinit var previewsCallBack: () -> Unit
-    private lateinit var nextCallBack: () -> Unit
+    private lateinit var listenForTopChangeCallBack: (position: Int) -> Unit
+
 
     init {
         cardStackListener = listener
@@ -134,10 +134,7 @@ class CardStackLayoutManager @JvmOverloads constructor(
     override fun onScrollStateChanged(s: Int) {
         when (s) {
             RecyclerView.SCROLL_STATE_IDLE ->
-                if (::previewsCallBack.isInitialized && ::nextCallBack.isInitialized) {
-
-
-                } else if (cardStackState.targetPosition == RecyclerView.NO_POSITION) {
+                if (cardStackState.targetPosition == RecyclerView.NO_POSITION) {
                     // Swipe
                     cardStackState.next(CardStackState.Status.Idle)
                     cardStackState.targetPosition = RecyclerView.NO_POSITION
@@ -158,6 +155,8 @@ class CardStackLayoutManager @JvmOverloads constructor(
             }
             RecyclerView.SCROLL_STATE_SETTLING -> {}
         }
+        if (::listenForTopChangeCallBack.isInitialized)
+            listenForTopChangeCallBack(topPosition)
     }
 
     override fun computeScrollVectorForPosition(targetPosition: Int): PointF? {
@@ -482,8 +481,7 @@ class CardStackLayoutManager @JvmOverloads constructor(
         cardStackSetting.overlayInterpolator = overlayInterpolator
     }
 
-    fun updateScrollManual(previewsCallBack: () -> Unit, nextCallBack: () -> Unit) {
-        this.nextCallBack = nextCallBack
-        this.previewsCallBack = previewsCallBack
+    fun listenForTopPositionChange(listenForTopChangeCallBack: (position: Int) -> Unit) {
+        this.listenForTopChangeCallBack = listenForTopChangeCallBack
     }
 }

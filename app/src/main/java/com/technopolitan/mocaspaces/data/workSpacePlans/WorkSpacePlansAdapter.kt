@@ -58,6 +58,7 @@ class WorkSpacePlansAdapter(
             binding.selectPlanBtn.setTextColor(context.getColor(item.planBtnTextColorResId))
             binding.selectPlanBtn.setBackgroundColor(context.getColor(item.planBtnColorResId))
             binding.termsOfUseTextView.loadHtml(item.planTermsOfUseHtml)
+            binding.bookingTypeTextView.text = item.planTypeText
         }
 
         private fun setEndIcon(item: WorkSpacePlanMapper) {

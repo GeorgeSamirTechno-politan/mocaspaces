@@ -179,7 +179,7 @@ dependencies {
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
     implementation 'com.paytabs:payment-sdk:6.2.2'
     implementation 'com.scottyab:rootbeer-lib:0.1.0'
-    implementation("com.tbuonomo:dotsindicator:4.3")
+    implementation "com.tbuonomo:dotsindicator:4.3"
 
 
 }

@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.ui.workspacePlans
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,25 +103,15 @@ class WorkSpacePlansFragment : Fragment() {
         workSpacePlansAdapter = WorkSpacePlansAdapter(requireContext()) {
             /// TODO missing call back
         }
+        list.forEach { _ ->
+            binding.dotsIndicator.addTab(binding.dotsIndicator.newTab())
+        }
         workSpacePlansAdapter.setData(list.toMutableList())
-        binding.workSpacePlanRecycler.layoutManager = getDefaultLayoutManager()
+        binding.workSpacePlanRecycler.layoutManager = getDefaultLayoutManager(list)
         binding.workSpacePlanRecycler.adapter = workSpacePlansAdapter
-        binding.workSpacePlanRecycler.addItemDecoration(
-            CardStackCirclePagerIndicatorDecoration(
-                R.color.black,
-                R.color.plan_inactive_indicator_color,
-                com.intuit.sdp.R.dimen._25sdp,
-                requireContext(),
-                list.size,
-                true
-            )
-        )
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            binding.workSpacePlanRecycler.swipe()
-//        }, 1000)
     }
 
-    private fun getDefaultLayoutManager(): CardStackLayoutManager {
+    private fun getDefaultLayoutManager(list: List<WorkSpacePlanMapper>): CardStackLayoutManager {
         cardStackLayoutManager = CardStackLayoutManager(requireContext()).apply {
             setOverlayInterpolator(LinearInterpolator())
             if (Constants.appLanguage == "en")
@@ -134,6 +125,7 @@ class WorkSpacePlansFragment : Fragment() {
             setSwipeThreshold(0.1f)
             setCanScrollHorizontal(true)
             setCanScrollVertical(false)
+            listenForTopPositionChange { updateViewPagerIndicator(it, list) }
             setSwipeAnimationSetting(getSwipeAnimationSetting())
             setRewindAnimationSetting(getRewindAnimationSetting())
             setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
@@ -161,5 +153,10 @@ class WorkSpacePlansFragment : Fragment() {
 
     private fun rewindDirection() =
         if (Constants.appLanguage == "en") Direction.Top else Direction.Right
+
+    private fun updateViewPagerIndicator(position: Int, list: List<WorkSpacePlanMapper>) {
+        Log.d(javaClass.name, "updateViewPagerIndicator: $position")
+        binding.dotsIndicator.setScrollPosition(position % list.size, 0f, true)
+    }
 
 }

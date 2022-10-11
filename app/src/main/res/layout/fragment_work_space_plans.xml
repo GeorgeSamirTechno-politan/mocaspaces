@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.workspacePlans.WorkSpacePlansFragment">
 
     <include
@@ -34,12 +35,32 @@
         android:paddingHorizontal="@dimen/_30sdp"
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dots_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/find_your_perfect_plan_text_view"
         tools:itemCount="4"
         tools:listitem="@layout/work_space_booking_item" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/dots_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_7sdp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@drawable/plan_tap_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabMaxWidth="@dimen/_7sdp"
+        app:tabMinWidth="@dimen/_7sdp"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="@dimen/_7sdp"
+        app:tabPaddingStart="@dimen/_7sdp" />
 
 
     <include
