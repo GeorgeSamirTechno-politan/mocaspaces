@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false">
+
+    <ViewSwitcher
+        android:id="@+id/view_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:neomorph_background_color="@color/grey_white_color"
+            app:neomorph_corner_radius="@dimen/_35sdp"
+            app:neomorph_elevation="@dimen/_1sdp"
+            app:neomorph_highlight_color="@color/black_25"
+            app:neomorph_layer_type="hardware"
+            app:neomorph_shadow_color="@color/black_25"
+            app:neomorph_shadow_type="inner"
+            app:neomorph_view_type="rectangular">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/single_day_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_7sdp"
+                android:paddingVertical="@dimen/_3sdp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/single_image_view"
+                    style="@style/circle_shape"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:background="@color/white"
+                    android:contentDescription="@string/single_day"
+                    android:elevation="@dimen/_1sdp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_single"
+                    app:backgroundTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/circle_shape.white_border"
+                    app:tint="@color/accent_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/single_day"
+                    android:textColor="@color/accent_color"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/single_image_view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/single_image_view"
+                    app:layout_constraintTop_toTopOf="@id/single_image_view" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+
+
+        <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:neomorph_background_color="@color/accent_color"
+            app:neomorph_corner_radius="@dimen/_35sdp"
+            app:neomorph_elevation="@dimen/_1sdp"
+            app:neomorph_highlight_color="@color/black_25"
+            app:neomorph_layer_type="hardware"
+            app:neomorph_shadow_color="@color/black_25"
+            app:neomorph_shadow_type="inner"
+            app:neomorph_view_type="rectangular">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/multiply_day_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_7sdp"
+                android:paddingVertical="@dimen/_3sdp">
+
+                <TextView
+                    android:id="@+id/multi_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/multiply_days"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/multi_image_view"
+                    app:layout_constraintEnd_toStartOf="@id/multi_image_view"
+                    app:layout_constraintTop_toTopOf="@id/multi_image_view" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/multi_image_view"
+                    style="@style/circle_shape"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:background="@color/white"
+                    android:contentDescription="@string/single_day"
+                    android:elevation="@dimen/_1sdp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_multi"
+                    app:backgroundTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/circle_shape.white_border"
+                    app:tint="@color/accent_color" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+
+    </ViewSwitcher>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

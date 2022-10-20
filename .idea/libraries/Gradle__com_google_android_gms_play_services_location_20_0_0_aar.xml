@@ -2,8 +2,8 @@
   <library name="Gradle: com.google.android.gms:play-services-location:20.0.0@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8b30df5a22081eb7aeb220712bc87ba6/transformed/play-services-location-20.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/cd29c80fde6c0c529e333d3869b0f15b/transformed/play-services-location-20.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cd29c80fde6c0c529e333d3869b0f15b/transformed/play-services-location-20.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a3aeb9d1a51355a75b3a2aebc6260f22/transformed/play-services-location-20.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a3aeb9d1a51355a75b3a2aebc6260f22/transformed/play-services-location-20.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-location/20.0.0/cd6ff4a2f2a99f4200e0134f156c0184f6b9467a/play-services-location-20.0.0-javadoc.jar!/" />

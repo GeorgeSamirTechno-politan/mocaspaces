@@ -204,6 +204,20 @@
     <string name="private_office_with_new_line">Private\nOffice</string>
     <string name="find_your_perfect_plan">Find your perfect plan</string>
     <string name="day">Day</string>
+    <string name="select_date">Select Date</string>
+    <string name="single">Single</string>
+    <string name="single_day">Single Day</string>
+    <string name="multiply_days">Multiply Days</string>
+    <string name="start">Start</string>
+    <string name="empty">------</string>
+    <string name="duration">Duration</string>
+    <string name="price">Price</string>
+    <string name="date">Date</string>
+    <string name="hourly_pass">Hourly Pass</string>
+    <string name="select_time">Select Time</string>
+    <string name="now_choose_your_start_time_duration"><![CDATA[Now choose your start time & duration]]></string>
+    <string name="what_you_got">What You Got</string>
+    <string name="swipe_left_to_delete">Swipe left to delete</string>
 
 
 </resources>

@@ -24,7 +24,8 @@
         android:background="@color/accent_color"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+
+    <TextView
             android:visibility="gone"
             android:id="@+id/active_session_text_view"
             style="@style/regular"
@@ -62,6 +63,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

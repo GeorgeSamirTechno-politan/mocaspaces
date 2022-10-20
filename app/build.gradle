@@ -62,6 +62,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    namespace 'com.technopolitan.mocaspaces'
 
 
 }
@@ -180,8 +181,9 @@ dependencies {
     implementation 'com.paytabs:payment-sdk:6.2.2'
     implementation 'com.scottyab:rootbeer-lib:0.1.0'
     implementation "com.tbuonomo:dotsindicator:4.3"
-
-
+    implementation 'club.cred.android:synth:1.0.0'
+    implementation "com.github.fornewid:neumorphism:$neumorphism_version"
+    implementation 'com.github.4inodev:Neomorphic-FrameLayout-Android:1.03'
 }
 
 gradle.projectsEvaluated {

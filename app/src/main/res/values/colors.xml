@@ -42,6 +42,7 @@
     <color name="black_25">#40000000</color>
     <color name="black_30">#4D000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_25">#40FFFFFF</color>
     <color name="white_60">#CCFFFFFF</color>
     <color name="grey_color">#C0C0C0</color>
     <color name="workspace_color">#FFE42C</color>
@@ -51,6 +52,7 @@
     <color name="biz_lounge_color">#FF64FF</color>
     <color name="error_color">#F54E60</color>
     <color name="light_grey_color">#EEEEEE</color>
+    <color name="medium_grey_color">#E0E0E0</color>
     <color name="light_grey_color_80_percent">#CCEEEEEE</color>
     <color name="grey_hint_text_color">#E6D2D9E5</color>
     <color name="dark_white_color">#D7D6D6</color>
@@ -64,6 +66,8 @@
     <color name="dark_green_color">#1FA293</color>
     <color name="tailored_plan_color">#FFD2D1</color>
     <color name="bundle_plan_color">#FFA380</color>
+    <color name="grey_white_color">#F6F6F6</color>
+    <color name="scroll_bar_in_active_color">#E6CED2D9</color>
 
 
     <color name="unselected_wheel_text_color">#992C2C2C</color>

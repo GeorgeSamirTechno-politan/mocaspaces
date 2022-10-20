@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.GwonHyeok:StickySwitch:0.0.16@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/804d50746ba13fdbd5813f41b37bd30b/transformed/StickySwitch-0.0.16/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/804d50746ba13fdbd5813f41b37bd30b/transformed/StickySwitch-0.0.16/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/804d50746ba13fdbd5813f41b37bd30b/transformed/StickySwitch-0.0.16/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/871b8d6a629a7bea86fb4af8c6893b66/transformed/StickySwitch-0.0.16/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/871b8d6a629a7bea86fb4af8c6893b66/transformed/StickySwitch-0.0.16/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/871b8d6a629a7bea86fb4af8c6893b66/transformed/StickySwitch-0.0.16/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

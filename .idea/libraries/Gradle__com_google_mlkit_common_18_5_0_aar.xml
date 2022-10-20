@@ -2,8 +2,8 @@
   <library name="Gradle: com.google.mlkit:common:18.5.0@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c73dcfe4818e3701b78df69e70b4a9ba/transformed/common-18.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/124589c99d1221f4784628a7c4900d73/transformed/common-18.5.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/124589c99d1221f4784628a7c4900d73/transformed/common-18.5.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5c5bf30cf653b7d75735bee5df487e05/transformed/common-18.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5c5bf30cf653b7d75735bee5df487e05/transformed/common-18.5.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.mlkit/common/18.5.0/69181080b186dcbcc5746e7d7db0cac32e6959f6/common-18.5.0-javadoc.jar!/" />
