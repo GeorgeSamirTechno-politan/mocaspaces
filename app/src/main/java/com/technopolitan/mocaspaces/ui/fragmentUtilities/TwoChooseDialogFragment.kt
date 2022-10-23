@@ -99,9 +99,20 @@ class TwoChooseDialogFragment : BottomSheetDialogFragment() {
             if (it.getString(AppKeys.HeaderMessage.name) != null)
                 binding.headerDialogText.text =
                     it.getString(AppKeys.HeaderMessage.name)
-            else binding.headerDialogText.text = getString(R.string.app_name)
+//            else binding.headerDialogText.text = getString(R.string.app_name)
             if (it.getBoolean(AppKeys.SingleClick.name))
                 binding.negativeChooseBtn.visibility = View.GONE
+            if (it.containsKey(AppKeys.CustomColorBackground.name)){
+                val backgroundResId = it.getInt(AppKeys.CustomColorBackground.name)
+                binding.twoChooseLayoutConstraint.setBackgroundResource(backgroundResId)
+                if(backgroundResId == R.drawable.delete_dialog_background){
+                    binding.messageTextView.setTextColor(requireContext().getColor(R.color.white))
+                    binding.positiveChooseBtn.setTextColor(requireContext().getColor(R.color.light_black_color))
+                    binding.negativeChooseBtn.setTextColor(requireContext().getColor(R.color.light_black_color))
+                    binding.negativeChooseBtn.setBackgroundColor(requireContext().getColor(R.color.white))
+                    binding.positiveChooseBtn.setBackgroundColor(requireContext().getColor(R.color.white))
+                }
+            }
         }
 
     }

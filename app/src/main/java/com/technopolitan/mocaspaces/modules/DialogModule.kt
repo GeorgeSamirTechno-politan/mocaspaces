@@ -27,6 +27,7 @@ class DialogModule @Inject constructor(
         headerMessage: String? = null,
         navHostId: Int? = null,
         revertColor: Boolean = false,
+        customColor: Int? = null,
         callBack: (entity: Boolean) -> Unit,
 
         ) {
@@ -49,6 +50,8 @@ class DialogModule @Inject constructor(
                 AppKeys.SingleClick.name, singleClick
             )
             bundle.putBoolean(AppKeys.RevertColor.name, revertColor)
+            if(customColor != null)
+                bundle.putInt(AppKeys.CustomColorBackground.name, customColor)
             navigationModule.navigateTo(
                 R.id.two_choose_dialog,
                 bundle = bundle,

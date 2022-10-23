@@ -127,7 +127,7 @@
             android:scrollbarThumbVertical="@drawable/scroll_bar_active"
             android:scrollbarTrackVertical="@drawable/scroll_bar_in_active"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toTopOf="@id/what_you_got_header_text"
+            app:layout_constraintBottom_toTopOf="@id/hourly_booking_info_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="@dimen/_150sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
             tools:listitem="@layout/multi_booking_item" />
 
         <ImageButton
-
+            android:id="@+id/hourly_multi_time_image_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -147,19 +147,15 @@
             app:layout_constraintEnd_toEndOf="@id/multi_time_recycler"
             app:layout_constraintTop_toBottomOf="@id/multi_time_recycler" />
 
-
-        <TextView
-            android:id="@+id/what_you_got_header_text"
-            style="@style/medium"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/hourly_booking_info_layout"
+            layout="@layout/booking_info_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:text="@string/what_you_got"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_13sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/multi_time_recycler" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hourly_multi_time_image_btn" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -131,4 +131,10 @@ class DateTimeModule {
             Locale.ENGLISH
         ).parse(date)
     }
+
+    fun getLastDayOfMonth(date: Date): Int {
+        val c = GregorianCalendar()
+        c.time = date
+        return c.getActualMaximum(Calendar.DAY_OF_MONTH)
+    }
 }

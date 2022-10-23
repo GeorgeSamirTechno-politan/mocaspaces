@@ -7,6 +7,7 @@ enum class AppKeys {
     HeaderMessage,
     SingleClick,
     RevertColor,
+    CustomColorBackground,
     UserEmail,
     UserPassword,
     MobileNumber,
