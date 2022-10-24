@@ -13,6 +13,7 @@ import com.technopolitan.mocaspaces.data.mobileOTP.VerifyMobileOtpRequest
 import com.technopolitan.mocaspaces.data.register.RegisterRequest
 import com.technopolitan.mocaspaces.models.RefreshTokenRequest
 import com.technopolitan.mocaspaces.models.ResetPasswordRequest
+import com.technopolitan.mocaspaces.models.booking.DaysResponse
 import com.technopolitan.mocaspaces.models.location.bizLounge.BizLoungeResponse
 import com.technopolitan.mocaspaces.models.location.request.AddFavouriteWorkSpaceRequest
 import com.technopolitan.mocaspaces.models.location.request.LocationRequest
@@ -163,6 +164,14 @@ interface ServiceInterface {
         @Path("version") version: Int = Constants.apiVersion,
         @Path("lobSpaceTypeId") lopSpaceType: Int = 1
     ): Flowable<HeaderResponse<List<PlanTypeResponse>>>
+
+    @GET("v{version}/WorkSpaceBookingsMobile/AvailableMonthDays")
+    fun getWorkSpaceWorkingDays(
+        @Path("version") version: Int = Constants.apiVersion,
+        @Query("MonthStartDate") startDate: String,
+        @Query("MonthEndDate") endDay: String,
+        @Query("LocationId") locationId: Int
+    ): Flowable<HeaderResponse<DaysResponse>>
 
 
 }

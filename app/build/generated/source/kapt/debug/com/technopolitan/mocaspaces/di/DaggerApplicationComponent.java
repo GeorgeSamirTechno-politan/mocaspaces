@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.technopolitan.mocaspaces.data.DropDownMapper;
+import com.technopolitan.mocaspaces.data.bookingShared.MonthDayDataModule;
+import com.technopolitan.mocaspaces.data.bookingShared.MonthDayDataModule_Factory;
+import com.technopolitan.mocaspaces.data.bookingShared.SingleMultiplyDataModule;
+import com.technopolitan.mocaspaces.data.bookingShared.SingleMultiplyDataModule_Factory;
 import com.technopolitan.mocaspaces.data.checkMobile.CheckMobileDataModule;
 import com.technopolitan.mocaspaces.data.country.CountryDataModule;
 import com.technopolitan.mocaspaces.data.country.CountryMapper;
@@ -56,12 +60,16 @@ import com.technopolitan.mocaspaces.data.remote.SendOtpEmailRemote;
 import com.technopolitan.mocaspaces.data.remote.SendOtpForgotPasswordMobile;
 import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpForgotPasswordRemote;
 import com.technopolitan.mocaspaces.data.remote.VerifyMobileOtpRemote;
+import com.technopolitan.mocaspaces.data.remote.WorkSpaceCalenderRemote;
+import com.technopolitan.mocaspaces.data.remote.WorkSpaceCalenderRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceDetailsRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.WorkSpacePlanRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpacePlanRemote_Factory;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote;
 import com.technopolitan.mocaspaces.data.remote.WorkSpaceRemote_Factory;
+import com.technopolitan.mocaspaces.data.repo.CalenderRepo;
+import com.technopolitan.mocaspaces.data.repo.CalenderRepo_Factory;
 import com.technopolitan.mocaspaces.data.repo.LocationDetailsRepo;
 import com.technopolitan.mocaspaces.data.repo.LocationDetailsRepo_Factory;
 import com.technopolitan.mocaspaces.data.shared.CountDownModule;
@@ -72,6 +80,7 @@ import com.technopolitan.mocaspaces.data.shared.PasswordDataModule;
 import com.technopolitan.mocaspaces.data.studentVerify.StudentVerifyDataModule;
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory;
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory_Factory;
+import com.technopolitan.mocaspaces.models.booking.DayMapper;
 import com.technopolitan.mocaspaces.models.location.bizLounge.BizLoungeMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.LocationDetailsMapper;
 import com.technopolitan.mocaspaces.models.location.mappers.LocationPaxMapper;
@@ -126,6 +135,10 @@ import com.technopolitan.mocaspaces.modules.SmsVerifyCatcherModule;
 import com.technopolitan.mocaspaces.modules.SpannableStringModule;
 import com.technopolitan.mocaspaces.modules.UtilityModule;
 import com.technopolitan.mocaspaces.modules.ValidationModule;
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderFragment;
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderFragment_MembersInjector;
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderViewModel;
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderViewModel_Factory;
 import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment;
 import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailViewModel;
@@ -171,6 +184,8 @@ import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment;
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel;
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceViewModel_Factory;
+import com.technopolitan.mocaspaces.ui.hourlyBooking.HourlyBookingFragment;
+import com.technopolitan.mocaspaces.ui.hourlyBooking.HourlyBookingFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment;
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment_MembersInjector;
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsViewModel;
@@ -331,6 +346,16 @@ public final class DaggerApplicationComponent {
     private Provider<WorkSpacePlanRemote> workSpacePlanRemoteProvider;
 
     private Provider<WorkSpacePlansViewModel> workSpacePlansViewModelProvider;
+
+    private Provider<WorkSpaceCalenderRemote> workSpaceCalenderRemoteProvider;
+
+    private Provider<CalenderRepo> calenderRepoProvider;
+
+    private Provider<MonthDayDataModule> monthDayDataModuleProvider;
+
+    private Provider<SingleMultiplyDataModule> singleMultiplyDataModuleProvider;
+
+    private Provider<CalenderViewModel> calenderViewModelProvider;
 
     private Provider<Map<Class<? extends ViewModel>, Provider<ViewModel>>> mapOfClassOfAndProviderOfViewModelProvider;
 
@@ -616,6 +641,10 @@ public final class DaggerApplicationComponent {
       return new ApiResponseModule<List<WorkSpacePlanMapper>>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
     }
 
+    private ApiResponseModule<List<DayMapper>> apiResponseModuleOfListOfDayMapper() {
+      return new ApiResponseModule<List<DayMapper>>(provideDialogModuleProvider.get(), context, provideCustomAlertModuleProvider.get(), activity);
+    }
+
     @SuppressWarnings("unchecked")
     private void initialize(final AppModule appModuleParam, final Context contextParam,
         final Activity activityParam, final Fragment fragmentParam) {
@@ -658,7 +687,12 @@ public final class DaggerApplicationComponent {
       this.favouriteViewModelProvider = FavouriteViewModel_Factory.create(addFavouriteWorkSpaceRemoteProvider, deleteWorkSpaceFavouriteRemoteProvider, apiResponseModuleProvider);
       this.workSpacePlanRemoteProvider = WorkSpacePlanRemote_Factory.create(provideNetworkModelProvider, contextProvider);
       this.workSpacePlansViewModelProvider = WorkSpacePlansViewModel_Factory.create(workSpacePlanRemoteProvider);
-      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(9).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).put(MeetingRoomViewModel.class, ((Provider) meetingRoomViewModelProvider)).put(EventSpaceViewModel.class, ((Provider) eventSpaceViewModelProvider)).put(BizLoungeViewModel.class, ((Provider) bizLoungeViewModelProvider)).put(LocationDetailsViewModel.class, ((Provider) locationDetailsViewModelProvider)).put(FavouriteViewModel.class, ((Provider) favouriteViewModelProvider)).put(WorkSpacePlansViewModel.class, ((Provider) workSpacePlansViewModelProvider)).build();
+      this.workSpaceCalenderRemoteProvider = WorkSpaceCalenderRemote_Factory.create(provideNetworkModelProvider, provideDateTimeModuleProvider);
+      this.calenderRepoProvider = CalenderRepo_Factory.create(workSpaceCalenderRemoteProvider);
+      this.monthDayDataModuleProvider = MonthDayDataModule_Factory.create(contextProvider, provideSpannableStringModuleProvider, provideDateTimeModuleProvider);
+      this.singleMultiplyDataModuleProvider = SingleMultiplyDataModule_Factory.create(contextProvider);
+      this.calenderViewModelProvider = CalenderViewModel_Factory.create(calenderRepoProvider, monthDayDataModuleProvider, singleMultiplyDataModuleProvider, provideDateTimeModuleProvider);
+      this.mapOfClassOfAndProviderOfViewModelProvider = MapProviderFactory.<Class<? extends ViewModel>, ViewModel>builder(10).put(HomeViewModel.class, ((Provider) homeViewModelProvider)).put(WorkSpaceViewModel.class, ((Provider) workSpaceViewModelProvider)).put(MainViewModel.class, ((Provider) mainViewModelProvider)).put(MeetingRoomViewModel.class, ((Provider) meetingRoomViewModelProvider)).put(EventSpaceViewModel.class, ((Provider) eventSpaceViewModelProvider)).put(BizLoungeViewModel.class, ((Provider) bizLoungeViewModelProvider)).put(LocationDetailsViewModel.class, ((Provider) locationDetailsViewModelProvider)).put(FavouriteViewModel.class, ((Provider) favouriteViewModelProvider)).put(WorkSpacePlansViewModel.class, ((Provider) workSpacePlansViewModelProvider)).put(CalenderViewModel.class, ((Provider) calenderViewModelProvider)).build();
       this.viewModelFactoryProvider = DoubleCheck.provider(ViewModelFactory_Factory.create(mapOfClassOfAndProviderOfViewModelProvider));
       this.providePermissionModuleProvider = DoubleCheck.provider(AppModule_ProvidePermissionModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider, provideCustomAlertModuleProvider, provideDialogModuleProvider, provideSharedPrefModuleProvider));
       this.providePikItModuleProvider = DoubleCheck.provider(AppModule_ProvidePikItModuleFactory.create(appModuleParam, contextProvider, activityProvider, fragmentProvider));
@@ -811,6 +845,16 @@ public final class DaggerApplicationComponent {
     @Override
     public void inject(WorkSpacePlansFragment workSpacePlansFragment) {
       injectWorkSpacePlansFragment(workSpacePlansFragment);
+    }
+
+    @Override
+    public void inject(CalenderFragment calenderFragment) {
+      injectCalenderFragment(calenderFragment);
+    }
+
+    @Override
+    public void inject(HourlyBookingFragment hourlyBookingFragment) {
+      injectHourlyBookingFragment(hourlyBookingFragment);
     }
 
     @CanIgnoreReturnValue
@@ -1085,6 +1129,20 @@ public final class DaggerApplicationComponent {
       WorkSpacePlansFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
       WorkSpacePlansFragment_MembersInjector.injectApiHandler(instance, apiResponseModuleOfListOfWorkSpacePlanMapper());
       WorkSpacePlansFragment_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
+      return instance;
+    }
+
+    @CanIgnoreReturnValue
+    private CalenderFragment injectCalenderFragment(CalenderFragment instance) {
+      CalenderFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
+      CalenderFragment_MembersInjector.injectDayApiHandler(instance, apiResponseModuleOfListOfDayMapper());
+      return instance;
+    }
+
+    @CanIgnoreReturnValue
+    private HourlyBookingFragment injectHourlyBookingFragment(HourlyBookingFragment instance) {
+      HourlyBookingFragment_MembersInjector.injectViewModelFactory(instance, viewModelFactoryProvider.get());
+      HourlyBookingFragment_MembersInjector.injectNavigationModule(instance, provideNavigationModuleProvider.get());
       return instance;
     }
   }

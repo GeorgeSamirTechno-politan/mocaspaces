@@ -25,13 +25,13 @@ class SingleMultiplyDataModule @Inject constructor(private var context: Context)
     private fun initView() {
         binding.viewSwitcher.inAnimation = inAnimation
         binding.viewSwitcher.outAnimation = outAnimation
+        callBack(false)
         binding.singleDayLayout.setOnClickListener {
             binding.viewSwitcher.showNext()
             callBack(false)
         }
         binding.multiplyDayLayout.setOnClickListener {
             binding.viewSwitcher.showPrevious()
-
             callBack(true)
         }
 

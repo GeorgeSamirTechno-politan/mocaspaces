@@ -48,23 +48,13 @@
 
         </LinearLayout>
 
-        <include
-            android:id="@+id/hourly_month_day_layout"
-            layout="@layout/month_day_layout"
+        <FrameLayout
+            android:id="@+id/calender_fragment_host"
+            app:layoutDescription="@layout/fragment_calender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_14sdp"
             app:layout_constraintTop_toBottomOf="@id/hourly_booking_layout" />
-
-        <include
-            android:id="@+id/hourly_single_multi_booking_layout"
-            layout="@layout/single_multi_picking_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_13sdp"
-            android:layout_marginEnd="@dimen/_23sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hourly_month_day_layout" />
 
         <TextView
             android:id="@+id/select_date_text_view"
@@ -74,7 +64,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:text="@string/select_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hourly_single_multi_booking_layout" />
+            app:layout_constraintTop_toBottomOf="@id/calender_fragment_host" />
 
         <include
             android:id="@+id/hourly_multi_time_picker_layout"

@@ -1,4 +1,5 @@
 package com.technopolitan.mocaspaces.models.booking
 
-data class MonthMapper(val id: Int, val monthName: String, val selected: Boolean) {
-}
+import java.util.*
+
+data class MonthMapper(val id: Int, val monthName: String, val date: Date, var selected: Boolean)

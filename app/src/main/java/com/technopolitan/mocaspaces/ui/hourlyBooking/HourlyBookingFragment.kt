@@ -1,60 +1,78 @@
 package com.technopolitan.mocaspaces.ui.hourlyBooking
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.technopolitan.mocaspaces.R
+import com.technopolitan.mocaspaces.databinding.FragmentHourlyBookingBinding
+import com.technopolitan.mocaspaces.di.DaggerApplicationComponent
+import com.technopolitan.mocaspaces.di.viewModel.ViewModelFactory
+import com.technopolitan.mocaspaces.modules.NavigationModule
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderFragment
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderViewModel
+import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsViewModel
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HourlyBookingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HourlyBookingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var navigationModule: NavigationModule
+
+    private lateinit var viewModel: HourlyBookingViewModel
+    private lateinit var calenderViewModel: CalenderViewModel
+    private lateinit var binding: FragmentHourlyBookingBinding
+    private lateinit var detailsViewModel: LocationDetailsViewModel
+
+    override fun onAttach(context: Context) {
+        DaggerApplicationComponent.factory().buildDi(requireContext(), requireActivity(), this)
+            .inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hourly_booking, container, false)
+    ): View {
+        binding = FragmentHourlyBookingBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HourlyBookingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HourlyBookingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        viewModel = ViewModelProvider(this, viewModelFactory)[HourlyBookingViewModel::class.java]
+        calenderViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[CalenderViewModel::class.java]
+        detailsViewModel = ViewModelProvider(
+            requireActivity(),
+            viewModelFactory
+        )[LocationDetailsViewModel::class.java]
+        calenderViewModel.setLocationId(detailsViewModel.getLocationId())
+        initToolBar()
+        initCalenderFragment()
     }
+
+    private fun initToolBar() {
+        binding.bookingHourlyToolBar.appToolBar.setNavigationIconTint(requireContext().getColor(R.color.workspace_color))
+        binding.bookingHourlyToolBar.appToolBar.setBackgroundColor(requireContext().getColor(R.color.accent_color))
+        binding.bookingHourlyToolBar.appToolBar.subtitle =
+            requireContext().getString(R.string.choose_a_plan)
+        binding.bookingHourlyToolBar.appToolBar.setSubtitleTextColor(requireContext().getColor(R.color.workspace_color))
+        binding.bookingHourlyToolBar.appToolBar.setNavigationOnClickListener {
+            navigationModule.popBack()
+        }
+    }
+
+    private fun initCalenderFragment() {
+        childFragmentManager.beginTransaction()
+            .replace(binding.calenderFragmentHost.id, CalenderFragment()).commit()
+    }
+
+
 }

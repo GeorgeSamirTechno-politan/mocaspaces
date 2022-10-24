@@ -2,6 +2,7 @@ package com.technopolitan.mocaspaces.di.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderViewModel
 import com.technopolitan.mocaspaces.ui.home.FavouriteViewModel
 import com.technopolitan.mocaspaces.ui.home.HomeViewModel
 import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeViewModel
@@ -65,5 +66,15 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(WorkSpacePlansViewModel::class)
     abstract fun bindWorkSpacePlansViewModel(workSpacePlansViewModel: WorkSpacePlansViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CalenderViewModel::class)
+    abstract fun bindCalenderViewModel(calenderViewModel: CalenderViewModel): ViewModel
+
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(HourlyBookingViewModel::class)
+//    abstract fun bindHourlyBookingViewModel(hourlyBookingViewModel: HourlyBookingViewModel): ViewModel
 
 }

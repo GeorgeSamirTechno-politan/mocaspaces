@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.technopolitan.mocaspaces.di.viewModel.ViewModelModule
 import com.technopolitan.mocaspaces.modules.AppModule
+import com.technopolitan.mocaspaces.ui.bookingSharedFragment.CalenderFragment
 import com.technopolitan.mocaspaces.ui.checkEmail.CheckEmailFragment
 import com.technopolitan.mocaspaces.ui.checkMobile.CheckMobileFragment
 import com.technopolitan.mocaspaces.ui.forgetPasswordMobile.ForgetPasswordMobileFragment
@@ -14,6 +15,7 @@ import com.technopolitan.mocaspaces.ui.home.bizLounge.BizLoungeFragment
 import com.technopolitan.mocaspaces.ui.home.eventSpace.EventSpaceFragment
 import com.technopolitan.mocaspaces.ui.home.meetingSpace.MeetingRoomFragment
 import com.technopolitan.mocaspaces.ui.home.workSpace.WorkSpaceFragment
+import com.technopolitan.mocaspaces.ui.hourlyBooking.HourlyBookingFragment
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsFragment
 import com.technopolitan.mocaspaces.ui.login.LoginFragment
 import com.technopolitan.mocaspaces.ui.main.MainActivity
@@ -78,4 +80,6 @@ interface ApplicationComponent {
     fun inject(bizLoungeFragment: BizLoungeFragment)
     fun inject(locationDetailsFragment: LocationDetailsFragment)
     fun inject(workSpacePlansFragment: WorkSpacePlansFragment)
+    fun inject(calenderFragment: CalenderFragment)
+    fun inject(hourlyBookingFragment: HourlyBookingFragment)
 }

@@ -20,6 +20,7 @@ import com.technopolitan.mocaspaces.models.workSpace.WorkSpacePlanMapper
 import com.technopolitan.mocaspaces.modules.ApiResponseModule
 import com.technopolitan.mocaspaces.modules.NavigationModule
 import com.technopolitan.mocaspaces.ui.locationDetails.LocationDetailsViewModel
+import com.technopolitan.mocaspaces.utilities.BookingType
 import com.technopolitan.mocaspaces.utilities.Constants
 import com.technopolitan.mocaspaces.utilities.cardStackRecycleView.*
 import javax.inject.Inject
@@ -101,7 +102,9 @@ class WorkSpacePlansFragment : Fragment() {
 
     private fun setAdapter(list: List<WorkSpacePlanMapper>) {
         workSpacePlansAdapter = WorkSpacePlansAdapter(requireContext()) {
-            /// TODO missing call back
+            when (it.planId) {
+                BookingType.hourlyTypeId -> navigationModule.navigateTo(R.id.action_work_space_plans_fragment_to_hourly_booking)
+            }
         }
         list.forEach { _ ->
             binding.dotsIndicator.addTab(binding.dotsIndicator.newTab())

@@ -19,5 +19,7 @@ class DateTimeConstants {
         const val minuteFormat = "mm"
         const val amPmFormat = "aa"
         const val fullDayName = "EEEE"
+        const val twoCharDayName = "EE"
+        const val monthNameFormat = "MMMM"
     }
 }

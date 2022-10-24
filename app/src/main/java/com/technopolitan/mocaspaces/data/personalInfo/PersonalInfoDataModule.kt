@@ -167,7 +167,7 @@ class PersonalInfoDataModule @Inject constructor(
 
     private fun showDatePickerDialog() {
         val maxYear = Calendar.getInstance().get(Calendar.YEAR) - 16
-        var calendar = GregorianCalendar()
+        val calendar = GregorianCalendar()
         calendar.time = Calendar.getInstance().time
         var year = 2000
         var month = calendar.get(Calendar.MONTH) + 1

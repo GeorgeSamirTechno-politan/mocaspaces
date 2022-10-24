@@ -132,6 +132,10 @@ class DateTimeModule {
         ).parse(date)
     }
 
+    fun formatDate(date: Date, format: String): String {
+        return SimpleDateFormat(format, Locale.ENGLISH).format(date)
+    }
+
     fun getLastDayOfMonth(date: Date): Int {
         val c = GregorianCalendar()
         c.time = date

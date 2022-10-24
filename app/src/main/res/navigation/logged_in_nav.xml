@@ -82,6 +82,16 @@
         tools:layout="@layout/fragment_work_space_plans">
 
 
+        <action
+            android:id="@+id/action_work_space_plans_fragment_to_hourly_booking"
+            app:destination="@id/hourly_booking" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/hourly_booking"
+        android:name="com.technopolitan.mocaspaces.ui.hourlyBooking.HourlyBookingFragment"
+        tools:layout="@layout/fragment_hourly_booking">
+
     </fragment>
 
 </navigation>

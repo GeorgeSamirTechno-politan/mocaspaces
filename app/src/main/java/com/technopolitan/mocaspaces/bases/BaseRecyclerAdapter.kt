@@ -29,7 +29,7 @@ abstract class BaseRecyclerAdapter<T, K : ViewBinding> :
     }
 
     init {
-        setHasStableIds(true)
+//        setHasStableIds(true)
     }
 
 
